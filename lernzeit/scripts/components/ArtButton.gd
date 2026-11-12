@@ -48,6 +48,11 @@ func _ready() -> void:
 	resized.connect(func(): pivot_offset = size / 2.0)
 
 
+func set_subtitle(key: String) -> void:
+	if _sub:
+		_sub.set_key(key)
+
+
 func _label(variation: StringName, key: String, y0: float, y1: float) -> FitLabel:
 	var l := FitLabel.new()
 	l.theme_type_variation = variation

@@ -75,6 +75,9 @@ func refresh() -> void:
 		c.queue_free()
 	if s["sessions"] == 0:
 		_status_box.add_child(StatusChip.make("status_not_started"))
+	elif s["accuracy"] != null:
+		var a: float = s["accuracy"]
+		_status_box.add_child(StatusChip.make("status_secure" if a >= 0.9 else ("status_good" if a >= 0.7 else "status_practice")))
 	_track.set_ratio(s["accuracy"])
 	_result.text = "—" if s["accuracy"] == null else "%d %%" % roundi(s["accuracy"] * 100.0)
 

@@ -13,6 +13,15 @@ const SUBJECTS := {
 
 const MATH_LEVELS: Array[int] = [10, 20, 50, 100]
 
+## Topics/levels that already have a real exercise: "subject/topic/level" -> screen id
+const PLAYABLE := {
+	"mathematik/subtraktion/10": "exercise_sub10",
+}
+
+
+static func exercise_for(subject_id: String, topic_id: String, level: int = 0) -> String:
+	return PLAYABLE.get("%s/%s/%d" % [subject_id, topic_id, level], "")
+
 ## topic: {id, key, levels}
 const TOPICS := {
 	"mathematik": [

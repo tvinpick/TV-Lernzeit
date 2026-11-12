@@ -141,7 +141,12 @@ func _on_topic_pressed(i: int) -> void:
 
 
 func _on_level_pressed(n: int) -> void:
-	main.push("unavailable", {"subject_id": subject_id, "topic_id": _topic(_current_topic)["id"], "level": n})
+	var tid: String = _topic(_current_topic)["id"]
+	var ex := Curriculum.exercise_for(subject_id, tid, n)
+	if ex != "":
+		main.push(ex)
+	else:
+		main.push("unavailable", {"subject_id": subject_id, "topic_id": tid, "level": n})
 
 
 func handle_back() -> bool:

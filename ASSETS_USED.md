@@ -107,3 +107,10 @@
 `Counter_Green` (фиолетовый фрагмент), `Counting_Dice_3`, `Counting_Dice_5`, `Car_Blue`.
 Замечание: у ранее установленного `math/shared_ui/Object_Counter_Blue.png` тоже есть небольшой обрезок слева
 (244 px); файл не трогался — при необходимости очистить тем же способом.
+
+### Используется в упражнении «Subtraktion bis 10» (v0.2.0)
+`math/subtraction_10/backgrounds/…_1080p.png`, `math/shared_ui/Answer_{Yellow,Blue,Green,Purple}`,
+`Question_Banner`, `Feedback_Correct/Wrong`, `Progress_Dot_Filled/Empty`, `Object_Apple_Red`, `Object_Star_Yellow`,
+`Object_Counter_Blue`, `Balloon_Red`, `Butterfly_Blue`, `Car_Blue`, `math/subtraction_10/icons/Subtraction_{Minus_Red,
+Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле ответа и все числа/тексты рисуются Godot (в текстурах
+числовой прямой/десятки положения делений неизвестны точно — рисовать их кодом надёжнее).

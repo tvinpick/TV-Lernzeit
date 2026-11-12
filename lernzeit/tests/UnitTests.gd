@@ -132,5 +132,50 @@ func _ready() -> void:
 	check(focused.get_pixel(0, 0).a == 0.0 and focused.get_pixel(focused.get_width() / 2, 4).a < 0.6, "fixed focused letter button: transparent corners, no grey matte at the edge")
 	check(not FileAccess.file_exists("res://references"), "mock-up screens are not inside the Godot project")
 
+	print("Subtraction generator / session")
+	var gen := SubtractionGenerator.new(12345)
+	var invalid := 0
+	var picture_zero := 0
+	var long_jumps := 0
+	for diff in ["easy", "auto", "hard"]:
+		gen.difficulty = diff
+		for m in SubtractionGenerator.MODES:
+			for i in 400:
+				var t := gen.make_task(m)
+				if not SubtractionGenerator.validate(t):
+					invalid += 1
+				if m == "number_line" and t["b"] > 5:
+					long_jumps += 1
+				if m == "picture" and (t["options"] as Array).min() < 1:
+					picture_zero += 1
+				if diff == "easy" and t["a"] > 6:
+					invalid += 1
+	check(invalid == 0, "7200 generated tasks valid: b<=a<=10, answer=a-b, 4 unique options incl. answer")
+	check(long_jumps == 0 and picture_zero == 0, "number line ≤5 jumps, picture options ≥1 object")
+	gen.difficulty = "auto"
+	var tasks := gen.make_session(10)
+	var modes := {}
+	for t in tasks:
+		modes[t["mode"]] = true
+	check(tasks.size() == 10 and modes.size() == 6, "session: 10 tasks, all 6 representations")
+	var miss := gen.make_task("missing")
+	check(miss["answer"] == miss["b"] and miss["result"] == miss["a"] - miss["b"], "missing number: answer is the subtrahend")
+	var ses := ExerciseSession.new("mathematik", "subtraktion", "t", gen.make_session(10), true)
+	var first_task: Dictionary = ses.current()
+	var wrong: int = (first_task["options"] as Array).filter(func(o): return o != first_task["answer"])[0]
+	check(not ses.submit(wrong) and ses.solved == 0, "wrong answer does not advance progress")
+	check(ses.submit(first_task["answer"]) and ses.solved == 1 and ses.first_try_correct == 0, "correct after a mistake: solved, not first-try")
+	while ses.advance():
+		ses.submit(ses.current()["answer"])
+	check(ses.solved == 10 and ses.first_try_correct == 9, "10 solved, 9 on the first try")
+	check(ses.tasks.size() == 11 and ses.tasks[10].get("repeat", false), "Fehler wiederholen: wrong task asked again at the end")
+	var ses_rec := ses.to_record()
+	check(ses_rec.correct_count == 9 and ses_rec.total_count == 10 and ses_rec.topic_id == "subtraktion", "record: 9/10 for mathematik/subtraktion")
+	var ses2 := ExerciseSession.new("mathematik", "subtraktion", "t", gen.make_session(10), false)
+	ses2.submit(-1)
+	while ses2.advance():
+		pass
+	check(ses2.tasks.size() == 10, "without 'Fehler wiederholen' no repetitions")
+
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)

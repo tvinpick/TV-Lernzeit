@@ -153,7 +153,7 @@ UI TEST: 7 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 
 Localization
-  ok   de.json and ru.json have identical keys (175)
+  ok   de.json and ru.json have identical keys (194)
   ok   brief key present: settings
   ok   brief key present: progress
   ok   brief key present: home_prompt
@@ -234,7 +234,28 @@ WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-
   ok   reset clears records
   ok   record sanitised (total >= correct)
   ok   invalid record rejected
-UNIT TESTS: 40 checks, 0 failures
+Exercise graphics kits (KitAssets registry)
+  ok   115 kit textures registered (115)
+  ok   all kit textures load as separate resources with manifest size []
+  ok   all kit sprites have real alpha transparency []
+  ok   8 Deutsch pictures
+  ok   dice 1–6 + dot patterns 1–6
+  ok   number cards 0–10 + blank tile
+  ok   11 addition UI sprites
+  ok   fixed focused letter button: transparent corners, no grey matte at the edge
+  ok   mock-up screens are not inside the Godot project
+Subtraction generator / session
+  ok   7200 generated tasks valid: b<=a<=10, answer=a-b, 4 unique options incl. answer
+  ok   number line ≤5 jumps, picture options ≥1 object
+  ok   session: 10 tasks, all 6 representations
+  ok   missing number: answer is the subtrahend
+  ok   wrong answer does not advance progress
+  ok   correct after a mistake: solved, not first-try
+  ok   10 solved, 9 on the first try
+  ok   Fehler wiederholen: wrong task asked again at the end
+  ok   record: 9/10 for mathematik/subtraktion
+  ok   without 'Fehler wiederholen' no repetitions
+UNIT TESTS: 59 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -247,3 +268,62 @@ WARNING: All audio drivers failed, falling back to the dummy driver.
 T12 4K window
   ok   logical canvas stays 1920×1080
 UI TEST: 1 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
+Subtraktion bis 10 – full session with the remote
+  ok   Mathematik → Subtraktion
+  ok   levels: bis 10
+  ok   bis 10 opens the exercise
+  ok   first answer focused
+  ok   task 1 valid: missing 10-5=5
+  ok   wrong answer marked and disabled
+  ok   no progress for a wrong answer
+  ok   focus moved to another answer
+  ok   reached the correct answer with the arrows
+  ok   task 2 valid: equation 5-3=2
+  ok   reached the correct answer with the arrows
+  ok   task 3 valid: ten_frame 8-4=4
+  ok   reached the correct answer with the arrows
+  ok   task 4 valid: picture 5-3=2
+  ok   reached the correct answer with the arrows
+  ok   task 5 valid: picture 5-2=3
+  ok   reached the correct answer with the arrows
+  ok   task 6 valid: number_line 10-1=9
+  ok   reached the correct answer with the arrows
+  ok   task 7 valid: number_line 9-2=7
+  ok   reached the correct answer with the arrows
+  ok   task 8 valid: picture 2-1=1
+  ok   reached the correct answer with the arrows
+  ok   task 9 valid: ten_frame 6-3=3
+  ok   reached the correct answer with the arrows
+  ok   task 10 valid: objects 2-1=1
+  ok   reached the correct answer with the arrows
+  ok   task 11 valid: missing 10-5=5
+  ok   reached the correct answer with the arrows
+  ok   all 6 representations shown: ["missing", "equation", "ten_frame", "picture", "number_line", "objects"]
+  ok   session finished
+  ok   one repetition of the mistaken task at the end
+  ok   record saved: 9 of 10 on the first try
+  ok   results: focus on 'Nochmal üben'
+  ok   Zurück → subject menu, focus on bis 10
+  ok   back home
+  ok   'Weiter üben' enabled after practising
+  ok   focus Mein Fortschritt
+  ok   Right → Weiter üben
+  ok   Weiter üben opens the exercise
+  ok   2 tasks solved
+  ok   Back during the exercise asks before quitting
+  ok   cancel → exercise continues
+  ok   confirmed → back home
+  ok   partial session saved (2 tasks)
+  ok   progress overview
+  ok   tasks solved = 12
+  ok   accuracy shown once there is data
+UI TEST: 48 checks, 0 failures

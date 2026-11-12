@@ -48,7 +48,12 @@ func _ready() -> void:
 		res.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		res.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		var recs := ProgressRepository.get_records(sid, t["id"])
-		res.text = "—" if recs.is_empty() else str(recs.size())
+		var corr := 0
+		var tot := 0
+		for r in recs:
+			corr += r.correct_count
+			tot += r.total_count
+		res.text = "—" if tot == 0 else "%d %%" % roundi(100.0 * corr / tot)
 		h.add_child(res)
 
 	# --- parents figures + history ---

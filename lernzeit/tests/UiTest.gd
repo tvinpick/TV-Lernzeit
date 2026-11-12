@@ -24,6 +24,8 @@ func _ready() -> void:
 	await wait(0.6)
 	if phase == "restart":
 		await run_restart_checks()
+	elif phase == "exercise":
+		await run_exercise()
 	elif phase == "shots4k":
 		await run_4k_shots()
 	else:
@@ -356,6 +358,118 @@ func run_main() -> void:
 	SettingsRepository.set_value("volume", 40)
 	SettingsRepository.set_value("text_size", "large")
 	SettingsRepository.set_value("sound", false)
+
+
+func _btn_index(btns: Array, b) -> int:
+	return btns.find(b)
+
+
+## Moves the focus with arrow keys (like the remote) to the target answer button.
+func navigate_to(target: Control) -> void:
+	var ex = main.current_screen()
+	for step in 10:
+		var f := get_viewport().gui_get_focus_owner()
+		if f == target:
+			return
+		var btns: Array = ex.active_buttons()
+		var fi := btns.find(f)
+		var ti := btns.find(target)
+		if btns == ex.picture_buttons:
+			if fi / 2 < ti / 2: await key(KEY_DOWN, 0.12)
+			elif fi / 2 > ti / 2: await key(KEY_UP, 0.12)
+			elif fi % 2 < ti % 2: await key(KEY_RIGHT, 0.12)
+			else: await key(KEY_LEFT, 0.12)
+		else:
+			await key(KEY_RIGHT if ti > fi else KEY_LEFT, 0.12)
+
+
+func run_exercise() -> void:
+	print("Subtraktion bis 10 – full session with the remote")
+	await keys([KEY_ENTER])
+	await wait(0.4)
+	await keys([KEY_DOWN, KEY_DOWN])
+	check(focus_name() == "Topic_subtraktion", "Mathematik → Subtraktion")
+	await key(KEY_ENTER)
+	check(focus_name() == "Level_10", "levels: bis 10")
+	await key(KEY_ENTER, 0.6)
+	check(main.current_id() == "exercise_sub10", "bis 10 opens the exercise")
+	var ex = main.current_screen()
+	check(focus_name() == "Answer_0" or focus_name() == "Picture_0", "first answer focused")
+	var shot_modes := {}
+	var guard := 0
+	var made_mistake := false
+	while not ex.finished and guard < 20:
+		guard += 1
+		var t: Dictionary = ex.current_task()
+		var btns: Array = ex.active_buttons()
+		check(SubtractionGenerator.validate(t), "task %d valid: %s %d-%d=%d" % [guard, t["mode"], t["a"], t["b"], t["result"]])
+		if not shot_modes.has(t["mode"]):
+			shot_modes[t["mode"]] = true
+			await shot("ex_%02d_%s" % [shot_modes.size(), t["mode"]])
+		var target: Control = null
+		for b in btns:
+			if b.value == t["answer"]:
+				target = b
+		if not made_mistake and t["mode"] != "picture":
+			made_mistake = true
+			var wrong_btn: Control = null
+			for b in btns:
+				if b.value != t["answer"]:
+					wrong_btn = b
+					break
+			var solved_before: int = ex.session.solved
+			await navigate_to(wrong_btn)
+			await key(KEY_ENTER, 0.5)
+			check(wrong_btn.state == "wrong" and wrong_btn.disabled, "wrong answer marked and disabled")
+			check(ex.session.solved == solved_before, "no progress for a wrong answer")
+			check(get_viewport().gui_get_focus_owner() != wrong_btn and get_viewport().gui_get_focus_owner() in btns, "focus moved to another answer")
+			await shot("ex_wrong_feedback")
+		await navigate_to(target)
+		check(get_viewport().gui_get_focus_owner() == target, "reached the correct answer with the arrows")
+		await key(KEY_ENTER, 0.3)
+		if guard == 2:
+			await shot("ex_correct_feedback")
+		await wait(1.2)
+	check(shot_modes.size() == 6, "all 6 representations shown: " + str(shot_modes.keys()))
+	check(ex.finished, "session finished")
+	check(ex.session.tasks.size() == 11, "one repetition of the mistaken task at the end")
+	await shot("ex_results")
+	var recs := ProgressRepository.get_records("mathematik", "subtraktion")
+	check(recs.size() == 1 and recs[0].correct_count == 9 and recs[0].total_count == 10, "record saved: 9 of 10 on the first try")
+	check(focus_name() == "ResultsAgain", "results: focus on 'Nochmal üben'")
+	await key(KEY_LEFT); await key(KEY_ENTER, 0.5)
+	check(main.current_id() == "subject" and focus_name() == "Level_10", "Zurück → subject menu, focus on bis 10")
+	await key(KEY_ESCAPE, 0.35); await key(KEY_ESCAPE, 0.5)
+	check(main.current_id() == "home", "back home")
+	var home = main.current_screen()
+	check(not home.continue_button.disabled, "'Weiter üben' enabled after practising")
+	await keys([KEY_DOWN, KEY_DOWN])
+	check(focus_name() == "ProgressButton", "focus Mein Fortschritt")
+	await key(KEY_RIGHT); check(focus_name() == "ContinueButton", "Right → Weiter üben")
+	await shot("ex_home_continue")
+	await key(KEY_ENTER, 0.6)
+	check(main.current_id() == "exercise_sub10", "Weiter üben opens the exercise")
+	ex = main.current_screen()
+	for i in 2:
+		await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == ex.current_task()["answer"])[0])
+		await key(KEY_ENTER, 1.6)
+	check(ex.session.solved == 2, "2 tasks solved")
+	await key(KEY_ESCAPE, 0.4)
+	check(main.has_dialog(), "Back during the exercise asks before quitting")
+	await shot("ex_quit_dialog")
+	await key(KEY_ESCAPE, 0.4)
+	check(not main.has_dialog() and main.current_id() == "exercise_sub10", "cancel → exercise continues")
+	await key(KEY_ESCAPE, 0.4); await key(KEY_RIGHT); await key(KEY_ENTER, 0.6)
+	check(main.current_id() == "home", "confirmed → back home")
+	recs = ProgressRepository.get_records("mathematik", "subtraktion")
+	check(recs.size() == 2 and recs[0].total_count == 2, "partial session saved (2 tasks)")
+	await keys([KEY_LEFT, KEY_ENTER]); await wait(0.5)
+	check(main.current_id() == "progress", "progress overview")
+	check(main.current_screen().stat_tasks.value_label.text == "12", "tasks solved = 12")
+	check(main.current_screen().stat_correct.value_label.text != "—", "accuracy shown once there is data")
+	await shot("ex_progress_after")
+	await key(KEY_ENTER, 0.5)
+	await shot("ex_progress_detail_math")
 
 
 func run_restart_checks() -> void:
