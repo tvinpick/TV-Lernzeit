@@ -1,0 +1,169 @@
+{
+ "_comment": "Reading words with syllables and pictures (Lesen Words 1A/1B). Add entries to extend the reading exercises.",
+ "words": [
+  {
+   "word": "Banane",
+   "syllables": [
+    "Ba",
+    "na",
+    "ne"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Banane.png"
+  },
+  {
+   "word": "Blume",
+   "syllables": [
+    "Blu",
+    "me"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Blume.png"
+  },
+  {
+   "word": "Dose",
+   "syllables": [
+    "Do",
+    "se"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Dose.png"
+  },
+  {
+   "word": "Hose",
+   "syllables": [
+    "Ho",
+    "se"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Hose.png"
+  },
+  {
+   "word": "Lampe",
+   "syllables": [
+    "Lam",
+    "pe"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Lampe.png"
+  },
+  {
+   "word": "Limo",
+   "syllables": [
+    "Li",
+    "mo"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Limo.png"
+  },
+  {
+   "word": "Mama",
+   "syllables": [
+    "Ma",
+    "ma"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Mama.png"
+  },
+  {
+   "word": "Melone",
+   "syllables": [
+    "Me",
+    "lo",
+    "ne"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Melone.png"
+  },
+  {
+   "word": "Nase",
+   "syllables": [
+    "Na",
+    "se"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Nase.png"
+  },
+  {
+   "word": "Oma",
+   "syllables": [
+    "O",
+    "ma"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Oma.png"
+  },
+  {
+   "word": "Opa",
+   "syllables": [
+    "O",
+    "pa"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Opa.png"
+  },
+  {
+   "word": "Papa",
+   "syllables": [
+    "Pa",
+    "pa"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Papa.png"
+  },
+  {
+   "word": "Puppe",
+   "syllables": [
+    "Pup",
+    "pe"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Puppe.png"
+  },
+  {
+   "word": "Rakete",
+   "syllables": [
+    "Ra",
+    "ke",
+    "te"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Rakete.png"
+  },
+  {
+   "word": "Rose",
+   "syllables": [
+    "Ro",
+    "se"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Rose.png"
+  },
+  {
+   "word": "Sofa",
+   "syllables": [
+    "So",
+    "fa"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Sofa.png"
+  },
+  {
+   "word": "Sonne",
+   "syllables": [
+    "Son",
+    "ne"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Sonne.png"
+  },
+  {
+   "word": "Tasche",
+   "syllables": [
+    "Ta",
+    "sche"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Tasche.png"
+  },
+  {
+   "word": "Tasse",
+   "syllables": [
+    "Tas",
+    "se"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Tasse.png"
+  },
+  {
+   "word": "Tomate",
+   "syllables": [
+    "To",
+    "ma",
+    "te"
+   ],
+   "picture": "res://assets/lesen/words/Lesen_Tomate.png"
+  }
+ ]
+}

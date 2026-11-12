@@ -41,10 +41,10 @@ func _ready() -> void:
 		ic.texture = load(a[3])
 		ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		ic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		ic.custom_minimum_size = Vector2(84, 84)
+		ic.custom_minimum_size = Vector2(110, 110)
 		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		if not on:
-			ic.modulate = Color(0.35, 0.38, 0.5, 0.55)     # silhouette until earned
+			ic.modulate = Color(0.3, 0.33, 0.45, 0.5)      # dark silhouette until earned
 		h.add_child(ic)
 		var v := VBoxContainer.new()
 		v.size_flags_horizontal = Control.SIZE_EXPAND_FILL

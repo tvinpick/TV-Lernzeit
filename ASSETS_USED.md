@@ -131,3 +131,16 @@ Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле
 38 картинок-слов → `lernzeit/assets/deutsch/words/` (по 2 на букву: M A O I L S E U R T N H F D W B P K + G Gans/Gabel).
 Без изменений. README, манифест и превью → `references/deutsch_alphabet_38/`. Список слов для упражнений —
 `lernzeit/data/deutsch_words.json` (можно дополнять: слово, первая буква, путь к картинке).
+
+### Пакеты от 12.11 (v0.7.0): маскот, медали, наклейки, «Чтение», «Сравнение»
+Распакованы `tools/import_kits.py` (проверка по манифестам; без перезаписи; 0 конфликтов).
+
+| Архив | В проект | Где используется |
+|---|---|---|
+| `Lernzeit_Mascot_Owl_6_Poses_800px.zip` | `assets/mascot/owl/` (6 поз) | заставка (wave), подсказка после ошибки (thinking), итог занятия (cheer / happy), «Пора отдохнуть» (sleep), альбом наклеек (happy) |
+| `Lernzeit_Mascot_Badges_12_400px.zip` | `assets/mascot/badges/` (12) | иконки 12 достижений (id совпадают) |
+| `Lernzeit_Stickers_20_300px.zip` | `assets/mascot/stickers/` (20) | альбом наклеек: 1 наклейка за каждое законченное занятие (10 заданий) |
+| `Lernzeit_Lesen_Words_1A/1B_10_PNG.zip` | `assets/lesen/words/` (20) | «Lesen · Silben» и «Lesen · Wörter»; слоги — `data/lesen_words.json` |
+| `Lernzeit_Vergleichen_FHD.zip` | `assets/math/vergleichen_10/` (фон 1920×1080 + 23 элемента UI) | «Vergleichen bis 10»: фон, знак «?» между группами. Макеты (`Reference_Only`) → `references/vergleichen_10/` |
+
+Кнопки ответов в «Сравнении» — общие кнопки математики (единый стиль). Картинка «Melone» — долька арбуза (Wassermelone).

@@ -14,6 +14,7 @@ const SCREENS := {
 	"exercise": "res://scenes/exercises/MathExercise.tscn",
 	"exercise_de": "res://scenes/exercises/DeutschExercise.tscn",
 	"achievements": "res://scenes/progress/AchievementsScreen.tscn",
+	"stickers": "res://scenes/progress/StickerAlbum.tscn",
 	"letters": "res://scenes/parents/LettersOverview.tscn",
 }
 
@@ -75,6 +76,9 @@ func _splash() -> void:
 	title.position = Vector2(0, 590)
 	title.modulate.a = 0.0
 	sp.add_child(title)
+	var owl := Mascot.make("wave", 330, Vector2(1380, 360))
+	sp.add_child(owl)
+	Mascot.appear(owl)
 	var tw := create_tween()
 	tw.tween_property(logo, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.tween_property(title, "modulate:a", 1.0, 0.25)

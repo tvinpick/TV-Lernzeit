@@ -408,21 +408,26 @@ func navigate_to(target: Control) -> void:
 func run_exercise() -> void:
 	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen",
 		"sub20": "subtraktion", "add20": "addition", "count20": "zaehlen",
-		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein"}[exercise]
-	var german := exercise.begins_with("de_")
+		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein",
+		"cmp10": "vergleichen", "le_silben": "silben", "le_woerter": "woerter"}[exercise]
+	var german := exercise.begins_with("de_") or exercise.begins_with("le_")
 	var screen_id := "exercise_de" if german else "exercise"
-	var subject := "deutsch" if german else "mathematik"
+	var subject := Curriculum.subject_of(exercise)
+	var no_levels := german or exercise == "cmp10"
 	print("Exercise %s – full session with the remote" % exercise)
-	if german:
+	if subject == "deutsch":
 		await key(KEY_RIGHT)
+	elif subject == "lesen":
+		await key(KEY_DOWN)
 	await keys([KEY_ENTER])
 	await wait(0.4)
-	var order: Array = ["buchstaben", "anlaute", "woerter", "gross_klein"] if german else ["zaehlen", "addition", "subtraktion"]
+	var order: Array = {"deutsch": ["buchstaben", "anlaute", "woerter", "gross_klein"], "lesen": ["silben", "woerter", "saetze", "texte"],
+		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen"]}[subject]
 	for i in order.find(topic):
 		await key(KEY_DOWN)
 	check(focus_name() == "Topic_" + topic, subject + " → " + topic)
 	var level := "Level_20" if exercise.ends_with("20") else "Level_10"
-	if not german:
+	if not no_levels:
 		await key(KEY_ENTER)
 		if level == "Level_20":
 			await key(KEY_RIGHT)
@@ -430,7 +435,7 @@ func run_exercise() -> void:
 	await key(KEY_ENTER, 0.6)
 	check(main.current_id() == screen_id and main.current_screen().exercise_id == exercise, "topic opens the exercise")
 	var ex = main.current_screen()
-	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0"], "first answer focused")
+	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0"], "first answer focused")
 	var shot_modes := {}
 	var guard := 0
 	var made_mistake := false
@@ -442,12 +447,25 @@ func run_exercise() -> void:
 		if not shot_modes.has(t["mode"]):
 			shot_modes[t["mode"]] = true
 			await shot("%s_%02d_%s" % [exercise, shot_modes.size(), t["mode"]])
-		if t["mode"] == "de_build":
+		if t["mode"] in ["de_build", "le_syllables"]:
 			var w: String = t["word"]
-			for k in w.length():
+			var parts: Array = ex._parts(t)
+			if not made_mistake:          # build-only exercises: one wrong tile first
+				var wrong_tile: Control = null
+				for b in ex.active_buttons():
+					if b.value != parts[0]:
+						wrong_tile = b
+						break
+				if wrong_tile:
+					made_mistake = true
+					await navigate_to(wrong_tile)
+					await key(KEY_ENTER, 0.5)
+					check(ex.session.was_wrong_this_task() and ex.session.solved == 0 or ex.session.was_wrong_this_task(), "wrong tile counts as a mistake")
+					await wait(1.3)
+			for k in parts.size():
 				var tile: Control = null
 				for b in ex.active_buttons():
-					if b.value == w.substr(k, 1):
+					if b.value == parts[k]:
 						tile = b
 						break
 				await navigate_to(tile)
@@ -495,9 +513,9 @@ func run_exercise() -> void:
 	check(recs.size() == 1 and recs[0].correct_count == 9 and recs[0].total_count == 10, "record saved: 9 of 10 on the first try")
 	check(focus_name() == "ResultsAgain", "results: focus on 'Nochmal üben'")
 	await key(KEY_LEFT); await key(KEY_ENTER, 0.5)
-	check(main.current_id() == "subject" and focus_name() == ("Topic_" + topic if german else level), "Zurück → subject menu, focus restored")
+	check(main.current_id() == "subject" and focus_name() == ("Topic_" + topic if no_levels else level), "Zurück → subject menu, focus restored")
 	await key(KEY_ESCAPE, 0.35)
-	if not german:
+	if not no_levels:
 		await key(KEY_ESCAPE, 0.5)     # maths: first Back leaves the level column
 	await wait(0.2)
 	check(main.current_id() == "home", "back home")
@@ -512,9 +530,10 @@ func run_exercise() -> void:
 	ex = main.current_screen()
 	for i in 2:
 		var ct: Dictionary = ex.current_task()
-		if ct["mode"] == "de_build":
-			for k in (ct["word"] as String).length():
-				await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == (ct["word"] as String).substr(k, 1))[0])
+		if ct["mode"] in ["de_build", "le_syllables"]:
+			var cparts: Array = ex._parts(ct)
+			for k in cparts.size():
+				await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == cparts[k])[0])
 				await key(KEY_ENTER, 0.25)
 			await wait_next_task(ex, ct)
 		else:
@@ -563,6 +582,11 @@ func run_extras() -> void:
 	var unlocked := Achievements.unlocked_ids()
 	check("first_steps" in unlocked and "perfect_3" in unlocked and "math_20" in unlocked and "days_3" in unlocked and not "letters_8" in unlocked, "expected achievements unlocked: " + str(unlocked))
 	await shot("ach_screen")
+	await key(KEY_ESCAPE, 0.4)
+	await key(KEY_RIGHT); check(focus_name() == "StickersButton", "Right → Sticker")
+	await key(KEY_ENTER, 0.5)
+	check(main.current_id() == "stickers" and main.current_screen().slots.filter(func(x): return x["earned"]).size() == 3, "sticker album: 3 stickers for 3 finished exercises")
+	await shot("sticker_album")
 	await key(KEY_ESCAPE, 0.4); await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "home", "back home")
 	SettingsRepository.set_pin("1357")

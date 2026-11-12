@@ -19,6 +19,7 @@ const PLAYABLE := {
 	"mathematik/zaehlen/10": "count10",
 	"mathematik/addition/10": "add10",
 	"mathematik/subtraktion/10": "sub10",
+	"mathematik/vergleichen/0": "cmp10",
 	"mathematik/zaehlen/20": "count20",
 	"mathematik/addition/20": "add20",
 	"mathematik/subtraktion/20": "sub20",
@@ -26,15 +27,19 @@ const PLAYABLE := {
 	"deutsch/anlaute/0": "de_anlaute",
 	"deutsch/woerter/0": "de_woerter",
 	"deutsch/gross_klein/0": "de_case",
+	"lesen/silben/0": "le_silben",
+	"lesen/woerter/0": "le_woerter",
 }
 
 
 ## Screen that runs an exercise id.
 static func screen_for(exercise_id: String) -> String:
-	return "exercise_de" if exercise_id.begins_with("de_") else "exercise"
+	return "exercise_de" if exercise_id.begins_with("de_") or exercise_id.begins_with("le_") else "exercise"
 
 
 static func subject_of(exercise_id: String) -> String:
+	if exercise_id.begins_with("le_"):
+		return "lesen"
 	return "deutsch" if exercise_id.begins_with("de_") else "mathematik"
 
 
@@ -45,8 +50,8 @@ static func exercise_for(subject_id: String, topic_id: String, level: int = 0) -
 ## Exercise of the most recently practised playable topic ("" if none) – for "Weiter üben".
 static func last_practised_exercise() -> String:
 	for r in ProgressRepository.get_records():        # newest first
-		if r.subject_id == "deutsch":
-			var ex: String = PLAYABLE.get("deutsch/%s/0" % r.topic_id, "")
+		if r.subject_id in ["deutsch", "lesen"]:
+			var ex: String = PLAYABLE.get("%s/%s/0" % [r.subject_id, r.topic_id], "")
 			if ex != "":
 				return ex
 		else:

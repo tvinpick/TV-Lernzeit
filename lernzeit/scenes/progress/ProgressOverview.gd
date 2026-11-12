@@ -8,6 +8,7 @@ var stat_topics: StatCard
 var subject_rows := {}
 var back_button: PillButton
 var achievements_button: PillButton
+var stickers_button: PillButton
 
 
 func _ready() -> void:
@@ -57,6 +58,11 @@ func _ready() -> void:
 	achievements_button.custom_minimum_size.x = 300
 	achievements_button.pressed.connect(func(): main.push("achievements"))
 	bottom.add_child(achievements_button)
+	stickers_button = PillButton.make("stickers", "light", preload("res://assets/mascot/stickers/Sticker_11.png"))
+	stickers_button.name = "StickersButton"
+	stickers_button.custom_minimum_size.x = 300
+	stickers_button.pressed.connect(func(): main.push("stickers"))
+	bottom.add_child(stickers_button)
 	var note := Label.new()
 	note.name = "AchievementsNote"
 	note.theme_type_variation = &"OnDarkCaption"
@@ -72,7 +78,8 @@ func _ready() -> void:
 		FocusManager.set_one(r, SIDE_RIGHT, r)
 	FocusManager.set_one(rows.back(), SIDE_BOTTOM, back_button)
 	FocusManager.set_neighbors(back_button, null, achievements_button, rows.back(), null)
-	FocusManager.set_neighbors(achievements_button, back_button, null, rows.back(), null)
+	FocusManager.set_neighbors(achievements_button, back_button, stickers_button, rows.back(), null)
+	FocusManager.set_neighbors(stickers_button, achievements_button, null, rows.back(), null)
 	_refresh()
 
 

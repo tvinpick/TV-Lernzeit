@@ -11,6 +11,7 @@ var message_text := ""
 var confirm_key := "yes"
 var cancel_key := "cancel"
 var confirm_variant := "blue"
+var image: Texture2D = null          ## optional picture above the title (e.g. sleeping owl)
 var cancel_button: PillButton
 var confirm_button: PillButton
 var _return_focus: Control
@@ -44,6 +45,13 @@ func _ready() -> void:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 26)
 	panel.add_child(v)
+	if image:
+		var im := TextureRect.new()
+		im.texture = image
+		im.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		im.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		im.custom_minimum_size = Vector2(0, 230)
+		v.add_child(im)
 	var t := Label.new()
 	t.theme_type_variation = &"HeadingLabel"
 	t.text = title_text

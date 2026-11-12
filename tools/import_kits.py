@@ -74,6 +74,37 @@ KITS = {
         ("README_FOR_CLAUDE.txt", "reference", "deutsch_alphabet_38"),
         ("ASSET_MANIFEST.json", "reference", "deutsch_alphabet_38"),
     ]),
+    "Lernzeit_Lesen_Words_1A_10_PNG.zip": ("lesen_words_1a", [
+        ("Lesen/Words/", "asset", "lesen/words"),
+        ("README.txt", "reference", "lesen_words_1a"),
+        ("ASSET_MANIFEST.json", "reference", "lesen_words_1a"),
+    ]),
+    "Lernzeit_Lesen_Words_1B_10_PNG.zip": ("lesen_words_1b", [
+        ("Lesen/Words/", "asset", "lesen/words"),
+        ("README.txt", "reference", "lesen_words_1b"),
+        ("ASSET_MANIFEST.json", "reference", "lesen_words_1b"),
+    ]),
+    "Lernzeit_Mascot_Owl_6_Poses_800px.zip": ("mascot_owl", [
+        ("Mascot/", "asset", "mascot/owl"),
+        ("README.txt", "reference", "mascot_owl"),
+        ("ASSET_MANIFEST.json", "reference", "mascot_owl"),
+    ]),
+    "Lernzeit_Mascot_Badges_12_400px.zip": ("badges", [
+        ("Mascot/Badges/", "asset", "mascot/badges"),
+        ("README.txt", "reference", "badges"),
+        ("ASSET_MANIFEST.json", "reference", "badges"),
+    ]),
+    "Lernzeit_Stickers_20_300px.zip": ("stickers", [
+        ("Mascot/Stickers/", "asset", "mascot/stickers"),
+        ("README.txt", "reference", "stickers"),
+        ("ASSET_MANIFEST.json", "reference", "stickers"),
+    ]),
+    "Lernzeit_Vergleichen_FHD.zip": ("vergleichen_10", [
+        ("Lernzeit_Vergleichen_10_FullHD_v2/Game_Assets/Backgrounds/", "asset", "math/vergleichen_10/backgrounds"),
+        ("Lernzeit_Vergleichen_10_FullHD_v2/Game_Assets/UI/", "asset", "math/vergleichen_10/ui"),
+        ("Lernzeit_Vergleichen_10_FullHD_v2/Reference_Only/", "reference", "vergleichen_10/reference_only"),
+        ("Lernzeit_Vergleichen_10_FullHD_v2/Documentation/", "reference", "vergleichen_10/documentation"),
+    ]),
     # Identical to the progress art that is already integrated (lernzeit/assets/ui, icons).
     "Lernzeit_Progress_UI_Assets.zip": ("progress_ui", [
         ("", "skip", ""),
@@ -174,11 +205,15 @@ def main():
         for n in names:
             if n.endswith("ASSET_MANIFEST.json"):
                 d = json.loads(z.read(n))
-                items = d["assets"] if isinstance(d, dict) else d
+                items = (d.get("assets") or d.get("files") or []) if isinstance(d, dict) else d
                 base = n[:n.rfind("Documentation/")] if "Documentation/" in n else n[:n.rfind("/") + 1]
                 for it in items:
-                    if "size" in it:   # newer manifest format: "size": [w, h]
+                    if isinstance(it.get("size"), list):   # newer manifest format: "size": [w, h]
                         it = dict(it, width=it["size"][0], height=it["size"][1])
+                    if not isinstance(it, dict) or ("path" not in it and "filename" not in it):
+                        continue
+                    if isinstance(it.get("size"), str):          # "800x800"
+                        it = dict(it, width=int(it["size"].split("x")[0]), height=int(it["size"].split("x")[1]))
                     if "path" not in it and "filename" in it:   # alphabet pack: {"filename": ...} in PNG/
                         it = dict(it, path="PNG/" + it["filename"])
                     manifest[base + it["path"]] = it
@@ -199,7 +234,12 @@ def main():
                 info = png_info(data)
                 m = manifest.get(n)
                 if m:
-                    if (m["width"], m["height"]) != (info["width"], info["height"]):
+                    mw = m.get("width") or (m.get("size_px") or m.get("dimensions") or [None, None])[0]
+                    mh = m.get("height") or (m.get("size_px") or m.get("dimensions") or [None, None])[1]
+                    m = dict(m, width=mw, height=mh)
+                    if mw is None:
+                        pass
+                    elif (m["width"], m["height"]) != (info["width"], info["height"]):
                         log["warnings"].append(f"{n}: size {info['width']}x{info['height']} != manifest {m['width']}x{m['height']}")
                     if m.get("mode") == "RGBA" and info["mode"] != "RGBA":
                         log["warnings"].append(f"{n}: mode {info['mode']} != RGBA")

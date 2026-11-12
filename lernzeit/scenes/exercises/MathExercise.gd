@@ -14,6 +14,8 @@ const EXERCISES := {
 		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
 	"count10": {"title": "ex_count10_title", "topic": "zaehlen", "version": "count10-v1",
 		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
+	"cmp10": {"title": "ex_cmp10_title", "topic": "vergleichen", "version": "cmp10-v1",
+		"bg": "res://assets/math/vergleichen_10/backgrounds/Compare_10_Background_1920x1080.png"},
 	"sub20": {"title": "ex_sub20_title", "topic": "subtraktion", "version": "sub20-v1", "max": 20,
 		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
 	"add20": {"title": "ex_add20_title", "topic": "addition", "version": "add20-v1", "max": 20,
@@ -73,6 +75,7 @@ func _ready() -> void:
 	match exercise_id.trim_suffix("10").trim_suffix("20"):
 		"add": generator = AdditionGenerator.new(seed_value)
 		"count": generator = CountingGenerator.new(seed_value)
+		"cmp": generator = CompareGenerator.new(seed_value)
 		_: generator = SubtractionGenerator.new(seed_value)
 	generator.max_value = config.get("max", 10)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
@@ -82,6 +85,10 @@ func _ready() -> void:
 	_ach_before = Achievements.unlocked_ids()
 	_build_header()
 	_build_body()
+	_stickers_before = Achievements.stickers_earned()
+	_owl = Mascot.make("thinking", 190, Vector2(270, 112))
+	_owl.visible = false
+	add_child(_owl)
 	_show_task()
 
 
@@ -307,6 +314,7 @@ func _show_task() -> void:
 	_busy = false
 	_feedback.visible = false
 	_prompt.visible = true
+	_owl.visible = false
 	_mistakes = 0
 	var t := session.current()
 	_prompt.text = tr(t["prompt"])
@@ -325,7 +333,7 @@ func _show_task() -> void:
 	var opts: Array = t["options"]
 	var n := opts.size()
 	_picture_grid.columns = 2
-	var inside: bool = t["mode"] == "cnt_more"
+	var inside: bool = t["mode"] in ["cnt_more", "cmp_groups"]
 	_picture_grid.position = Vector2(225 if inside else 270, 330 if inside else 648)
 	for i in 4:
 		var pb := picture_buttons[i]
@@ -340,7 +348,7 @@ func _show_task() -> void:
 		else:
 			ab.custom_minimum_size = Vector2(360 if n > 2 else 440, 180)
 			ab.setup(opts[i], COLORS[i] if n > 2 else ["purple", "green"][i], null,
-				str(opts[i]) if t["option_style"] == "text" else "")
+				(tr("cmp_" + str(opts[i])) if t.get("translate_options", false) else str(opts[i])) if t["option_style"] == "text" else "")
 	match t["mode"]:
 		"objects": _stage_objects(t)
 		"equation": _stage_equation(t, false)
@@ -356,7 +364,11 @@ func _show_task() -> void:
 		"add_choose": _stage_groups(t["a"], t["b"], "star", PLUS)
 		"cnt_objects": _stage_count(t["n"], t["object"])
 		"cnt_bigger": _stage_formula([t["x"], "vs", t["y"]])
-		"cnt_more": pass        # the two apple groups are the answers (shown inside the panel)
+		"cnt_more", "cmp_groups": pass        # the two groups are the answers (shown inside the panel)
+		"cmp_larger", "cmp_smaller": _stage_formula([t["x"], "vs", t["y"]])
+		"cmp_sign": _stage_formula([t["x"], "?", t["y"]])
+		"cmp_equal": _stage_groups(t["x"], t["y"], t["object"], preload("res://assets/math/vergleichen_10/ui/Compare_Sign_Question.png"))
+		"cmp_sort": _stage_sequence({"sequence": t["numbers"], "hole": -1})
 		"cnt_sequence": _stage_sequence(t)
 		"cnt_dice": _stage_dice(t["a"], t["b"], false)
 		"cnt_to_ten": _stage_frame_with_formula(t["n"], [])
@@ -808,9 +820,11 @@ func _give_help() -> void:
 		if not is_inside_tree() or _busy or session.current() != t:
 			return
 		_prompt.text = Localization.t("ex_tip", {"t": tip})
+		_owl.visible = true
+		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
 		var key := "empty" if t["mode"] in ["add_to_ten", "cnt_to_ten"] else "count"
-		if t["mode"] in ["objects", "ten_frame", "add_groups", "add_choose", "add_to_ten", "cnt_objects", "cnt_to_ten"]:
+		if t["mode"] in ["objects", "ten_frame", "add_groups", "add_choose", "add_to_ten", "cnt_objects", "cnt_to_ten", "cmp_equal"]:
 			Juice.count_overlay(_stage, _find_meta(_stage, key))
 	else:
 		for b in active_buttons():
@@ -836,6 +850,12 @@ func _tip_text(t: Dictionary) -> String:
 		"cnt_bigger": return tr("tip_bigger")
 		"cnt_more": return tr("tip_more")
 		"cnt_sequence": return tr("tip_backwards") if t.get("backwards", false) else tr("tip_forwards")
+		"cmp_larger": return tr("tip_bigger")
+		"cmp_smaller": return tr("tip_smaller")
+		"cmp_sign": return tr("tip_sign")
+		"cmp_groups": return tr("tip_fewer")
+		"cmp_equal": return tr("tip_equal")
+		"cmp_sort": return tr("tip_sort")
 	return tr(t["prompt"])
 
 
@@ -886,6 +906,8 @@ func _show_feedback(ok: bool) -> void:
 # ----------------------------------------------------------------- results ---
 
 var _ach_before: Array = []
+var _stickers_before := 0
+var _owl: TextureRect          ## thinking owl next to a tip
 
 
 func _show_new_achievements() -> void:
@@ -904,6 +926,7 @@ func _save() -> void:
 
 func _finish() -> void:
 	finished = true
+	_owl.visible = false
 	_feedback.visible = false
 	_prompt.visible = true
 	_save()
@@ -1024,4 +1047,5 @@ func _celebrate(star_nodes: Array) -> void:
 			tw.tween_property(st, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			if i < session.first_try_correct:
 				tw.tween_callback(Sfx.play.bind("pop"))
+	ResultsDecor.add(_results, session.first_try_correct, _stickers_before)
 	PauseReminder.maybe_show(self, main, 1.9)

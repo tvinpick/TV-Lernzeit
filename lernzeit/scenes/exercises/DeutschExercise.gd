@@ -11,6 +11,8 @@ const EXERCISES := {
 	"de_anlaute": {"title": "ex_de_anlaute_title", "topic": "anlaute", "modes": ["de_first"]},
 	"de_woerter": {"title": "ex_de_woerter_title", "topic": "woerter", "modes": ["de_missing", "de_build"]},
 	"de_case": {"title": "ex_de_case_title", "topic": "gross_klein", "modes": ["de_case"]},
+	"le_silben": {"title": "ex_le_silben_title", "topic": "silben", "modes": ["le_syllables"], "subject": "lesen"},
+	"le_woerter": {"title": "ex_le_woerter_title", "topic": "woerter", "modes": ["le_word_pic", "le_pic_word", "le_syllables"], "subject": "lesen"},
 }
 const BG := "res://assets/deutsch/backgrounds/Deutsch_Buchstaben_Background_1080p.png"
 const INK := Color("2c1a6e")
@@ -27,7 +29,10 @@ const SLOT := {
 
 var exercise_id := "de_letters"
 var config: Dictionary
-var generator: LetterGenerator
+var generator: MathGenerator       ## LetterGenerator (Deutsch) or ReadingGenerator (Lesen)
+var subject := "deutsch"
+var pic_buttons: Array[PictureButton] = []
+var _pics_row: HBoxContainer
 var session: ExerciseSession
 var letter_buttons: Array[LetterButton] = []
 var tile_buttons: Array[LetterButton] = []
@@ -60,14 +65,22 @@ func _ready() -> void:
 	exercise_id = params.get("exercise", "de_letters")
 	config = EXERCISES[exercise_id]
 	add_background(BG)
-	generator = LetterGenerator.new(int(params.get("seed", -1)))
+	subject = config.get("subject", "deutsch")
+	if subject == "lesen":
+		generator = ReadingGenerator.new(int(params.get("seed", -1)))
+	else:
+		generator = LetterGenerator.new(int(params.get("seed", -1)))
 	generator.allowed_modes = config["modes"]
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
-	session = ExerciseSession.new("deutsch", config["topic"], "de-letters-v1",
+	session = ExerciseSession.new(subject, config["topic"], "lesen-v1" if subject == "lesen" else "de-letters-v1",
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_layout()
+	_stickers_before = Achievements.stickers_earned()
+	_owl = Mascot.make("thinking", 190, Vector2(150, 112))
+	_owl.visible = false
+	add_child(_owl)
 	_show_task()
 
 
@@ -104,7 +117,7 @@ func _build_layout() -> void:
 	back_button.pressed.connect(_request_quit)
 	h.add_child(back_button)
 	var ic := TextureRect.new()
-	ic.texture = load(Curriculum.SUBJECTS["deutsch"]["icon"])
+	ic.texture = load(Curriculum.SUBJECTS[subject]["icon"])
 	ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	ic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	ic.custom_minimum_size = Vector2(60, 60)
@@ -175,6 +188,19 @@ func _build_layout() -> void:
 		b.pressed.connect(_on_letter.bind(b))
 		_letters_row.add_child(b)
 		letter_buttons.append(b)
+	_pics_row = HBoxContainer.new()
+	_pics_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_pics_row.add_theme_constant_override("separation", 44)
+	_pics_row.position = Vector2(170, 620)
+	_pics_row.size = Vector2(1580, 250)
+	add_child(_pics_row)
+	for i in 4:
+		var pb := PictureButton.new()
+		pb.name = "Pic_%d" % i
+		pb.custom_minimum_size = Vector2(240, 240)
+		pb.pressed.connect(_on_letter.bind(pb))
+		_pics_row.add_child(pb)
+		pic_buttons.append(pb)
 	_tiles_row = HBoxContainer.new()
 	_tiles_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_tiles_row.add_theme_constant_override("separation", 30)
@@ -255,6 +281,7 @@ func _show_task() -> void:
 	_busy = false
 	_feedback.visible = false
 	_prompt.visible = true
+	_owl.visible = false
 	var t := session.current()
 	_prompt.text = Localization.t(t["prompt"], t.get("args", {}))
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
@@ -270,15 +297,22 @@ func _show_task() -> void:
 	_mistakes = 0
 	_prompt.remove_theme_color_override("font_color")
 	_prompt.add_theme_color_override("font_color", INK)
-	var build: bool = t["mode"] == "de_build"
-	_letters_row.visible = not build
+	var build := _is_build(t)
+	var pics: bool = t["mode"] == "le_word_pic"
+	_letters_row.visible = not build and not pics
 	_tiles_row.visible = build
+	_pics_row.visible = pics
 	if build:
 		var tiles: Array = t["tiles"]
+		var syl: bool = t["mode"] == "le_syllables"
 		for i in tile_buttons.size():
 			tile_buttons[i].visible = i < tiles.size()
+			tile_buttons[i].custom_minimum_size = Vector2(230 if syl else 160, 160)
 			if i < tiles.size():
 				tile_buttons[i].setup(tiles[i], "tile")
+	elif pics:
+		for i in 4:
+			pic_buttons[i].setup(t["options"][i], t["pictures"][i])
 	else:
 		for i in 4:
 			letter_buttons[i].setup(t["options"][i], "button")
@@ -287,7 +321,9 @@ func _show_task() -> void:
 		"de_case": _stage_big_letter(t["shown"])
 		"de_first": _stage_first_letter(t)
 		"de_missing": _stage_word(t, false)
-		"de_build": _stage_word(t, true)
+		"de_build", "le_syllables": _stage_word(t, true)
+		"le_word_pic": _stage_big_letter(t["word"], 200)
+		"le_pic_word": _stage_picture(t["picture"], 300)
 	_link_focus()
 	active_buttons()[0].grab_focus.call_deferred()
 
@@ -298,9 +334,10 @@ func _update_dots() -> void:
 		(_dots.get_child(i) as TextureRect).texture = tex
 
 
-func active_buttons() -> Array[LetterButton]:
-	var out: Array[LetterButton] = []
-	var src := tile_buttons if session.current().get("mode", "") == "de_build" else letter_buttons
+func active_buttons() -> Array:
+	var out: Array = []
+	var t := session.current()
+	var src: Array = tile_buttons if _is_build(t) else (pic_buttons if t.get("mode", "") == "le_word_pic" else letter_buttons)
 	for b in src:
 		if b.visible and b.state != "used" and b.state != "wrong":
 			out.append(b)
@@ -316,6 +353,21 @@ func _link_focus() -> void:
 	FocusManager.set_neighbors(back_button, null, null, null, btns[0] if not btns.is_empty() else null)
 
 
+func _is_build(t: Dictionary) -> bool:
+	return t.get("mode", "") in ["de_build", "le_syllables"]
+
+
+## Pieces of the word to place in order: letters (de_build) or syllables (le_syllables).
+func _parts(t: Dictionary) -> Array:
+	if t.has("parts"):
+		return t["parts"]
+	var w: String = t["word"]
+	var out: Array = []
+	for i in w.length():
+		out.append(w.substr(i, 1))
+	return out
+
+
 func _letter_label(text: String, size: int) -> Label:
 	var l := Label.new()
 	l.text = text
@@ -328,8 +380,8 @@ func _letter_label(text: String, size: int) -> Label:
 	return l
 
 
-func _stage_big_letter(text: String) -> void:
-	var l := _letter_label(text, 250)
+func _stage_big_letter(text: String, size: int = 250) -> void:
+	var l := _letter_label(text, size)
 	l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_stage.add_child(l)
 
@@ -391,11 +443,13 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 	slots.add_theme_constant_override("separation", 18)
 	panel.add_child(slots)
 	var w: String = t["word"]
-	for i in w.length():
+	var parts := _parts(t) if build else _parts({"word": w})
+	var syl: bool = t["mode"] == "le_syllables"
+	for i in parts.size():
 		var r := TextureRect.new()
 		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		r.stretch_mode = TextureRect.STRETCH_SCALE
-		r.custom_minimum_size = Vector2(142, 150)
+		r.custom_minimum_size = Vector2(210 if syl else 142, 150)
 		var shown := ""
 		if build:
 			r.texture = SLOT["selected"] if i == 0 else SLOT["blank"]
@@ -405,7 +459,7 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 		else:
 			r.texture = SLOT["filled"]
 			shown = w.substr(i, 1)
-		var l := _letter_label(shown, 96)
+		var l := _letter_label(shown, 76 if syl else 96)
 		l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		r.add_child(l)
 		slots.add_child(r)
@@ -416,7 +470,7 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 
 # ----------------------------------------------------------------- answers ---
 
-func _on_letter(btn: LetterButton) -> void:
+func _on_letter(btn) -> void:
 	if _busy or finished:
 		return
 	if session.submit(btn.value):
@@ -436,7 +490,7 @@ func _on_letter(btn: LetterButton) -> void:
 		btn.state = "wrong"
 		btn.shake()
 		_show_feedback(false)
-		_focus_next_available(btn, letter_buttons)
+		_focus_next_available(btn, pic_buttons if btn is PictureButton else letter_buttons)
 		_mistake()
 
 
@@ -445,7 +499,8 @@ func _on_tile(tile: LetterButton) -> void:
 	if _busy or finished:
 		return
 	var w: String = session.current()["word"]
-	if tile.value == w.substr(_placed, 1):
+	var parts := _parts(session.current())
+	if tile.value == parts[_placed]:
 		Sfx.play("toggle")
 		var slot: Dictionary = _slots[_placed]
 		(slot["rect"] as TextureRect).texture = SLOT["filled"]
@@ -455,7 +510,7 @@ func _on_tile(tile: LetterButton) -> void:
 		if _placed < _slots.size():
 			(_slots[_placed]["rect"] as TextureRect).texture = SLOT["selected"]
 		tile.state = "used"
-		if _placed == w.length():
+		if _placed == parts.size():
 			session.submit(w)
 			await _solved(tile.get_global_rect().get_center())
 		else:
@@ -463,13 +518,13 @@ func _on_tile(tile: LetterButton) -> void:
 	else:
 		Sfx.play("error")
 		session.mark_wrong()
-		_build_wrong[w.substr(_placed, 1)] = true
+		_build_wrong[parts[_placed]] = true
 		tile.shake()
 		_show_feedback(false)
 		_mistake()
 
 
-func _focus_next_available(from: LetterButton, src: Array) -> void:
+func _focus_next_available(from, src: Array) -> void:
 	_link_focus()
 	var idx := src.find(from)
 	for d in [1, -1, 2, -2, 3, -3, 4, -4]:
@@ -483,7 +538,7 @@ func _focus_next_available(from: LetterButton, src: Array) -> void:
 ## right on the first try (repetitions at the end are not counted twice).
 func _record_letters() -> void:
 	var t := session.current()
-	if session.is_repeat():
+	if session.is_repeat() or subject != "deutsch":
 		return
 	var ok := not session.was_wrong_this_task()
 	var res := {}
@@ -550,9 +605,11 @@ func _mistake() -> void:
 			return
 		var tip := Localization.t("tip_" + t["mode"], {"l": t.get("letter", t.get("shown", ""))})
 		_prompt.text = Localization.t("ex_tip", {"t": tip})
+		_owl.visible = true
+		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
 	else:
-		var want: String = (t["word"] as String).substr(_placed, 1) if t["mode"] == "de_build" else t["answer"]
+		var want: String = _parts(t)[_placed] if _is_build(t) else t["answer"]
 		for b in active_buttons():
 			if b.value == want:
 				Juice.hint_pulse(b)
@@ -585,6 +642,8 @@ func _show_feedback(ok: bool) -> void:
 # ----------------------------------------------------------------- results ---
 
 var _ach_before: Array = []
+var _stickers_before := 0
+var _owl: TextureRect          ## thinking owl next to a tip
 
 
 func _show_new_achievements() -> void:
@@ -603,6 +662,7 @@ func _save() -> void:
 
 func _finish() -> void:
 	finished = true
+	_owl.visible = false
 	_feedback.visible = false
 	_prompt.visible = true
 	_save()
@@ -680,6 +740,7 @@ func _finish() -> void:
 			var tw := create_tween()
 			tw.tween_interval(0.25 + 0.12 * i)
 			tw.tween_property(st, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	ResultsDecor.add(_results, session.first_try_correct, _stickers_before)
 	PauseReminder.maybe_show(self, main, 1.9)
 	_show_new_achievements()
 	hb.add_child(again)

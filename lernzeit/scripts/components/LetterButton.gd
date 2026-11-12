@@ -75,7 +75,12 @@ func setup(p_value: String, p_kind: String = "button") -> void:
 
 func _layout() -> void:
 	pivot_offset = size / 2.0
-	_label.add_theme_font_size_override("font_size", int(size.y * 0.58))
+	var fs := size.y * 0.58
+	if value.length() > 3:          # whole words: one size for all (as if 6 letters)
+		fs = minf(fs, size.x * 1.45 / maxi(value.length(), 6))
+	elif value.length() > 1:        # syllables
+		fs = minf(fs, size.x * 1.45 / value.length())
+	_label.add_theme_font_size_override("font_size", int(fs))
 	var grow := size * Vector2(18.0 / 330.0, 18.0 / 216.0)
 	_overlay.position = -grow
 	_overlay.size = size + grow * 2.0

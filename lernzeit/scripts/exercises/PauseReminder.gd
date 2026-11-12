@@ -37,5 +37,6 @@ static func maybe_show(screen: Node, main: Node, delay: float) -> void:
 	Sfx.play("pause")
 	var d := ConfirmDialog.make("pause_title",
 		Localization.t("pause_message", {"n": int(today_seconds() / 60)}), "pause_home", "green", "pause_continue")
+	d.image = preload("res://assets/mascot/owl/Mascot_Owl_Sleep.png")
 	d.confirmed.connect(func(): main.pop_to_home())
 	main.show_dialog(d)

@@ -119,7 +119,7 @@ func _ready() -> void:
 				img.decompress()
 			if not img.detect_alpha():
 				alpha_missing.append(key)
-	check(KitAssets.TEXTURES.size() == 153, "153 kit textures registered (%d)" % KitAssets.TEXTURES.size())
+	check(KitAssets.TEXTURES.size() == 236, "236 kit textures registered (%d)" % KitAssets.TEXTURES.size())
 	check(bad.is_empty(), "all kit textures load as separate resources with manifest size " + str(bad))
 	check(alpha_missing.is_empty(), "all kit sprites have real alpha transparency " + str(alpha_missing))
 	check(KitAssets.keys_with_prefix("deutsch_pictures/").size() == 8, "8 Deutsch pictures")
@@ -363,6 +363,39 @@ func _ready() -> void:
 	check(not PauseReminder.due(), "no pause reminder without practice")
 	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 8, 10, 16 * 60, "add10-v1"))
 	check(PauseReminder.due() and PauseReminder.today_seconds() >= 900, "16 min today with 15 min setting → pause suggested")
+	ProgressRepository.reset_all()
+
+	print("Compare / Reading generators, stickers, badges")
+	for gen_cls in [CompareGenerator, ReadingGenerator]:
+		var g2: MathGenerator = gen_cls.new(31)
+		var bad2 := 0
+		var n2 := 0
+		var ms2 := {}
+		for diff in ["easy", "auto", "hard"]:
+			g2.difficulty = diff
+			for m in g2.modes():
+				for i in 300:
+					var t2 := g2.make_task(m)
+					n2 += 1
+					ms2[m] = true
+					if not g2.is_valid(t2):
+						bad2 += 1
+						if bad2 < 3:
+							print("       invalid: ", t2)
+		check(bad2 == 0, "%s: %d tasks valid" % [gen_cls.get_global_name(), n2])
+		check(g2.make_session(10).size() == 10, "%s: session of 10" % gen_cls.get_global_name())
+	var cg2 := CompareGenerator.new(5)
+	var signs := {}
+	for i in 300:
+		signs[cg2.make_task("cmp_sign")["answer"]] = true
+	check(signs.size() == 3, "comparison sign tasks include <, > and =")
+	check(ReadingGenerator.words().size() == 20 and ReadingGenerator.words().all(func(e): return "".join(e["syllables"]) == e["word"]), "20 reading words, syllables join to the word")
+	ProgressRepository.reset_all()
+	check(Achievements.stickers_earned() == 0, "no stickers without finished exercises")
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 7, 10, 60, "add10-v1"))
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 1, 2, 20, "add10-v1"))
+	check(Achievements.stickers_earned() == 1, "one sticker per finished exercise (aborted ones don't count)")
+	check(Achievements.LIST.all(func(a): return ResourceLoader.exists(a[3]) and (a[3] as String).contains("badges")), "every achievement has its badge")
 	ProgressRepository.reset_all()
 
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])

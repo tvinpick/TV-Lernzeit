@@ -5,18 +5,18 @@ extends RefCounted
 
 ## id -> [title key, description key, icon]
 const LIST := [
-	["first_steps", "ach_first_steps", "ach_first_steps_d", "res://assets/icons/Lernzeit_Icon_Target.png"],
-	["sessions_10", "ach_sessions_10", "ach_sessions_10_d", "res://assets/icons/Lernzeit_Icon_Tasks.png"],
-	["sessions_30", "ach_sessions_30", "ach_sessions_30_d", "res://assets/icons/Settings_Icon_Achievements.png"],
-	["tasks_100", "ach_tasks_100", "ach_tasks_100_d", "res://assets/icons/Lernzeit_Icon_Progress.png"],
-	["perfect", "ach_perfect", "ach_perfect_d", "res://assets/icons/Lernzeit_Icon_Correct.png"],
-	["perfect_3", "ach_perfect_3", "ach_perfect_3_d", "res://assets/math/shared_ui/Object_Star_Yellow.png"],
-	["days_3", "ach_days_3", "ach_days_3_d", "res://assets/icons/Lernzeit_Icon_Calendar.png"],
-	["days_7", "ach_days_7", "ach_days_7_d", "res://assets/icons/Settings_Icon_Calendar.png"],
-	["math_trio", "ach_math_trio", "ach_math_trio_d", "res://assets/icons/subject_mathematik.png"],
-	["math_20", "ach_math_20", "ach_math_20_d", "res://assets/math/counting_10/dice/Counting_Dice_6.png"],
-	["letters_8", "ach_letters_8", "ach_letters_8_d", "res://assets/icons/subject_deutsch.png"],
-	["letters_19", "ach_letters_19", "ach_letters_19_d", "res://assets/icons/Lernzeit_Icon_Subjects.png"],
+	["first_steps", "ach_first_steps", "ach_first_steps_d", "res://assets/mascot/badges/Badge_first_steps.png"],
+	["sessions_10", "ach_sessions_10", "ach_sessions_10_d", "res://assets/mascot/badges/Badge_sessions_10.png"],
+	["sessions_30", "ach_sessions_30", "ach_sessions_30_d", "res://assets/mascot/badges/Badge_sessions_30.png"],
+	["tasks_100", "ach_tasks_100", "ach_tasks_100_d", "res://assets/mascot/badges/Badge_tasks_100.png"],
+	["perfect", "ach_perfect", "ach_perfect_d", "res://assets/mascot/badges/Badge_perfect.png"],
+	["perfect_3", "ach_perfect_3", "ach_perfect_3_d", "res://assets/mascot/badges/Badge_perfect_3.png"],
+	["days_3", "ach_days_3", "ach_days_3_d", "res://assets/mascot/badges/Badge_days_3.png"],
+	["days_7", "ach_days_7", "ach_days_7_d", "res://assets/mascot/badges/Badge_days_7.png"],
+	["math_trio", "ach_math_trio", "ach_math_trio_d", "res://assets/mascot/badges/Badge_math_trio.png"],
+	["math_20", "ach_math_20", "ach_math_20_d", "res://assets/mascot/badges/Badge_math_20.png"],
+	["letters_8", "ach_letters_8", "ach_letters_8_d", "res://assets/mascot/badges/Badge_letters_8.png"],
+	["letters_19", "ach_letters_19", "ach_letters_19_d", "res://assets/mascot/badges/Badge_letters_19.png"],
 ]
 
 
@@ -74,3 +74,20 @@ static func title_key(id: String) -> String:
 		if a[0] == id:
 			return a[1]
 	return id
+
+
+# ----------------------------------------------------------------- stickers ---
+## Sticker album: one sticker for every finished exercise (10 tasks), 20 in total.
+const STICKER_COUNT := 20
+
+
+static func sticker_path(i: int) -> String:
+	return "res://assets/mascot/stickers/Sticker_%02d.png" % i
+
+
+static func stickers_earned() -> int:
+	var n := 0
+	for r in ProgressRepository.get_records():
+		if r.total_count >= 10:
+			n += 1
+	return mini(n, STICKER_COUNT)

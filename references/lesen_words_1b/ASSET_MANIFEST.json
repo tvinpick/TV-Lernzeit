@@ -1,0 +1,138 @@
+{
+  "project": "Lernzeit",
+  "collection": "Lesen",
+  "pack": "Words 1B",
+  "asset_count": 10,
+  "assets": [
+    {
+      "path": "Lesen/Words/Lesen_Tasse.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Tasse",
+      "syllables": "Tas-se",
+      "description": "Glossy pink-and-cream cup with a smiling face"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Tasche.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Tasche",
+      "syllables": "Ta-sche",
+      "description": "Pink and purple shoulder bag with a bow and a smiling face"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Blume.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Blume",
+      "syllables": "Blu-me",
+      "description": "Pink flower with green leaves and a friendly face"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Sonne.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Sonne",
+      "syllables": "Son-ne",
+      "description": "Golden sunshine with rays and a friendly face"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Puppe.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Puppe",
+      "syllables": "Pup-pe",
+      "description": "Blonde toy doll in a pink dress with bows"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Lampe.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Lampe",
+      "syllables": "Lam-pe",
+      "description": "Yellow and pink table lamp with floral motif and friendly face"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Banane.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Banane",
+      "syllables": "Ba-na-ne",
+      "description": "Yellow banana, colorful cartoon vocabulary object"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Tomate.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Tomate",
+      "syllables": "To-ma-te",
+      "description": "Red tomato with green leaves, colorful cartoon vocabulary object"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Melone.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Melone",
+      "syllables": "Me-lo-ne",
+      "description": "Smiling watermelon slice, a type of melon"
+    },
+    {
+      "path": "Lesen/Words/Lesen_Rakete.png",
+      "size": {
+        "width": 600,
+        "height": 600
+      },
+      "format": "PNG",
+      "color_mode": "RGBA",
+      "transparent_background": true,
+      "german_word": "Rakete",
+      "syllables": "Ra-ke-te",
+      "description": "Red and white rocket with blue face window and yellow flames"
+    }
+  ]
+}
