@@ -59,6 +59,15 @@ func submit(value: Variant) -> bool:
 	return false
 
 
+## A mistake inside a multi-step task (e.g. a wrong tile while building a word).
+func mark_wrong() -> void:
+	attempts += 1
+	var t := current()
+	if not _current_wrong and not t.get("repeat", false):
+		_wrong_first.append(t)
+	_current_wrong = true
+
+
 func was_wrong_this_task() -> bool:
 	return _current_wrong
 

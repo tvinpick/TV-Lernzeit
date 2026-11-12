@@ -19,7 +19,20 @@ const PLAYABLE := {
 	"mathematik/zaehlen/10": "count10",
 	"mathematik/addition/10": "add10",
 	"mathematik/subtraktion/10": "sub10",
+	"deutsch/buchstaben/0": "de_letters",
+	"deutsch/anlaute/0": "de_anlaute",
+	"deutsch/woerter/0": "de_woerter",
+	"deutsch/gross_klein/0": "de_case",
 }
+
+
+## Screen that runs an exercise id.
+static func screen_for(exercise_id: String) -> String:
+	return "exercise_de" if exercise_id.begins_with("de_") else "exercise"
+
+
+static func subject_of(exercise_id: String) -> String:
+	return "deutsch" if exercise_id.begins_with("de_") else "mathematik"
 
 
 static func exercise_for(subject_id: String, topic_id: String, level: int = 0) -> String:

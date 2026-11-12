@@ -207,5 +207,16 @@
  "cnt_prompt_forwards": "Считай дальше! Какого числа нет?",
  "cnt_prompt_backwards": "Считай назад! Какого числа нет?",
  "cnt_prompt_dice": "Сколько точек на кубиках?",
- "cnt_prompt_to_ten": "Сколько не хватает до 10?"
+ "cnt_prompt_to_ten": "Сколько не хватает до 10?",
+ "ex_de_letters_title": "Немецкий · Буквы",
+ "ex_de_anlaute_title": "Немецкий · Первый звук",
+ "ex_de_woerter_title": "Немецкий · Слова",
+ "ex_de_case_title": "Немецкий · Большие и маленькие",
+ "de_prompt_find": "Найди букву {l}!",
+ "de_prompt_lower": "Найди маленькую букву к {l}!",
+ "de_prompt_upper": "Найди большую букву к {l}!",
+ "de_prompt_first": "С какой буквы начинается это слово?",
+ "de_prompt_missing": "Какой буквы не хватает?",
+ "de_prompt_build": "Собери слово: {w}!",
+ "de_hint_build": "Выбирай буквы по порядку и нажимай OK."
 }

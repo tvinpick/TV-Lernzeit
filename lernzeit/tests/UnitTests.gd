@@ -215,5 +215,39 @@ func _ready() -> void:
 	var seq_t := cg.make_task("cnt_sequence")
 	check(seq_t["answer"] == seq_t["sequence"][seq_t["hole"]], "sequence: answer is the hidden number")
 
+	print("Deutsch letter generator")
+	var lg := LetterGenerator.new(4242)
+	var bad_letters := 0
+	for diff in ["easy", "auto", "hard"]:
+		lg.difficulty = diff
+		for m in LetterGenerator.ALL_MODES:
+			for i in 300:
+				var lt := lg.make_task(m)
+				if not lg.is_valid(lt):
+					bad_letters += 1
+					if bad_letters < 3:
+						print("       invalid: ", lt)
+				if diff == "easy" and lt.has("word") and (lt["word"] as String).length() > 4:
+					bad_letters += 1
+	check(bad_letters == 0, "4500 letter tasks valid (answer in options, unique, pictures exist, tiles = word)")
+	lg.difficulty = "auto"
+	var lsess := lg.make_session(10)
+	var lmodes := {}
+	for lt in lsess:
+		lmodes[lt["mode"]] = true
+	check(lsess.size() == 10 and lmodes.size() == 5, "Deutsch session: 10 tasks, all 5 modes")
+	var ct := lg.make_task("de_case")
+	var same_case := true
+	for o in ct["options"]:
+		same_case = same_case and ((o == (o as String).to_lower()) == (ct["answer"] == (ct["answer"] as String).to_lower()))
+	check(same_case, "upper/lower: options never mix cases")
+	var bt := lg.make_task("de_build")
+	check("".join(bt["tiles"]) != bt["word"] or (bt["word"] as String).length() < 2 or bt["word"] in ["MAMA"], "build word: tiles shuffled")
+	for w in LetterGenerator.PICTURE_WORDS:
+		check(ResourceLoader.exists(LetterGenerator.picture_path(w)), "picture for " + w)
+	var only_first := LetterGenerator.new(1)
+	only_first.allowed_modes = ["de_first"]
+	check(only_first.make_session(10).all(func(x): return x["mode"] == "de_first"), "topic sessions use only their modes (Anlaute)")
+
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)

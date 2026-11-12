@@ -12,6 +12,7 @@ const SCREENS := {
 	"pin": "res://scenes/parents/PinGate.tscn",
 	"parents": "res://scenes/parents/ParentDashboard.tscn",
 	"exercise": "res://scenes/exercises/MathExercise.tscn",
+	"exercise_de": "res://scenes/exercises/DeutschExercise.tscn",
 }
 
 var _host: Control

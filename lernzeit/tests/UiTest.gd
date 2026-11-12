@@ -386,19 +386,27 @@ func navigate_to(target: Control) -> void:
 
 
 func run_exercise() -> void:
-	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen"}[exercise]
+	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen",
+		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein"}[exercise]
+	var german := exercise.begins_with("de_")
+	var screen_id := "exercise_de" if german else "exercise"
+	var subject := "deutsch" if german else "mathematik"
 	print("Exercise %s – full session with the remote" % exercise)
+	if german:
+		await key(KEY_RIGHT)
 	await keys([KEY_ENTER])
 	await wait(0.4)
-	for i in ["zaehlen", "addition", "subtraktion"].find(topic):
+	var order: Array = ["buchstaben", "anlaute", "woerter", "gross_klein"] if german else ["zaehlen", "addition", "subtraktion"]
+	for i in order.find(topic):
 		await key(KEY_DOWN)
-	check(focus_name() == "Topic_" + topic, "Mathematik → " + topic)
-	await key(KEY_ENTER)
-	check(focus_name() == "Level_10", "levels: bis 10")
+	check(focus_name() == "Topic_" + topic, subject + " → " + topic)
+	if not german:
+		await key(KEY_ENTER)
+		check(focus_name() == "Level_10", "levels: bis 10")
 	await key(KEY_ENTER, 0.6)
-	check(main.current_id() == "exercise" and main.current_screen().exercise_id == exercise, "bis 10 opens the exercise")
+	check(main.current_id() == screen_id and main.current_screen().exercise_id == exercise, "topic opens the exercise")
 	var ex = main.current_screen()
-	check(focus_name() == "Answer_0" or focus_name() == "Picture_0", "first answer focused")
+	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0"], "first answer focused")
 	var shot_modes := {}
 	var guard := 0
 	var made_mistake := false
@@ -410,6 +418,19 @@ func run_exercise() -> void:
 		if not shot_modes.has(t["mode"]):
 			shot_modes[t["mode"]] = true
 			await shot("%s_%02d_%s" % [exercise, shot_modes.size(), t["mode"]])
+		if t["mode"] == "de_build":
+			var w: String = t["word"]
+			for k in w.length():
+				var tile: Control = null
+				for b in ex.active_buttons():
+					if b.value == w.substr(k, 1):
+						tile = b
+						break
+				await navigate_to(tile)
+				await key(KEY_ENTER, 0.25)
+			check(ex.session.solved >= 1, "word %s built tile by tile" % w)
+			await wait(1.3)
+			continue
 		var target: Control = null
 		for b in btns:
 			if b.value == t["answer"]:
@@ -434,16 +455,19 @@ func run_exercise() -> void:
 		if guard == 2:
 			await shot(exercise + "_correct_feedback")
 		await wait(1.2)
-	check(shot_modes.size() == 6, "all 6 representations shown: " + str(shot_modes.keys()))
+	check(shot_modes.size() == ex.generator.modes().size(), "all %d representations shown: %s" % [ex.generator.modes().size(), shot_modes.keys()])
 	check(ex.finished, "session finished")
 	check(ex.session.tasks.size() == 11, "one repetition of the mistaken task at the end")
 	await shot(exercise + "_results")
-	var recs := ProgressRepository.get_records("mathematik", topic)
+	var recs := ProgressRepository.get_records(subject, topic)
 	check(recs.size() == 1 and recs[0].correct_count == 9 and recs[0].total_count == 10, "record saved: 9 of 10 on the first try")
 	check(focus_name() == "ResultsAgain", "results: focus on 'Nochmal üben'")
 	await key(KEY_LEFT); await key(KEY_ENTER, 0.5)
-	check(main.current_id() == "subject" and focus_name() == "Level_10", "Zurück → subject menu, focus on bis 10")
-	await key(KEY_ESCAPE, 0.35); await key(KEY_ESCAPE, 0.5)
+	check(main.current_id() == "subject" and focus_name() == ("Topic_" + topic if german else "Level_10"), "Zurück → subject menu, focus restored")
+	await key(KEY_ESCAPE, 0.35)
+	if not german:
+		await key(KEY_ESCAPE, 0.5)     # maths: first Back leaves the level column
+	await wait(0.2)
 	check(main.current_id() == "home", "back home")
 	var home = main.current_screen()
 	check(not home.continue_button.disabled, "'Weiter üben' enabled after practising")
@@ -452,20 +476,27 @@ func run_exercise() -> void:
 	await key(KEY_RIGHT); check(focus_name() == "ContinueButton", "Right → Weiter üben")
 	await shot(exercise + "_home_continue")
 	await key(KEY_ENTER, 0.6)
-	check(main.current_id() == "exercise" and main.current_screen().exercise_id == exercise, "Weiter üben opens the same exercise")
+	check(main.current_id() == screen_id and main.current_screen().exercise_id == exercise, "Weiter üben opens the same exercise")
 	ex = main.current_screen()
 	for i in 2:
-		await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == ex.current_task()["answer"])[0])
-		await key(KEY_ENTER, 1.6)
+		var ct: Dictionary = ex.current_task()
+		if ct["mode"] == "de_build":
+			for k in (ct["word"] as String).length():
+				await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == (ct["word"] as String).substr(k, 1))[0])
+				await key(KEY_ENTER, 0.25)
+			await wait(1.4)
+		else:
+			await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == ct["answer"])[0])
+			await key(KEY_ENTER, 1.6)
 	check(ex.session.solved == 2, "2 tasks solved")
 	await key(KEY_ESCAPE, 0.4)
 	check(main.has_dialog(), "Back during the exercise asks before quitting")
 	await shot(exercise + "_quit_dialog")
 	await key(KEY_ESCAPE, 0.4)
-	check(not main.has_dialog() and main.current_id() == "exercise", "cancel → exercise continues")
+	check(not main.has_dialog() and main.current_id() == screen_id, "cancel → exercise continues")
 	await key(KEY_ESCAPE, 0.4); await key(KEY_RIGHT); await key(KEY_ENTER, 0.6)
 	check(main.current_id() == "home", "confirmed → back home")
-	recs = ProgressRepository.get_records("mathematik", topic)
+	recs = ProgressRepository.get_records(subject, topic)
 	check(recs.size() == 2 and recs[0].total_count == 2, "partial session saved (2 tasks)")
 	await keys([KEY_LEFT, KEY_ENTER]); await wait(0.5)
 	check(main.current_id() == "progress", "progress overview")

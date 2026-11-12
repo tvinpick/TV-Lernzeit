@@ -135,7 +135,11 @@ func _show_topic(i: int) -> void:
 func _on_topic_pressed(i: int) -> void:
 	var t := _topic(i)
 	if (t["levels"] as Array).is_empty():
-		main.push("unavailable", {"subject_id": subject_id, "topic_id": t["id"]})
+		var ex := Curriculum.exercise_for(subject_id, t["id"], 0)
+		if ex != "":
+			main.push(Curriculum.screen_for(ex), {"exercise": ex})
+		else:
+			main.push("unavailable", {"subject_id": subject_id, "topic_id": t["id"]})
 	else:
 		level_buttons[0].grab_focus()
 
@@ -144,7 +148,7 @@ func _on_level_pressed(n: int) -> void:
 	var tid: String = _topic(_current_topic)["id"]
 	var ex := Curriculum.exercise_for(subject_id, tid, n)
 	if ex != "":
-		main.push("exercise", {"exercise": ex})
+		main.push(Curriculum.screen_for(ex), {"exercise": ex})
 	else:
 		main.push("unavailable", {"subject_id": subject_id, "topic_id": tid, "level": n})
 

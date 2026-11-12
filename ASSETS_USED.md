@@ -120,3 +120,9 @@ Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле
 плюс общие `math/shared_ui/*` (кнопки ответов, баннер, обратная связь, точки, предметы) и знак «=» из комплекта вычитания.
 Для «Zählen bis 10» используется фон вычитания (у комплекта счёта своего фона нет). Плитки ряда чисел, десятка и
 карточки групп рисуются Godot (цифры — живым текстом, как рекомендует README комплекта).
+
+### Используется в немецком (v0.4.0)
+`deutsch/backgrounds/…_1080p.png`, `deutsch/pictures/*` (8 картинок), `deutsch/ui/panels/{Header,Question,Content,Word}_Panel`,
+`Picture_Frame`, `deutsch/ui/letter_buttons/{Default,Correct,Incorrect}` + `Deutsch_Focus_Overlay`, `deutsch/ui/word_tiles/*`,
+`deutsch/ui/progress/{Dot_Done,Dot_Current,Dot_Pending,Track}`, `deutsch/ui/controls/Deutsch_Progress_Counter_Blank`,
+`deutsch/ui/feedback/*`. Все буквы, слова и подсказки — живой текст Godot.

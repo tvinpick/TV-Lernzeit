@@ -59,7 +59,7 @@ func _ready() -> void:
 		var ex := Curriculum.last_practised_exercise()
 		if ex != "":
 			Sfx.play("select")
-			main.push("exercise", {"exercise": ex}))
+			main.push(Curriculum.screen_for(ex), {"exercise": ex}))
 
 	var hint := TextureRect.new()
 	hint.texture = preload("res://assets/buttons/control_hint_icon.png")
@@ -123,7 +123,7 @@ func _refresh() -> void:
 		cards[sid].dimmed = not SettingsRepository.is_subject_enabled(sid)
 	# "Weiter üben": continue the exercise that was practised before (only real exercises).
 	var last_ex := Curriculum.last_practised_exercise()
-	var can_continue := last_ex != "" and SettingsRepository.is_subject_enabled("mathematik")
+	var can_continue := last_ex != "" and SettingsRepository.is_subject_enabled(Curriculum.subject_of(last_ex))
 	continue_button.disabled = not can_continue
 	continue_button.focus_mode = Control.FOCUS_ALL if can_continue else Control.FOCUS_NONE
 	continue_button.modulate = Color.WHITE if can_continue else Color(0.78, 0.82, 0.92, 0.82)
