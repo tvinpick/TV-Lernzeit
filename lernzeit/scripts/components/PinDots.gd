@@ -13,7 +13,7 @@ var error := false:
 
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(420, 90)
+	custom_minimum_size = Vector2(420, 80)
 
 
 func _draw() -> void:

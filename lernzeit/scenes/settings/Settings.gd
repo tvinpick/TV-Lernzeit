@@ -235,14 +235,16 @@ func _link_content() -> void:
 	for b in nav_buttons.values():
 		if b != nav_b:
 			FocusManager.set_one(b, SIDE_RIGHT, b)
+	# Inside a section the focus is locked to that section: no way out to the
+	# menu or to the bottom buttons with the arrows – only Back leaves it.
 	for i in _row_controls.size():
 		var row: Array = _row_controls[i]
 		var up: Control = _row_controls[i - 1][0] if i > 0 else null
-		var down: Control = _row_controls[i + 1][0] if i < _row_controls.size() - 1 else back_button
+		var down: Control = _row_controls[i + 1][0] if i < _row_controls.size() - 1 else null
 		for c in row:
 			FocusManager.set_one(c, SIDE_TOP, up if up else c)
-			FocusManager.set_one(c, SIDE_BOTTOM, down)
-		FocusManager.set_one(row[0], SIDE_LEFT, nav_b)
+			FocusManager.set_one(c, SIDE_BOTTOM, down if down else c)
+		FocusManager.set_one(row[0], SIDE_LEFT, row[0])
 		if row.size() == 1:
 			if not (row[0] is VolumeSlider):
 				FocusManager.set_one(row[0], SIDE_RIGHT, row[0])

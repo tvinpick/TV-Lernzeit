@@ -24,11 +24,11 @@ func _ready() -> void:
 	add_title("pin_title", "res://assets/icons/Parents_Icon_PIN.png")
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", UiSkin.panel("main", 56))
-	panel.position = Vector2(460, 170)
-	panel.size = Vector2(1000, 850)
+	panel.position = Vector2(440, 160)
+	panel.size = Vector2(1040, 870)
 	add_child(panel)
 	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 14)
+	v.add_theme_constant_override("separation", 10)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	panel.add_child(v)
 	_title_l = Label.new()
@@ -50,7 +50,7 @@ func _ready() -> void:
 	var grid := GridContainer.new()
 	grid.columns = 3
 	grid.add_theme_constant_override("h_separation", 22)
-	grid.add_theme_constant_override("v_separation", 16)
+	grid.add_theme_constant_override("v_separation", 12)
 	grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(grid)
 	var labels := ["1", "2", "3", "4", "5", "6", "7", "8", "9", "pin_delete", "0", "cancel"]
@@ -72,7 +72,7 @@ func _ready() -> void:
 			b.add_theme_font_size_override("font_size", 44)
 			b.pressed.connect(_digit.bind(k))
 		b.name = "Key_" + k
-		b.custom_minimum_size = Vector2(250, 92)
+		b.custom_minimum_size = Vector2(250, 84)
 		grid.add_child(b)
 		keypad.append(b)
 	var hint := Label.new()

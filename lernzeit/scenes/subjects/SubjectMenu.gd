@@ -24,7 +24,7 @@ func _ready() -> void:
 	left.size = Vector2(800, 712)
 	add_child(left)
 	var lv := VBoxContainer.new()
-	lv.add_theme_constant_override("separation", 12)
+	lv.add_theme_constant_override("separation", 10)
 	left.add_child(lv)
 	var lt := Label.new()
 	lt.theme_type_variation = &"HeadingLabel"
@@ -36,7 +36,7 @@ func _ready() -> void:
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.theme_type_variation = &"PillButton"
 		b.name = "Topic_" + t["id"]
-		b.custom_minimum_size.y = 86
+		b.custom_minimum_size.y = 78
 		b.selected_variant = "cyan"
 		b.show_check = false
 		lv.add_child(b)
@@ -52,7 +52,7 @@ func _ready() -> void:
 	right.size = Vector2(1920 - SAFE_X - 940, 712)
 	add_child(right)
 	var rv := VBoxContainer.new()
-	rv.add_theme_constant_override("separation", 24)
+	rv.add_theme_constant_override("separation", 20)
 	right.add_child(rv)
 	_levels_title = Label.new()
 	_levels_title.theme_type_variation = &"HeadingLabel"
@@ -70,7 +70,7 @@ func _ready() -> void:
 	for n in Curriculum.MATH_LEVELS:
 		var lb := PillButton.make("", "blue")
 		lb.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
-		lb.custom_minimum_size = Vector2(360, 110)
+		lb.custom_minimum_size = Vector2(340, 104)
 		lb.name = "Level_%d" % n
 		lb.set_meta("level", n)
 		_levels_box.add_child(lb)

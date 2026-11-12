@@ -69,6 +69,8 @@ Settings / T05 Russian / T06 values
   ok   UI bus volume follows slider
   ok   animations off
   ok   text size large
+  ok   Down at last row stays inside the section
+  ok   Left at first control stays inside the section
   ok   theme font size increased
   ok   Back in content → nav column
   ok   read aloud shown as unavailable
@@ -124,7 +126,7 @@ T04 exit confirmation
 lockout after 5 wrong PINs
   ok   PIN pad locked after 5 wrong attempts
   ok   even the right PIN is refused while locked
-UI TEST: 106 checks, 0 failures
+UI TEST: 108 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -161,7 +163,7 @@ Localization
   ok   all topic keys translated []
 PIN hashing
   ok   16-byte salt
-       hash time: 17 ms
+       hash time: 25 ms
   ok   hash is hex SHA-256, not the PIN
   ok   deterministic for same salt
   ok   different salt → different hash

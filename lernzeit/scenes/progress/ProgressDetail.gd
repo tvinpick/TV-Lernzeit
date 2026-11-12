@@ -18,7 +18,7 @@ func _ready() -> void:
 	left.size = Vector2(1000, 720)
 	add_child(left)
 	var lv := VBoxContainer.new()
-	lv.add_theme_constant_override("separation", 10)
+	lv.add_theme_constant_override("separation", 8)
 	left.add_child(lv)
 	var lt := Label.new()
 	lt.theme_type_variation = &"HeadingLabel"
@@ -27,7 +27,7 @@ func _ready() -> void:
 	for t in Curriculum.topics(sid):
 		var row := PanelContainer.new()
 		row.add_theme_stylebox_override("panel", UiSkin.row("blue"))
-		row.custom_minimum_size.y = 86
+		row.custom_minimum_size.y = 74
 		lv.add_child(row)
 		var h := HBoxContainer.new()
 		h.add_theme_constant_override("separation", 16)
