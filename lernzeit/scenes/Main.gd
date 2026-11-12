@@ -22,6 +22,7 @@ var _overlay: Control
 var _toast: Toast
 var _stack: Array = []        ## [{id, screen, focus}]
 var _dir_input_ms := -1000
+var show_splash := true        ## tests switch it off before adding Main to the tree
 
 
 func _ready() -> void:
@@ -36,6 +37,53 @@ func _ready() -> void:
 	add_child(_toast)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	push("home")
+	if show_splash and AppState.animations_enabled():
+		_splash()
+
+
+## Start animation: logo pops in with sparkles, then fades into the home screen.
+func _splash() -> void:
+	var sp := Control.new()
+	sp.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	sp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sp.z_index = 100
+	add_child(sp)
+	var bg := ColorRect.new()
+	bg.color = Color(0.09, 0.36, 0.78, 1)
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sp.add_child(bg)
+	var logo := TextureRect.new()
+	logo.texture = preload("res://assets/branding/icon_192.png")
+	logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	logo.size = Vector2(260, 260)
+	logo.position = Vector2(960 - 130, 300)
+	logo.pivot_offset = logo.size / 2.0
+	logo.scale = Vector2.ZERO
+	sp.add_child(logo)
+	var title := Label.new()
+	title.text = "Lernzeit"
+	title.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	title.add_theme_font_override("font", UiTheme.font(UiTheme.FONT_XBOLD))
+	title.add_theme_font_size_override("font_size", 120)
+	title.add_theme_color_override("font_color", Color.WHITE)
+	title.add_theme_constant_override("outline_size", 14)
+	title.add_theme_color_override("font_outline_color", Color(0.05, 0.15, 0.5, 0.6))
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.size = Vector2(1920, 160)
+	title.position = Vector2(0, 590)
+	title.modulate.a = 0.0
+	sp.add_child(title)
+	var tw := create_tween()
+	tw.tween_property(logo, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(title, "modulate:a", 1.0, 0.25)
+	tw.tween_callback(func():
+		Juice.burst(sp, Vector2(960, 430), 9, 18)
+		Sfx.play("streak"))
+	tw.tween_interval(0.75)
+	tw.tween_property(sp, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(sp.queue_free)
 
 
 func _full_rect_control() -> Control:
@@ -72,12 +120,24 @@ func pop() -> void:
 	var s: BaseScreen = prev["screen"]
 	s.visible = true
 	s.on_shown()
-	_fade_in(s)
+	_slide_in(s, -1)
 	var f: Control = prev.get("focus")
 	if is_instance_valid(f) and f.is_visible_in_tree() and f.focus_mode != Control.FOCUS_NONE:
 		f.grab_focus.call_deferred()
 	else:
 		_focus_default()
+
+
+## Closes every screen above Home (e.g. "Pause machen").
+func pop_to_home() -> void:
+	while _stack.size() > 1:
+		var cur: Dictionary = _stack.pop_back()
+		cur["screen"].queue_free()
+	var home: BaseScreen = _top()["screen"]
+	home.visible = true
+	home.on_shown()
+	_slide_in(home, -1)
+	_focus_default()
 
 
 func _open(id: String, p: Dictionary) -> BaseScreen:
@@ -86,17 +146,22 @@ func _open(id: String, p: Dictionary) -> BaseScreen:
 	s.params = p
 	_host.add_child(s)
 	_stack.append({"id": id, "screen": s, "focus": null})
-	_fade_in(s)
+	_slide_in(s, 1)
 	_focus_default()
 	return s
 
 
-func _fade_in(s: Control) -> void:
+## New screens slide in from the right (back: from the left) while fading in.
+func _slide_in(s: Control, dir: int) -> void:
 	if AppState.animations_enabled():
 		s.modulate.a = 0.0
-		create_tween().tween_property(s, "modulate:a", 1.0, 0.18)
+		s.position.x = 80.0 * dir
+		var tw := create_tween().set_parallel()
+		tw.tween_property(s, "modulate:a", 1.0, 0.2)
+		tw.tween_property(s, "position:x", 0.0, 0.26).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	else:
 		s.modulate.a = 1.0
+		s.position.x = 0.0
 
 
 func _focus_default() -> void:

@@ -10,6 +10,7 @@ func _ready() -> void:
 		var tex: Texture2D = load(p)
 		print("load %s %dx%d: %s" % [p.get_file(), tex.get_width(), tex.get_height(), _ms(t0)])
 	var main = load("res://scenes/Main.tscn").instantiate()
+	main.show_splash = false
 	add_child(main)
 	for i in 10: await get_tree().process_frame
 	for id in ["settings", "progress", "subject", "pin", "parents", "settings"]:

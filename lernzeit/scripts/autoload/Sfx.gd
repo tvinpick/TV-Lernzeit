@@ -8,6 +8,9 @@ const SOUNDS := {
 	"back": preload("res://assets/sounds/back.wav"),
 	"toggle": preload("res://assets/sounds/toggle.wav"),
 	"error": preload("res://assets/sounds/error.wav"),
+	"streak": preload("res://assets/sounds/streak.wav"),
+	"pop": preload("res://assets/sounds/pop.wav"),
+	"pause": preload("res://assets/sounds/pause.wav"),
 }
 
 var _players: Array[AudioStreamPlayer] = []

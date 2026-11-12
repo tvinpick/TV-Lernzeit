@@ -131,6 +131,19 @@ func _build_rows() -> void:
 	controls["letters"] = lb
 	_update_letters()
 
+	# Diese Woche (short report for parents)
+	var wr := _row("res://assets/icons/Lernzeit_Icon_Calendar.png", "p_week", "", "row_blue")
+	var wsub := Label.new()
+	wsub.theme_type_variation = &"CaptionLabel"
+	wsub.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	wsub.name = "WeekSub"
+	wsub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	wr.title_label.get_parent().get_parent().add_child(wsub)
+	wr.name = "WeekRow"
+	wr.make_focusable()
+	_row_controls.append([wr])
+	_update_week()
+
 	# Schwierigkeit
 	var diff := OptionGroup.make([
 		{"value": "easy", "key": "diff_easy"}, {"value": "auto", "key": "diff_auto"},
@@ -221,6 +234,7 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
 		_update_profile()
 		_update_letters()
+		_update_week()
 
 
 func _update_profile() -> void:
@@ -241,6 +255,36 @@ func _update_letters() -> void:
 
 func on_shown() -> void:
 	_update_letters()
+	_update_week()
+
+
+## Last 7 days: minutes, number of exercises, strongest / weakest topic (by first-try accuracy).
+func _update_week() -> void:
+	var l: Label = find_child("WeekSub", true, false)
+	if l == null:
+		return
+	var since := int(Time.get_unix_time_from_system()) - 7 * 86400
+	var secs := 0
+	var n := 0
+	var acc := {}      # topic key -> [correct, total]
+	for r in ProgressRepository.get_records():
+		if r.timestamp < since:
+			continue
+		n += 1
+		secs += r.duration_seconds
+		var k := Curriculum.topic_key(r.subject_id, r.topic_id)
+		var v: Array = acc.get(k, [0, 0])
+		acc[k] = [v[0] + r.correct_count, v[1] + r.total_count]
+	if n == 0:
+		l.text = tr("p_week_none")
+		return
+	var keys := acc.keys().filter(func(k): return acc[k][1] > 0)
+	keys.sort_custom(func(x, y): return float(acc[x][0]) / acc[x][1] > float(acc[y][0]) / acc[y][1])
+	var mins := maxi(1, int(round(secs / 60.0)))
+	if keys.size() >= 2:
+		l.text = Localization.t("p_week_sub", {"min": mins, "n": n, "best": tr(keys[0]), "weak": tr(keys[-1])})
+	else:
+		l.text = Localization.t("p_week_sub_one", {"min": mins, "n": n, "best": tr(keys[0]) if not keys.is_empty() else ""})
 
 
 func _edit_name() -> void:

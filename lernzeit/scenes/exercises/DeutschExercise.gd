@@ -50,6 +50,9 @@ var _hole_label: Label
 var _slots: Array = []          ## [{rect, label}] while building a word
 var _placed := 0
 var _build_wrong := {}          ## letters that were expected when a wrong tile was chosen
+var _streak := 0
+var _mistakes := 0
+var adaptive: AdaptiveLevel
 
 
 func _ready() -> void:
@@ -59,6 +62,7 @@ func _ready() -> void:
 	generator = LetterGenerator.new(int(params.get("seed", -1)))
 	generator.allowed_modes = config["modes"]
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
+	adaptive = AdaptiveLevel.new(generator.difficulty)
 	session = ExerciseSession.new("deutsch", config["topic"], "de-letters-v1",
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
@@ -261,6 +265,9 @@ func _show_task() -> void:
 	_slots = []
 	_placed = 0
 	_build_wrong = {}
+	_mistakes = 0
+	_prompt.remove_theme_color_override("font_color")
+	_prompt.add_theme_color_override("font_color", INK)
 	var build: bool = t["mode"] == "de_build"
 	_letters_row.visible = not build
 	_tiles_row.visible = build
@@ -398,13 +405,16 @@ func _on_letter(btn: LetterButton) -> void:
 		if _hole_label:
 			_hole_label.text = btn.value
 			_hole_label.add_theme_color_override("font_color", Color("1f9a3a"))
-		await _solved()
+			Juice.pop(_hole_label.get_parent(), 1.2)
+		Juice.pop(btn, 1.15)
+		await _solved(btn.get_global_rect().get_center())
 	else:
 		Sfx.play("error")
 		btn.state = "wrong"
 		btn.shake()
 		_show_feedback(false)
 		_focus_next_available(btn, letter_buttons)
+		_mistake()
 
 
 ## Word building: the tile must be the next letter of the word.
@@ -417,13 +427,14 @@ func _on_tile(tile: LetterButton) -> void:
 		var slot: Dictionary = _slots[_placed]
 		(slot["rect"] as TextureRect).texture = SLOT["filled"]
 		(slot["label"] as Label).text = tile.value
+		Juice.pop(slot["rect"], 1.18)
 		_placed += 1
 		if _placed < _slots.size():
 			(_slots[_placed]["rect"] as TextureRect).texture = SLOT["selected"]
 		tile.state = "used"
 		if _placed == w.length():
 			session.submit(w)
-			await _solved()
+			await _solved(tile.get_global_rect().get_center())
 		else:
 			_focus_next_available(tile, tile_buttons)
 	else:
@@ -432,6 +443,7 @@ func _on_tile(tile: LetterButton) -> void:
 		_build_wrong[w.substr(_placed, 1)] = true
 		tile.shake()
 		_show_feedback(false)
+		_mistake()
 
 
 func _focus_next_available(from: LetterButton, src: Array) -> void:
@@ -462,19 +474,66 @@ func _record_letters() -> void:
 	ProgressRepository.add_letter_results(res)
 
 
-func _solved() -> void:
+func _solved(from: Vector2 = Vector2(960, 540)) -> void:
+	var first_try := not session.was_wrong_this_task()
 	_record_letters()
 	_busy = true
 	Sfx.play("select")
 	_show_feedback(true)
-	_update_dots()
-	await get_tree().create_timer(1.2 if AppState.animations_enabled() else 0.9).timeout
+	Juice.burst(self, from)
+	_reward_progress(from, first_try)
+	await get_tree().create_timer(1.4 if AppState.animations_enabled() else 0.9).timeout
 	if not is_inside_tree() or finished:
 		return
+	if not session.is_repeat() and adaptive.record(first_try):
+		generator.difficulty = adaptive.level()
+		AdaptiveLevel.regenerate(session, generator)
 	if session.advance():
 		_show_task()
 	else:
 		_finish()
+
+
+func _reward_progress(from: Vector2, first_try: bool) -> void:
+	var idx := session.solved - 1
+	if idx >= 0 and idx < 10 and not session.is_repeat():
+		for i in 10:
+			(_dots.get_child(i) as TextureRect).texture = DOT["done"] if i < idx else DOT["pending"]
+		var dot := _dots.get_child(idx) as TextureRect
+		Juice.fly_star(self, from, dot.get_global_rect().get_center(), func():
+			if is_instance_valid(dot):
+				dot.texture = DOT["done"]
+				Juice.pop(dot, 1.6)
+				Sfx.play("pop"))
+	else:
+		_update_dots()
+	if first_try and not session.is_repeat():
+		_streak += 1
+		if _streak in [3, 5, 7, 10]:
+			Sfx.play("streak")
+			Juice.banner(self, Localization.t("ex_streak", {"n": _streak}), Color("a23cc8"), 560)
+	else:
+		_streak = 0
+
+
+## 1st mistake → tip in the question panel; 2nd → the right letter / next tile glows.
+func _mistake() -> void:
+	_mistakes += 1
+	_streak = 0
+	var t := session.current()
+	if _mistakes == 1:
+		await get_tree().create_timer(1.05).timeout
+		if not is_inside_tree() or _busy or session.current() != t:
+			return
+		var tip := Localization.t("tip_" + t["mode"], {"l": t.get("letter", t.get("shown", ""))})
+		_prompt.text = Localization.t("ex_tip", {"t": tip})
+		_prompt.add_theme_color_override("font_color", Color("c25e00"))
+	else:
+		var want: String = (t["word"] as String).substr(_placed, 1) if t["mode"] == "de_build" else t["answer"]
+		for b in active_buttons():
+			if b.value == want:
+				Juice.hint_pulse(b)
+				break
 
 
 func _show_feedback(ok: bool) -> void:
@@ -521,6 +580,8 @@ func _save() -> void:
 
 func _finish() -> void:
 	finished = true
+	_feedback.visible = false
+	_prompt.visible = true
 	_save()
 	_update_dots()
 	_results = Control.new()
@@ -552,8 +613,10 @@ func _finish() -> void:
 	stars.alignment = BoxContainer.ALIGNMENT_CENTER
 	stars.add_theme_constant_override("separation", 6)
 	v.add_child(stars)
+	var star_nodes: Array = []
 	for i in session.main_count:
 		var s := TextureRect.new()
+		star_nodes.append(s)
 		s.texture = preload("res://assets/math/shared_ui/Object_Star_Yellow.png")
 		s.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		s.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -584,6 +647,17 @@ func _finish() -> void:
 	again.name = "ResultsAgain"
 	again.custom_minimum_size.x = 360
 	again.pressed.connect(func(): main.replace("exercise_de", {"exercise": exercise_id}))
+	Juice.burst(self, Vector2(960, 300), 10, 30)
+	Sfx.play("streak")
+	if AppState.animations_enabled():
+		for i in star_nodes.size():
+			var st: Control = star_nodes[i]
+			st.scale = Vector2.ZERO
+			st.pivot_offset = Vector2(35, 35)
+			var tw := create_tween()
+			tw.tween_interval(0.25 + 0.12 * i)
+			tw.tween_property(st, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	PauseReminder.maybe_show(self, main, 1.9)
 	_show_new_achievements()
 	hb.add_child(again)
 	FocusManager.set_neighbors(back, null, again)

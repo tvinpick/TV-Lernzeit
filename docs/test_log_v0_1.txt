@@ -155,7 +155,7 @@ UI TEST: 7 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 
 Localization
-  ok   de.json and ru.json have identical keys (260)
+  ok   de.json and ru.json have identical keys (290)
   ok   brief key present: settings
   ok   brief key present: progress
   ok   brief key present: home_prompt
@@ -170,7 +170,7 @@ Localization
   ok   all topic keys translated []
 PIN hashing
   ok   16-byte salt
-       hash time: 17 ms
+       hash time: 16 ms
   ok   hash is hex SHA-256, not the PIN
   ok   deterministic for same salt
   ok   different salt → different hash
@@ -301,7 +301,16 @@ Achievements
   ok   8 secure letters unlocked
   ok   Weiter üben: newest record (sub10) wins
   ok   reset removes achievements
-UNIT TESTS: 98 checks, 0 failures
+Adaptive level / pause reminder
+  ok   3 right in a row → harder
+  ok   never more than one step above the parents' setting
+  ok   2 tasks with mistakes in a row → easier
+  ok   down to easy
+  ok   never more than one step below the parents' setting
+  ok   regenerated tasks: same representations, harder numbers, valid
+  ok   no pause reminder without practice
+  ok   16 min today with 15 min setting → pause suggested
+UNIT TESTS: 106 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -332,12 +341,13 @@ Achievements and learned letters
   ok   expected achievements unlocked: ["first_steps", "perfect", "perfect_3", "days_3", "math_trio", "math_20"]
   ok   back home
   ok   parents area
+  ok   weekly report row: Noch keine Übungen in den letzten 7 Tagen
   ok   parents row: 7 letters secure (7 sicher · 3 in Übung)
   ok   reach 'Gelernte Buchstaben'
   ok   letters overview opens
   ok   tile colours: M secure, U practice, Z not started
   ok   Back → parents area
-UI TEST: 13 checks, 0 failures
+UI TEST: 14 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -352,33 +362,35 @@ Exercise count10 – full session with the remote
   ok   levels: Level_10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: cnt_sequence answer=6 options=[9, 8, 7, 6]
+  ok   task 1 valid: cnt_dice answer=4 options=[3, 2, 7, 4]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Zähle alle Punkte auf den Würfeln.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: cnt_more answer=10 options=[5, 10]
+  ok   task 2 valid: cnt_objects answer=8 options=[9, 8, 5, 6]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: cnt_bigger answer=9 options=[9, 0]
+  ok   task 3 valid: cnt_sequence answer=7 options=[6, 7, 10, 5]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: cnt_sequence answer=2 options=[1, 0, 5, 2]
+  ok   task 4 valid: cnt_to_ten answer=7 options=[9, 8, 7, 6]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: cnt_sequence answer=5 options=[3, 8, 4, 5]
+  ok   task 5 valid: cnt_more answer=6 options=[6, 1]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: cnt_to_ten answer=1 options=[1, 0, 3, 4]
+  ok   task 6 valid: cnt_to_ten answer=2 options=[2, 5, 4, 1]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: cnt_objects answer=10 options=[7, 10, 8, 9]
+  ok   task 7 valid: cnt_bigger answer=3 options=[1, 3]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: cnt_to_ten answer=3 options=[5, 4, 3, 1]
+  ok   task 8 valid: cnt_to_ten answer=8 options=[8, 6, 5, 10]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: cnt_dice answer=10 options=[9, 7, 6, 10]
+  ok   task 9 valid: cnt_more answer=6 options=[6, 2]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: cnt_bigger answer=8 options=[8, 0]
+  ok   task 10 valid: cnt_more answer=10 options=[10, 2]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: cnt_sequence answer=6 options=[9, 8, 7, 6]
+  ok   task 11 valid: cnt_dice answer=4 options=[3, 2, 7, 4]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["cnt_sequence", "cnt_more", "cnt_bigger", "cnt_to_ten", "cnt_objects", "cnt_dice"]
+  ok   all 6 representations shown: ["cnt_dice", "cnt_objects", "cnt_sequence", "cnt_to_ten", "cnt_more", "cnt_bigger"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -396,7 +408,7 @@ Exercise count10 – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 48 checks, 0 failures
+UI TEST: 50 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -411,33 +423,35 @@ Exercise add10 – full session with the remote
   ok   levels: Level_10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: add_choose answer=3 + 4 options=["3 + 4", "1 + 4", "3 + 3", "2 + 3"]
+  ok   task 1 valid: add_to_ten answer=4 options=[4, 3, 5, 6]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Zähle die leeren Felder.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: add_equation answer=9 options=[7, 9, 8, 10]
+  ok   task 2 valid: add_missing answer=3 options=[3, 1, 6, 4]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: add_missing answer=1 options=[2, 4, 1, 3]
+  ok   task 3 valid: add_choose answer=2 + 1 options=["4 + 2", "2 + 1", "3 + 3", "2 + 2"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: add_choose answer=1 + 4 options=["1 + 3", "2 + 5", "1 + 4", "3 + 4"]
+  ok   task 4 valid: add_missing answer=8 options=[10, 7, 9, 8]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: add_to_ten answer=9 options=[5, 9, 6, 8]
+  ok   task 5 valid: add_choose answer=3 + 3 options=["2 + 1", "3 + 3", "5 + 4", "3 + 4"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: add_groups answer=2 options=[2, 4, 0, 5]
+  ok   task 6 valid: add_dice answer=3 options=[6, 3, 5, 2]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: add_dice answer=5 options=[7, 3, 5, 4]
+  ok   task 7 valid: add_groups answer=6 options=[8, 4, 6, 7]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: add_missing answer=2 options=[2, 1, 3, 0]
+  ok   task 8 valid: add_choose answer=5 + 3 options=["5 + 3", "4 + 2", "7 + 3", "4 + 3"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: add_to_ten answer=6 options=[9, 6, 8, 7]
+  ok   task 9 valid: add_equation answer=10 options=[10, 6, 8, 7]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: add_groups answer=6 options=[9, 4, 6, 8]
+  ok   task 10 valid: add_equation answer=9 options=[10, 8, 6, 9]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: add_choose answer=3 + 4 options=["3 + 4", "1 + 4", "3 + 3", "2 + 3"]
+  ok   task 11 valid: add_to_ten answer=4 options=[4, 3, 5, 6]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["add_choose", "add_equation", "add_missing", "add_to_ten", "add_groups", "add_dice"]
+  ok   all 6 representations shown: ["add_to_ten", "add_missing", "add_choose", "add_dice", "add_groups", "add_equation"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -455,7 +469,7 @@ Exercise add10 – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 48 checks, 0 failures
+UI TEST: 50 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -470,33 +484,35 @@ Exercise sub10 – full session with the remote
   ok   levels: Level_10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: missing answer=4 options=[2, 6, 4, 7]
+  ok   task 1 valid: equation answer=1 options=[5, 0, 1, 4]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Starte bei 4 und zähle 3 zurück.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: missing answer=3 options=[2, 1, 3, 4]
+  ok   task 2 valid: number_line answer=5 options=[7, 6, 3, 5]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: number_line answer=5 options=[3, 4, 5, 7]
+  ok   task 3 valid: ten_frame answer=2 options=[1, 0, 3, 2]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: picture answer=3 options=[4, 1, 6, 3]
+  ok   task 4 valid: ten_frame answer=8 options=[7, 8, 9, 5]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: objects answer=9 options=[9, 7, 5, 6]
+  ok   task 5 valid: missing answer=4 options=[3, 6, 2, 4]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: equation answer=3 options=[1, 4, 3, 2]
+  ok   task 6 valid: missing answer=3 options=[1, 2, 5, 3]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: ten_frame answer=5 options=[3, 8, 5, 4]
+  ok   task 7 valid: equation answer=4 options=[5, 2, 4, 3]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: equation answer=6 options=[6, 5, 7, 8]
+  ok   task 8 valid: objects answer=4 options=[5, 7, 4, 2]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: objects answer=3 options=[1, 4, 5, 3]
+  ok   task 9 valid: picture answer=5 options=[5, 3, 7, 4]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: equation answer=3 options=[1, 3, 6, 2]
+  ok   task 10 valid: number_line answer=1 options=[5, 1, 4, 0]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: missing answer=4 options=[2, 6, 4, 7]
+  ok   task 11 valid: equation answer=1 options=[5, 0, 1, 4]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["missing", "number_line", "picture", "objects", "equation", "ten_frame"]
+  ok   all 6 representations shown: ["equation", "number_line", "ten_frame", "missing", "objects", "picture"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -514,7 +530,7 @@ Exercise sub10 – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 48 checks, 0 failures
+UI TEST: 50 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -529,33 +545,35 @@ Exercise count20 – full session with the remote
   ok   levels: Level_20
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: cnt_sequence answer=9 options=[12, 9, 7, 11]
+  ok   task 1 valid: cnt_dice answer=8 options=[10, 6, 9, 8]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Zähle alle Punkte auf den Würfeln.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: cnt_dice answer=10 options=[10, 8, 11, 9]
+  ok   task 2 valid: cnt_objects answer=19 options=[19, 15, 18, 17]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: cnt_objects answer=12 options=[14, 11, 15, 12]
+  ok   task 3 valid: cnt_bigger answer=15 options=[15, 11]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: cnt_more answer=17 options=[8, 17]
+  ok   task 4 valid: cnt_objects answer=17 options=[16, 19, 17, 15]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: cnt_bigger answer=15 options=[13, 15]
+  ok   task 5 valid: cnt_sequence answer=18 options=[16, 18, 15, 19]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: cnt_to_ten answer=1 options=[1, 5, 0, 3]
+  ok   task 6 valid: cnt_objects answer=12 options=[12, 13, 15, 11]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: cnt_bigger answer=17 options=[16, 17]
+  ok   task 7 valid: cnt_objects answer=15 options=[16, 17, 13, 15]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: cnt_objects answer=12 options=[11, 15, 13, 12]
+  ok   task 8 valid: cnt_sequence answer=18 options=[15, 18, 17, 16]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: cnt_sequence answer=16 options=[16, 17, 15, 18]
+  ok   task 9 valid: cnt_more answer=19 options=[10, 19]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: cnt_objects answer=11 options=[11, 14, 12, 10]
+  ok   task 10 valid: cnt_to_ten answer=5 options=[5, 7, 3, 6]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: cnt_sequence answer=9 options=[12, 9, 7, 11]
+  ok   task 11 valid: cnt_dice answer=8 options=[10, 6, 9, 8]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["cnt_sequence", "cnt_dice", "cnt_objects", "cnt_more", "cnt_bigger", "cnt_to_ten"]
+  ok   all 6 representations shown: ["cnt_dice", "cnt_objects", "cnt_bigger", "cnt_sequence", "cnt_more", "cnt_to_ten"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -573,7 +591,7 @@ Exercise count20 – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 48 checks, 0 failures
+UI TEST: 50 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -588,33 +606,35 @@ Exercise add20 – full session with the remote
   ok   levels: Level_20
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: add_choose answer=1 + 5 options=["1 + 7", "1 + 5", "3 + 5", "2 + 5"]
+  ok   task 1 valid: add_missing answer=6 options=[9, 7, 8, 6]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Zähle von 6 bis 12. Wie viele Schritte sind das?
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: add_missing answer=3 options=[1, 2, 6, 3]
+  ok   task 2 valid: add_equation answer=16 options=[17, 16, 18, 14]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: add_missing answer=15 options=[16, 15, 14, 17]
+  ok   task 3 valid: add_groups answer=12 options=[10, 15, 12, 11]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: add_equation answer=19 options=[15, 20, 16, 19]
+  ok   task 4 valid: add_groups answer=16 options=[14, 16, 15, 18]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: add_missing answer=2 options=[0, 5, 4, 2]
+  ok   task 5 valid: add_dice answer=12 options=[13, 11, 14, 12]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: add_equation answer=18 options=[18, 16, 17, 15]
+  ok   task 6 valid: add_missing answer=4 options=[4, 5, 7, 2]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: add_groups answer=16 options=[16, 18, 19, 14]
+  ok   task 7 valid: add_choose answer=2 + 4 options=["3 + 6", "2 + 3", "2 + 4", "1 + 4"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: add_to_ten answer=5 options=[5, 3, 4, 7]
+  ok   task 8 valid: add_dice answer=12 options=[11, 12, 10, 14]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: add_dice answer=10 options=[8, 11, 13, 10]
+  ok   task 9 valid: add_dice answer=8 options=[7, 9, 11, 8]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: add_choose answer=2 + 4 options=["1 + 3", "2 + 4", "2 + 6", "4 + 4"]
+  ok   task 10 valid: add_to_ten answer=1 options=[2, 5, 0, 1]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: add_choose answer=1 + 5 options=["1 + 7", "1 + 5", "3 + 5", "2 + 5"]
+  ok   task 11 valid: add_missing answer=6 options=[9, 7, 8, 6]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["add_choose", "add_missing", "add_equation", "add_groups", "add_to_ten", "add_dice"]
+  ok   all 6 representations shown: ["add_missing", "add_equation", "add_groups", "add_dice", "add_choose", "add_to_ten"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -632,7 +652,7 @@ Exercise add20 – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 48 checks, 0 failures
+UI TEST: 50 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -647,33 +667,35 @@ Exercise sub20 – full session with the remote
   ok   levels: Level_20
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: missing answer=9 options=[8, 10, 9, 11]
+  ok   task 1 valid: objects answer=10 options=[10, 9, 11, 8]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Zähle nur die Dinge ohne Kreuz.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: equation answer=10 options=[13, 11, 8, 10]
+  ok   task 2 valid: picture answer=3 options=[3, 4, 6, 2]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: missing answer=9 options=[9, 7, 11, 8]
+  ok   task 3 valid: missing answer=12 options=[14, 15, 10, 12]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: picture answer=5 options=[4, 6, 5, 8]
+  ok   task 4 valid: missing answer=12 options=[15, 10, 13, 12]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: equation answer=9 options=[7, 8, 10, 9]
+  ok   task 5 valid: ten_frame answer=11 options=[10, 14, 11, 9]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: objects answer=12 options=[13, 15, 10, 12]
+  ok   task 6 valid: ten_frame answer=3 options=[3, 2, 6, 4]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: number_line answer=14 options=[17, 16, 12, 14]
+  ok   task 7 valid: equation answer=14 options=[14, 17, 16, 13]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: missing answer=5 options=[8, 5, 7, 6]
+  ok   task 8 valid: number_line answer=12 options=[15, 12, 11, 13]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: ten_frame answer=14 options=[13, 14, 16, 17]
+  ok   task 9 valid: number_line answer=9 options=[10, 7, 8, 9]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: ten_frame answer=9 options=[8, 11, 9, 10]
+  ok   task 10 valid: ten_frame answer=3 options=[1, 3, 4, 2]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: missing answer=9 options=[8, 10, 9, 11]
+  ok   task 11 valid: objects answer=10 options=[10, 9, 11, 8]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["missing", "equation", "picture", "objects", "number_line", "ten_frame"]
+  ok   all 6 representations shown: ["objects", "picture", "missing", "ten_frame", "equation", "number_line"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -691,7 +713,7 @@ Exercise sub20 – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 48 checks, 0 failures
+UI TEST: 50 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -705,33 +727,35 @@ Exercise de_letters – full session with the remote
   ok   deutsch → buchstaben
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_first answer=W options=["M", "N", "W", "V"]
+  ok   task 1 valid: de_build answer=GANS options=["GANS"]
+  ok   word GANS built tile by tile
+  ok   task 2 valid: de_first answer=S options=["B", "C", "S", "Z"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Sag das Wort leise. Welcher Laut kommt zuerst?
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_first answer=G options=["O", "A", "G", "M"]
+  ok   task 3 valid: de_case answer=b options=["q", "d", "p", "b"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_missing answer=E options=["A", "F", "B", "E"]
+  ok   task 4 valid: de_build answer=LAMA options=["LAMA"]
+  ok   word LAMA built tile by tile
+  ok   task 5 valid: de_find answer=E options=["B", "F", "E", "A"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_build answer=BALL options=["BALL"]
-  ok   word BALL built tile by tile
-  ok   task 5 valid: de_first answer=E options=["A", "B", "F", "E"]
+  ok   task 6 valid: de_build answer=KUH options=["KUH"]
+  ok   word KUH built tile by tile
+  ok   task 7 valid: de_missing answer=Ö options=["E", "X", "Ö", "K"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_find answer=M options=["H", "N", "W", "M"]
+  ok   task 8 valid: de_find answer=Z options=["W", "H", "Z", "J"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_missing answer=N options=["N", "U", "H", "M"]
+  ok   task 9 valid: de_first answer=N options=["N", "U", "H", "M"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_build answer=UHU options=["UHU"]
-  ok   word UHU built tile by tile
-  ok   task 9 valid: de_case answer=G options=["R", "B", "G", "U"]
+  ok   task 10 valid: de_case answer=v options=["v", "m", "ä", "t"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_missing answer=O options=["A", "U", "O", "Q"]
+  ok   task 11 valid: de_first answer=S options=["B", "C", "S", "Z"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_first answer=W options=["M", "N", "W", "V"]
-  ok   reached the correct answer with the arrows
-  ok   all 5 representations shown: ["de_first", "de_missing", "de_build", "de_find", "de_case"]
+  ok   all 5 representations shown: ["de_build", "de_first", "de_case", "de_find", "de_missing"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -749,7 +773,7 @@ Exercise de_letters – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 47 checks, 0 failures
+UI TEST: 49 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -763,33 +787,35 @@ Exercise de_anlaute – full session with the remote
   ok   deutsch → anlaute
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_first answer=U options=["V", "O", "U", "N"]
+  ok   task 1 valid: de_first answer=D options=["B", "P", "D", "O"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Sag das Wort leise. Welcher Laut kommt zuerst?
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_first answer=G options=["L", "B", "N", "G"]
+  ok   task 2 valid: de_first answer=O options=["U", "O", "A", "Q"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_first answer=A options=["A", "O", "H", "E"]
+  ok   task 3 valid: de_first answer=P options=["B", "F", "P", "R"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_first answer=I options=["L", "T", "J", "I"]
+  ok   task 4 valid: de_first answer=F options=["P", "T", "E", "F"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_first answer=H options=["H", "K", "N", "M"]
+  ok   task 5 valid: de_first answer=L options=["I", "T", "L", "E"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_first answer=N options=["N", "M", "U", "H"]
+  ok   task 6 valid: de_first answer=S options=["C", "Z", "B", "S"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_first answer=P options=["F", "R", "P", "B"]
+  ok   task 7 valid: de_first answer=A options=["O", "H", "E", "A"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_first answer=O options=["U", "O", "A", "Q"]
+  ok   task 8 valid: de_first answer=F options=["T", "P", "E", "F"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_first answer=E options=["A", "F", "B", "E"]
+  ok   task 9 valid: de_first answer=B options=["D", "P", "R", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_first answer=I options=["L", "J", "I", "T"]
+  ok   task 10 valid: de_first answer=M options=["M", "H", "W", "N"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_first answer=U options=["V", "O", "U", "N"]
+  ok   task 11 valid: de_first answer=D options=["B", "P", "D", "O"]
   ok   reached the correct answer with the arrows
   ok   all 1 representations shown: ["de_first"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -807,7 +833,7 @@ Exercise de_anlaute – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 47 checks, 0 failures
+UI TEST: 49 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -821,33 +847,35 @@ Exercise de_woerter – full session with the remote
   ok   deutsch → woerter
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_missing answer=A options=["E", "H", "A", "O"]
+  ok   task 1 valid: de_build answer=UHU options=["UHU"]
+  ok   word UHU built tile by tile
+  ok   task 2 valid: de_build answer=MAMA options=["MAMA"]
+  ok   word MAMA built tile by tile
+  ok   task 3 valid: de_missing answer=G options=["B", "N", "G", "O"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Lies das Wort langsam. Welcher Laut fehlt?
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_build answer=MAMA options=["MAMA"]
-  ok   word MAMA built tile by tile
-  ok   task 3 valid: de_missing answer=S options=["C", "Z", "B", "S"]
-  ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_build answer=GABEL options=["GABEL"]
-  ok   word GABEL built tile by tile
-  ok   task 5 valid: de_build answer=BUS options=["BUS"]
-  ok   word BUS built tile by tile
-  ok   task 6 valid: de_build answer=ESEL options=["ESEL"]
-  ok   word ESEL built tile by tile
-  ok   task 7 valid: de_build answer=WOLKE options=["WOLKE"]
+  ok   task 4 valid: de_build answer=WOLKE options=["WOLKE"]
   ok   word WOLKE built tile by tile
-  ok   task 8 valid: de_build answer=AUTO options=["AUTO"]
-  ok   word AUTO built tile by tile
-  ok   task 9 valid: de_missing answer=B options=["R", "B", "D", "P"]
+  ok   task 5 valid: de_build answer=SOFA options=["SOFA"]
+  ok   word SOFA built tile by tile
+  ok   task 6 valid: de_missing answer=A options=["O", "A", "E", "H"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_missing answer=H options=["H", "M", "K", "N"]
+  ok   task 7 valid: de_build answer=WAL options=["WAL"]
+  ok   word WAL built tile by tile
+  ok   task 8 valid: de_missing answer=T options=["F", "I", "L", "T"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_missing answer=A options=["E", "H", "A", "O"]
+  ok   task 9 valid: de_missing answer=H options=["H", "N", "K", "M"]
   ok   reached the correct answer with the arrows
-  ok   all 2 representations shown: ["de_missing", "de_build"]
+  ok   task 10 valid: de_build answer=ROSE options=["ROSE"]
+  ok   word ROSE built tile by tile
+  ok   task 11 valid: de_missing answer=G options=["B", "N", "G", "O"]
+  ok   reached the correct answer with the arrows
+  ok   all 2 representations shown: ["de_build", "de_missing"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -865,7 +893,7 @@ Exercise de_woerter – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 47 checks, 0 failures
+UI TEST: 49 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -879,33 +907,35 @@ Exercise de_case – full session with the remote
   ok   deutsch → gross_klein
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_case answer=E options=["E", "B", "A", "F"]
+  ok   task 1 valid: de_case answer=i options=["f", "t", "j", "i"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Groß und klein sehen oft ähnlich aus. Vergleiche genau.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_case answer=f options=["t", "f", "k", "l"]
+  ok   task 2 valid: de_case answer=e options=["a", "o", "c", "e"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_case answer=F options=["T", "F", "P", "E"]
+  ok   task 3 valid: de_case answer=F options=["E", "F", "T", "P"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_case answer=o options=["o", "e", "c", "a"]
+  ok   task 4 valid: de_case answer=S options=["Z", "C", "S", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_case answer=e options=["a", "o", "c", "e"]
+  ok   task 5 valid: de_case answer=W options=["V", "N", "W", "M"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_case answer=n options=["u", "h", "m", "n"]
+  ok   task 6 valid: de_case answer=k options=["x", "h", "t", "k"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_case answer=p options=["d", "b", "q", "p"]
+  ok   task 7 valid: de_case answer=h options=["h", "n", "k", "b"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_case answer=d options=["p", "b", "d", "q"]
+  ok   task 8 valid: de_case answer=C options=["U", "M", "Z", "C"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_case answer=L options=["L", "I", "E", "T"]
+  ok   task 9 valid: de_case answer=M options=["W", "H", "M", "N"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_case answer=T options=["T", "I", "F", "L"]
+  ok   task 10 valid: de_case answer=o options=["o", "e", "c", "a"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_case answer=E options=["E", "B", "A", "F"]
+  ok   task 11 valid: de_case answer=i options=["f", "t", "j", "i"]
   ok   reached the correct answer with the arrows
   ok   all 1 representations shown: ["de_case"]
   ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
   ok   results: focus on 'Nochmal üben'
@@ -923,4 +953,4 @@ Exercise de_case – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 47 checks, 0 failures
+UI TEST: 49 checks, 0 failures

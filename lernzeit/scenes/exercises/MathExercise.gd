@@ -60,6 +60,9 @@ var _result_label: Label
 var _number_line: NumberLineView
 var _busy := false
 var _results: Control
+var _streak := 0
+var _mistakes := 0             ## mistakes in the current task (tips, then highlighting)
+var adaptive: AdaptiveLevel
 
 
 func _ready() -> void:
@@ -73,6 +76,7 @@ func _ready() -> void:
 		_: generator = SubtractionGenerator.new(seed_value)
 	generator.max_value = config.get("max", 10)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
+	adaptive = AdaptiveLevel.new(generator.difficulty)
 	session = ExerciseSession.new("mathematik", config["topic"], config["version"],
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
@@ -303,8 +307,10 @@ func _show_task() -> void:
 	_busy = false
 	_feedback.visible = false
 	_prompt.visible = true
+	_mistakes = 0
 	var t := session.current()
 	_prompt.text = tr(t["prompt"])
+	_prompt.remove_theme_color_override("font_color")
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
 	_repeat_badge.visible = session.is_repeat()
 	for i in 10:
@@ -436,6 +442,8 @@ func _stage_objects(t: Dictionary) -> void:
 		o.custom_minimum_size = Vector2(s, s)
 		o.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(o)
+		if i < a - b:
+			o.set_meta("count", true)
 		if i >= a - b:                       # the last b objects are taken away
 			o.modulate = Color(1, 1, 1, 0.75)
 			var x := TextureRect.new()
@@ -533,7 +541,9 @@ func _group_card(n: int, tex_key: String, s: float) -> PanelContainer:
 	g.add_theme_constant_override("v_separation", 6)
 	card.add_child(g)
 	for i in n:
-		g.add_child(_object(tex_key, s))
+		var o := _object(tex_key, s)
+		o.set_meta("count", true)
+		g.add_child(o)
 	return card
 
 
@@ -631,6 +641,10 @@ func _ten_frame(filled: int, crossed: int, cell: int, offset: int = 0) -> PanelC
 		c.custom_minimum_size = Vector2(cell, cell * 0.95)
 		grid.add_child(c)
 		var gi := i + offset
+		if gi >= filled:
+			c.set_meta("empty", true)
+		elif gi < filled - crossed:
+			c.set_meta("count", true)
 		if gi < filled:
 			var t := TextureRect.new()
 			t.texture = OBJECT_TEX["counter"]
@@ -683,7 +697,9 @@ func _stage_count(n: int, tex_key: String) -> void:
 	center.add_child(g)
 	var sz := 150.0 if n <= 5 else (128.0 if n <= 10 else minf(128.0, (1500.0 - 12 * (g.columns - 1)) / g.columns))
 	for i in n:
-		g.add_child(_object(tex_key, sz))
+		var o := _object(tex_key, sz)
+		o.set_meta("count", true)
+		g.add_child(o)
 
 
 ## Number tiles in a row (forwards / backwards), one hidden behind "?".
@@ -717,19 +733,24 @@ func _on_answer(btn: AnswerButton) -> void:
 		return
 	if session.submit(btn.value):
 		_busy = true
+		var first_try := not session.was_wrong_this_task()
 		Sfx.play("select")
 		btn.state = "correct"
+		Juice.pop(btn, 1.15)
+		Juice.burst(self, btn.get_global_rect().get_center())
 		if _result_label:
 			_result_label.text = str(btn.value)
 			_result_label.add_theme_color_override("font_color", Color("2a9d3a"))
 		if _number_line:
 			_number_line.solved = true
 		_show_feedback(true)
-		for i in 10:
-			(_dots.get_child(i) as TextureRect).texture = DOT_FILLED if i < session.solved else DOT_EMPTY
-		await get_tree().create_timer(1.2 if AppState.animations_enabled() else 0.9).timeout
+		_reward_progress(btn.get_global_rect().get_center(), first_try)
+		await get_tree().create_timer(1.4 if AppState.animations_enabled() else 0.9).timeout
 		if not is_inside_tree() or finished:
 			return
+		if not session.is_repeat() and adaptive.record(first_try):
+			generator.difficulty = adaptive.level()
+			AdaptiveLevel.regenerate(session, generator)
 		if session.advance():
 			_show_task()
 		else:
@@ -738,7 +759,10 @@ func _on_answer(btn: AnswerButton) -> void:
 		Sfx.play("error")
 		btn.state = "wrong"
 		btn.shake()
+		_mistakes += 1
+		_streak = 0
 		_show_feedback(false)
+		_give_help()
 		# focus the nearest button that is still available
 		var btns := active_buttons()
 		var idx := btns.find(btn)
@@ -748,6 +772,80 @@ func _on_answer(btn: AnswerButton) -> void:
 				btns[j].grab_focus()
 				break
 		_relink_after_wrong()
+
+
+## Fills the progress dot with a flying star; streak banner for 3/5/7/10 in a row.
+func _reward_progress(from: Vector2, first_try: bool) -> void:
+	var idx := session.solved - 1
+	for i in 10:
+		(_dots.get_child(i) as TextureRect).texture = DOT_FILLED if i < idx else DOT_EMPTY
+	if idx >= 0 and idx < 10 and not session.is_repeat():
+		var dot := _dots.get_child(idx) as TextureRect
+		Juice.fly_star(self, from, dot.get_global_rect().get_center(), func():
+			if is_instance_valid(dot):
+				dot.texture = DOT_FILLED
+				Juice.pop(dot, 1.6)
+				Sfx.play("pop"))
+	else:
+		for i in 10:
+			(_dots.get_child(i) as TextureRect).texture = DOT_FILLED if i < session.solved else DOT_EMPTY
+	if first_try and not session.is_repeat():
+		_streak += 1
+		if _streak in [3, 5, 7, 10]:
+			Sfx.play("streak")
+			Juice.banner(self, Localization.t("ex_streak", {"n": _streak}), Color("ffb300"), 560)
+	else:
+		_streak = 0
+
+
+## Help after a mistake: 1st → tip in the question banner (+ counting help on
+## pictures), 2nd and later → the correct answer glows.
+func _give_help() -> void:
+	var t := session.current()
+	if _mistakes == 1:
+		var tip := _tip_text(t)
+		await get_tree().create_timer(1.05).timeout       # after the "Noch einmal!" plate
+		if not is_inside_tree() or _busy or session.current() != t:
+			return
+		_prompt.text = Localization.t("ex_tip", {"t": tip})
+		_prompt.add_theme_color_override("font_color", Color("c25e00"))
+		var key := "empty" if t["mode"] in ["add_to_ten", "cnt_to_ten"] else "count"
+		if t["mode"] in ["objects", "ten_frame", "add_groups", "add_choose", "add_to_ten", "cnt_objects", "cnt_to_ten"]:
+			Juice.count_overlay(_stage, _find_meta(_stage, key))
+	else:
+		for b in active_buttons():
+			if b.value == t["answer"]:
+				Juice.hint_pulse(b)
+
+
+func _tip_text(t: Dictionary) -> String:
+	var a = t.get("a", 0)
+	var b = t.get("b", 0)
+	match t["mode"]:
+		"objects", "ten_frame": return tr("tip_count_rest")
+		"equation": return Localization.t("tip_sub_equation", {"a": a, "b": b})
+		"missing": return Localization.t("tip_sub_missing", {"a": a, "r": t.get("result", 0)})
+		"number_line": return tr("tip_number_line")
+		"picture": return Localization.t("tip_sub_picture", {"a": a, "b": b})
+		"add_groups", "cnt_objects": return tr("tip_count_all")
+		"add_equation": return Localization.t("tip_add_equation", {"a": a, "b": b})
+		"add_to_ten", "cnt_to_ten": return tr("tip_count_empty")
+		"add_dice", "cnt_dice": return tr("tip_dice")
+		"add_missing": return Localization.t("tip_add_missing", {"a": a, "s": t.get("sum", 0)})
+		"add_choose": return tr("tip_add_choose")
+		"cnt_bigger": return tr("tip_bigger")
+		"cnt_more": return tr("tip_more")
+		"cnt_sequence": return tr("tip_backwards") if t.get("backwards", false) else tr("tip_forwards")
+	return tr(t["prompt"])
+
+
+func _find_meta(root: Node, key: String) -> Array:
+	var out: Array = []
+	for c in root.get_children():
+		if c.has_meta(key):
+			out.append(c)
+		out.append_array(_find_meta(c, key))
+	return out
 
 
 ## Skip disabled (wrong) buttons when moving left/right.
@@ -806,6 +904,8 @@ func _save() -> void:
 
 func _finish() -> void:
 	finished = true
+	_feedback.visible = false
+	_prompt.visible = true
 	_save()
 	_results = Control.new()
 	_results.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -840,8 +940,10 @@ func _finish() -> void:
 	stars.alignment = BoxContainer.ALIGNMENT_CENTER
 	stars.add_theme_constant_override("separation", 6)
 	v.add_child(stars)
+	var star_nodes: Array = []
 	for i in session.main_count:     # one star per task solved on the first try, faint for the rest
 		var s := TextureRect.new()
+		star_nodes.append(s)
 		s.texture = OBJECT_TEX["star"]
 		s.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		s.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -871,6 +973,7 @@ func _finish() -> void:
 	again.name = "ResultsAgain"
 	again.custom_minimum_size.x = 360
 	again.pressed.connect(func(): main.replace("exercise", {"exercise": exercise_id}))
+	_celebrate(star_nodes)
 	_show_new_achievements()
 	h.add_child(again)
 	FocusManager.set_neighbors(back, null, again)
@@ -905,3 +1008,20 @@ func _request_quit() -> void:
 		_save()
 		main.pop())
 	main.show_dialog(d)
+
+
+## Results: confetti, stars pop in one by one, then maybe the break reminder.
+func _celebrate(star_nodes: Array) -> void:
+	Juice.burst(self, Vector2(960, 300), 10, 30)
+	Sfx.play("streak")
+	if AppState.animations_enabled():
+		for i in star_nodes.size():
+			var st: Control = star_nodes[i]
+			st.scale = Vector2.ZERO
+			st.pivot_offset = Vector2(35, 35)
+			var tw := create_tween()
+			tw.tween_interval(0.25 + 0.12 * i)
+			tw.tween_property(st, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			if i < session.first_try_correct:
+				tw.tween_callback(Sfx.play.bind("pop"))
+	PauseReminder.maybe_show(self, main, 1.9)

@@ -22,6 +22,7 @@ func _ready() -> void:
 	if shots_dir != "":
 		DirAccess.make_dir_recursive_absolute(shots_dir)
 	main = load("res://scenes/Main.tscn").instantiate()
+	main.show_splash = false
 	add_child(main)
 	await wait(0.6)
 	if phase == "restart":
@@ -65,6 +66,15 @@ func keys(seq: Array) -> void:
 func android_back() -> void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_GO_BACK_REQUEST)
 	await wait(0.3)
+
+
+## Waits until the exercise shows another task (or finishes); animations take ~1.5 s.
+func wait_next_task(ex, t: Dictionary, limit: float = 4.0) -> void:
+	var waited := 0.0
+	while waited < limit and not ex.finished and ex.current_task() == t:
+		await wait(0.1)
+		waited += 0.1
+	await wait(0.15)
 
 
 func press_until(k: Key, target: String, limit: int) -> void:
@@ -443,7 +453,7 @@ func run_exercise() -> void:
 				await navigate_to(tile)
 				await key(KEY_ENTER, 0.25)
 			check(ex.session.solved >= 1, "word %s built tile by tile" % w)
-			await wait(1.3)
+			await wait_next_task(ex, t)
 			continue
 		var target: Control = null
 		for b in btns:
@@ -463,14 +473,19 @@ func run_exercise() -> void:
 			check(ex.session.solved == solved_before, "no progress for a wrong answer")
 			check(get_viewport().gui_get_focus_owner() != wrong_btn and get_viewport().gui_get_focus_owner() in btns, "focus moved to another answer")
 			await shot(exercise + "_wrong_feedback")
+			await wait(1.3)
+			var tip_text: String = ex._prompt.text
+			check(tip_text.begins_with(Localization.t("ex_tip", {"t": ""}).strip_edges()), "tip shown after the first mistake: " + tip_text)
+			await shot(exercise + "_tip")
 		await navigate_to(target)
 		check(get_viewport().gui_get_focus_owner() == target, "reached the correct answer with the arrows")
 		await key(KEY_ENTER, 0.3)
 		if guard == 2:
 			await shot(exercise + "_correct_feedback")
-		await wait(1.2)
+		await wait_next_task(ex, t)
 	check(shot_modes.size() == ex.generator.modes().size(), "all %d representations shown: %s" % [ex.generator.modes().size(), shot_modes.keys()])
 	check(ex.finished, "session finished")
+	check(ex.generator.difficulty == "hard", "adaptive: many right answers in a row → harder tasks (%s)" % ex.generator.difficulty)
 	check(ex.session.tasks.size() == 11, "one repetition of the mistaken task at the end")
 	await shot(exercise + "_results")
 	var recs := ProgressRepository.get_records(subject, topic)
@@ -498,10 +513,11 @@ func run_exercise() -> void:
 			for k in (ct["word"] as String).length():
 				await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == (ct["word"] as String).substr(k, 1))[0])
 				await key(KEY_ENTER, 0.25)
-			await wait(1.4)
+			await wait_next_task(ex, ct)
 		else:
 			await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == ct["answer"])[0])
-			await key(KEY_ENTER, 1.6)
+			await key(KEY_ENTER, 0.2)
+			await wait_next_task(ex, ct)
 	check(ex.session.solved == 2, "2 tasks solved")
 	await key(KEY_ESCAPE, 0.4)
 	check(main.has_dialog(), "Back during the exercise asks before quitting")
@@ -551,6 +567,8 @@ func run_extras() -> void:
 	await keys([KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_RIGHT, KEY_ENTER]); await wait(0.4)
 	await keys([KEY_1, KEY_3, KEY_5, KEY_7]); await wait(0.8)
 	check(main.current_id() == "parents", "parents area")
+	var week_l: Label = main.current_screen().find_child("WeekSub", true, false)
+	check(week_l != null and week_l.text != "", "weekly report row: " + (week_l.text if week_l else ""))
 	var sub_l: Label = main.current_screen().find_child("LettersSub", true, false)
 	check(sub_l.text.begins_with("7"), "parents row: 7 letters secure (" + sub_l.text + ")")
 	for i in 6:

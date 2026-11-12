@@ -9,6 +9,7 @@ func _ready() -> void:
 		if a.begins_with("--out="): out = a.trim_prefix("--out=")
 		if a.begins_with("--frames="): frames = int(a.trim_prefix("--frames="))
 	var main = load("res://scenes/Main.tscn").instantiate()
+	main.show_splash = false
 	add_child(main)
 	for i in frames:
 		await get_tree().process_frame
