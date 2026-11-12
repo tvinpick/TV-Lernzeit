@@ -104,5 +104,26 @@ func _ready() -> void:
 	check(rec.total_count >= rec.correct_count, "record sanitised (total >= correct)")
 	check(ProgressRecord.from_dict({"subject_id": 3}) == null, "invalid record rejected")
 
+	print("Exercise graphics kits (KitAssets registry)")
+	var bad := []
+	var alpha_missing := []
+	for key in KitAssets.TEXTURES:
+		var spec: Array = KitAssets.TEXTURES[key]
+		var tex := KitAssets.texture(key)
+		if tex == null or tex.get_width() != spec[1] or tex.get_height() != spec[2]:
+			bad.append(key)
+			continue
+		if not key.contains("backgrounds/"):
+			var img := tex.get_image()
+			if img.is_compressed():
+				img.decompress()
+			if not img.detect_alpha():
+				alpha_missing.append(key)
+	check(KitAssets.TEXTURES.size() == 73, "73 kit textures registered (%d)" % KitAssets.TEXTURES.size())
+	check(bad.is_empty(), "all kit textures load as separate resources with manifest size " + str(bad))
+	check(alpha_missing.is_empty(), "all kit sprites have real alpha transparency " + str(alpha_missing))
+	check(KitAssets.keys_with_prefix("deutsch_pictures/").size() == 8, "8 Deutsch pictures")
+	check(not FileAccess.file_exists("res://references"), "mock-up screens are not inside the Godot project")
+
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)

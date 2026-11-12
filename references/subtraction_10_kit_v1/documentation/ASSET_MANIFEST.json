@@ -1,0 +1,230 @@
+[
+  {
+    "path": "Backgrounds/Lernzeit_Subtraction_10_Background_4K.png",
+    "width": 3840,
+    "height": 2160,
+    "mode": "RGB"
+  },
+  {
+    "path": "Concepts/Lernzeit_Subtraction_10_01_Crossed_Out_Apples.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB"
+  },
+  {
+    "path": "Concepts/Lernzeit_Subtraction_10_02_Subtraction_Equation.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB"
+  },
+  {
+    "path": "Concepts/Lernzeit_Subtraction_10_03_Missing_Number.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB"
+  },
+  {
+    "path": "Concepts/Lernzeit_Subtraction_10_04_Number_Line_Backward_Jumps.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB"
+  },
+  {
+    "path": "Concepts/Lernzeit_Subtraction_10_05_Ten_Frame_Take_Away.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB"
+  },
+  {
+    "path": "Concepts/Lernzeit_Subtraction_10_06_Choose_Correct_Picture.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB"
+  },
+  {
+    "path": "Shared_UI/Answer_Blue.png",
+    "width": 700,
+    "height": 350,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Answer_Green.png",
+    "width": 700,
+    "height": 350,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Answer_Purple.png",
+    "width": 700,
+    "height": 350,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Answer_Selected_Blue.png",
+    "width": 700,
+    "height": 350,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Answer_Yellow.png",
+    "width": 700,
+    "height": 350,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Button_Back.png",
+    "width": 240,
+    "height": 240,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Button_Hint.png",
+    "width": 240,
+    "height": 240,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Button_Listen.png",
+    "width": 240,
+    "height": 240,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Feedback_Correct.png",
+    "width": 960,
+    "height": 336,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Feedback_Wrong.png",
+    "width": 960,
+    "height": 348,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Object_Apple_Red.png",
+    "width": 380,
+    "height": 380,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Object_Counter_Blue.png",
+    "width": 300,
+    "height": 300,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Object_Star_Yellow.png",
+    "width": 380,
+    "height": 380,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Progress_Dot_Empty.png",
+    "width": 128,
+    "height": 128,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Progress_Dot_Filled.png",
+    "width": 128,
+    "height": 128,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Question_Banner.png",
+    "width": 2248,
+    "height": 345,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Shared_UI/Ten_Frame_Empty.png",
+    "width": 1158,
+    "height": 448,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Icons/Subtraction_Counter_Removed_Ghost.png",
+    "width": 300,
+    "height": 300,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Icons/Subtraction_Cross_Red.png",
+    "width": 440,
+    "height": 440,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Icons/Subtraction_Equals_Blue.png",
+    "width": 440,
+    "height": 330,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Icons/Subtraction_Minus_Red.png",
+    "width": 440,
+    "height": 330,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Icons/Subtraction_Strike_Overlay_Transparent.png",
+    "width": 440,
+    "height": 440,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Equation_Panel_Blank.png",
+    "width": 1200,
+    "height": 360,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Illustration_Panel_Blank.png",
+    "width": 1450,
+    "height": 650,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Jump_Back_Arrow.png",
+    "width": 550,
+    "height": 340,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Number_Line_0_to_10_No_Labels.png",
+    "width": 1600,
+    "height": 390,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Number_Line_Marker_Finish_Green.png",
+    "width": 290,
+    "height": 290,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Number_Line_Marker_Start_Blue.png",
+    "width": 290,
+    "height": 290,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Remove_Arrow_Right.png",
+    "width": 670,
+    "height": 220,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Result_Box_Blank.png",
+    "width": 400,
+    "height": 400,
+    "mode": "RGBA"
+  },
+  {
+    "path": "Subtraction_Tools/Subtraction_Ten_Frame_Empty.png",
+    "width": 1160,
+    "height": 480,
+    "mode": "RGBA"
+  }
+]
