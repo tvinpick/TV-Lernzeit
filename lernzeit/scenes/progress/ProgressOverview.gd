@@ -53,13 +53,14 @@ func _ready() -> void:
 	bottom.add_child(back_button)
 	back_button.pressed.connect(func(): main.pop())
 	achievements_button = PillButton.make("achievements", "light", preload("res://assets/icons/Settings_Icon_Achievements.png"))
-	achievements_button.disabled = true
-	achievements_button.focus_mode = Control.FOCUS_NONE
+	achievements_button.name = "AchievementsButton"
 	achievements_button.custom_minimum_size.x = 300
+	achievements_button.pressed.connect(func(): main.push("achievements"))
 	bottom.add_child(achievements_button)
 	var note := Label.new()
+	note.name = "AchievementsNote"
 	note.theme_type_variation = &"OnDarkCaption"
-	note.text = "achievements_later"
+	note.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	note.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -70,7 +71,8 @@ func _ready() -> void:
 		FocusManager.set_one(r, SIDE_LEFT, r)
 		FocusManager.set_one(r, SIDE_RIGHT, r)
 	FocusManager.set_one(rows.back(), SIDE_BOTTOM, back_button)
-	FocusManager.set_neighbors(back_button, null, null, rows.back(), null)
+	FocusManager.set_neighbors(back_button, null, achievements_button, rows.back(), null)
+	FocusManager.set_neighbors(achievements_button, back_button, null, rows.back(), null)
 	_refresh()
 
 
@@ -89,3 +91,10 @@ func _refresh() -> void:
 	stat_topics.set_value(str(s["topics_practiced"]))
 	for sid in subject_rows:
 		subject_rows[sid].refresh()
+	var note: Label = find_child("AchievementsNote", true, false)
+	note.text = Localization.t("ach_count", {"n": Achievements.unlocked_ids().size(), "total": Achievements.LIST.size()})
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		_refresh()

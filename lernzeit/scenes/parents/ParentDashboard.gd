@@ -116,6 +116,21 @@ func _build_rows() -> void:
 	FocusManager.link_row(chips)
 	_row_controls.append(chips)
 
+	# Gelernte Buchstaben (letter statistics from the German exercises)
+	var lr := _row("res://assets/icons/subject_deutsch.png", "p_letters", "", "row_purple")
+	var lsub := Label.new()
+	lsub.theme_type_variation = &"CaptionLabel"
+	lsub.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	lsub.name = "LettersSub"
+	lr.title_label.get_parent().get_parent().add_child(lsub)
+	var lb := PillButton.make("p_letters_button", "light", null, true)
+	lb.name = "LettersButton"
+	lr.add_control(lb)
+	lb.pressed.connect(func(): main.push("letters"))
+	_row_controls.append([lb])
+	controls["letters"] = lb
+	_update_letters()
+
 	# Schwierigkeit
 	var diff := OptionGroup.make([
 		{"value": "easy", "key": "diff_easy"}, {"value": "auto", "key": "diff_auto"},
@@ -205,6 +220,7 @@ func _link() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
 		_update_profile()
+		_update_letters()
 
 
 func _update_profile() -> void:
@@ -213,6 +229,18 @@ func _update_profile() -> void:
 		return
 	var n: String = draft["child_name"]
 	sub.text = tr("p_profile_noname") if n == "" else Localization.t("p_profile_named", {"name": n})
+
+
+func _update_letters() -> void:
+	var l: Label = find_child("LettersSub", true, false)
+	if l:
+		l.text = Localization.t("p_letters_sub", {
+			"secure": ProgressRepository.letters_with_status("secure").size(),
+			"practice": ProgressRepository.letters_with_status("practice").size()})
+
+
+func on_shown() -> void:
+	_update_letters()
 
 
 func _edit_name() -> void:
@@ -251,6 +279,7 @@ func _confirm_reset() -> void:
 	var d := ConfirmDialog.make("p_reset_title", Localization.t("p_reset_message", {"n": n}), "p_reset_button", "red")
 	d.confirmed.connect(func():
 		ProgressRepository.reset_all()
+		_update_letters()
 		toast(tr("p_reset_done")))
 	main.show_dialog(d)
 

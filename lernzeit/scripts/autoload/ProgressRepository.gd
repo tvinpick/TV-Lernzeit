@@ -9,6 +9,10 @@ const FILE := "progress.json"
 const SCHEMA := 1
 
 var _records: Array[ProgressRecord] = []
+## Per-letter history for "Gelernte Buchstaben": letter -> "10110…" (1 = right on the first
+## try), newest last, at most LETTER_HISTORY entries.
+var _letters := {}
+const LETTER_HISTORY := 10
 
 
 func _ready() -> void:
@@ -22,7 +26,13 @@ func _path() -> String:
 
 func load_records() -> void:
 	_records.clear()
+	_letters.clear()
 	var d := SafeFile.read_json_dict(_path())
+	var ld = d.get("letters", {})
+	if ld is Dictionary:
+		for k in ld:
+			if k is String and k.length() == 1 and ld[k] is String:
+				_letters[k] = (ld[k] as String).replace("2", "").right(LETTER_HISTORY)
 	for item in d.get("records", []):
 		if item is Dictionary:
 			var r := ProgressRecord.from_dict(item)
@@ -36,7 +46,7 @@ func _save() -> bool:
 	var arr := []
 	for r in _records:
 		arr.append(r.to_dict())
-	return SafeFile.write_text(_path(), JSON.stringify({"schema": SCHEMA, "records": arr}, "\t"))
+	return SafeFile.write_text(_path(), JSON.stringify({"schema": SCHEMA, "records": arr, "letters": _letters}, "\t"))
 
 
 func add_record(r: ProgressRecord) -> void:
@@ -62,6 +72,7 @@ func get_records(subject_id: String = "", topic_id: String = "") -> Array[Progre
 func reset_all() -> int:
 	var n := _records.size()
 	_records.clear()
+	_letters.clear()
 	_save()
 	progress_changed.emit()
 	return n
@@ -110,3 +121,43 @@ func topic_status(subject_id: String, topic_id: String) -> String:
 	if acc >= 0.7:
 		return "good"
 	return "practice"
+
+
+# ----------------------------------------------------------------- letters ---
+
+## results: {"M": true, "A": false}  (true = right on the first try)
+func add_letter_results(results: Dictionary) -> void:
+	if results.is_empty():
+		return
+	for l in results:
+		var key := (l as String).to_upper()
+		var h: String = _letters.get(key, "")
+		h = (h + ("1" if results[l] else "0")).right(LETTER_HISTORY)
+		_letters[key] = h
+	_save()
+	progress_changed.emit()
+
+
+## "not_started" | "practice" | "secure"
+## secure = at least 3 answers and >= 80 % right on the first try among the last 5.
+func letter_status(letter: String) -> String:
+	var h: String = _letters.get(letter.to_upper(), "")
+	if h.is_empty():
+		return "not_started"
+	var last := h.right(5)
+	if h.length() >= 3 and float(last.count("1")) / last.length() >= 0.8:
+		return "secure"
+	return "practice"
+
+
+func letter_history(letter: String) -> String:
+	return _letters.get(letter.to_upper(), "")
+
+
+func letters_with_status(status: String) -> Array:
+	var out: Array = []
+	for l in _letters:
+		if letter_status(l) == status:
+			out.append(l)
+	out.sort()
+	return out

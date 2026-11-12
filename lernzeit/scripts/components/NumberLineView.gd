@@ -6,6 +6,7 @@ extends Control
 
 var start := 8
 var jumps := 3
+var max_n := 10      ## 10 or 20
 var solved := false:
 	set(v):
 		solved = v
@@ -19,7 +20,7 @@ const ORANGE := Color("f59a1b")
 
 func _x(i: int) -> float:
 	var margin := 60.0
-	return margin + (size.x - margin * 2.0) * i / 10.0
+	return margin + (size.x - margin * 2.0) * i / float(max_n)
 
 
 func _draw() -> void:
@@ -29,14 +30,15 @@ func _draw() -> void:
 	draw_line(Vector2(20, y), Vector2(size.x - 14, y), BLUE, 8.0, true)
 	draw_colored_polygon(PackedVector2Array([Vector2(size.x, y), Vector2(size.x - 30, y - 16), Vector2(size.x - 30, y + 16)]), BLUE)
 	var end := start - jumps
-	for i in 11:
+	var fs := 44 if max_n <= 10 else 34
+	for i in max_n + 1:
 		var x := _x(i)
 		draw_line(Vector2(x, y - 20), Vector2(x, y + 20), BLUE, 6.0, true)
 		if i == start or i == end:
 			continue
 		var s := str(i)
-		var w := f.get_string_size(s, HORIZONTAL_ALIGNMENT_LEFT, -1, 44).x
-		draw_string(f, Vector2(x - w / 2.0, y + 74), s, HORIZONTAL_ALIGNMENT_LEFT, -1, 44, UiTheme.NAVY)
+		var w := f.get_string_size(s, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		draw_string(f, Vector2(x - w / 2.0, y + 74), s, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiTheme.NAVY)
 	# jumps start → start-1 → ... (arcs above the line)
 	for k in jumps:
 		var x0 := _x(start - k)
@@ -47,7 +49,8 @@ func _draw() -> void:
 		var tip := Vector2(x1 + r * (1 - cos(0.25)), y - 10 - r * sin(0.25))
 		draw_colored_polygon(PackedVector2Array([tip + Vector2(-4, 14), tip + Vector2(-14, -10), tip + Vector2(12, -6)]), RED)
 		# "−1" chip
-		var chip := Rect2(Vector2(c.x - 34, y - r - 70), Vector2(68, 44))
+		var cw := 68.0 if max_n <= 10 else 50.0
+		var chip := Rect2(Vector2(c.x - cw / 2.0, y - r - (70 if max_n <= 10 else 60)), Vector2(cw, 44 if max_n <= 10 else 38))
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color("ffd9dc")
 		sb.border_color = RED
@@ -55,15 +58,18 @@ func _draw() -> void:
 		sb.set_corner_radius_all(18)
 		sb.draw(get_canvas_item(), chip)
 		var t := "−1"
-		var tw := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, 30).x
-		draw_string(f, Vector2(chip.get_center().x - tw / 2.0, chip.get_center().y + 11), t, HORIZONTAL_ALIGNMENT_LEFT, -1, 30, RED)
+		var cfs := 30 if max_n <= 10 else 24
+		var tw := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, cfs).x
+		draw_string(f, Vector2(chip.get_center().x - tw / 2.0, chip.get_center().y + cfs * 0.36), t, HORIZONTAL_ALIGNMENT_LEFT, -1, cfs, RED)
 	_marker(_x(start), y, str(start), BLUE)
 	_marker(_x(end), y, str(end) if solved else "?", GREEN if solved else ORANGE)
 
 
 func _marker(x: float, y: float, text: String, col: Color) -> void:
 	var f := UiTheme.font(UiTheme.FONT_XBOLD)
-	draw_circle(Vector2(x, y + 50), 38, Color.WHITE)
-	draw_circle(Vector2(x, y + 50), 32, col)
-	var w := f.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 42).x
-	draw_string(f, Vector2(x - w / 2.0, y + 65), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 42, Color.WHITE)
+	var big := max_n <= 10
+	draw_circle(Vector2(x, y + 50), 38 if big else 32, Color.WHITE)
+	draw_circle(Vector2(x, y + 50), 32 if big else 27, col)
+	var fs := 42 if big else 34
+	var w := f.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+	draw_string(f, Vector2(x - w / 2.0, y + 50 + fs * 0.36), text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)

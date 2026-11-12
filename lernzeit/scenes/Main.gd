@@ -13,6 +13,8 @@ const SCREENS := {
 	"parents": "res://scenes/parents/ParentDashboard.tscn",
 	"exercise": "res://scenes/exercises/MathExercise.tscn",
 	"exercise_de": "res://scenes/exercises/DeutschExercise.tscn",
+	"achievements": "res://scenes/progress/AchievementsScreen.tscn",
+	"letters": "res://scenes/parents/LettersOverview.tscn",
 }
 
 var _host: Control

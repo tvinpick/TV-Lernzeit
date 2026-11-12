@@ -49,6 +49,7 @@ var _results: Control
 var _hole_label: Label
 var _slots: Array = []          ## [{rect, label}] while building a word
 var _placed := 0
+var _build_wrong := {}          ## letters that were expected when a wrong tile was chosen
 
 
 func _ready() -> void:
@@ -60,6 +61,7 @@ func _ready() -> void:
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	session = ExerciseSession.new("deutsch", config["topic"], "de-letters-v1",
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
+	_ach_before = Achievements.unlocked_ids()
 	_build_layout()
 	_show_task()
 
@@ -258,6 +260,7 @@ func _show_task() -> void:
 	_hole_label = null
 	_slots = []
 	_placed = 0
+	_build_wrong = {}
 	var build: bool = t["mode"] == "de_build"
 	_letters_row.visible = not build
 	_tiles_row.visible = build
@@ -426,6 +429,7 @@ func _on_tile(tile: LetterButton) -> void:
 	else:
 		Sfx.play("error")
 		session.mark_wrong()
+		_build_wrong[w.substr(_placed, 1)] = true
 		tile.shake()
 		_show_feedback(false)
 
@@ -440,7 +444,26 @@ func _focus_next_available(from: LetterButton, src: Array) -> void:
 			return
 
 
+## "Gelernte Buchstaben": which letters this task practised and whether they were
+## right on the first try (repetitions at the end are not counted twice).
+func _record_letters() -> void:
+	var t := session.current()
+	if session.is_repeat():
+		return
+	var ok := not session.was_wrong_this_task()
+	var res := {}
+	if t["mode"] == "de_build":
+		var w: String = t["word"]
+		for i in w.length():
+			var l := w.substr(i, 1)
+			res[l] = not _build_wrong.has(l)
+	else:
+		res[(t["answer"] as String).to_upper()] = ok
+	ProgressRepository.add_letter_results(res)
+
+
 func _solved() -> void:
+	_record_letters()
 	_busy = true
 	Sfx.play("select")
 	_show_feedback(true)
@@ -478,6 +501,17 @@ func _show_feedback(ok: bool) -> void:
 
 
 # ----------------------------------------------------------------- results ---
+
+var _ach_before: Array = []
+
+
+func _show_new_achievements() -> void:
+	for id in Achievements.unlocked_ids():
+		if not id in _ach_before:
+			toast(Localization.t("ach_new", {"name": tr(Achievements.title_key(id))}))
+			Sfx.play("toggle")
+			return
+
 
 func _save() -> void:
 	if session.solved > 0 and not has_meta("saved"):
@@ -550,6 +584,7 @@ func _finish() -> void:
 	again.name = "ResultsAgain"
 	again.custom_minimum_size.x = 360
 	again.pressed.connect(func(): main.replace("exercise_de", {"exercise": exercise_id}))
+	_show_new_achievements()
 	hb.add_child(again)
 	FocusManager.set_neighbors(back, null, again)
 	FocusManager.set_neighbors(again, back, null)

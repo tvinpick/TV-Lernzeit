@@ -19,6 +19,9 @@ const PLAYABLE := {
 	"mathematik/zaehlen/10": "count10",
 	"mathematik/addition/10": "add10",
 	"mathematik/subtraktion/10": "sub10",
+	"mathematik/zaehlen/20": "count20",
+	"mathematik/addition/20": "add20",
+	"mathematik/subtraktion/20": "sub20",
 	"deutsch/buchstaben/0": "de_letters",
 	"deutsch/anlaute/0": "de_anlaute",
 	"deutsch/woerter/0": "de_woerter",
@@ -41,15 +44,16 @@ static func exercise_for(subject_id: String, topic_id: String, level: int = 0) -
 
 ## Exercise of the most recently practised playable topic ("" if none) – for "Weiter üben".
 static func last_practised_exercise() -> String:
-	var best := ""
-	var best_ts := -1
-	for k in PLAYABLE:
-		var p: PackedStringArray = (k as String).split("/")
-		var recs := ProgressRepository.get_records(p[0], p[1])
-		if not recs.is_empty() and recs[0].timestamp > best_ts:
-			best_ts = recs[0].timestamp
-			best = PLAYABLE[k]
-	return best
+	for r in ProgressRepository.get_records():        # newest first
+		if r.subject_id == "deutsch":
+			var ex: String = PLAYABLE.get("deutsch/%s/0" % r.topic_id, "")
+			if ex != "":
+				return ex
+		else:
+			var id := r.exercise_version.split("-v")[0]   # "sub20-v1" -> "sub20"
+			if id in PLAYABLE.values():
+				return id
+	return ""
 
 ## topic: {id, key, levels}
 const TOPICS := {

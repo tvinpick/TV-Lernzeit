@@ -273,5 +273,74 @@ func _ready() -> void:
 	only_first.allowed_modes = ["de_first"]
 	check(only_first.make_session(10).all(func(x): return x["mode"] == "de_first"), "topic sessions use only their modes (Anlaute)")
 
+	print("Number range 20")
+	for gen_cls in [SubtractionGenerator, AdditionGenerator, CountingGenerator]:
+		var g20: MathGenerator = gen_cls.new(2020)
+		g20.max_value = 20
+		var bad20 := 0
+		var over10 := 0
+		var total20 := 0
+		for diff in ["easy", "auto", "hard"]:
+			g20.difficulty = diff
+			for m in g20.modes():
+				for i in 300:
+					var t20 := g20.make_task(m)
+					total20 += 1
+					if not g20.is_valid(t20):
+						bad20 += 1
+						if bad20 < 3:
+							print("       invalid: ", t20)
+					var biggest := 0
+					for k in ["a", "sum", "n", "x", "y", "answer"]:
+						if t20.has(k) and t20[k] is int:
+							biggest = maxi(biggest, t20[k])
+					if biggest > 10:
+						over10 += 1
+		check(bad20 == 0, "%s bis 20: %d tasks valid" % [gen_cls.get_global_name(), total20])
+		check(over10 > total20 / 2, "%s bis 20: most tasks really use numbers above 10 (%d of %d)" % [gen_cls.get_global_name(), over10, total20])
+	var g10 := SubtractionGenerator.new(1)
+	var ok10 := true
+	for i in 500:
+		var t10 := g10.make_task(SubtractionGenerator.MODES[i % 6])
+		ok10 = ok10 and t10["a"] <= 10 and (t10["options"] as Array).max() <= 10
+	check(ok10, "bis 10 stays within 10")
+
+	print("Learned letters")
+	ProgressRepository.reset_all()
+	check(ProgressRepository.letter_status("M") == "not_started", "letter not started")
+	ProgressRepository.add_letter_results({"M": true})
+	check(ProgressRepository.letter_status("M") == "practice", "1 answer → practice")
+	ProgressRepository.add_letter_results({"M": true})
+	ProgressRepository.add_letter_results({"m": true})
+	check(ProgressRepository.letter_status("M") == "secure", "3 right first-try answers (lower case counted as M) → secure")
+	ProgressRepository.add_letter_results({"M": false})
+	ProgressRepository.add_letter_results({"M": false})
+	check(ProgressRepository.letter_status("M") == "practice", "2 mistakes among the last 5 → back to practice")
+	for i in 20:
+		ProgressRepository.add_letter_results({"A": i % 2 == 0})
+	check(ProgressRepository.letter_history("A").length() == 10, "history limited to 10 answers")
+	ProgressRepository.load_records()
+	check(ProgressRepository.letter_history("M") == "11100", "letters persisted in progress.json")
+	ProgressRepository.reset_all()
+	check(ProgressRepository.letters_with_status("practice").is_empty(), "reset clears learned letters")
+
+	print("Achievements")
+	check(Achievements.unlocked_ids().is_empty(), "no achievements without progress")
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "zaehlen", 10, 10, 60, "count10-v1", 1700000000))
+	var ids := Achievements.unlocked_ids()
+	check("first_steps" in ids and "perfect" in ids and not "sessions_10" in ids, "first exercise + perfect unlocked")
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 5, 10, 60, "add20-v1", 1700090000))
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "subtraktion", 5, 10, 60, "sub10-v1", 1700190000))
+	ids = Achievements.unlocked_ids()
+	check("math_trio" in ids and "math_20" in ids and "days_3" in ids, "math trio, bis 20 and 3 days unlocked")
+	for l in ["M", "A", "O", "I", "L", "S", "E", "U"]:
+		ProgressRepository.add_letter_results({l: true})
+		ProgressRepository.add_letter_results({l: true})
+		ProgressRepository.add_letter_results({l: true})
+	check("letters_8" in Achievements.unlocked_ids(), "8 secure letters unlocked")
+	check(Curriculum.last_practised_exercise() == "sub10", "Weiter üben: newest record (sub10) wins")
+	ProgressRepository.reset_all()
+	check(Achievements.unlocked_ids().is_empty(), "reset removes achievements")
+
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)

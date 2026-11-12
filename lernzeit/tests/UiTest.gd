@@ -28,6 +28,8 @@ func _ready() -> void:
 		await run_restart_checks()
 	elif phase == "exercise":
 		await run_exercise()
+	elif phase == "extras":
+		await run_extras()
 	elif phase == "shots4k":
 		await run_4k_shots()
 	else:
@@ -63,6 +65,13 @@ func keys(seq: Array) -> void:
 func android_back() -> void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_GO_BACK_REQUEST)
 	await wait(0.3)
+
+
+func press_until(k: Key, target: String, limit: int) -> void:
+	for i in limit:
+		if focus_name() == target:
+			return
+		await key(k, 0.12)
 
 
 func focus_name() -> String:
@@ -147,11 +156,13 @@ func run_main() -> void:
 	await key(KEY_ENTER); check(focus_name() == "Level_10", "OK on Zählen → level 'bis 10'")
 	await key(KEY_RIGHT); check(focus_name() == "Level_20", "Right → 'bis 20'")
 	await shot("04_subject_math_levels_de")
+	await key(KEY_DOWN); check(focus_name() == "Level_100", "Down → 'bis 100'")
+	await key(KEY_LEFT); check(focus_name() == "Level_50", "Left → 'bis 50'")
 	await key(KEY_ENTER, 0.4)
-	check(main.current_id() == "unavailable", "level → not-available screen")
+	check(main.current_id() == "unavailable", "bis 50 (no exercise yet) → not-available screen")
 	var crumb: Label = main.current_screen()._crumb
-	check(crumb.text == "Mathematik › Zählen › bis 20", "breadcrumb: " + crumb.text)
-	await key(KEY_ESCAPE, 0.4); check(focus_name() == "Level_20", "Back → level focus restored")
+	check(crumb.text == "Mathematik › Zählen › bis 50", "breadcrumb: " + crumb.text)
+	await key(KEY_ESCAPE, 0.4); check(focus_name() == "Level_50", "Back → level focus restored")
 	await key(KEY_ESCAPE); check(focus_name() == "Topic_zaehlen", "Back in levels → topic list")
 	await key(KEY_DOWN); await key(KEY_DOWN); await key(KEY_DOWN)
 	check(focus_name() == "Topic_vergleichen", "Down ×3 → Vergleichen")
@@ -167,7 +178,7 @@ func run_main() -> void:
 	check(po.stat_tasks.value_label.text == "0", "tasks solved = 0")
 	check(po.stat_correct.value_label.text == "—", "no percentage for 0/0")
 	check(po.stat_topics.value_label.text == "0", "topics practiced = 0")
-	check(po.achievements_button.disabled, "achievements disabled")
+	check(not po.achievements_button.disabled, "achievements button available (all locked)")
 	await shot("05_progress_de")
 	await key(KEY_DOWN); check(focus_name() == "Row_deutsch", "Down → Deutsch row")
 	await key(KEY_ENTER, 0.4)
@@ -300,8 +311,7 @@ func run_main() -> void:
 	await key(KEY_ESCAPE, 0.3)
 	check(not main.has_dialog() and main.current_id() == "parents", "Back closes dialog, stays")
 	# save via the Speichern button: go down to the bottom
-	for i in 14:
-		await key(KEY_DOWN, 0.12)
+	await press_until(KEY_DOWN, "SaveButton", 20)
 	check(focus_name() == "SaveButton", "reach Speichern (via backup + version rows)")
 	await key(KEY_ENTER, 0.4)
 	check(not SettingsRepository.is_subject_enabled("logik"), "saved: Logik disabled")
@@ -310,7 +320,7 @@ func run_main() -> void:
 	check(ProgressRepository.record_count() == 1, "test record present")
 	for i in 12:
 		await key(KEY_UP, 0.12)
-	await keys([KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN])
+	await press_until(KEY_DOWN, "ResetProgress", 12)
 	check(focus_name() == "ResetProgress", "reach reset button: " + focus_name())
 	await key(KEY_ENTER, 0.4)
 	check(main.current_id() == "pin", "reset requires PIN")
@@ -387,6 +397,7 @@ func navigate_to(target: Control) -> void:
 
 func run_exercise() -> void:
 	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen",
+		"sub20": "subtraktion", "add20": "addition", "count20": "zaehlen",
 		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein"}[exercise]
 	var german := exercise.begins_with("de_")
 	var screen_id := "exercise_de" if german else "exercise"
@@ -400,9 +411,12 @@ func run_exercise() -> void:
 	for i in order.find(topic):
 		await key(KEY_DOWN)
 	check(focus_name() == "Topic_" + topic, subject + " → " + topic)
+	var level := "Level_20" if exercise.ends_with("20") else "Level_10"
 	if not german:
 		await key(KEY_ENTER)
-		check(focus_name() == "Level_10", "levels: bis 10")
+		if level == "Level_20":
+			await key(KEY_RIGHT)
+		check(focus_name() == level, "levels: " + level)
 	await key(KEY_ENTER, 0.6)
 	check(main.current_id() == screen_id and main.current_screen().exercise_id == exercise, "topic opens the exercise")
 	var ex = main.current_screen()
@@ -463,7 +477,7 @@ func run_exercise() -> void:
 	check(recs.size() == 1 and recs[0].correct_count == 9 and recs[0].total_count == 10, "record saved: 9 of 10 on the first try")
 	check(focus_name() == "ResultsAgain", "results: focus on 'Nochmal üben'")
 	await key(KEY_LEFT); await key(KEY_ENTER, 0.5)
-	check(main.current_id() == "subject" and focus_name() == ("Topic_" + topic if german else "Level_10"), "Zurück → subject menu, focus restored")
+	check(main.current_id() == "subject" and focus_name() == ("Topic_" + topic if german else level), "Zurück → subject menu, focus restored")
 	await key(KEY_ESCAPE, 0.35)
 	if not german:
 		await key(KEY_ESCAPE, 0.5)     # maths: first Back leaves the level column
@@ -505,6 +519,53 @@ func run_exercise() -> void:
 	await shot(exercise + "_progress_after")
 	await key(KEY_ENTER, 0.5)
 	await shot(exercise + "_progress_detail_math")
+
+
+## Achievements + learned letters screens with some saved progress.
+func run_extras() -> void:
+	print("Achievements and learned letters")
+	for i in 3:
+		ProgressRepository.add_record(ProgressRecord.create("mathematik", ["zaehlen", "addition", "subtraktion"][i], 10, 10, 90, "count20-v1", 1700000000 + i * 90000))
+	for l in ["M", "A", "O", "I", "L", "S", "E", "U"]:
+		ProgressRepository.add_letter_results({l: true})
+		ProgressRepository.add_letter_results({l: true})
+		ProgressRepository.add_letter_results({l: l != "U"})
+	ProgressRepository.add_letter_results({"R": false})
+	ProgressRepository.add_letter_results({"T": true})
+	await keys([KEY_DOWN, KEY_DOWN, KEY_ENTER]); await wait(0.4)
+	check(main.current_id() == "progress", "progress overview")
+	await key(KEY_DOWN); await key(KEY_DOWN); await key(KEY_DOWN); await key(KEY_DOWN)
+	check(focus_name() == "BackButton", "down to Zurück")
+	await key(KEY_RIGHT); check(focus_name() == "AchievementsButton", "Right → Erfolge")
+	await key(KEY_ENTER, 0.5)
+	check(main.current_id() == "achievements", "achievements screen opens")
+	var ach = main.current_screen()
+	check(ach.cards.size() == 12, "12 achievements shown")
+	var unlocked := Achievements.unlocked_ids()
+	check("first_steps" in unlocked and "perfect_3" in unlocked and "math_20" in unlocked and "days_3" in unlocked and not "letters_8" in unlocked, "expected achievements unlocked: " + str(unlocked))
+	await shot("ach_screen")
+	await key(KEY_ESCAPE, 0.4); await key(KEY_ESCAPE, 0.4)
+	check(main.current_id() == "home", "back home")
+	SettingsRepository.set_pin("1357")
+	await keys([KEY_UP, KEY_RIGHT, KEY_UP, KEY_UP, KEY_ENTER]); await wait(0.4)
+	await keys([KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_RIGHT, KEY_ENTER]); await wait(0.4)
+	await keys([KEY_1, KEY_3, KEY_5, KEY_7]); await wait(0.8)
+	check(main.current_id() == "parents", "parents area")
+	var sub_l: Label = main.current_screen().find_child("LettersSub", true, false)
+	check(sub_l.text.begins_with("7"), "parents row: 7 letters secure (" + sub_l.text + ")")
+	for i in 6:
+		if focus_name() == "LettersButton":
+			break
+		await key(KEY_DOWN, 0.15)
+	check(focus_name() == "LettersButton", "reach 'Gelernte Buchstaben'")
+	await shot("parents_letters_row")
+	await key(KEY_ENTER, 0.5)
+	check(main.current_id() == "letters", "letters overview opens")
+	var lo = main.current_screen()
+	check(lo.tiles["M"]["status"] == "secure" and lo.tiles["U"]["status"] == "practice" and lo.tiles["Z"]["status"] == "not_started", "tile colours: M secure, U practice, Z not started")
+	await shot("letters_overview")
+	await key(KEY_ESCAPE, 0.4)
+	check(main.current_id() == "parents", "Back → parents area")
 
 
 func run_restart_checks() -> void:

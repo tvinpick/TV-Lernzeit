@@ -14,6 +14,12 @@ const EXERCISES := {
 		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
 	"count10": {"title": "ex_count10_title", "topic": "zaehlen", "version": "count10-v1",
 		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
+	"sub20": {"title": "ex_sub20_title", "topic": "subtraktion", "version": "sub20-v1", "max": 20,
+		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
+	"add20": {"title": "ex_add20_title", "topic": "addition", "version": "add20-v1", "max": 20,
+		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
+	"count20": {"title": "ex_count20_title", "topic": "zaehlen", "version": "count20-v1", "max": 20,
+		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
 }
 const PLUS := preload("res://assets/math/addition_10/ui/Addition_Plus_Blue.png")
 
@@ -61,13 +67,15 @@ func _ready() -> void:
 	config = EXERCISES[exercise_id]
 	add_background(config["bg"])
 	var seed_value := int(params.get("seed", -1))
-	match exercise_id:
-		"add10": generator = AdditionGenerator.new(seed_value)
-		"count10": generator = CountingGenerator.new(seed_value)
+	match exercise_id.trim_suffix("10").trim_suffix("20"):
+		"add": generator = AdditionGenerator.new(seed_value)
+		"count": generator = CountingGenerator.new(seed_value)
 		_: generator = SubtractionGenerator.new(seed_value)
+	generator.max_value = config.get("max", 10)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	session = ExerciseSession.new("mathematik", config["topic"], config["version"],
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
+	_ach_before = Achievements.unlocked_ids()
 	_build_header()
 	_build_body()
 	_show_task()
@@ -337,7 +345,7 @@ func _show_task() -> void:
 		"add_groups": _stage_groups(t["a"], t["b"], t["object"], PLUS)
 		"add_equation": _stage_formula([t["a"], PLUS, t["b"], EQUALS, "?"])
 		"add_missing": _stage_formula([t["a"], PLUS, "?", EQUALS, t["sum"]])
-		"add_to_ten": _stage_frame_with_formula(t["a"], [t["a"], PLUS, "?", EQUALS, 10])
+		"add_to_ten": _stage_frame_with_formula(t["a"], [t["a"], PLUS, "?", EQUALS, t["sum"]])
 		"add_dice": _stage_dice(t["a"], t["b"], true)
 		"add_choose": _stage_groups(t["a"], t["b"], "star", PLUS)
 		"cnt_objects": _stage_count(t["n"], t["object"])
@@ -409,8 +417,17 @@ func _centered_row(sep: int) -> HBoxContainer:
 func _stage_objects(t: Dictionary) -> void:
 	var a: int = t["a"]
 	var b: int = t["b"]
-	var row := _centered_row(10)
-	var s := minf(160.0, (1500.0 - 10 * (a - 1)) / a)
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(center)
+	var row := GridContainer.new()          # one row up to 10 objects, two balanced rows above
+	var cols := a if a <= 10 else int(ceil(a / 2.0))
+	row.columns = cols
+	row.add_theme_constant_override("h_separation", 10)
+	row.add_theme_constant_override("v_separation", 8)
+	center.add_child(row)
+	var s := minf(160.0 if a <= 10 else 128.0, (1500.0 - 10 * (cols - 1)) / cols)
 	for i in a:
 		var o := TextureRect.new()
 		o.texture = OBJECT_TEX[t["object"]]
@@ -465,6 +482,7 @@ func _stage_number_line(t: Dictionary) -> void:
 	_number_line = NumberLineView.new()
 	_number_line.start = t["a"]
 	_number_line.jumps = t["b"]
+	_number_line.max_n = t.get("max", 10)
 	_number_line.position = Vector2(20, 0)
 	_number_line.size = Vector2(1500, 290)
 	_number_line.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -472,52 +490,9 @@ func _stage_number_line(t: Dictionary) -> void:
 
 
 func _stage_ten_frame(t: Dictionary) -> void:
-	var a: int = t["a"]
-	var b: int = t["b"]
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_stage.add_child(center)
-	var frame := PanelContainer.new()
-	var fsb := StyleBoxFlat.new()
-	fsb.bg_color = Color("dbeeff")
-	fsb.border_color = Color("3d8be6")
-	fsb.set_border_width_all(6)
-	fsb.set_corner_radius_all(22)
-	fsb.content_margin_left = 10
-	fsb.content_margin_right = 10
-	fsb.content_margin_top = 10
-	fsb.content_margin_bottom = 10
-	frame.add_theme_stylebox_override("panel", fsb)
-	center.add_child(frame)
-	var grid := GridContainer.new()
-	grid.columns = 5
-	grid.add_theme_constant_override("h_separation", 8)
-	grid.add_theme_constant_override("v_separation", 8)
-	frame.add_child(grid)
-	for i in 10:       # cells filled left→right, top→bottom; the last b counters are crossed out
-		var cell := PanelContainer.new()
-		var csb := StyleBoxFlat.new()
-		csb.bg_color = Color(1, 1, 1, 0.95)
-		csb.border_color = Color("8cc1ff")
-		csb.set_border_width_all(3)
-		csb.set_corner_radius_all(14)
-		cell.add_theme_stylebox_override("panel", csb)
-		cell.custom_minimum_size = Vector2(122, 118)
-		grid.add_child(cell)
-		if i < a:
-			var c := TextureRect.new()
-			c.texture = OBJECT_TEX["counter"]
-			c.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			c.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			cell.add_child(c)
-			if i >= a - b:
-				c.modulate = Color(1, 1, 1, 0.7)
-				var x := TextureRect.new()
-				x.texture = CROSS
-				x.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-				x.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-				cell.add_child(x)
+	var row := _centered_row(30)
+	for f in _ten_frames(t["a"], t["b"], 122, int(t.get("max", 10)) / 10):
+		row.add_child(f)
 
 
 func _stage_picture(t: Dictionary) -> void:
@@ -591,8 +566,15 @@ func _stage_formula(parts: Array) -> void:
 ## Ten-frame with n counters (no crossing) and an optional small formula.
 func _stage_frame_with_formula(n: int, parts: Array) -> void:
 	var row := _centered_row(40)
-	var frame := _ten_frame(n, 0, 98 if not parts.is_empty() else 122)
-	row.add_child(frame)
+	var t := session.current()
+	var frames := int(t.get("max", 10)) / 10
+	var cell := (98 if not parts.is_empty() else 122) if frames == 1 else (64 if not parts.is_empty() else 110)
+	var frames_box := HBoxContainer.new()
+	frames_box.add_theme_constant_override("separation", 16)
+	frames_box.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(frames_box)
+	for f in _ten_frames(n, 0, cell, frames):
+		frames_box.add_child(f)
 	if not parts.is_empty():
 		var f := HBoxContainer.new()
 		f.add_theme_constant_override("separation", 12)
@@ -612,7 +594,15 @@ func _stage_frame_with_formula(n: int, parts: Array) -> void:
 		_result_label = null
 
 
-func _ten_frame(filled: int, crossed: int, cell: int) -> PanelContainer:
+## `count` ten-frames side by side; counters fill frame by frame, the last `crossed` are crossed out.
+func _ten_frames(filled: int, crossed: int, cell: int, count: int) -> Array:
+	var out: Array = []
+	for k in count:
+		out.append(_ten_frame(filled, crossed, cell, k * 10))
+	return out
+
+
+func _ten_frame(filled: int, crossed: int, cell: int, offset: int = 0) -> PanelContainer:
 	var frame := PanelContainer.new()
 	var fsb := StyleBoxFlat.new()
 	fsb.bg_color = Color("dbeeff")
@@ -640,13 +630,14 @@ func _ten_frame(filled: int, crossed: int, cell: int) -> PanelContainer:
 		c.add_theme_stylebox_override("panel", csb)
 		c.custom_minimum_size = Vector2(cell, cell * 0.95)
 		grid.add_child(c)
-		if i < filled:
+		var gi := i + offset
+		if gi < filled:
 			var t := TextureRect.new()
 			t.texture = OBJECT_TEX["counter"]
 			t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			c.add_child(t)
-			if i >= filled - crossed:
+			if gi >= filled - crossed:
 				t.modulate = Color(1, 1, 1, 0.7)
 				var x := TextureRect.new()
 				x.texture = CROSS
@@ -686,12 +677,13 @@ func _stage_count(n: int, tex_key: String) -> void:
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_stage.add_child(center)
 	var g := GridContainer.new()
-	g.columns = n if n <= 5 else int(ceil(n / 2.0))     # balanced rows: 6 → 3+3, 7 → 4+3 …
-	g.add_theme_constant_override("h_separation", 26)
+	g.columns = n if n <= 5 else int(ceil(n / 2.0))     # balanced rows: 6 → 3+3, 7 → 4+3, 20 → 10+10
+	g.add_theme_constant_override("h_separation", 26 if n <= 10 else 12)
 	g.add_theme_constant_override("v_separation", 10)
 	center.add_child(g)
+	var sz := 150.0 if n <= 5 else (128.0 if n <= 10 else minf(128.0, (1500.0 - 12 * (g.columns - 1)) / g.columns))
 	for i in n:
-		g.add_child(_object(tex_key, 128 if n > 5 else 150))
+		g.add_child(_object(tex_key, sz))
 
 
 ## Number tiles in a row (forwards / backwards), one hidden behind "?".
@@ -795,6 +787,17 @@ func _show_feedback(ok: bool) -> void:
 
 # ----------------------------------------------------------------- results ---
 
+var _ach_before: Array = []
+
+
+func _show_new_achievements() -> void:
+	for id in Achievements.unlocked_ids():
+		if not id in _ach_before:
+			toast(Localization.t("ach_new", {"name": tr(Achievements.title_key(id))}))
+			Sfx.play("toggle")
+			return
+
+
 func _save() -> void:
 	if session.solved > 0 and not has_meta("saved"):
 		set_meta("saved", true)
@@ -868,6 +871,7 @@ func _finish() -> void:
 	again.name = "ResultsAgain"
 	again.custom_minimum_size.x = 360
 	again.pressed.connect(func(): main.replace("exercise", {"exercise": exercise_id}))
+	_show_new_achievements()
 	h.add_child(again)
 	FocusManager.set_neighbors(back, null, again)
 	FocusManager.set_neighbors(again, back, null)
