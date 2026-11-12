@@ -125,8 +125,8 @@ func pop() -> void:
 	s.visible = true
 	s.on_shown()
 	_slide_in(s, -1)
-	var f: Control = prev.get("focus")
-	if is_instance_valid(f) and f.is_visible_in_tree() and f.focus_mode != Control.FOCUS_NONE:
+	var f = prev.get("focus")       # untyped: the remembered control may have been freed meanwhile
+	if is_instance_valid(f) and f is Control and f.is_visible_in_tree() and f.focus_mode != Control.FOCUS_NONE:
 		f.grab_focus.call_deferred()
 	else:
 		_focus_default()

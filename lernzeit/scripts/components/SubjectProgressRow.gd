@@ -72,6 +72,7 @@ func _ready() -> void:
 func refresh() -> void:
 	var s := ProgressRepository.summary(subject_id)
 	for c in _status_box.get_children():
+		_status_box.remove_child(c)
 		c.queue_free()
 	if s["sessions"] == 0:
 		_status_box.add_child(StatusChip.make("status_not_started"))

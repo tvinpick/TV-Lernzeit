@@ -9,7 +9,9 @@ var _last_sig := ""
 
 
 func _ready() -> void:
-	clip_text = false
+	# clip_text keeps the label at its layout width (otherwise a Label grows with its
+	# text and "fitting" would never shrink anything); the font is shrunk instead.
+	clip_text = true
 	autowrap_mode = TextServer.AUTOWRAP_OFF
 	resized.connect(_queue_fit)
 	_queue_fit()
@@ -25,6 +27,19 @@ func set_key(key: String) -> void:
 	_queue_fit()
 
 
+## Long texts (tips): wrap onto two lines with a fixed font size instead of shrinking.
+func set_wrapped(on: bool, font_size: int = 36) -> void:
+	_last_sig = ""
+	if on:
+		autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		clip_text = false
+		add_theme_font_size_override("font_size", int(font_size * AppState.text_scale()))
+	else:
+		autowrap_mode = TextServer.AUTOWRAP_OFF
+		clip_text = true
+		_queue_fit()
+
+
 func _queue_fit() -> void:
 	_fit.call_deferred()
 
@@ -38,7 +53,7 @@ func _base_size() -> int:
 
 
 func _fit() -> void:
-	if not is_inside_tree():
+	if not is_inside_tree() or autowrap_mode != TextServer.AUTOWRAP_OFF:
 		return
 	var base := _base_size()
 	var shown := atr(text) if auto_translate_mode != Node.AUTO_TRANSLATE_MODE_DISABLED else text

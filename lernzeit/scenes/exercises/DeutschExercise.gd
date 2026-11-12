@@ -281,6 +281,7 @@ func _show_task() -> void:
 	_busy = false
 	_feedback.visible = false
 	_prompt.visible = true
+	_prompt.set_wrapped(false)
 	_owl.visible = false
 	var t := session.current()
 	_prompt.text = Localization.t(t["prompt"], t.get("args", {}))
@@ -288,6 +289,7 @@ func _show_task() -> void:
 	_repeat_badge.visible = session.is_repeat()
 	_update_dots()
 	for c in _stage.get_children():
+		_stage.remove_child(c)
 		c.queue_free()
 	_hole_label = null
 	_word_reveal = null
@@ -315,6 +317,7 @@ func _show_task() -> void:
 			pic_buttons[i].setup(t["options"][i], t["pictures"][i])
 	else:
 		for i in 4:
+			letter_buttons[i].word_mode = t["mode"] == "le_pic_word"
 			letter_buttons[i].setup(t["options"][i], "button")
 	match t["mode"]:
 		"de_find": _stage_big_letter(t["letter"])
@@ -603,8 +606,9 @@ func _mistake() -> void:
 		await get_tree().create_timer(1.05).timeout
 		if not is_inside_tree() or _busy or session.current() != t:
 			return
-		var tip := Localization.t("tip_" + t["mode"], {"l": t.get("letter", t.get("shown", ""))})
-		_prompt.text = Localization.t("ex_tip", {"t": tip})
+		var tip := Localization.help("tip_" + t["mode"], {"l": t.get("letter", t.get("shown", ""))})
+		_prompt.set_wrapped(true, 30)
+		_prompt.text = Localization.help("ex_tip", {"t": tip})
 		_owl.visible = true
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))

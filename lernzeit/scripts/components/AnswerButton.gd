@@ -88,7 +88,8 @@ func setup(p_value: Variant, p_color: String, p_picture: Texture2D = null, p_tex
 		_art.visible = false
 		_label.visible = false
 		_group.visible = true
-		for c in _group.get_children():
+		for c in _group.get_children():     # remove now: queue_free alone keeps them until frame end
+			_group.remove_child(c)
 			c.queue_free()
 		for i in value:
 			var t := TextureRect.new()

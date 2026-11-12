@@ -192,7 +192,17 @@ def main():
     copy_dir("parents/Icons", "icons", 192, trim=True)
     copy_dir("settings/Switches", "ui", 220)
     copy_dir("settings/Panels", "ui", 1124)
-    copy_dir("progress/Panels", "ui", 560)
+    # The progress panels were cut from an atlas with the right rim missing:
+    # mirror the intact left half so the nine-patch has the same rim on both sides.
+    for f in sorted(os.listdir(os.path.join(SRC, "progress/Panels"))):
+        if not f.endswith(".png"):
+            continue
+        a = load(f"progress/Panels/{f}")
+        h, w, _ = a.shape
+        half = a[:, : w // 2]
+        sym = np.concatenate([half, half[:, ::-1]], axis=1)
+        save(sym, f"ui/{f}", max_w=560, max_h=560)
+        report.append(f"{f}: right rim restored by mirroring the left half")
     save(load("progress/Buttons/Lernzeit_Progress_Button_Back.png"), "buttons/round_back.png", max_w=180)
     save(load("progress/Buttons/Lernzeit_Progress_Button_Home.png"), "buttons/round_home.png", max_w=180)
 

@@ -52,3 +52,13 @@ func t(key: String, args: Dictionary = {}) -> String:
 func keys_for(lang: String) -> Array:
 	var data = JSON.parse_string(FileAccess.get_file_as_string(FILES[lang]))
 	return (data as Dictionary).keys() if data is Dictionary else []
+
+
+## Text in the parents' "Hilfesprache" (tips after mistakes), independent of the menu language.
+func help(key: String, args: Dictionary = {}) -> String:
+	var lang: String = SettingsRepository.get_parent_settings().get("help_language", current)
+	var tro := TranslationServer.get_translation_object(lang)
+	var s := String(tro.get_message(key)) if tro and tro.locale == lang else ""
+	if s == "":
+		s = String(TranslationServer.translate(key))
+	return s.format(args) if not args.is_empty() else s

@@ -49,7 +49,7 @@ var picture_buttons: Array[AnswerButton] = []
 var back_button: PillButton
 var finished := false
 
-var _prompt: Label
+var _prompt: FitLabel
 var _counter: Label
 var _repeat_badge: Label
 var _stage: Control
@@ -314,6 +314,7 @@ func _show_task() -> void:
 	_busy = false
 	_feedback.visible = false
 	_prompt.visible = true
+	_prompt.set_wrapped(false)
 	_owl.visible = false
 	_mistakes = 0
 	var t := session.current()
@@ -324,6 +325,7 @@ func _show_task() -> void:
 	for i in 10:
 		(_dots.get_child(i) as TextureRect).texture = DOT_FILLED if i < session.solved else DOT_EMPTY
 	for c in _stage.get_children():
+		_stage.remove_child(c)
 		c.queue_free()
 	_result_label = null
 	_number_line = null
@@ -819,7 +821,8 @@ func _give_help() -> void:
 		await get_tree().create_timer(1.05).timeout       # after the "Noch einmal!" plate
 		if not is_inside_tree() or _busy or session.current() != t:
 			return
-		_prompt.text = Localization.t("ex_tip", {"t": tip})
+		_prompt.set_wrapped(true, 30)
+		_prompt.text = Localization.help("ex_tip", {"t": tip})
 		_owl.visible = true
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
@@ -836,27 +839,27 @@ func _tip_text(t: Dictionary) -> String:
 	var a = t.get("a", 0)
 	var b = t.get("b", 0)
 	match t["mode"]:
-		"objects", "ten_frame": return tr("tip_count_rest")
-		"equation": return Localization.t("tip_sub_equation", {"a": a, "b": b})
-		"missing": return Localization.t("tip_sub_missing", {"a": a, "r": t.get("result", 0)})
-		"number_line": return tr("tip_number_line")
-		"picture": return Localization.t("tip_sub_picture", {"a": a, "b": b})
-		"add_groups", "cnt_objects": return tr("tip_count_all")
-		"add_equation": return Localization.t("tip_add_equation", {"a": a, "b": b})
-		"add_to_ten", "cnt_to_ten": return tr("tip_count_empty")
-		"add_dice", "cnt_dice": return tr("tip_dice")
-		"add_missing": return Localization.t("tip_add_missing", {"a": a, "s": t.get("sum", 0)})
-		"add_choose": return tr("tip_add_choose")
-		"cnt_bigger": return tr("tip_bigger")
-		"cnt_more": return tr("tip_more")
-		"cnt_sequence": return tr("tip_backwards") if t.get("backwards", false) else tr("tip_forwards")
-		"cmp_larger": return tr("tip_bigger")
-		"cmp_smaller": return tr("tip_smaller")
-		"cmp_sign": return tr("tip_sign")
-		"cmp_groups": return tr("tip_fewer")
-		"cmp_equal": return tr("tip_equal")
-		"cmp_sort": return tr("tip_sort")
-	return tr(t["prompt"])
+		"objects", "ten_frame": return Localization.help("tip_count_rest")
+		"equation": return Localization.help("tip_sub_equation", {"a": a, "b": b})
+		"missing": return Localization.help("tip_sub_missing", {"a": a, "r": t.get("result", 0)})
+		"number_line": return Localization.help("tip_number_line")
+		"picture": return Localization.help("tip_sub_picture", {"a": a, "b": b})
+		"add_groups", "cnt_objects": return Localization.help("tip_count_all")
+		"add_equation": return Localization.help("tip_add_equation", {"a": a, "b": b})
+		"add_to_ten", "cnt_to_ten": return Localization.help("tip_count_empty")
+		"add_dice", "cnt_dice": return Localization.help("tip_dice")
+		"add_missing": return Localization.help("tip_add_missing", {"a": a, "s": t.get("sum", 0)})
+		"add_choose": return Localization.help("tip_add_choose")
+		"cnt_bigger": return Localization.help("tip_bigger")
+		"cnt_more": return Localization.help("tip_more")
+		"cnt_sequence": return Localization.help("tip_backwards") if t.get("backwards", false) else Localization.help("tip_forwards")
+		"cmp_larger": return Localization.help("tip_bigger")
+		"cmp_smaller": return Localization.help("tip_smaller")
+		"cmp_sign": return Localization.help("tip_sign")
+		"cmp_groups": return Localization.help("tip_fewer")
+		"cmp_equal": return Localization.help("tip_equal")
+		"cmp_sort": return Localization.help("tip_sort")
+	return Localization.help(t["prompt"])
 
 
 func _find_meta(root: Node, key: String) -> Array:

@@ -17,6 +17,7 @@ const INK := Color("2c1a6e")
 
 var value := ""
 var kind := "button"
+var word_mode := false        ## whole words as answers: same font size for all of them
 var state := "normal":
 	set(v):
 		state = v
@@ -76,7 +77,7 @@ func setup(p_value: String, p_kind: String = "button") -> void:
 func _layout() -> void:
 	pivot_offset = size / 2.0
 	var fs := size.y * 0.58
-	if value.length() > 3:          # whole words: one size for all (as if 6 letters)
+	if word_mode or value.length() > 3:   # whole words: one size for all (as if 6 letters)
 		fs = minf(fs, size.x * 1.45 / maxi(value.length(), 6))
 	elif value.length() > 1:        # syllables
 		fs = minf(fs, size.x * 1.45 / value.length())
