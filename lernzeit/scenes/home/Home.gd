@@ -56,8 +56,10 @@ func _ready() -> void:
 	continue_button.focus_mode = Control.FOCUS_NONE      # enabled by _refresh() once something was practised
 	add_child(continue_button)
 	continue_button.pressed.connect(func():
-		Sfx.play("select")
-		main.push(Curriculum.exercise_for("mathematik", "subtraktion", 10)))
+		var ex := Curriculum.last_practised_exercise()
+		if ex != "":
+			Sfx.play("select")
+			main.push("exercise", {"exercise": ex}))
 
 	var hint := TextureRect.new()
 	hint.texture = preload("res://assets/buttons/control_hint_icon.png")
@@ -120,12 +122,12 @@ func _refresh() -> void:
 	for sid in cards:
 		cards[sid].dimmed = not SettingsRepository.is_subject_enabled(sid)
 	# "Weiter üben": continue the exercise that was practised before (only real exercises).
-	var can_continue := not ProgressRepository.get_records("mathematik", "subtraktion").is_empty() \
-		and SettingsRepository.is_subject_enabled("mathematik")
+	var last_ex := Curriculum.last_practised_exercise()
+	var can_continue := last_ex != "" and SettingsRepository.is_subject_enabled("mathematik")
 	continue_button.disabled = not can_continue
 	continue_button.focus_mode = Control.FOCUS_ALL if can_continue else Control.FOCUS_NONE
 	continue_button.modulate = Color.WHITE if can_continue else Color(0.78, 0.82, 0.92, 0.82)
-	continue_button.set_subtitle("ex_sub10_title" if can_continue else "continue_hint")
+	continue_button.set_subtitle(MathExerciseInfo.title_key(last_ex) if can_continue else "continue_hint")
 	FocusManager.set_one(progress_button, SIDE_RIGHT, continue_button if can_continue else progress_button)
 
 

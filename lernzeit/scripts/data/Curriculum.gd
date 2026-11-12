@@ -13,14 +13,30 @@ const SUBJECTS := {
 
 const MATH_LEVELS: Array[int] = [10, 20, 50, 100]
 
-## Topics/levels that already have a real exercise: "subject/topic/level" -> screen id
+## Topics/levels that already have a real exercise: "subject/topic/level" -> exercise id
+## (opened with Main.push("exercise", {"exercise": id})).
 const PLAYABLE := {
-	"mathematik/subtraktion/10": "exercise_sub10",
+	"mathematik/zaehlen/10": "count10",
+	"mathematik/addition/10": "add10",
+	"mathematik/subtraktion/10": "sub10",
 }
 
 
 static func exercise_for(subject_id: String, topic_id: String, level: int = 0) -> String:
 	return PLAYABLE.get("%s/%s/%d" % [subject_id, topic_id, level], "")
+
+
+## Exercise of the most recently practised playable topic ("" if none) – for "Weiter üben".
+static func last_practised_exercise() -> String:
+	var best := ""
+	var best_ts := -1
+	for k in PLAYABLE:
+		var p: PackedStringArray = (k as String).split("/")
+		var recs := ProgressRepository.get_records(p[0], p[1])
+		if not recs.is_empty() and recs[0].timestamp > best_ts:
+			best_ts = recs[0].timestamp
+			best = PLAYABLE[k]
+	return best
 
 ## topic: {id, key, levels}
 const TOPICS := {

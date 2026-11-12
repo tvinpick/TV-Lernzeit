@@ -134,6 +134,7 @@ func _ready() -> void:
 
 	print("Subtraction generator / session")
 	var gen := SubtractionGenerator.new(12345)
+	check(gen is MathGenerator, "subtraction generator uses the shared base")
 	var invalid := 0
 	var picture_zero := 0
 	var long_jumps := 0
@@ -176,6 +177,43 @@ func _ready() -> void:
 	while ses2.advance():
 		pass
 	check(ses2.tasks.size() == 10, "without 'Fehler wiederholen' no repetitions")
+
+	print("Addition / Counting generators")
+	for gen_cls in [AdditionGenerator, CountingGenerator]:
+		var mg: MathGenerator = gen_cls.new(777)
+		var bad_tasks := 0
+		var mode_seen := {}
+		for diff in ["easy", "auto", "hard"]:
+			mg.difficulty = diff
+			for m in mg.modes():
+				for i in 400:
+					var task := mg.make_task(m)
+					mode_seen[m] = true
+					if not mg.is_valid(task):
+						bad_tasks += 1
+						if bad_tasks < 3:
+							print("       invalid: ", task)
+		var sess := mg.make_session(10)
+		var ms := {}
+		for st in sess:
+			ms[st["mode"]] = true
+		check(bad_tasks == 0, "%d tasks of %s valid in all modes/difficulties" % [3 * 400 * mg.modes().size(), gen_cls.get_global_name()])
+		check(sess.size() == 10 and ms.size() == 6, "%s session: 10 tasks, 6 representations" % gen_cls.get_global_name())
+	var ag := AdditionGenerator.new(5)
+	var ch := ag.make_task("add_choose")
+	var same_sum := 0
+	for o in ch["options"]:
+		var parts: PackedStringArray = (o as String).split(" + ")
+		if o != ch["answer"] and int(parts[0]) + int(parts[1]) == ch["sum"]:
+			same_sum += 1
+	check(same_sum == 0 and ch["options"].size() == 4, "matching equation: no distractor with the same sum")
+	var tt := ag.make_task("add_to_ten")
+	check(tt["a"] + tt["answer"] == 10, "complete to ten: a + answer = 10")
+	var cg := CountingGenerator.new(9)
+	var big := cg.make_task("cnt_bigger")
+	check(big["options"].size() == 2 and big["answer"] == maxi(big["x"], big["y"]), "bigger number: 2 options, answer = max")
+	var seq_t := cg.make_task("cnt_sequence")
+	check(seq_t["answer"] == seq_t["sequence"][seq_t["hole"]], "sequence: answer is the hidden number")
 
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)

@@ -42,7 +42,7 @@ func is_repeat() -> bool:
 
 
 ## Returns true when the value is correct.
-func submit(value: int) -> bool:
+func submit(value: Variant) -> bool:
 	var t := current()
 	if t.is_empty():
 		return false

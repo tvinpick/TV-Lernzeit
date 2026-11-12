@@ -192,5 +192,20 @@
  "ex_quit_title": "Übung beenden?",
  "ex_quit_message": "Deine bisherigen Antworten werden gespeichert.",
  "ex_quit_confirm": "Beenden",
- "ex_minus_one": "−1"
+ "ex_minus_one": "−1",
+ "ex_add10_title": "Addition bis 10",
+ "ex_count10_title": "Zählen bis 10",
+ "add_prompt_groups": "Wie viele sind es zusammen?",
+ "add_prompt_equation": "Rechne.",
+ "add_prompt_to_ten": "Wie viele fehlen bis 10?",
+ "add_prompt_dice": "Wie viele Augen sind es zusammen?",
+ "add_prompt_missing": "Welche Zahl fehlt?",
+ "add_prompt_choose": "Welche Rechnung passt zum Bild?",
+ "cnt_prompt_objects": "Wie viele siehst du?",
+ "cnt_prompt_bigger": "Welche Zahl ist größer?",
+ "cnt_prompt_more": "Wo sind mehr Äpfel?",
+ "cnt_prompt_forwards": "Zähle weiter! Welche Zahl fehlt?",
+ "cnt_prompt_backwards": "Zähle rückwärts! Welche Zahl fehlt?",
+ "cnt_prompt_dice": "Wie viele Würfelaugen sind es?",
+ "cnt_prompt_to_ten": "Wie viele fehlen bis 10?"
 }

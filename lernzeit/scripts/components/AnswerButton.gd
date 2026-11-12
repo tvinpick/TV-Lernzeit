@@ -13,7 +13,8 @@ const TEXTURES := {
 ## visible part of the artwork inside the texture (measured)
 const INSET := Rect2(0.07, 0.123, 0.86, 0.751)
 
-var value := 0
+var value: Variant = 0
+var label_text := ""                 ## text instead of the value (e.g. "3 + 2")
 var color := "blue"
 var picture: Texture2D = null        ## when set: show `value` copies of it instead of a digit
 var state := "normal":
@@ -23,7 +24,7 @@ var state := "normal":
 
 var _art: TextureRect
 var _label: Label
-var _group: HBoxContainer
+var _group: GridContainer
 var _mark: TextureRect
 var _tween: Tween
 
@@ -48,9 +49,9 @@ func _ready() -> void:
 	_label.add_theme_font_override("font", UiTheme.font(UiTheme.FONT_XBOLD))
 	_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_label)
-	_group = HBoxContainer.new()
-	_group.alignment = BoxContainer.ALIGNMENT_CENTER
-	_group.add_theme_constant_override("separation", 4)
+	_group = GridContainer.new()
+	_group.add_theme_constant_override("h_separation", 6)
+	_group.add_theme_constant_override("v_separation", 6)
 	_group.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_group)
 	_mark = TextureRect.new()
@@ -65,10 +66,11 @@ func _ready() -> void:
 	setup(value, color, picture)
 
 
-func setup(p_value: int, p_color: String, p_picture: Texture2D = null) -> void:
+func setup(p_value: Variant, p_color: String, p_picture: Texture2D = null, p_text: String = "") -> void:
 	value = p_value
 	color = p_color
 	picture = p_picture
+	label_text = p_text
 	if not is_node_ready():
 		return
 	state = "normal"
@@ -93,7 +95,6 @@ func setup(p_value: int, p_color: String, p_picture: Texture2D = null) -> void:
 			t.texture = picture
 			t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			t.custom_minimum_size = Vector2(58, 58)
 			t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			_group.add_child(t)
 	else:
@@ -104,7 +105,7 @@ func setup(p_value: int, p_color: String, p_picture: Texture2D = null) -> void:
 		_art.texture = TEXTURES.get(color, TEXTURES["blue"])
 		_label.visible = true
 		_group.visible = false
-		_label.text = str(value)
+		_label.text = label_text if label_text != "" else str(value)
 		var light := color in ["yellow", "green"]
 		_label.add_theme_color_override("font_color", UiTheme.NAVY if light else Color.WHITE)
 		_label.add_theme_constant_override("outline_size", 0 if light else 12)
@@ -121,9 +122,21 @@ func _visible_rect() -> Rect2:
 func _layout() -> void:
 	pivot_offset = size / 2.0
 	var r := _visible_rect()
-	_label.add_theme_font_size_override("font_size", int(r.size.y * 0.72))
-	_group.position = Vector2(16, 0)
-	_group.size = Vector2(size.x - 32, size.y)
+	var long_text := _label.text.length() > 2
+	_label.add_theme_font_size_override("font_size", int(r.size.y * (0.46 if long_text else 0.72)))
+	# objects in 1 row (flat cards) or 2 balanced rows (tall cards), as large as fits
+	var n: int = _group.get_child_count()
+	if n > 0:
+		var rows := 2 if size.y > 150 and n > 5 else 1
+		var cols := int(ceil(float(n) / rows))
+		_group.columns = cols
+		var s := minf((size.y - 30 - 6 * (rows - 1)) / rows, (size.x - 40 - 6 * (cols - 1)) / cols)
+		s = minf(s, 104.0)
+		for c in _group.get_children():
+			(c as Control).custom_minimum_size = Vector2(s, s)
+		var gs := Vector2(cols * s + 6 * (cols - 1), rows * s + 6 * (rows - 1))
+		_group.size = gs
+		_group.position = (size - gs) / 2.0
 	var m := minf(r.size.y * 0.55, 90.0)
 	_mark.size = Vector2(m, m)
 	_mark.position = Vector2(r.end.x - m * 0.75, r.position.y - m * 0.25)

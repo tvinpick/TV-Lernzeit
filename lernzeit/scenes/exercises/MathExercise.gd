@@ -1,9 +1,21 @@
 extends BaseScreen
-## Exercise "Subtraktion bis 10" – 10 generated tasks in six representations
-## (crossed-out objects, equation, missing number, number line, ten-frame,
-## choose the picture). Built from separate kit sprites; every number, prompt
-## and label is rendered live. Remote: ←/→ choose, OK answer, Back = quit (with
-## confirmation, answers so far are saved).
+## Math exercise screen for the number range up to 10. params.exercise selects:
+##   sub10   – Subtraktion bis 10 (SubtractionGenerator)
+##   add10   – Addition bis 10    (AdditionGenerator)
+##   count10 – Zählen bis 10      (CountingGenerator)
+## 10 generated tasks in six representations each. Built from separate kit
+## sprites; every number, prompt and label is rendered live. Remote: arrows
+## choose, OK answers, Back = quit (with confirmation, answers so far are saved).
+
+const EXERCISES := {
+	"sub10": {"title": "ex_sub10_title", "topic": "subtraktion", "version": "sub10-v1",
+		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
+	"add10": {"title": "ex_add10_title", "topic": "addition", "version": "add10-v1",
+		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
+	"count10": {"title": "ex_count10_title", "topic": "zaehlen", "version": "count10-v1",
+		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
+}
+const PLUS := preload("res://assets/math/addition_10/ui/Addition_Plus_Blue.png")
 
 const OBJECT_TEX := {
 	"apple": preload("res://assets/math/shared_ui/Object_Apple_Red.png"),
@@ -19,10 +31,11 @@ const EQUALS := preload("res://assets/math/subtraction_10/icons/Subtraction_Equa
 const DOT_FILLED := preload("res://assets/math/shared_ui/Progress_Dot_Filled.png")
 const DOT_EMPTY := preload("res://assets/math/shared_ui/Progress_Dot_Empty.png")
 const COLORS := ["yellow", "blue", "green", "purple"]
-const VERSION := "sub10-v1"
 
+var exercise_id := "sub10"
+var config: Dictionary
 var session: ExerciseSession
-var generator: SubtractionGenerator
+var generator: MathGenerator
 var answer_buttons: Array[AnswerButton] = []
 var picture_buttons: Array[AnswerButton] = []
 var back_button: PillButton
@@ -44,10 +57,16 @@ var _results: Control
 
 
 func _ready() -> void:
-	add_background("res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png")
-	generator = SubtractionGenerator.new(int(params.get("seed", -1)))
+	exercise_id = params.get("exercise", "sub10")
+	config = EXERCISES[exercise_id]
+	add_background(config["bg"])
+	var seed_value := int(params.get("seed", -1))
+	match exercise_id:
+		"add10": generator = AdditionGenerator.new(seed_value)
+		"count10": generator = CountingGenerator.new(seed_value)
+		_: generator = SubtractionGenerator.new(seed_value)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
-	session = ExerciseSession.new("mathematik", "subtraktion", VERSION,
+	session = ExerciseSession.new("mathematik", config["topic"], config["version"],
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_build_header()
 	_build_body()
@@ -102,7 +121,7 @@ func _build_header() -> void:
 	h.add_child(subj)
 	h.add_child(_spacer())
 	var title := Label.new()
-	title.text = "ex_sub10_title"
+	title.text = config["title"]
 	title.add_theme_font_override("font", UiTheme.font(UiTheme.FONT_XBOLD))
 	title.add_theme_font_size_override("font_size", 34)
 	title.add_theme_color_override("font_color", Color.WHITE)
@@ -277,7 +296,7 @@ func _show_task() -> void:
 	_feedback.visible = false
 	_prompt.visible = true
 	var t := session.current()
-	_prompt.text = tr("sub_prompt_" + t["mode"])
+	_prompt.text = tr(t["prompt"])
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
 	_repeat_badge.visible = session.is_repeat()
 	for i in 10:
@@ -286,15 +305,28 @@ func _show_task() -> void:
 		c.queue_free()
 	_result_label = null
 	_number_line = null
-	var picture_mode: bool = t["mode"] == "picture"
+	var picture_mode: bool = t["option_style"] == "group"
 	_answers_row.visible = not picture_mode
 	_picture_grid.visible = picture_mode
 	var opts: Array = t["options"]
+	var n := opts.size()
+	_picture_grid.columns = 2
+	var inside: bool = t["mode"] == "cnt_more"
+	_picture_grid.position = Vector2(225 if inside else 270, 330 if inside else 648)
 	for i in 4:
+		var pb := picture_buttons[i]
+		var ab := answer_buttons[i]
+		pb.visible = picture_mode and i < n
+		ab.visible = (not picture_mode) and i < n
+		if i >= n:
+			continue
 		if picture_mode:
-			picture_buttons[i].setup(opts[i], "blue", OBJECT_TEX["star"])
+			pb.custom_minimum_size = Vector2(700, 92) if n > 2 else Vector2(700, 250)
+			pb.setup(opts[i], "blue", OBJECT_TEX[t.get("object", "star")])
 		else:
-			answer_buttons[i].setup(opts[i], COLORS[i])
+			ab.custom_minimum_size = Vector2(360 if n > 2 else 440, 180)
+			ab.setup(opts[i], COLORS[i] if n > 2 else ["purple", "green"][i], null,
+				str(opts[i]) if t["option_style"] == "text" else "")
 	match t["mode"]:
 		"objects": _stage_objects(t)
 		"equation": _stage_equation(t, false)
@@ -302,17 +334,34 @@ func _show_task() -> void:
 		"number_line": _stage_number_line(t)
 		"ten_frame": _stage_ten_frame(t)
 		"picture": _stage_picture(t)
+		"add_groups": _stage_groups(t["a"], t["b"], t["object"], PLUS)
+		"add_equation": _stage_formula([t["a"], PLUS, t["b"], EQUALS, "?"])
+		"add_missing": _stage_formula([t["a"], PLUS, "?", EQUALS, t["sum"]])
+		"add_to_ten": _stage_frame_with_formula(t["a"], [t["a"], PLUS, "?", EQUALS, 10])
+		"add_dice": _stage_dice(t["a"], t["b"], true)
+		"add_choose": _stage_groups(t["a"], t["b"], "star", PLUS)
+		"cnt_objects": _stage_count(t["n"], t["object"])
+		"cnt_bigger": _stage_formula([t["x"], "vs", t["y"]])
+		"cnt_more": pass        # the two apple groups are the answers (shown inside the panel)
+		"cnt_sequence": _stage_sequence(t)
+		"cnt_dice": _stage_dice(t["a"], t["b"], false)
+		"cnt_to_ten": _stage_frame_with_formula(t["n"], [])
 	_link_focus()
 	active_buttons()[0].grab_focus.call_deferred()
 
 
 func active_buttons() -> Array[AnswerButton]:
-	return picture_buttons if session.current().get("mode", "") == "picture" else answer_buttons
+	var src := picture_buttons if session.current().get("option_style", "") == "group" else answer_buttons
+	var out: Array[AnswerButton] = []
+	for b in src:
+		if b.visible:
+			out.append(b)
+	return out
 
 
 func _link_focus() -> void:
 	var btns := active_buttons()
-	if btns == picture_buttons:
+	if session.current()["option_style"] == "group" and btns.size() == 4:
 		FocusManager.set_neighbors(btns[0], null, btns[1], back_button, btns[2])
 		FocusManager.set_neighbors(btns[1], btns[0], null, back_button, btns[3])
 		FocusManager.set_neighbors(btns[2], null, btns[3], btns[0], null)
@@ -480,6 +529,195 @@ func _stage_picture(t: Dictionary) -> void:
 	row.add_child(_result_box("?"))
 
 
+func _object(tex_key: String, s: float) -> TextureRect:
+	var o := TextureRect.new()
+	o.texture = OBJECT_TEX[tex_key]
+	o.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	o.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	o.custom_minimum_size = Vector2(s, s)
+	o.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	return o
+
+
+func _group_card(n: int, tex_key: String, s: float) -> PanelContainer:
+	var card := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("eef6ff")
+	sb.border_color = Color("8cc1ff")
+	sb.set_border_width_all(4)
+	sb.set_corner_radius_all(30)
+	sb.content_margin_left = 18
+	sb.content_margin_right = 18
+	sb.content_margin_top = 12
+	sb.content_margin_bottom = 12
+	card.add_theme_stylebox_override("panel", sb)
+	card.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var g := GridContainer.new()
+	g.columns = mini(n, 5)
+	g.add_theme_constant_override("h_separation", 6)
+	g.add_theme_constant_override("v_separation", 6)
+	card.add_child(g)
+	for i in n:
+		g.add_child(_object(tex_key, s))
+	return card
+
+
+## Two groups with a symbol in between (addition: count together / choose equation).
+func _stage_groups(a: int, b: int, tex_key: String, symbol: Texture2D) -> void:
+	var row := _centered_row(30)
+	var s := 92.0 if maxi(a, b) <= 5 else 74.0
+	row.add_child(_group_card(a, tex_key, s))
+	row.add_child(_symbol(symbol, 130))
+	row.add_child(_group_card(b, tex_key, s))
+
+
+## Formula row: ints → digits, "?" → result box (revealed when solved), textures → symbols.
+func _stage_formula(parts: Array) -> void:
+	var row := _centered_row(26)
+	for p in parts:
+		if p is Texture2D:
+			row.add_child(_symbol(p, 150))
+		elif p is String and p == "?":
+			row.add_child(_result_box("?"))
+		elif p is String and p == "vs":          # comparison: neutral question mark, not an answer box
+			var q := _digit("?", 120)
+			q.add_theme_color_override("font_color", Color("8cb6f0"))
+			q.custom_minimum_size.x = 160
+			row.add_child(q)
+		else:
+			row.add_child(_digit(str(p)))
+
+
+## Ten-frame with n counters (no crossing) and an optional small formula.
+func _stage_frame_with_formula(n: int, parts: Array) -> void:
+	var row := _centered_row(40)
+	var frame := _ten_frame(n, 0, 98 if not parts.is_empty() else 122)
+	row.add_child(frame)
+	if not parts.is_empty():
+		var f := HBoxContainer.new()
+		f.add_theme_constant_override("separation", 12)
+		f.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(f)
+		for p in parts:
+			if p is Texture2D:
+				f.add_child(_symbol(p, 90))
+			elif p is String and p == "?":
+				var box := _result_box("?")
+				box.custom_minimum_size = Vector2(130, 140)
+				_result_label.add_theme_font_size_override("font_size", 96)
+				f.add_child(box)
+			else:
+				f.add_child(_digit(str(p), 100))
+	else:
+		_result_label = null
+
+
+func _ten_frame(filled: int, crossed: int, cell: int) -> PanelContainer:
+	var frame := PanelContainer.new()
+	var fsb := StyleBoxFlat.new()
+	fsb.bg_color = Color("dbeeff")
+	fsb.border_color = Color("3d8be6")
+	fsb.set_border_width_all(6)
+	fsb.set_corner_radius_all(22)
+	fsb.content_margin_left = 10
+	fsb.content_margin_right = 10
+	fsb.content_margin_top = 10
+	fsb.content_margin_bottom = 10
+	frame.add_theme_stylebox_override("panel", fsb)
+	frame.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var grid := GridContainer.new()
+	grid.columns = 5
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 8)
+	frame.add_child(grid)
+	for i in 10:
+		var c := PanelContainer.new()
+		var csb := StyleBoxFlat.new()
+		csb.bg_color = Color(1, 1, 1, 0.95)
+		csb.border_color = Color("8cc1ff")
+		csb.set_border_width_all(3)
+		csb.set_corner_radius_all(14)
+		c.add_theme_stylebox_override("panel", csb)
+		c.custom_minimum_size = Vector2(cell, cell * 0.95)
+		grid.add_child(c)
+		if i < filled:
+			var t := TextureRect.new()
+			t.texture = OBJECT_TEX["counter"]
+			t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			c.add_child(t)
+			if i >= filled - crossed:
+				t.modulate = Color(1, 1, 1, 0.7)
+				var x := TextureRect.new()
+				x.texture = CROSS
+				x.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				x.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				c.add_child(x)
+	return frame
+
+
+func _stage_dice(a: int, b: int, plus: bool) -> void:
+	var row := _centered_row(36)
+	for i in 2:
+		var d := TextureRect.new()
+		d.texture = load("res://assets/math/counting_10/dice/Counting_Dice_%d.png" % [a if i == 0 else b])
+		d.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		d.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		d.custom_minimum_size = Vector2(220, 220)
+		d.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(d)
+		if i == 0:
+			row.add_child(_symbol(PLUS, 110) if plus else _spacer_fixed(40))
+	if plus:
+		row.add_child(_symbol(EQUALS, 110))
+		row.add_child(_result_box("?"))
+
+
+func _spacer_fixed(w: int) -> Control:
+	var c := Control.new()
+	c.custom_minimum_size = Vector2(w, 10)
+	return c
+
+
+## Objects to count: up to 5 per row, two rows for 6..10.
+func _stage_count(n: int, tex_key: String) -> void:
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(center)
+	var g := GridContainer.new()
+	g.columns = n if n <= 5 else int(ceil(n / 2.0))     # balanced rows: 6 → 3+3, 7 → 4+3 …
+	g.add_theme_constant_override("h_separation", 26)
+	g.add_theme_constant_override("v_separation", 10)
+	center.add_child(g)
+	for i in n:
+		g.add_child(_object(tex_key, 128 if n > 5 else 150))
+
+
+## Number tiles in a row (forwards / backwards), one hidden behind "?".
+func _stage_sequence(t: Dictionary) -> void:
+	var row := _centered_row(18)
+	var seq: Array = t["sequence"]
+	for i in seq.size():
+		var tile := PanelContainer.new()
+		var hole: bool = i == t["hole"]
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color("ffd27a") if hole else Color(1, 1, 1, 0.97)
+		sb.border_color = Color("f29a12") if hole else Color("8cc1ff")
+		sb.set_border_width_all(5)
+		sb.set_corner_radius_all(28)
+		sb.shadow_color = Color(0.1, 0.3, 0.7, 0.15)
+		sb.shadow_size = 6
+		tile.add_theme_stylebox_override("panel", sb)
+		tile.custom_minimum_size = Vector2(190, 200)
+		tile.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		var l := _digit("?" if hole else str(seq[i]), 120)
+		if hole:
+			_result_label = l
+		tile.add_child(l)
+		row.add_child(tile)
+
+
 # ----------------------------------------------------------------- answers ---
 
 func _on_answer(btn: AnswerButton) -> void:
@@ -524,7 +762,7 @@ func _on_answer(btn: AnswerButton) -> void:
 func _relink_after_wrong() -> void:
 	var btns := active_buttons()
 	var avail: Array = btns.filter(func(b): return b.state != "wrong")
-	if btns == answer_buttons:
+	if session.current()["option_style"] != "group" or btns.size() < 4:
 		FocusManager.link_row(avail)
 	else:
 		for b in avail:
@@ -629,7 +867,7 @@ func _finish() -> void:
 	var again := PillButton.make("ex_again", "blue", preload("res://assets/icons/Settings_Icon_Repeat.png"))
 	again.name = "ResultsAgain"
 	again.custom_minimum_size.x = 360
-	again.pressed.connect(func(): main.replace("exercise_sub10", {}))
+	again.pressed.connect(func(): main.replace("exercise", {"exercise": exercise_id}))
 	h.add_child(again)
 	FocusManager.set_neighbors(back, null, again)
 	FocusManager.set_neighbors(again, back, null)

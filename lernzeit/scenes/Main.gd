@@ -11,7 +11,7 @@ const SCREENS := {
 	"settings": "res://scenes/settings/Settings.tscn",
 	"pin": "res://scenes/parents/PinGate.tscn",
 	"parents": "res://scenes/parents/ParentDashboard.tscn",
-	"exercise_sub10": "res://scenes/exercises/SubtractionExercise.tscn",
+	"exercise": "res://scenes/exercises/MathExercise.tscn",
 }
 
 var _host: Control

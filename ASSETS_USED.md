@@ -114,3 +114,9 @@
 `Object_Counter_Blue`, `Balloon_Red`, `Butterfly_Blue`, `Car_Blue`, `math/subtraction_10/icons/Subtraction_{Minus_Red,
 Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле ответа и все числа/тексты рисуются Godot (в текстурах
 числовой прямой/десятки положения делений неизвестны точно — рисовать их кодом надёжнее).
+
+### Используется в «Addition bis 10» и «Zählen bis 10» (v0.3.0)
+`math/addition_10/backgrounds/…_1080p.png`, `math/addition_10/ui/Addition_Plus_Blue.png`, `math/counting_10/dice/Counting_Dice_1…6`,
+плюс общие `math/shared_ui/*` (кнопки ответов, баннер, обратная связь, точки, предметы) и знак «=» из комплекта вычитания.
+Для «Zählen bis 10» используется фон вычитания (у комплекта счёта своего фона нет). Плитки ряда чисел, десятка и
+карточки групп рисуются Godot (цифры — живым текстом, как рекомендует README комплекта).
