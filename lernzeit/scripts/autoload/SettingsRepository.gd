@@ -16,7 +16,8 @@ const GENERAL_DEFAULTS := {
 	"animations": true,
 	"text_size": "normal",     # normal | large
 	"read_aloud": true,        # stored only – feature not available in v0.1
-	"repeat_mistakes": true,   # stored only – takes effect once exercises exist
+	"repeat_mistakes": true,   # repeat wrongly solved tasks at the end of an exercise
+	"pause_day": -1,           # local day on which the break reminder was last shown
 }
 
 const PARENT_DEFAULTS := {
@@ -98,6 +99,8 @@ func _validate_general(key: String, v: Variant) -> Variant:
 			return v if v in ["de", "ru"] else d
 		"text_size":
 			return v if v in ["normal", "large"] else d
+		"pause_day":
+			return int(v) if (v is int or v is float) else d
 		"volume":
 			if not (v is int or v is float):
 				return d

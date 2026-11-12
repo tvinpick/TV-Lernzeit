@@ -4,9 +4,6 @@ extends RefCounted
 ## "Sitzungsdauer" from the parents area (15/30/45 min), the results screen
 ## suggests a pause – once per day, never forced.
 
-static var _shown_day := -1
-
-
 static func local_day(ts: int) -> int:
 	var bias: int = Time.get_time_zone_from_system().get("bias", 0)
 	return int(floor((ts + bias * 60) / 86400.0))
@@ -24,13 +21,13 @@ static func today_seconds() -> int:
 static func due() -> bool:
 	var minutes: int = SettingsRepository.get_parent_settings()["session_minutes"]
 	var today := local_day(int(Time.get_unix_time_from_system()))
-	return _shown_day != today and today_seconds() >= minutes * 60
+	return int(SettingsRepository.get_value("pause_day")) != today and today_seconds() >= minutes * 60
 
 
 static func maybe_show(screen: Node, main: Node, delay: float) -> void:
 	if not due():
 		return
-	_shown_day = local_day(int(Time.get_unix_time_from_system()))
+	SettingsRepository.set_value("pause_day", local_day(int(Time.get_unix_time_from_system())))   # once a day, also after a restart
 	await screen.get_tree().create_timer(delay).timeout
 	if not is_instance_valid(screen) or not screen.is_inside_tree():
 		return

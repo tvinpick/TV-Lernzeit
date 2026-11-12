@@ -110,7 +110,9 @@ func _ready() -> void:
 	for key in KitAssets.TEXTURES:
 		var spec: Array = KitAssets.TEXTURES[key]
 		var tex := KitAssets.texture(key)
-		if tex == null or tex.get_width() != spec[1] or tex.get_height() != spec[2]:
+		# size_limit may shrink large kit art to its on-screen size; aspect ratio must stay
+		if tex == null or tex.get_width() > spec[1] or tex.get_height() > spec[2] \
+				or absf(float(tex.get_width()) / tex.get_height() - float(spec[1]) / spec[2]) > 0.02:
 			bad.append(key)
 			continue
 		if not key.contains("backgrounds/"):
@@ -120,7 +122,7 @@ func _ready() -> void:
 			if not img.detect_alpha():
 				alpha_missing.append(key)
 	check(KitAssets.TEXTURES.size() == 236, "236 kit textures registered (%d)" % KitAssets.TEXTURES.size())
-	check(bad.is_empty(), "all kit textures load as separate resources with manifest size " + str(bad))
+	check(bad.is_empty(), "all kit textures load as separate resources with manifest size or smaller " + str(bad))
 	check(alpha_missing.is_empty(), "all kit sprites have real alpha transparency " + str(alpha_missing))
 	check(KitAssets.keys_with_prefix("deutsch_pictures/").size() == 8, "8 Deutsch pictures")
 	check(KitAssets.keys_with_prefix("math_counting_10_dice/").size() == 12, "dice 1–6 + dot patterns 1–6")
@@ -363,6 +365,9 @@ func _ready() -> void:
 	check(not PauseReminder.due(), "no pause reminder without practice")
 	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 8, 10, 16 * 60, "add10-v1"))
 	check(PauseReminder.due() and PauseReminder.today_seconds() >= 900, "16 min today with 15 min setting → pause suggested")
+	SettingsRepository.set_value("pause_day", PauseReminder.local_day(int(Time.get_unix_time_from_system())))
+	SettingsRepository.load_all()
+	check(not PauseReminder.due(), "pause reminder only once a day, also after a restart")
 	ProgressRepository.reset_all()
 
 	print("Compare / Reading generators, stickers, badges")
