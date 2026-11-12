@@ -99,15 +99,22 @@ func _refresh_art() -> void:
 			"correct": _art.texture = TEX["correct"]
 			"wrong": _art.texture = TEX["wrong"]
 			_: _art.texture = TEX["normal"]
-		_overlay.visible = has_focus() and state == "normal"
+		_overlay.visible = false
+	queue_redraw()
 	_label.modulate = Color(1, 1, 1, 0.55) if state == "wrong" else Color.WHITE
+
+
+func _draw() -> void:
+	if has_focus() and state in ["normal", "correct"]:
+		var r := Rect2(Vector2.ZERO, size).grow(12)
+		UiTheme.focus_ring(int(size.y * 0.24), 10).draw(get_canvas_item(), r)
 
 
 func _on_focus(on: bool) -> void:
 	_refresh_art()
 	if _tween:
 		_tween.kill()
-	var target := Vector2.ONE * (1.06 if on else 1.0)
+	var target := Vector2.ONE * (1.1 if on else 1.0)
 	if AppState.animations_enabled():
 		_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		_tween.tween_property(self, "scale", target, 0.14)

@@ -7,6 +7,7 @@ const NAVY := Color("16257a")
 const NAVY_SOFT := Color("33418f")
 const WHITE := Color.WHITE
 const FOCUS := Color("62e6ff")
+const FOCUS_RING := Color("ffd21f")
 const SHADOW := Color(0.04, 0.10, 0.35, 0.55)
 
 const FONT_BOLD := "res://assets/fonts/Nunito_700Bold.ttf"
@@ -103,13 +104,14 @@ static func build(scale: float) -> Theme:
 
 
 ## Focus ring used by every focusable element (blue glow frame).
+## Bright yellow (not cyan): stands out on the blue and purple backgrounds from the sofa.
 static func focus_ring(radius: int, width: int = 6) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.draw_center = false
-	sb.set_border_width_all(width)
-	sb.border_color = FOCUS
+	sb.set_border_width_all(maxi(width, 9))
+	sb.border_color = FOCUS_RING
 	sb.set_corner_radius_all(radius)
-	sb.shadow_color = Color(0.38, 0.9, 1.0, 0.65)
-	sb.shadow_size = 18
+	sb.shadow_color = Color(1.0, 0.78, 0.1, 0.75)
+	sb.shadow_size = 26
 	sb.anti_aliasing = true
 	return sb

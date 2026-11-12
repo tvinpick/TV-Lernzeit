@@ -47,6 +47,7 @@ var _feedback_label: Label
 var _busy := false
 var _results: Control
 var _hole_label: Label
+var _word_reveal: Label         ## de_first: the whole word appears under the picture when solved
 var _slots: Array = []          ## [{rect, label}] while building a word
 var _placed := 0
 var _build_wrong := {}          ## letters that were expected when a wrong tile was chosen
@@ -262,6 +263,7 @@ func _show_task() -> void:
 	for c in _stage.get_children():
 		c.queue_free()
 	_hole_label = null
+	_word_reveal = null
 	_slots = []
 	_placed = 0
 	_build_wrong = {}
@@ -283,7 +285,7 @@ func _show_task() -> void:
 	match t["mode"]:
 		"de_find": _stage_big_letter(t["letter"])
 		"de_case": _stage_big_letter(t["shown"])
-		"de_first": _stage_picture(t["picture"], 330)
+		"de_first": _stage_first_letter(t)
 		"de_missing": _stage_word(t, false)
 		"de_build": _stage_word(t, true)
 	_link_focus()
@@ -353,6 +355,23 @@ func _stage_picture(path: String, s: int) -> void:
 	c.add_child(_picture_frame(path, s))
 
 
+## Picture with an (initially empty) word label below; the word is revealed after the answer.
+func _stage_first_letter(t: Dictionary) -> void:
+	var v := VBoxContainer.new()
+	v.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.add_theme_constant_override("separation", 4)
+	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(v)
+	var f := _picture_frame(t["picture"], 262)
+	f.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	v.add_child(f)
+	_word_reveal = _letter_label("", 60)
+	_word_reveal.custom_minimum_size = Vector2(0, 72)
+	_word_reveal.set_meta("word", t.get("display", (t["word"] as String).capitalize()))
+	v.add_child(_word_reveal)
+
+
 ## Word as a row of slots (optional picture on the left).
 ## missing: one empty slot ("?"); build: all empty, filled while tiles are placed.
 func _stage_word(t: Dictionary, build: bool) -> void:
@@ -402,6 +421,10 @@ func _on_letter(btn: LetterButton) -> void:
 		return
 	if session.submit(btn.value):
 		btn.state = "correct"
+		if _word_reveal:
+			_word_reveal.text = _word_reveal.get_meta("word")
+			_word_reveal.add_theme_color_override("font_color", Color("1f9a3a"))
+			Juice.pop(_word_reveal, 1.25)
 		if _hole_label:
 			_hole_label.text = btn.value
 			_hole_label.add_theme_color_override("font_color", Color("1f9a3a"))

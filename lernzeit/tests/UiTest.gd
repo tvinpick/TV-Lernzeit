@@ -480,6 +480,9 @@ func run_exercise() -> void:
 		await navigate_to(target)
 		check(get_viewport().gui_get_focus_owner() == target, "reached the correct answer with the arrows")
 		await key(KEY_ENTER, 0.3)
+		if t["mode"] == "de_first":
+			check(ex._word_reveal.text == t["display"], "first letter solved → whole word shown: " + ex._word_reveal.text)
+			await shot(exercise + "_word_revealed")
 		if guard == 2:
 			await shot(exercise + "_correct_feedback")
 		await wait_next_task(ex, t)

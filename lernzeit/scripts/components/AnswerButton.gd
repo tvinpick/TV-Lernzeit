@@ -167,19 +167,27 @@ func _update_state() -> void:
 
 func _draw() -> void:
 	if has_focus() or state == "correct":
-		var r := _visible_rect().grow(6)
-		var ring := UiTheme.focus_ring(int(r.size.y * 0.32), 7)
+		var r := _visible_rect().grow(12)
+		var ring := UiTheme.focus_ring(int(r.size.y * 0.32), 10)
 		if state == "correct":
 			ring.border_color = Color("3ccf4e")
 			ring.shadow_color = Color(0.3, 0.9, 0.4, 0.6)
 		ring.draw(get_canvas_item(), r)
+		if has_focus():        # white outer contour: visible on yellow/orange buttons too
+			var outer := StyleBoxFlat.new()
+			outer.draw_center = false
+			outer.set_border_width_all(5)
+			outer.border_color = Color.WHITE
+			outer.set_corner_radius_all(int(r.size.y * 0.36))
+			outer.anti_aliasing = true
+			outer.draw(get_canvas_item(), r.grow(7))
 
 
 func _on_focus(on: bool) -> void:
 	queue_redraw()
 	if _tween:
 		_tween.kill()
-	var target := Vector2.ONE * (1.06 if on else 1.0)
+	var target := Vector2.ONE * (1.1 if on else 1.0)
 	if AppState.animations_enabled():
 		_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		_tween.tween_property(self, "scale", target, 0.14)

@@ -141,6 +141,7 @@ func make_task(mode: String) -> Dictionary:
 		"de_first":
 			var e: Dictionary = _pick(first_letter_words())
 			t["word"] = e["upper"]
+			t["display"] = e["word"]           # "Löwe" – shown after the answer
 			t["picture"] = e["picture"]
 			t["answer"] = e["letter"]
 			t["options"] = _letter_options(t["answer"], false)
