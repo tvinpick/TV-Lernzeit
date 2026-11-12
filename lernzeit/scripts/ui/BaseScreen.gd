@@ -30,7 +30,8 @@ func on_shown() -> void:
 
 func add_background(path: String) -> TextureRect:
 	var bg := TextureRect.new()
-	bg.texture = load(path)
+	bg.texture = AppState.texture(path)
+	bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

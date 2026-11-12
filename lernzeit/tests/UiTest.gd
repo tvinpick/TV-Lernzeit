@@ -12,6 +12,8 @@ var checks := 0
 
 
 func _ready() -> void:
+	# The app redraws only on changes (low-processor mode); screenshots need a frame every tick.
+	OS.low_processor_usage_mode = false
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--shots="): shots_dir = a.trim_prefix("--shots=")
 		if a.begins_with("--phase="): phase = a.trim_prefix("--phase=")

@@ -168,7 +168,7 @@ Localization
   ok   all topic keys translated []
 PIN hashing
   ok   16-byte salt
-       hash time: 17 ms
+       hash time: 16 ms
   ok   hash is hex SHA-256, not the PIN
   ok   deterministic for same salt
   ok   different salt → different hash

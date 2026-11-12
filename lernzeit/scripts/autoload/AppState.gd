@@ -6,14 +6,30 @@ signal theme_changed(theme: Theme)
 
 const APP_VERSION_FALLBACK := "0.1.0"
 
+## Large background art is decoded once at start-up and kept in memory, so
+## opening a screen never re-decodes a 3840×2160 image.
+const RESIDENT_TEXTURES := [
+	"res://assets/backgrounds/main_background_4k.png",
+	"res://assets/backgrounds/progress_background_4k.png",
+]
+
 var theme: Theme
 var _last_back_ms := -10000
+var _textures := {}
 
 
 func _ready() -> void:
 	_setup_input()
+	for p in RESIDENT_TEXTURES:
+		_textures[p] = load(p)
 	theme = UiTheme.build(text_scale())
 	SettingsRepository.setting_changed.connect(_on_setting_changed)
+
+
+func texture(path: String) -> Texture2D:
+	if not _textures.has(path):
+		_textures[path] = load(path)
+	return _textures[path]
 
 
 func app_version() -> String:

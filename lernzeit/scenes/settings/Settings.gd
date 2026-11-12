@@ -17,7 +17,8 @@ var back_button: PillButton
 var parents_button: PillButton
 var _scroll: ScrollContainer
 var _rows_box: VBoxContainer
-var _row_controls: Array = []     ## [[focusable controls of row 0], ...]
+var _row_controls: Array = []     ## [[focusable controls of row 0], ...] of the shown section
+var _sections := {}               ## id -> {"box": VBoxContainer, "rows": Array}
 var controls := {}                ## setting key -> control (for tests)
 
 
@@ -51,11 +52,10 @@ func _ready() -> void:
 	_scroll = ScrollContainer.new()
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	panel.add_child(_scroll)
-	_rows_box = VBoxContainer.new()
-	_rows_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_rows_box.add_theme_constant_override("separation", 12)
-	_scroll.add_child(_rows_box)
-	keep_rows_visible(_scroll, _rows_box)
+	var holder := VBoxContainer.new()   # holds one VBox per section, only one visible
+	holder.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_scroll.add_child(holder)
+	_scroll.set_meta("holder", holder)
 
 	back_button = PillButton.make("back", "light", preload("res://assets/icons/Settings_Icon_Back.png"))
 	back_button.name = "BackButton"
@@ -113,22 +113,34 @@ func _build_section(id: String) -> void:
 	section = id
 	for k in nav_buttons:
 		nav_buttons[k].selected = k == id
-	for c in _rows_box.get_children():
-		_rows_box.remove_child(c)
-		c.queue_free()
-	_row_controls.clear()
-	controls.clear()
-	match id:
-		"general": _build_general()
-		"learning": _build_learning()
-		"parents": _build_parents()
-		"data": _build_data()
-		"about": _build_about()
-	# Rows without own controls (Daten, Über die App) are focusable themselves
-	if _row_controls.is_empty():
-		for r in _rows_box.get_children():
-			(r as SettingsRow).make_focusable()
-			_row_controls.append([r])
+	var holder: VBoxContainer = _scroll.get_meta("holder")
+	# "Daten" shows live numbers → rebuilt each time; the others are built once.
+	if id == "data" and _sections.has("data"):
+		_sections["data"]["box"].queue_free()
+		_sections.erase("data")
+	if not _sections.has(id):
+		_rows_box = VBoxContainer.new()
+		_rows_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_rows_box.add_theme_constant_override("separation", 12)
+		holder.add_child(_rows_box)
+		_row_controls = []
+		match id:
+			"general": _build_general()
+			"learning": _build_learning()
+			"parents": _build_parents()
+			"data": _build_data()
+			"about": _build_about()
+		# Rows without own controls (Daten, Über die App) are focusable themselves
+		if _row_controls.is_empty():
+			for r in _rows_box.get_children():
+				(r as SettingsRow).make_focusable()
+				_row_controls.append([r])
+		keep_rows_visible(_scroll, _rows_box)
+		_sections[id] = {"box": _rows_box, "rows": _row_controls}
+	for k in _sections:
+		_sections[k]["box"].visible = k == id
+	_rows_box = _sections[id]["box"]
+	_row_controls = _sections[id]["rows"]
 	_link_content()
 	_scroll.scroll_vertical = 0
 
