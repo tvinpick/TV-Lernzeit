@@ -1,0 +1,465 @@
+{
+  "project": "Lernzeit",
+  "section": "Deutsch / Buchstaben",
+  "format": "PNG RGBA 600x600",
+  "count": 38,
+  "note": "User supplied 36 words; bonus Gans and Gabel added to reach requested 38.",
+  "assets": [
+    {
+      "letter": "M",
+      "word_de": "Mond",
+      "filename": "Deutsch_M_Mond.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 140679
+    },
+    {
+      "letter": "M",
+      "word_de": "Mama",
+      "filename": "Deutsch_M_Mama.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 128057
+    },
+    {
+      "letter": "A",
+      "word_de": "Ameise",
+      "filename": "Deutsch_A_Ameise.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 120764
+    },
+    {
+      "letter": "A",
+      "word_de": "Ast",
+      "filename": "Deutsch_A_Ast.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 79205
+    },
+    {
+      "letter": "O",
+      "word_de": "Oma",
+      "filename": "Deutsch_O_Oma.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 122926
+    },
+    {
+      "letter": "O",
+      "word_de": "Ohr",
+      "filename": "Deutsch_O_Ohr.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 139616
+    },
+    {
+      "letter": "I",
+      "word_de": "Igel",
+      "filename": "Deutsch_I_Igel.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 202616
+    },
+    {
+      "letter": "I",
+      "word_de": "Insel",
+      "filename": "Deutsch_I_Insel.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 145482
+    },
+    {
+      "letter": "L",
+      "word_de": "Lama",
+      "filename": "Deutsch_L_Lama.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 119482
+    },
+    {
+      "letter": "L",
+      "word_de": "Löwe",
+      "filename": "Deutsch_L_Loewe.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 166035
+    },
+    {
+      "letter": "S",
+      "word_de": "Sofa",
+      "filename": "Deutsch_S_Sofa.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 143705
+    },
+    {
+      "letter": "S",
+      "word_de": "Sonne",
+      "filename": "Deutsch_S_Sonne.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 169103
+    },
+    {
+      "letter": "E",
+      "word_de": "Esel",
+      "filename": "Deutsch_E_Esel.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 115147
+    },
+    {
+      "letter": "E",
+      "word_de": "Ente",
+      "filename": "Deutsch_E_Ente.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 116529
+    },
+    {
+      "letter": "U",
+      "word_de": "Uhr",
+      "filename": "Deutsch_U_Uhr.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 188267
+    },
+    {
+      "letter": "U",
+      "word_de": "Uhu",
+      "filename": "Deutsch_U_Uhu.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 151207
+    },
+    {
+      "letter": "R",
+      "word_de": "Rose",
+      "filename": "Deutsch_R_Rose.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 116573
+    },
+    {
+      "letter": "R",
+      "word_de": "Rad",
+      "filename": "Deutsch_R_Rad.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 184362
+    },
+    {
+      "letter": "T",
+      "word_de": "Tomate",
+      "filename": "Deutsch_T_Tomate.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 187250
+    },
+    {
+      "letter": "T",
+      "word_de": "Tür",
+      "filename": "Deutsch_T_Tuer.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 175682
+    },
+    {
+      "letter": "N",
+      "word_de": "Nase",
+      "filename": "Deutsch_N_Nase.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 141482
+    },
+    {
+      "letter": "N",
+      "word_de": "Nest",
+      "filename": "Deutsch_N_Nest.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 161094
+    },
+    {
+      "letter": "H",
+      "word_de": "Hose",
+      "filename": "Deutsch_H_Hose.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 164403
+    },
+    {
+      "letter": "H",
+      "word_de": "Hut",
+      "filename": "Deutsch_H_Hut.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 121444
+    },
+    {
+      "letter": "F",
+      "word_de": "Fisch",
+      "filename": "Deutsch_F_Fisch.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 121037
+    },
+    {
+      "letter": "F",
+      "word_de": "Fuß",
+      "filename": "Deutsch_F_Fuss.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 130046
+    },
+    {
+      "letter": "D",
+      "word_de": "Dose",
+      "filename": "Deutsch_D_Dose.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 145426
+    },
+    {
+      "letter": "D",
+      "word_de": "Dach",
+      "filename": "Deutsch_D_Dach.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 134029
+    },
+    {
+      "letter": "W",
+      "word_de": "Wal",
+      "filename": "Deutsch_W_Wal.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 120786
+    },
+    {
+      "letter": "W",
+      "word_de": "Wolke",
+      "filename": "Deutsch_W_Wolke.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Earlier individual illustrated PNG",
+      "alpha_visible_pixels": 137132
+    },
+    {
+      "letter": "B",
+      "word_de": "Banane",
+      "filename": "Deutsch_B_Banane.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Generated transparent contact sheet; cut out individual item",
+      "alpha_visible_pixels": 151181
+    },
+    {
+      "letter": "B",
+      "word_de": "Bus",
+      "filename": "Deutsch_B_Bus.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Generated transparent contact sheet; cut out individual item",
+      "alpha_visible_pixels": 154142
+    },
+    {
+      "letter": "P",
+      "word_de": "Pinsel",
+      "filename": "Deutsch_P_Pinsel.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Generated transparent contact sheet; cut out individual item",
+      "alpha_visible_pixels": 70396
+    },
+    {
+      "letter": "P",
+      "word_de": "Pilz",
+      "filename": "Deutsch_P_Pilz.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Generated transparent contact sheet; cut out individual item",
+      "alpha_visible_pixels": 179950
+    },
+    {
+      "letter": "K",
+      "word_de": "Kuh",
+      "filename": "Deutsch_K_Kuh.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Generated transparent contact sheet; cut out individual item",
+      "alpha_visible_pixels": 144291
+    },
+    {
+      "letter": "K",
+      "word_de": "Katze",
+      "filename": "Deutsch_K_Katze.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Generated transparent contact sheet; cut out individual item",
+      "alpha_visible_pixels": 130386
+    },
+    {
+      "letter": "G",
+      "word_de": "Gans",
+      "filename": "Deutsch_G_Gans.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Custom vector illustration",
+      "alpha_visible_pixels": 129239
+    },
+    {
+      "letter": "G",
+      "word_de": "Gabel",
+      "filename": "Deutsch_G_Gabel.png",
+      "size": [
+        600,
+        600
+      ],
+      "alpha": true,
+      "source": "Custom vector illustration",
+      "alpha_visible_pixels": 71672
+    }
+  ]
+}

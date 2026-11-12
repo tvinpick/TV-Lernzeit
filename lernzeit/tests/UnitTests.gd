@@ -119,7 +119,7 @@ func _ready() -> void:
 				img.decompress()
 			if not img.detect_alpha():
 				alpha_missing.append(key)
-	check(KitAssets.TEXTURES.size() == 115, "115 kit textures registered (%d)" % KitAssets.TEXTURES.size())
+	check(KitAssets.TEXTURES.size() == 153, "153 kit textures registered (%d)" % KitAssets.TEXTURES.size())
 	check(bad.is_empty(), "all kit textures load as separate resources with manifest size " + str(bad))
 	check(alpha_missing.is_empty(), "all kit sprites have real alpha transparency " + str(alpha_missing))
 	check(KitAssets.keys_with_prefix("deutsch_pictures/").size() == 8, "8 Deutsch pictures")
@@ -227,7 +227,7 @@ func _ready() -> void:
 					bad_letters += 1
 					if bad_letters < 3:
 						print("       invalid: ", lt)
-				if diff == "easy" and lt.has("word") and (lt["word"] as String).length() > 4:
+				if diff == "easy" and lt["mode"] in ["de_missing", "de_build"] and (lt["word"] as String).length() > 4:
 					bad_letters += 1
 	check(bad_letters == 0, "4500 letter tasks valid (answer in options, unique, pictures exist, tiles = word)")
 	lg.difficulty = "auto"
@@ -243,8 +243,32 @@ func _ready() -> void:
 	check(same_case, "upper/lower: options never mix cases")
 	var bt := lg.make_task("de_build")
 	check("".join(bt["tiles"]) != bt["word"] or (bt["word"] as String).length() < 2 or bt["word"] in ["MAMA"], "build word: tiles shuffled")
-	for w in LetterGenerator.PICTURE_WORDS:
-		check(ResourceLoader.exists(LetterGenerator.picture_path(w)), "picture for " + w)
+	var dict := LetterGenerator.dictionary()
+	var missing_pics := dict.filter(func(e): return not ResourceLoader.exists(e["picture"]))
+	check(dict.size() == 44 and missing_pics.is_empty(), "44 picture words, all pictures exist " + str(missing_pics))
+	var wrong_first := dict.filter(func(e): return (e["upper"] as String).substr(0, 1) != e["letter"])
+	check(wrong_first.is_empty(), "every word starts with its letter " + str(wrong_first))
+	var easy := LetterGenerator.new(3)
+	easy.difficulty = "easy"
+	var unlocked_only := true
+	for i in 300:
+		var et := easy.make_task(["de_first", "de_missing", "de_build"][i % 3])
+		var w: String = et["word"]
+		if et["mode"] == "de_first":
+			unlocked_only = unlocked_only and et["answer"] in LetterGenerator.LETTERS_EASY
+		else:
+			for k in w.length():
+				unlocked_only = unlocked_only and w.substr(k, 1) in LetterGenerator.LETTERS_EASY
+	check(unlocked_only, "Leicht: only unlocked letters (M A O I L S E U) in pictures and spelled words")
+	var spelled := {}
+	var with_sz := 0
+	for i in 400:
+		var st := LetterGenerator.new(i).make_task("de_build")
+		spelled[st["word"]] = true
+		if (st["word"] as String).contains("ß"):
+			with_sz += 1
+	check(with_sz == 0, "no ß in spelling tasks")
+	check(spelled.size() >= 10, "word building uses many different words (%d)" % spelled.size())
 	var only_first := LetterGenerator.new(1)
 	only_first.allowed_modes = ["de_first"]
 	check(only_first.make_session(10).all(func(x): return x["mode"] == "de_first"), "topic sessions use only their modes (Anlaute)")

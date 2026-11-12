@@ -68,6 +68,12 @@ KITS = {
         ("Lernzeit_Addition_10_Kit_v1/Previews/", "reference", "addition_10_kit_v1/previews"),
         ("Lernzeit_Addition_10_Kit_v1/Documentation/", "reference", "addition_10_kit_v1/documentation"),
     ]),
+    "Lernzeit_Deutsch_Alphabet_38_PNG.zip": ("deutsch_alphabet_38", [
+        ("PNG/", "asset", "deutsch/words"),                 # README: res://assets/deutsch/words/
+        ("Preview/", "reference", "deutsch_alphabet_38"),
+        ("README_FOR_CLAUDE.txt", "reference", "deutsch_alphabet_38"),
+        ("ASSET_MANIFEST.json", "reference", "deutsch_alphabet_38"),
+    ]),
     # Identical to the progress art that is already integrated (lernzeit/assets/ui, icons).
     "Lernzeit_Progress_UI_Assets.zip": ("progress_ui", [
         ("", "skip", ""),
@@ -169,10 +175,12 @@ def main():
             if n.endswith("ASSET_MANIFEST.json"):
                 d = json.loads(z.read(n))
                 items = d["assets"] if isinstance(d, dict) else d
-                base = n.rsplit("Documentation/", 1)[0]
+                base = n[:n.rfind("Documentation/")] if "Documentation/" in n else n[:n.rfind("/") + 1]
                 for it in items:
                     if "size" in it:   # newer manifest format: "size": [w, h]
                         it = dict(it, width=it["size"][0], height=it["size"][1])
+                    if "path" not in it and "filename" in it:   # alphabet pack: {"filename": ...} in PNG/
+                        it = dict(it, path="PNG/" + it["filename"])
                     manifest[base + it["path"]] = it
         for n in sorted(names):
             fname = os.path.basename(n)

@@ -126,3 +126,8 @@ Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле
 `Picture_Frame`, `deutsch/ui/letter_buttons/{Default,Correct,Incorrect}` + `Deutsch_Focus_Overlay`, `deutsch/ui/word_tiles/*`,
 `deutsch/ui/progress/{Dot_Done,Dot_Current,Dot_Pending,Track}`, `deutsch/ui/controls/Deutsch_Progress_Counter_Blank`,
 `deutsch/ui/feedback/*`. Все буквы, слова и подсказки — живой текст Godot.
+
+### Deutsch Alphabet 38 (`Lernzeit_Deutsch_Alphabet_38_PNG.zip`, v0.4.1)
+38 картинок-слов → `lernzeit/assets/deutsch/words/` (по 2 на букву: M A O I L S E U R T N H F D W B P K + G Gans/Gabel).
+Без изменений. README, манифест и превью → `references/deutsch_alphabet_38/`. Список слов для упражнений —
+`lernzeit/data/deutsch_words.json` (можно дополнять: слово, первая буква, путь к картинке).

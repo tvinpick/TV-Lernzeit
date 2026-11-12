@@ -168,7 +168,7 @@ Localization
   ok   all topic keys translated []
 PIN hashing
   ok   16-byte salt
-       hash time: 16 ms
+       hash time: 17 ms
   ok   hash is hex SHA-256, not the PIN
   ok   deterministic for same salt
   ok   different salt → different hash
@@ -235,7 +235,7 @@ WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-
   ok   record sanitised (total >= correct)
   ok   invalid record rejected
 Exercise graphics kits (KitAssets registry)
-  ok   115 kit textures registered (115)
+  ok   153 kit textures registered (153)
   ok   all kit textures load as separate resources with manifest size []
   ok   all kit sprites have real alpha transparency []
   ok   8 Deutsch pictures
@@ -270,16 +270,13 @@ Deutsch letter generator
   ok   Deutsch session: 10 tasks, all 5 modes
   ok   upper/lower: options never mix cases
   ok   build word: tiles shuffled
-  ok   picture for MAUS
-  ok   picture for AUTO
-  ok   picture for BALL
-  ok   picture for HAUS
-  ok   picture for SONNE
-  ok   picture for STERN
-  ok   picture for APFEL
-  ok   picture for FISCH
+  ok   44 picture words, all pictures exist []
+  ok   every word starts with its letter []
+  ok   Leicht: only unlocked letters (M A O I L S E U) in pictures and spelled words
+  ok   no ß in spelling tasks
+  ok   word building uses many different words (33)
   ok   topic sessions use only their modes (Anlaute)
-UNIT TESTS: 81 checks, 0 failures
+UNIT TESTS: 78 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -306,32 +303,32 @@ Exercise count10 – full session with the remote
   ok   levels: bis 10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: cnt_objects answer=1 options=[2, 4, 1, 5]
+  ok   task 1 valid: cnt_objects answer=9 options=[9, 5, 6, 10]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: cnt_dice answer=9 options=[5, 10, 9, 6]
+  ok   task 2 valid: cnt_dice answer=6 options=[8, 4, 5, 6]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: cnt_more answer=9 options=[2, 9]
+  ok   task 3 valid: cnt_dice answer=3 options=[3, 5, 2, 4]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: cnt_dice answer=5 options=[6, 4, 5, 8]
+  ok   task 4 valid: cnt_bigger answer=7 options=[7, 1]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: cnt_dice answer=9 options=[7, 9, 8, 6]
+  ok   task 5 valid: cnt_to_ten answer=8 options=[10, 6, 8, 9]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: cnt_to_ten answer=3 options=[6, 3, 5, 1]
+  ok   task 6 valid: cnt_more answer=10 options=[10, 9]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: cnt_more answer=9 options=[8, 9]
+  ok   task 7 valid: cnt_bigger answer=6 options=[6, 0]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: cnt_sequence answer=2 options=[3, 2, 4, 1]
+  ok   task 8 valid: cnt_bigger answer=9 options=[9, 5]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: cnt_to_ten answer=6 options=[8, 6, 9, 7]
+  ok   task 9 valid: cnt_sequence answer=8 options=[7, 5, 8, 9]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: cnt_bigger answer=3 options=[3, 2]
+  ok   task 10 valid: cnt_more answer=3 options=[3, 2]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: cnt_objects answer=1 options=[2, 4, 1, 5]
+  ok   task 11 valid: cnt_objects answer=9 options=[9, 5, 6, 10]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["cnt_objects", "cnt_dice", "cnt_more", "cnt_to_ten", "cnt_sequence", "cnt_bigger"]
+  ok   all 6 representations shown: ["cnt_objects", "cnt_dice", "cnt_bigger", "cnt_to_ten", "cnt_more", "cnt_sequence"]
   ok   session finished
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
@@ -365,32 +362,32 @@ Exercise add10 – full session with the remote
   ok   levels: bis 10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: add_groups answer=7 options=[10, 7, 8, 6]
+  ok   task 1 valid: add_equation answer=3 options=[2, 5, 3, 6]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: add_dice answer=2 options=[5, 2, 3, 1]
+  ok   task 2 valid: add_choose answer=3 + 1 options=["3 + 2", "3 + 1", "4 + 2", "4 + 3"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: add_choose answer=2 + 4 options=["2 + 2", "2 + 6", "2 + 3", "2 + 4"]
+  ok   task 3 valid: add_dice answer=3 options=[1, 5, 6, 3]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: add_equation answer=4 options=[7, 6, 5, 4]
+  ok   task 4 valid: add_equation answer=4 options=[7, 5, 4, 3]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: add_choose answer=3 + 1 options=["3 + 3", "4 + 2", "3 + 2", "3 + 1"]
+  ok   task 5 valid: add_dice answer=7 options=[10, 7, 8, 6]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: add_to_ten answer=6 options=[9, 4, 6, 7]
+  ok   task 6 valid: add_equation answer=2 options=[2, 0, 5, 1]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: add_equation answer=3 options=[4, 1, 3, 2]
+  ok   task 7 valid: add_groups answer=5 options=[8, 7, 5, 4]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: add_missing answer=7 options=[5, 10, 7, 6]
+  ok   task 8 valid: add_to_ten answer=6 options=[6, 4, 8, 7]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: add_equation answer=5 options=[3, 4, 8, 5]
+  ok   task 9 valid: add_missing answer=1 options=[0, 1, 4, 5]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: add_to_ten answer=8 options=[8, 5, 10, 9]
+  ok   task 10 valid: add_dice answer=8 options=[8, 7, 6, 9]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: add_groups answer=7 options=[10, 7, 8, 6]
+  ok   task 11 valid: add_equation answer=3 options=[2, 5, 3, 6]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["add_groups", "add_dice", "add_choose", "add_equation", "add_to_ten", "add_missing"]
+  ok   all 6 representations shown: ["add_equation", "add_choose", "add_dice", "add_groups", "add_to_ten", "add_missing"]
   ok   session finished
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
@@ -424,32 +421,32 @@ Exercise sub10 – full session with the remote
   ok   levels: bis 10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: number_line answer=4 options=[5, 4, 3, 7]
+  ok   task 1 valid: ten_frame answer=3 options=[2, 6, 5, 3]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: ten_frame answer=2 options=[0, 1, 3, 2]
+  ok   task 2 valid: objects answer=1 options=[0, 1, 2, 4]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: objects answer=5 options=[3, 6, 5, 8]
+  ok   task 3 valid: ten_frame answer=2 options=[1, 3, 0, 2]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: objects answer=8 options=[5, 10, 8, 7]
+  ok   task 4 valid: equation answer=2 options=[1, 0, 2, 4]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: equation answer=2 options=[1, 5, 4, 2]
+  ok   task 5 valid: equation answer=3 options=[6, 3, 1, 4]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: picture answer=1 options=[1, 2, 5, 4]
+  ok   task 6 valid: picture answer=4 options=[2, 7, 5, 4]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: equation answer=2 options=[1, 5, 2, 0]
+  ok   task 7 valid: number_line answer=8 options=[8, 7, 9, 5]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: ten_frame answer=5 options=[4, 7, 5, 6]
+  ok   task 8 valid: objects answer=1 options=[5, 4, 1, 0]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: missing answer=1 options=[4, 5, 0, 1]
+  ok   task 9 valid: missing answer=5 options=[5, 7, 3, 6]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: equation answer=4 options=[6, 3, 4, 2]
+  ok   task 10 valid: ten_frame answer=4 options=[4, 2, 7, 5]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: number_line answer=4 options=[5, 4, 3, 7]
+  ok   task 11 valid: ten_frame answer=3 options=[2, 6, 5, 3]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["number_line", "ten_frame", "objects", "equation", "picture", "missing"]
+  ok   all 6 representations shown: ["ten_frame", "objects", "equation", "picture", "number_line", "missing"]
   ok   session finished
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
@@ -482,32 +479,32 @@ Exercise de_letters – full session with the remote
   ok   deutsch → buchstaben
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_case answer=t options=["t", "k", "f", "l"]
+  ok   task 1 valid: de_build answer=RAD options=["RAD"]
+  ok   word RAD built tile by tile
+  ok   task 2 valid: de_case answer=S options=["S", "C", "B", "Z"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_find answer=D options=["D", "P", "B", "O"]
+  ok   task 3 valid: de_build answer=DOSE options=["DOSE"]
+  ok   word DOSE built tile by tile
+  ok   task 4 valid: de_missing answer=N options=["U", "H", "M", "N"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_case answer=k options=["k", "x", "h", "t"]
+  ok   task 5 valid: de_missing answer=A options=["O", "H", "E", "A"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_find answer=M options=["H", "M", "N", "W"]
+  ok   task 6 valid: de_find answer=P options=["B", "R", "F", "P"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_case answer=R options=["P", "R", "B", "K"]
+  ok   task 7 valid: de_case answer=d options=["d", "q", "p", "b"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_first answer=H options=["N", "M", "H", "K"]
+  ok   task 8 valid: de_first answer=P options=["P", "F", "R", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_first answer=A options=["O", "A", "E", "H"]
+  ok   task 9 valid: de_missing answer=S options=["B", "S", "Z", "C"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_missing answer=P options=["P", "F", "B", "R"]
+  ok   task 10 valid: de_first answer=D options=["D", "P", "B", "O"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_find answer=L options=["E", "I", "T", "L"]
+  ok   task 11 valid: de_case answer=S options=["S", "C", "B", "Z"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_build answer=BALL options=["BALL"]
-  ok   word BALL built tile by tile
-  ok   task 11 valid: de_case answer=t options=["t", "k", "f", "l"]
-  ok   reached the correct answer with the arrows
-  ok   all 5 representations shown: ["de_case", "de_find", "de_first", "de_missing", "de_build"]
+  ok   all 5 representations shown: ["de_build", "de_case", "de_missing", "de_find", "de_first"]
   ok   session finished
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
@@ -540,30 +537,30 @@ Exercise de_anlaute – full session with the remote
   ok   deutsch → anlaute
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_first answer=S options=["Z", "C", "S", "B"]
+  ok   task 1 valid: de_first answer=E options=["A", "E", "F", "B"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_first answer=S options=["B", "S", "Z", "C"]
+  ok   task 2 valid: de_first answer=K options=["K", "X", "H", "R"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_first answer=H options=["M", "K", "N", "H"]
+  ok   task 3 valid: de_first answer=A options=["O", "E", "A", "H"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_first answer=A options=["A", "E", "H", "O"]
+  ok   task 4 valid: de_first answer=B options=["P", "R", "D", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_first answer=F options=["F", "P", "T", "E"]
+  ok   task 5 valid: de_first answer=O options=["A", "U", "Q", "O"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_first answer=B options=["R", "B", "P", "D"]
+  ok   task 6 valid: de_first answer=I options=["I", "L", "T", "J"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_first answer=M options=["W", "M", "H", "N"]
+  ok   task 7 valid: de_first answer=D options=["B", "P", "D", "O"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_first answer=A options=["E", "A", "H", "O"]
+  ok   task 8 valid: de_first answer=B options=["R", "B", "P", "D"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_first answer=H options=["K", "N", "M", "H"]
+  ok   task 9 valid: de_first answer=L options=["I", "T", "L", "E"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_first answer=S options=["Z", "C", "S", "B"]
+  ok   task 10 valid: de_first answer=W options=["N", "M", "W", "V"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_first answer=S options=["Z", "C", "S", "B"]
+  ok   task 11 valid: de_first answer=E options=["A", "E", "F", "B"]
   ok   reached the correct answer with the arrows
   ok   all 1 representations shown: ["de_first"]
   ok   session finished
@@ -598,32 +595,32 @@ Exercise de_woerter – full session with the remote
   ok   deutsch → woerter
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_missing answer=I options=["J", "T", "I", "L"]
+  ok   task 1 valid: de_build answer=OMA options=["OMA"]
+  ok   word OMA built tile by tile
+  ok   task 2 valid: de_build answer=STERN options=["STERN"]
+  ok   word STERN built tile by tile
+  ok   task 3 valid: de_build answer=ENTE options=["ENTE"]
+  ok   word ENTE built tile by tile
+  ok   task 4 valid: de_missing answer=S options=["C", "S", "Z", "B"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_missing answer=F options=["T", "E", "P", "F"]
+  ok   task 5 valid: de_build answer=GABEL options=["GABEL"]
+  ok   word GABEL built tile by tile
+  ok   task 6 valid: de_missing answer=B options=["P", "R", "D", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_build answer=MAUS options=["MAUS"]
-  ok   word MAUS built tile by tile
-  ok   task 4 valid: de_build answer=IGEL options=["IGEL"]
-  ok   word IGEL built tile by tile
-  ok   task 5 valid: de_build answer=LAMA options=["LAMA"]
-  ok   word LAMA built tile by tile
-  ok   task 6 valid: de_build answer=LIMO options=["LIMO"]
-  ok   word LIMO built tile by tile
-  ok   task 7 valid: de_missing answer=E options=["E", "F", "B", "A"]
+  ok   task 7 valid: de_missing answer=U options=["N", "O", "U", "V"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_build answer=SONNE options=["SONNE"]
-  ok   word SONNE built tile by tile
-  ok   task 9 valid: de_missing answer=B options=["D", "R", "B", "P"]
+  ok   task 8 valid: de_missing answer=U options=["N", "U", "V", "O"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_missing answer=O options=["U", "Q", "O", "A"]
+  ok   task 9 valid: de_build answer=MAMA options=["MAMA"]
+  ok   word MAMA built tile by tile
+  ok   task 10 valid: de_build answer=ROSE options=["ROSE"]
+  ok   word ROSE built tile by tile
+  ok   task 11 valid: de_missing answer=S options=["C", "S", "Z", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_missing answer=I options=["J", "T", "I", "L"]
-  ok   reached the correct answer with the arrows
-  ok   all 2 representations shown: ["de_missing", "de_build"]
+  ok   all 2 representations shown: ["de_build", "de_missing"]
   ok   session finished
   ok   one repetition of the mistaken task at the end
   ok   record saved: 9 of 10 on the first try
@@ -656,30 +653,30 @@ Exercise de_case – full session with the remote
   ok   deutsch → gross_klein
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_case answer=A options=["H", "E", "A", "O"]
+  ok   task 1 valid: de_case answer=P options=["P", "B", "F", "R"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_case answer=h options=["b", "n", "k", "h"]
+  ok   task 2 valid: de_case answer=H options=["H", "K", "N", "M"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_case answer=p options=["b", "p", "d", "q"]
+  ok   task 3 valid: de_case answer=K options=["X", "K", "H", "R"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_case answer=K options=["H", "K", "X", "R"]
+  ok   task 4 valid: de_case answer=f options=["t", "f", "l", "k"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_case answer=d options=["d", "b", "p", "q"]
+  ok   task 5 valid: de_case answer=l options=["k", "l", "f", "t"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_case answer=n options=["m", "h", "u", "n"]
+  ok   task 6 valid: de_case answer=G options=["G", "O", "M", "T"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_case answer=W options=["M", "V", "N", "W"]
+  ok   task 7 valid: de_case answer=h options=["h", "k", "n", "b"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_case answer=m options=["m", "n", "w", "h"]
+  ok   task 8 valid: de_case answer=b options=["b", "q", "p", "d"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_case answer=i options=["t", "f", "i", "j"]
+  ok   task 9 valid: de_case answer=t options=["k", "t", "l", "f"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_case answer=r options=["t", "v", "n", "r"]
+  ok   task 10 valid: de_case answer=w options=["w", "v", "n", "m"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_case answer=A options=["H", "E", "A", "O"]
+  ok   task 11 valid: de_case answer=P options=["P", "B", "F", "R"]
   ok   reached the correct answer with the arrows
   ok   all 1 representations shown: ["de_case"]
   ok   session finished

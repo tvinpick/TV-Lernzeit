@@ -8,11 +8,13 @@ extends MathGenerator
 ##   de_missing  – which letter is missing in the word
 ##   de_build    – build the shown word from shuffled letter tiles
 ## The letter set grows with the difficulty (Leicht: M A O I L S E U).
+## Picture words come from res://data/deutsch_words.json (alphabet pack + first kit).
+## Spelling tasks only use words whose letters are all unlocked (kit README).
 
 const ALL_MODES: Array[String] = ["de_find", "de_case", "de_first", "de_missing", "de_build"]
 
 const LETTERS_EASY := ["M", "A", "O", "I", "L", "S", "E", "U"]
-const LETTERS_AUTO := ["M", "A", "O", "I", "L", "S", "E", "U", "R", "T", "N", "H", "F", "D", "W", "B", "P", "K"]
+const LETTERS_AUTO := ["M", "A", "O", "I", "L", "S", "E", "U", "R", "T", "N", "H", "F", "D", "W", "B", "P", "K", "G"]
 const LETTERS_ALL := ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
 	"S", "T", "U", "V", "W", "X", "Y", "Z", "Ä", "Ö", "Ü"]
 
@@ -32,12 +34,20 @@ const SIMILAR_LOWER := {
 	"s": ["z", "c", "e"], "k": ["h", "x", "t"],
 }
 
-## Words with a picture in the kit (res://assets/deutsch/pictures/Deutsch_Picture_<Name>.png)
-const PICTURE_WORDS := ["MAUS", "AUTO", "BALL", "HAUS", "SONNE", "STERN", "APFEL", "FISCH"]
-const WORDS := ["MAMA", "OMA", "OPA", "LAMA", "MAUS", "AUTO", "ESEL", "IGEL", "ROSE", "NASE", "HOSE",
-	"BALL", "HAUS", "SONNE", "STERN", "APFEL", "FISCH", "MOND", "LIMO", "OMI"]
+const WORDS_FILE := "res://data/deutsch_words.json"
 
 var allowed_modes: Array = ALL_MODES
+static var _dictionary: Array = []
+
+
+## [{word: "Löwe", upper: "LÖWE", letter: "L", picture: "res://..."}]
+static func dictionary() -> Array:
+	if _dictionary.is_empty():
+		var d = JSON.parse_string(FileAccess.get_file_as_string(WORDS_FILE))
+		for e in (d["words"] if d is Dictionary else []):
+			_dictionary.append({"word": e["word"], "upper": (e["word"] as String).to_upper(),
+				"letter": e["letter"], "picture": e["picture"]})
+	return _dictionary
 
 
 func modes() -> Array:
@@ -52,17 +62,35 @@ func letters() -> Array:
 
 
 func max_word_len() -> int:
-	return 4 if difficulty == "easy" else 5
+	return {"easy": 4, "hard": 6}.get(difficulty, 5)
 
 
-func words(only_pictures: bool = false) -> Array:
-	var src: Array = PICTURE_WORDS if only_pictures else WORDS
-	var out: Array = src.filter(func(w): return w.length() <= max_word_len())
-	return out if not out.is_empty() else src.filter(func(w): return w.length() <= 5)
+## Pictures whose first letter is unlocked (first-letter task).
+func first_letter_words() -> Array:
+	var ls := letters()
+	return dictionary().filter(func(e): return e["letter"] in ls)
 
 
-static func picture_path(word: String) -> String:
-	return "res://assets/deutsch/pictures/Deutsch_Picture_%s.png" % word.capitalize()
+## Words for spelling tasks: short enough, no ß, umlauts only on "hard",
+## every letter already unlocked (falls back to length/charset rules if too few).
+func spelling_words() -> Array:
+	var ls := letters()
+	var ok_chars := func(e) -> bool:
+		var u: String = e["upper"]
+		if u.length() > max_word_len() or u.contains("ß") or u.contains("ẞ"):
+			return false
+		for i in u.length():
+			var c := u.substr(i, 1)
+			if c in ["Ä", "Ö", "Ü"] and difficulty != "hard":
+				return false
+		return true
+	var base: Array = dictionary().filter(ok_chars)
+	var unlocked: Array = base.filter(func(e):
+		for i in (e["upper"] as String).length():
+			if not (e["upper"] as String).substr(i, 1) in ls:
+				return false
+		return true)
+	return unlocked if unlocked.size() >= 4 else base
 
 
 func _pick(arr: Array):
@@ -111,26 +139,28 @@ func make_task(mode: String) -> Dictionary:
 			t["args"] = {"l": t["shown"]}
 			t["key"] = "case:%s:%s" % [l, to_lower]
 		"de_first":
-			var w: String = _pick(words(true))
-			t["word"] = w
-			t["picture"] = picture_path(w)
-			t["answer"] = w.substr(0, 1)
+			var e: Dictionary = _pick(first_letter_words())
+			t["word"] = e["upper"]
+			t["picture"] = e["picture"]
+			t["answer"] = e["letter"]
 			t["options"] = _letter_options(t["answer"], false)
 			t["prompt"] = "de_prompt_first"
-			t["key"] = "first:" + w
+			t["key"] = "first:" + e["word"]
 		"de_missing":
-			var w: String = _pick(words())
+			var e: Dictionary = _pick(spelling_words())
+			var w: String = e["upper"]
 			var hole := rng.randi_range(0, w.length() - 1)
 			t["word"] = w
 			t["hole"] = hole
-			t["picture"] = picture_path(w) if w in PICTURE_WORDS else ""
+			t["picture"] = e["picture"]
 			t["answer"] = w.substr(hole, 1)
 			var opts := _letter_options(t["answer"], false)
 			t["options"] = opts
 			t["prompt"] = "de_prompt_missing"
 			t["key"] = "miss:%s:%d" % [w, hole]
 		"de_build":
-			var w: String = _pick(words().filter(func(x): return x.length() <= 5))
+			var e: Dictionary = _pick(spelling_words().filter(func(x): return (x["upper"] as String).length() <= 5))
+			var w: String = e["upper"]
 			var tiles: Array = []
 			for i in w.length():
 				tiles.append(w.substr(i, 1))
@@ -139,7 +169,7 @@ func make_task(mode: String) -> Dictionary:
 				if "".join(tiles) != w:
 					break
 			t["word"] = w
-			t["picture"] = picture_path(w) if w in PICTURE_WORDS else ""
+			t["picture"] = e["picture"]
 			t["tiles"] = tiles
 			t["answer"] = w
 			t["options"] = [w]

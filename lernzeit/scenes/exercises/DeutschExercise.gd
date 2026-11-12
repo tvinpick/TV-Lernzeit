@@ -273,7 +273,7 @@ func _show_task() -> void:
 	match t["mode"]:
 		"de_find": _stage_big_letter(t["letter"])
 		"de_case": _stage_big_letter(t["shown"])
-		"de_first": _stage_picture(t["picture"], 300)
+		"de_first": _stage_picture(t["picture"], 330)
 		"de_missing": _stage_word(t, false)
 		"de_build": _stage_word(t, true)
 	_link_focus()
@@ -324,7 +324,7 @@ func _stage_big_letter(text: String) -> void:
 
 func _picture_frame(path: String, s: int) -> PanelContainer:
 	var f := PanelContainer.new()
-	f.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Picture_Frame.png"), 60, 22))
+	f.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Picture_Frame.png"), 60, 6))
 	f.custom_minimum_size = Vector2(s, s)
 	f.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var p := TextureRect.new()
@@ -353,7 +353,7 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_stage.add_child(row)
 	if t["picture"] != "":
-		row.add_child(_picture_frame(t["picture"], 260))
+		row.add_child(_picture_frame(t["picture"], 280))
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Word_Panel.png"), 50, 40))
 	panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
