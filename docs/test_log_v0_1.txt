@@ -1,0 +1,230 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
+T05 first start language / T02 home
+  ok   German is the default language
+  ok   app starts on Home
+  ok   initial focus on Mathematik
+  ok   home prompt in German
+T03 D-pad on Home
+  ok   Right → Deutsch
+  ok   Up → gear
+  ok   Up at edge keeps focus
+  ok   Down → Deutsch
+  ok   Down → Logik
+  ok   Right at edge keeps focus
+  ok   Down → Mein Fortschritt
+  ok   disabled 'Weiter üben' is skipped
+  ok   Up → Lesen
+  ok   Left at edge keeps focus
+  ok   T10 'Weiter üben' disabled
+Subject → topic → not available → back (focus restore)
+  ok   OK on Lesen opens subject menu
+  ok   first topic focused
+  ok   Down → next topic
+  ok   topic without levels → not-available screen
+  ok   Back → subject, focus restored
+  ok   Android Back → Home, focus on Lesen
+Mathematik levels
+  ok   Mathematik → Zählen
+  ok   OK on Zählen → level 'bis 10'
+  ok   Right → 'bis 20'
+  ok   level → not-available screen
+  ok   breadcrumb: Mathematik › Zählen › bis 20
+  ok   Back → level focus restored
+  ok   Back in levels → topic list
+  ok   Down ×3 → Vergleichen
+  ok   no levels → Right stays
+  ok   Back → Home
+T07 progress
+  ok   reach Mein Fortschritt
+  ok   progress overview opens
+  ok   tasks solved = 0
+  ok   no percentage for 0/0
+  ok   topics practiced = 0
+  ok   achievements disabled
+  ok   Down → Deutsch row
+  ok   detail opens
+  ok   Back → overview, focus restored
+  ok   Back → Home
+Settings / T05 Russian / T06 values
+  ok   reach gear
+  ok   settings open on Allgemein
+  ok   Right → language Deutsch
+  ok   Right → Русский
+  ok   language switched to ru
+  ok   UI strings now Russian
+  ok   Down → sound switch
+  ok   sound off
+  ok   sound on again
+  ok   Down → volume
+  ok   volume 65 → 75 → 70 (5 % steps)
+  ok   focus stays on slider while adjusting
+  ok   UI bus volume follows slider
+  ok   animations off
+  ok   text size large
+  ok   theme font size increased
+  ok   Back in content → nav column
+  ok   read aloud shown as unavailable
+  ok   read aloud cannot be switched on
+  ok   Back → Home
+  ok   card title translated
+T08 PIN create / verify
+  ok   settings again
+  ok   Down from nav → Zurück
+  ok   Right → Elternbereich
+  ok   PIN screen
+  ok   no PIN yet → create mode
+  ok   Back closes PIN without access
+  ok   after 4 digits → confirmation step
+  ok   mismatching confirmation rejected
+  ok   PIN stored
+  ok   PIN created → Elternbereich
+  ok   PIN not stored in plain text
+  ok   Back from parents (no changes) → settings
+  ok   wrong PIN refused
+  ok   remaining attempts shown
+  ok   Back from PIN → settings, no bypass
+Language back to German for the remaining screenshots
+  ok   correct PIN → parents
+  ok   Down → subject chips
+  ok   Right ×3 → Logik chip
+  ok   Logik disabled in draft
+  ok   not saved yet
+  ok   Back with unsaved changes asks for confirmation
+  ok   Back closes dialog, stays
+  ok   reach Speichern
+  ok   saved: Logik disabled
+T09 reset progress (PIN + confirmation)
+  ok   test record present
+  ok   reach reset button: ResetProgress
+  ok   reset requires PIN
+  ok   wrong PIN → nothing deleted
+  ok   PIN ok → confirmation dialog
+  ok   default focus on Abbrechen
+  ok   Abbrechen keeps data
+  ok   focus back on reset button
+  ok   reset again → PIN
+  ok   confirmation dialog again
+  ok   Right → Zurücksetzen
+  ok   confirmed reset deletes records
+  ok   back at Home
+  ok   Logik card dimmed on Home
+  ok   focus on dimmed Logik card
+  ok   disabled subject does not open
+T04 exit confirmation
+  ok   Back on Home → exit dialog
+  ok   Back closes exit dialog, app stays
+lockout after 5 wrong PINs
+  ok   PIN pad locked after 5 wrong attempts
+  ok   even the right PIN is refused while locked
+UI TEST: 106 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
+T06 values after restart
+  ok   language persisted (ru)
+  ok   volume persisted
+  ok   text size persisted
+  ok   sound switch persisted
+  ok   PIN persisted
+  ok   subject selection persisted
+  ok   Logik still dimmed
+UI TEST: 7 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Localization
+  ok   de.json and ru.json have identical keys (175)
+  ok   brief key present: settings
+  ok   brief key present: progress
+  ok   brief key present: home_prompt
+  ok   brief key present: continue
+  ok   brief key present: not_available
+  ok   brief key present: parents
+  ok   brief key present: save
+  ok   brief key present: cancel
+  ok   brief key present: back
+  ok   ru texts from brief
+  ok   de texts from brief
+  ok   all topic keys translated []
+PIN hashing
+  ok   16-byte salt
+       hash time: 17 ms
+  ok   hash is hex SHA-256, not the PIN
+  ok   deterministic for same salt
+  ok   different salt → different hash
+  ok   PIN validation
+SettingsRepository
+  ok   defaults
+  ok   volume snaps to 5 % steps
+  ok   volume clamped
+  ok   unknown language rejected
+  ok   cannot disable all subjects
+  ok   invalid parent values → defaults
+  ok   name trimmed/limited
+  ok   set PIN
+  ok   verify correct PIN
+  ok   wrong PIN counts attempts
+  ok   5 wrong → 60 s lock
+  ok   correct PIN refused while locked
+Corrupt files → safe defaults
+ERROR: ConfigFile parse error at /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-3019bb858f62/scratchpad/data_unit/settings.cfg:0: Unexpected EOF while parsing simple tag.
+   at: _parse (core/io/config_file.cpp:293)
+   GDScript backtrace (most recent call first):
+       [0] load_config (res://scripts/data/SafeFile.gd:57)
+       [1] load_all (res://scripts/autoload/SettingsRepository.gd:54)
+       [2] _ready (res://tests/UnitTests.gd:77)
+WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-3019bb858f62/scratchpad/data_unit/settings.cfg is corrupt, trying fallback
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_config (res://scripts/data/SafeFile.gd:59)
+         [1] load_all (res://scripts/autoload/SettingsRepository.gd:54)
+         [2] _ready (res://tests/UnitTests.gd:77)
+  ok   corrupt settings.cfg → defaults
+ERROR: ConfigFile parse error at /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-3019bb858f62/scratchpad/data_unit/settings.cfg:0: Unexpected EOF while parsing simple tag.
+   at: _parse (core/io/config_file.cpp:293)
+   GDScript backtrace (most recent call first):
+       [0] load_config (res://scripts/data/SafeFile.gd:57)
+       [1] load_all (res://scripts/autoload/SettingsRepository.gd:54)
+       [2] _ready (res://tests/UnitTests.gd:84)
+WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-3019bb858f62/scratchpad/data_unit/settings.cfg is corrupt, trying fallback
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] load_config (res://scripts/data/SafeFile.gd:59)
+         [1] load_all (res://scripts/autoload/SettingsRepository.gd:54)
+         [2] _ready (res://tests/UnitTests.gd:84)
+  ok   reload after corruption does not crash
+ProgressRepository
+  ok   empty summary: 0 tasks, accuracy null (no 0/0)
+  ok   status not_started
+  ok   summary computed from records
+  ok   status from accuracy
+ERROR: Parse JSON failed. Error at line 0: Expected key
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] read_json_dict (res://scripts/data/SafeFile.gd:39)
+       [1] load_records (res://scripts/autoload/ProgressRepository.gd:25)
+       [2] _ready (res://tests/UnitTests.gd:100)
+WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-3019bb858f62/scratchpad/data_unit/progress.json is corrupt, trying fallback
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] read_json_dict (res://scripts/data/SafeFile.gd:42)
+         [1] load_records (res://scripts/autoload/ProgressRepository.gd:25)
+         [2] _ready (res://tests/UnitTests.gd:100)
+  ok   corrupt progress.json handled (fallback to .bak)
+  ok   reset clears records
+  ok   record sanitised (total >= correct)
+  ok   invalid record rejected
+UNIT TESTS: 40 checks, 0 failures

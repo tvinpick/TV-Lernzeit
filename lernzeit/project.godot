@@ -1,0 +1,51 @@
+; Engine configuration file.
+; Lernzeit v0.1.0 — Android TV shell application (Godot 4.7, GDScript, Compatibility renderer)
+
+config_version=5
+
+[application]
+
+config/name="Lernzeit"
+config/description="Lernzeit – freiwilliges Üben für die 1. Klasse (Android TV)"
+config/version="0.1.0"
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/quit_on_go_back=false
+boot_splash/bg_color=Color(0.09, 0.36, 0.78, 1)
+boot_splash/show_image=false
+config/icon="res://assets/branding/icon_192.png"
+
+[autoload]
+
+SettingsRepository="*res://scripts/autoload/SettingsRepository.gd"
+ProgressRepository="*res://scripts/autoload/ProgressRepository.gd"
+Localization="*res://scripts/autoload/Localization.gd"
+Sfx="*res://scripts/autoload/Sfx.gd"
+AppState="*res://scripts/autoload/AppState.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+window/handheld/orientation=0
+
+[gui]
+
+common/snap_controls_to_pixels=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=false
+
+[internationalization]
+
+locale/fallback="de"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.09, 0.36, 0.78, 1)
