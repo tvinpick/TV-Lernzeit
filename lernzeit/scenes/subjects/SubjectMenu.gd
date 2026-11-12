@@ -14,7 +14,7 @@ var _levels_title: Label
 
 func _ready() -> void:
 	subject_id = params.get("subject_id", "mathematik")
-	add_background("res://assets/backgrounds/progress_background_4k.png")
+	add_background("res://assets/backgrounds/progress_background_1080p.png")
 	add_title(Curriculum.title_key(subject_id), Curriculum.SUBJECTS[subject_id]["icon"])
 
 	# --- topics panel ---

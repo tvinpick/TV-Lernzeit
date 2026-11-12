@@ -20,7 +20,7 @@ var save_button: PillButton
 func _ready() -> void:
 	_saved = SettingsRepository.get_parent_settings()
 	draft = _saved.duplicate(true)
-	add_background("res://assets/backgrounds/progress_background_4k.png")
+	add_background("res://assets/backgrounds/progress_background_1080p.png")
 	add_title("parents", "res://assets/icons/Settings_Icon_Parents_Lock.png", SAFE_Y - 6)
 	var only := Label.new()
 	only.theme_type_variation = &"OnDarkCaption"

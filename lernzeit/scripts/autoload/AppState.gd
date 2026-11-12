@@ -6,11 +6,11 @@ signal theme_changed(theme: Theme)
 
 const APP_VERSION_FALLBACK := "0.1.0"
 
-## Large background art is decoded once at start-up and kept in memory, so
-## opening a screen never re-decodes a 3840×2160 image.
+## Background art is decoded once at start-up and kept in memory, so
+## opening a screen never re-decodes it.
 const RESIDENT_TEXTURES := [
-	"res://assets/backgrounds/main_background_4k.png",
-	"res://assets/backgrounds/progress_background_4k.png",
+	"res://assets/backgrounds/main_background_1080p.png",
+	"res://assets/backgrounds/progress_background_1080p.png",
 ]
 
 var theme: Theme

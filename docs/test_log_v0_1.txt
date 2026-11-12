@@ -235,3 +235,15 @@ WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-
   ok   record sanitised (total >= correct)
   ok   invalid record rejected
 UNIT TESTS: 40 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
+T12 4K window
+  ok   logical canvas stays 1920×1080
+UI TEST: 1 checks, 0 failures

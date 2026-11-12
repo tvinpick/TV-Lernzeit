@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0uycatoq6k87"
-path="res://.godot/imported/progress_background_4k.png-a568b826f776e417cf4a4bb5eb36def3.ctex"
+uid="uid://jn0a41u260t3"
+path="res://.godot/imported/progress_background_1080p.png-d9c9208bd07751d76558584690ba9211.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/progress_background_4k.png"
-dest_files=["res://.godot/imported/progress_background_4k.png-a568b826f776e417cf4a4bb5eb36def3.ctex"]
+source_file="res://assets/backgrounds/progress_background_1080p.png"
+dest_files=["res://.godot/imported/progress_background_1080p.png-d9c9208bd07751d76558584690ba9211.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

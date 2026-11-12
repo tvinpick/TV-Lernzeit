@@ -20,7 +20,7 @@ var _lock_timer: Timer
 
 func _ready() -> void:
 	mode = params.get("mode", "enter")
-	add_background("res://assets/backgrounds/progress_background_4k.png")
+	add_background("res://assets/backgrounds/progress_background_1080p.png")
 	add_title("pin_title", "res://assets/icons/Parents_Icon_PIN.png")
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", UiSkin.panel("main", 56))

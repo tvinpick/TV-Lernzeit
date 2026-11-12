@@ -9,7 +9,7 @@ var gear: TextureButton
 
 
 func _ready() -> void:
-	add_background("res://assets/backgrounds/main_background_4k.png")
+	add_background("res://assets/backgrounds/main_background_1080p.png")
 	var prompt := FitLabel.new()
 	prompt.theme_type_variation = &"PromptLabel"
 	prompt.text = "home_prompt"

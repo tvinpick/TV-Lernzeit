@@ -8,7 +8,7 @@ var _figures := {}
 
 func _ready() -> void:
 	var sid: String = params.get("subject_id", "mathematik")
-	add_background("res://assets/backgrounds/progress_background_4k.png")
+	add_background("res://assets/backgrounds/progress_background_1080p.png")
 	add_title(Curriculum.title_key(sid), Curriculum.SUBJECTS[sid]["icon"])
 
 	# --- topics & results ---

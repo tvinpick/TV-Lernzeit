@@ -11,7 +11,7 @@ var achievements_button: PillButton
 
 
 func _ready() -> void:
-	add_background("res://assets/backgrounds/progress_background_4k.png")
+	add_background("res://assets/backgrounds/progress_background_1080p.png")
 	add_title("progress", "res://assets/icons/Lernzeit_Icon_Progress.png")
 
 	var stats := HBoxContainer.new()

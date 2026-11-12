@@ -120,10 +120,11 @@ def main():
     bg = load("home/Lernzeit_Main_Background_4K.png")
     # subtitle "Was möchtest du heute üben?" sits at ~y 352-460, x 1160-2680
     bg = erase_cols(bg, 1080, 2760, 330, 490, feather=60)
-    save(bg[:, :, :], "backgrounds/main_background_4k.png")
+    # The TV renders the app UI at 1920×1080 → 1080p backgrounds look identical
+    # and need 4× less memory/decoding than the 4K originals.
+    save(bg, "backgrounds/main_background_1080p.png", max_w=1920)
     report.append("main background: subtitle removed (rendered by Godot as home_prompt)")
-    shutil.copy(os.path.join(SRC, "progress/Lernzeit_Progress_Background_4K_New.png"),
-                os.path.join(DST, "backgrounds/progress_background_4k.png"))
+    save(load("progress/Lernzeit_Progress_Background_4K_New.png"), "backgrounds/progress_background_1080p.png", max_w=1920)
 
     # ---------- subject cards: keep artwork + divider, erase text ----------
     cards = {

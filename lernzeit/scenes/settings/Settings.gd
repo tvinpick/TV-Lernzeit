@@ -23,7 +23,7 @@ var controls := {}                ## setting key -> control (for tests)
 
 
 func _ready() -> void:
-	add_background("res://assets/backgrounds/progress_background_4k.png")
+	add_background("res://assets/backgrounds/progress_background_1080p.png")
 	add_title("settings", "res://assets/icons/Settings_Icon_Gear.png")
 
 	var nav := VBoxContainer.new()

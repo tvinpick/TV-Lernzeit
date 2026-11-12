@@ -5,7 +5,7 @@ func _ms(t0: int) -> String:
 	return "%d ms" % ((Time.get_ticks_usec() - t0) / 1000)
 
 func _ready() -> void:
-	for p in ["res://assets/backgrounds/main_background_4k.png", "res://assets/backgrounds/progress_background_4k.png"]:
+	for p in ["res://assets/backgrounds/main_background_1080p.png", "res://assets/backgrounds/progress_background_1080p.png"]:
 		var t0 := Time.get_ticks_usec()
 		var tex: Texture2D = load(p)
 		print("load %s %dx%d: %s" % [p.get_file(), tex.get_width(), tex.get_height(), _ms(t0)])

@@ -9,7 +9,7 @@
 
 | Исходный файл | Вшитый текст | Что сделано | Файл в проекте |
 |---|---|---|---|
-| `home/Lernzeit_Main_Background_4K.png` | «Was möchtest du heute üben?» | Подзаголовок закрашен вертикальной интерполяцией фона; фраза выводится Label'ом (`home_prompt`). Логотип «Lernzeit» оставлен — это бренд, он не переводится | `backgrounds/main_background_4k.png` |
+| `home/Lernzeit_Main_Background_4K.png` | «Was möchtest du heute üben?» | Подзаголовок закрашен вертикальной интерполяцией фона; фраза выводится Label'ом (`home_prompt`). Логотип «Lernzeit» оставлен — это бренд, он не переводится. С версии 0.1.4 уменьшен до 1920×1080 (по решению заказчика, ради скорости на ТВ) | `backgrounds/main_background_1080p.png` |
 | `home/Lernzeit_Button_{Mathematik,Deutsch,Lesen,Logik}.png` | Названия и подзаголовки предметов | Текст справа от разделителя стёрт (построчная интерполяция цвета), иллюстрация и разделитель сохранены; надписи DE/RU рисует Godot | `buttons/card_*.png` |
 | `home/Lernzeit_Button_Progress.png` | «Mein Fortschritt» | Текст стёрт, иконка-график сохранена | `buttons/btn_progress_icon.png` |
 | `home/Lernzeit_Button_Continue.png` | «Weiter üben» | Текст стёрт, кнопка Play сохранена | `buttons/btn_continue_icon.png` |
@@ -19,7 +19,7 @@
 
 ## Использованы без изменения содержимого (только уменьшение/обрезка прозрачных полей)
 
-- `progress/Lernzeit_Progress_Background_4K_New.png` → `backgrounds/progress_background_4k.png` (фон всех внутренних экранов).
+- `progress/Lernzeit_Progress_Background_4K_New.png` → `backgrounds/progress_background_1080p.png` (фон всех внутренних экранов; с 0.1.4 уменьшен до 1920×1080 ради скорости).
 - `home/Lernzeit_Button_Settings.png` (шестерёнка, без текста).
 - `progress/Buttons/Lernzeit_Progress_Button_{Back,Home}.png` (круглые, без текста) — подготовлены, в v0.1 не задействованы.
 - `progress/Panels/*.png` → плашки статистики (уменьшены до 560 px по ширине для корректных NinePatch-углов); `Panel_Wide` → строки предметов в «Mein Fortschritt».
