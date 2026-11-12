@@ -54,11 +54,65 @@ KITS = {
     "Lernzeit_Counting_10_Six_New_Screens.zip": ("counting_10", [
         ("", "reference", "counting_10_screens_mockups"),
     ]),
+    "Lernzeit_Addition_10_Counting_Extras_Deutsch_Fix.zip": ("addition_10", [
+        ("Lernzeit_Addition_10_Kit_v1/Backgrounds/", "background", "math/addition_10/backgrounds"),
+        ("Lernzeit_Addition_10_Kit_v1/Addition_UI/", "asset", "math/addition_10/ui"),
+        ("Lernzeit_Addition_10_Kit_v1/Counting_Extras/Dice/", "asset", "math/counting_10/dice"),
+        ("Lernzeit_Addition_10_Kit_v1/Counting_Extras/Number_Cards/", "asset", "math/counting_10/number_cards"),
+        ("Lernzeit_Addition_10_Kit_v1/Counting_Extras/Shared/", "asset", "math/counting_10"),
+        ("Lernzeit_Addition_10_Kit_v1/Counting_Extras/", "asset", "math/counting_10"),
+        ("Lernzeit_Addition_10_Kit_v1/Shared_Objects/", "asset", "math/shared_ui"),
+        # README: replaces the focused letter button (old one had a grey rectangular matte)
+        ("Lernzeit_Addition_10_Kit_v1/Deutsch_Fix/", "replace", "deutsch/ui/letter_buttons"),
+        ("Lernzeit_Addition_10_Kit_v1/Concepts/", "reference", "addition_10_kit_v1/concepts"),
+        ("Lernzeit_Addition_10_Kit_v1/Previews/", "reference", "addition_10_kit_v1/previews"),
+        ("Lernzeit_Addition_10_Kit_v1/Documentation/", "reference", "addition_10_kit_v1/documentation"),
+    ]),
     # Identical to the progress art that is already integrated (lernzeit/assets/ui, icons).
     "Lernzeit_Progress_UI_Assets.zip": ("progress_ui", [
         ("", "skip", ""),
     ]),
 }
+
+
+# Sprites whose crop contains a sliver of a neighbouring sprite from the source atlas:
+# columns outside the main body are made transparent (canvas size unchanged).
+CLEAN_STRAYS = {"Counter_Green.png", "Counting_Dice_3.png", "Car_Blue.png", "Counting_Dice_5.png"}
+
+
+def clean_strays(data):
+    im = Image.open(io.BytesIO(data)).convert("RGBA")
+    a = np.asarray(im).copy()
+    m = (a[:, :, 3] > 12).sum(0) > 0
+    runs, s = [], None
+    for i, v in enumerate(m):
+        if v and s is None:
+            s = i
+        if not v and s is not None:
+            runs.append((s, i)); s = None
+    if s is not None:
+        runs.append((s, len(m)))
+    x0, x1 = max(runs, key=lambda r: r[1] - r[0])
+    a[:, :x0, 3] = 0
+    a[:, x1:, 3] = 0
+    buf = io.BytesIO()
+    Image.fromarray(a, "RGBA").save(buf, "PNG", optimize=True)
+    return buf.getvalue()
+
+
+def pixel_key(data):
+    im = Image.open(io.BytesIO(data)).convert("RGBA")
+    return hashlib.sha256(im.tobytes() + str(im.size).encode()).hexdigest()
+
+
+def existing_pixels():
+    out = {}
+    for dp, _, fs in os.walk(os.path.join(PROJ, "assets")):
+        for f in fs:
+            if f.endswith(".png"):
+                p = os.path.join(dp, f)
+                out[pixel_key(open(p, "rb").read())] = os.path.relpath(p, PROJ)
+    return out
 
 
 def sha(b):
@@ -89,8 +143,20 @@ def png_info(data):
 
 
 def main():
-    log = {"written": [], "already_present": [], "conflicts": [], "skipped": [], "warnings": []}
+    log = {"written": [], "already_present": [], "conflicts": [], "skipped": [], "warnings": [],
+           "duplicates": [], "cleaned": [], "replaced": []}
     registry = {}
+    known = existing_pixels()
+    # files that a later kit explicitly replaces (e.g. Deutsch_Fix) are not written from older kits
+    superseded = set()
+    for zname, (kit, rules) in KITS.items():
+        zpath = os.path.join(ROOT, zname)
+        if not os.path.exists(zpath):
+            continue
+        for n in zipfile.ZipFile(zpath).namelist():
+            r = next((r for r in rules if n.startswith(r[0])), None)
+            if r and r[1] == "replace" and not n.endswith("/"):
+                superseded.add(os.path.join(PROJ, "assets", r[2], os.path.basename(n)))
     for zname, (kit, rules) in KITS.items():
         zpath = os.path.join(ROOT, zname)
         if not os.path.exists(zpath):
@@ -105,6 +171,8 @@ def main():
                 items = d["assets"] if isinstance(d, dict) else d
                 base = n.rsplit("Documentation/", 1)[0]
                 for it in items:
+                    if "size" in it:   # newer manifest format: "size": [w, h]
+                        it = dict(it, width=it["size"][0], height=it["size"][1])
                     manifest[base + it["path"]] = it
         for n in sorted(names):
             fname = os.path.basename(n)
@@ -135,9 +203,36 @@ def main():
                     log["warnings"].append(f"{n}: runtime sprite without alpha channel")
             if kind == "reference":
                 safe_write(os.path.join(REFS, target, fname), data, log)
+            elif kind == "replace":
+                dst = os.path.join(PROJ, "assets", target, fname)
+                _info = png_info(data)
+                registry[target.replace("/", "_") + "/" + os.path.splitext(fname)[0]] = (
+                    "res://assets/%s/%s" % (target, fname), _info["width"], _info["height"])
+                if os.path.exists(dst) and sha(open(dst, "rb").read()) != sha(data):
+                    backup = os.path.join(REFS, "replaced", target.replace("/", "_") + "__" + fname)
+                    if not os.path.exists(backup):
+                        os.makedirs(os.path.dirname(backup), exist_ok=True)
+                        with open(backup, "wb") as fb:
+                            fb.write(open(dst, "rb").read())
+                    with open(dst, "wb") as fo:
+                        fo.write(data)
+                    log["replaced"].append(os.path.relpath(dst, ROOT) + " (old copy: references/replaced/)")
+                else:
+                    safe_write(dst, data, log)
             elif kind == "asset":
                 dst = os.path.join(PROJ, "assets", target, fname)
-                safe_write(dst, data, log)
+                if dst in superseded:
+                    log["skipped"].append(f"{zname}:{n} (superseded by a fixed version)")
+                    continue
+                if fname in CLEAN_STRAYS:
+                    data = clean_strays(data)
+                    log["cleaned"].append(f"{n}: removed sliver of neighbouring sprite")
+                pk = pixel_key(data)
+                if pk in known and known[pk] != os.path.relpath(dst, PROJ):
+                    log["duplicates"].append(f"{n} = {known[pk]} (same pixels, not copied)")
+                    continue
+                if safe_write(dst, data, log):
+                    known[pk] = os.path.relpath(dst, PROJ)
                 info = png_info(data)
                 key = target.replace("/", "_") + "/" + os.path.splitext(fname)[0]
                 registry[key] = ("res://assets/%s/%s" % (target, fname), info["width"], info["height"])
@@ -192,9 +287,9 @@ def main():
 
     json.dump(log, open(os.path.join(REFS, "import_report.json"), "w") if os.path.isdir(REFS) else sys.stdout,
               indent=1, ensure_ascii=False)
-    for k in ("written", "already_present", "conflicts", "skipped", "warnings"):
+    for k in ("written", "already_present", "conflicts", "skipped", "duplicates", "cleaned", "replaced", "warnings"):
         print(f"{k}: {len(log[k])}")
-        if k in ("conflicts", "warnings"):
+        if k in ("conflicts", "warnings", "duplicates", "cleaned", "replaced"):
             for x in log[k]:
                 print("   ", x)
     print("registry entries:", len(registry))

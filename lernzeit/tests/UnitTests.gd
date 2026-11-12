@@ -119,10 +119,17 @@ func _ready() -> void:
 				img.decompress()
 			if not img.detect_alpha():
 				alpha_missing.append(key)
-	check(KitAssets.TEXTURES.size() == 73, "73 kit textures registered (%d)" % KitAssets.TEXTURES.size())
+	check(KitAssets.TEXTURES.size() == 115, "115 kit textures registered (%d)" % KitAssets.TEXTURES.size())
 	check(bad.is_empty(), "all kit textures load as separate resources with manifest size " + str(bad))
 	check(alpha_missing.is_empty(), "all kit sprites have real alpha transparency " + str(alpha_missing))
 	check(KitAssets.keys_with_prefix("deutsch_pictures/").size() == 8, "8 Deutsch pictures")
+	check(KitAssets.keys_with_prefix("math_counting_10_dice/").size() == 12, "dice 1–6 + dot patterns 1–6")
+	check(KitAssets.keys_with_prefix("math_counting_10_number_cards/").size() == 12, "number cards 0–10 + blank tile")
+	check(KitAssets.keys_with_prefix("math_addition_10_ui/").size() == 11, "11 addition UI sprites")
+	var focused := KitAssets.texture("deutsch_ui_letter_buttons/Deutsch_Letter_Button_Focused").get_image()
+	if focused.is_compressed():
+		focused.decompress()
+	check(focused.get_pixel(0, 0).a == 0.0 and focused.get_pixel(focused.get_width() / 2, 4).a < 0.6, "fixed focused letter button: transparent corners, no grey matte at the edge")
 	check(not FileAccess.file_exists("res://references"), "mock-up screens are not inside the Godot project")
 
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])

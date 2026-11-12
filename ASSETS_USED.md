@@ -82,3 +82,28 @@
 - Серые «шапки» на панелях вычитания и точках прогресса — полупрозрачные блики; на светлом фоне комплекта выглядят корректно.
 - Counting bis 10: для настоящего экрана «Zählen bis 10» понадобятся отдельные спрайты (кнопки ответов, точки, кубики);
   часть уже есть в `math/shared_ui` (по README вычитания они «скопированы из утверждённого counting-комплекта»).
+
+### Addition bis 10 + Counting Extras + Deutsch Fix (`Lernzeit_Addition_10_Counting_Extras_Deutsch_Fix.zip`)
+
+Проверено: 59 PNG = 59 записей манифеста, размеры и режимы совпадают, у спрайтов прозрачные углы.
+
+| Куда | Что |
+|---|---|
+| `math/addition_10/ui/` (11) | пустые карточка ответа, панели примера и групп, поле результата, подпись шага, рамка десятка и её панель, числовая прямая; знаки «+», «=», «?» |
+| `math/addition_10/backgrounds/` | фон, уменьшенный до 1920×1080 |
+| `math/counting_10/dice/` (12) | кубики 1–6 и узоры точек 1–6 |
+| `math/counting_10/number_cards/` (12) | карточки с цифрами 0–10 и пустая плитка (README советует пустую плитку + цифры из Godot) |
+| `math/counting_10/` (2) | карточка «?» для пропущенного числа, пустая карточка в фокусе |
+| `math/shared_ui/` (+4) | Balloon_Red, Butterfly_Blue, Car_Blue, Counter_Green |
+| `deutsch/ui/letter_buttons/Deutsch_Letter_Button_Focused.png` | **заменён** исправленной версией без серого прямоугольника; старая копия — `references/replaced/` |
+| `references/addition_10_kit_v1/` | 6 концептов, 2 превью, README, манифест |
+
+Не скопированы — 10 файлов, по пикселям совпадающих с уже установленными (как и советует README комплекта):
+`Shared_Answer_Blue/Green/Purple` = `Answer_Blue/Green/Purple`, `Shared_Answer_Orange` = `Answer_Yellow`,
+`Shared_Answer_Focused` = `Answer_Selected_Blue`, `Shared_Question_Banner` = `Question_Banner`,
+`Shared_Ten_Frame_Blank` = `Ten_Frame_Empty`, `Apple_Red` / `Counter_Blue` / `Star_Yellow` = `Object_*`.
+
+Очищены при импорте (у края был кусок соседнего спрайта из атласа; размер холста не менялся):
+`Counter_Green` (фиолетовый фрагмент), `Counting_Dice_3`, `Counting_Dice_5`, `Car_Blue`.
+Замечание: у ранее установленного `math/shared_ui/Object_Counter_Blue.png` тоже есть небольшой обрезок слева
+(244 px); файл не трогался — при необходимости очистить тем же способом.

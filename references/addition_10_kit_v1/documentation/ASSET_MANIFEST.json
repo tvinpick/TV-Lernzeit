@@ -1,0 +1,655 @@
+{
+  "package": "Lernzeit Addition to 10 + Counting Extras + Deutsch Focus Fix",
+  "png_count": 59,
+  "assets": [
+    {
+      "path": "Addition_UI/Addition_Answer_Card_Blank.png",
+      "size": [
+        326,
+        296
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Equals_Blue.png",
+      "size": [
+        230,
+        230
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Equation_Panel_Blank.png",
+      "size": [
+        1266,
+        336
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Group_Panel_Blank.png",
+      "size": [
+        666,
+        436
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Number_Line_Blank.png",
+      "size": [
+        1836,
+        135
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Plus_Blue.png",
+      "size": [
+        230,
+        230
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Question_Mark.png",
+      "size": [
+        230,
+        230
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Result_Slot_Blank.png",
+      "size": [
+        294,
+        314
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Step_Label_Blank.png",
+      "size": [
+        396,
+        171
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Ten_Frame_Blank.png",
+      "size": [
+        982,
+        447
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Addition_Ten_Frame_Panel_Blank.png",
+      "size": [
+        966,
+        296
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Answer_Blue.png",
+      "size": [
+        700,
+        350
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Answer_Focused.png",
+      "size": [
+        700,
+        350
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Answer_Green.png",
+      "size": [
+        700,
+        350
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Answer_Orange.png",
+      "size": [
+        700,
+        350
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Answer_Purple.png",
+      "size": [
+        700,
+        350
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Question_Banner.png",
+      "size": [
+        2248,
+        345
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Addition_UI/Shared_Ten_Frame_Blank.png",
+      "size": [
+        1158,
+        448
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Backgrounds/Lernzeit_Addition_10_Background_4K.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        255
+      ]
+    },
+    {
+      "path": "Concepts/Lernzeit_Addition_10_01_Count_Objects.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "alpha_corners": [
+        null
+      ]
+    },
+    {
+      "path": "Concepts/Lernzeit_Addition_10_02_Simple_Equation.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "alpha_corners": [
+        null
+      ]
+    },
+    {
+      "path": "Concepts/Lernzeit_Addition_10_03_Complete_To_Ten.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "alpha_corners": [
+        null
+      ]
+    },
+    {
+      "path": "Concepts/Lernzeit_Addition_10_04_Add_Dice.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "alpha_corners": [
+        null
+      ]
+    },
+    {
+      "path": "Concepts/Lernzeit_Addition_10_05_Missing_Addend.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "alpha_corners": [
+        null
+      ]
+    },
+    {
+      "path": "Concepts/Lernzeit_Addition_10_06_Choose_Matching_Equation.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "alpha_corners": [
+        null
+      ]
+    },
+    {
+      "path": "Counting_Extras/Counting_Missing_Number_Question.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dice_1.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dice_2.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dice_3.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dice_4.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dice_5.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dice_6.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dots_1.png",
+      "size": [
+        360,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dots_2.png",
+      "size": [
+        360,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dots_3.png",
+      "size": [
+        360,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dots_4.png",
+      "size": [
+        360,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dots_5.png",
+      "size": [
+        360,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Dice/Counting_Dots_6.png",
+      "size": [
+        360,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_00.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_01.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_02.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_03.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_04.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_05.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_06.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_07.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_08.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_09.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_10.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Number_Cards/Counting_Number_Tile_Blank.png",
+      "size": [
+        457,
+        452
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Counting_Extras/Shared/Counting_Number_Card_Focused_Blank.png",
+      "size": [
+        584,
+        344
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Deutsch_Fix/Deutsch_Letter_Button_Focused.png",
+      "size": [
+        366,
+        252
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Apple_Red.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Balloon_Red.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Butterfly_Blue.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Car_Blue.png",
+      "size": [
+        400,
+        360
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Counter_Blue.png",
+      "size": [
+        300,
+        300
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Counter_Green.png",
+      "size": [
+        300,
+        300
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    },
+    {
+      "path": "Shared_Objects/Star_Yellow.png",
+      "size": [
+        380,
+        380
+      ],
+      "mode": "RGBA",
+      "alpha_corners": [
+        0
+      ]
+    }
+  ]
+}
