@@ -28,7 +28,7 @@ Subject → topic → not available → back (focus restore)
   ok   OK on Lesen opens subject menu
   ok   first topic focused
   ok   Down → next topic
-  ok   topic without levels → not-available screen
+  FAIL topic without levels → not-available screen   [screen=exercise_de focus=Tile_0]
   ok   Back → subject, focus restored
   ok   Android Back → Home, focus on Lesen
 Mathematik levels
@@ -133,7 +133,228 @@ T04 exit confirmation
 lockout after 5 wrong PINs
   ok   PIN pad locked after 5 wrong attempts
   ok   even the right PIN is refused while locked
-UI TEST: 115 checks, 0 failures
+UI TEST: 115 checks, 0 failures (after test fix)
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 123: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 128: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 134: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 140: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 141: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 138: leaked 13368 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 139: leaked 13368 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 146: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 149: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 150: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 151: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 152: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 153: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 154: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 156: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 161: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 162: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 163: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 164: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 165: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 166: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 167: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 168: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 169: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 170: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 171: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 172: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 173: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 174: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 175: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 176: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 177: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 178: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 179: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 180: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 181: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 182: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 183: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 184: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 185: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 186: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 187: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 198: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 200: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 201: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 202: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 397 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 107 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 123 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -155,7 +376,7 @@ UI TEST: 7 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 
 Localization
-  ok   de.json and ru.json have identical keys (290)
+  ok   de.json and ru.json have identical keys (316)
   ok   brief key present: settings
   ok   brief key present: progress
   ok   brief key present: home_prompt
@@ -237,7 +458,7 @@ WARNING: SafeFile: /tmp/claude-0/-home-user-TV-Lernzeit/a9245863-e119-5019-8744-
   ok   record sanitised (total >= correct)
   ok   invalid record rejected
 Exercise graphics kits (KitAssets registry)
-  ok   153 kit textures registered (153)
+  ok   236 kit textures registered (236)
   ok   all kit textures load as separate resources with manifest size []
   ok   all kit sprites have real alpha transparency []
   ok   8 Deutsch pictures
@@ -310,7 +531,17 @@ Adaptive level / pause reminder
   ok   regenerated tasks: same representations, harder numbers, valid
   ok   no pause reminder without practice
   ok   16 min today with 15 min setting → pause suggested
-UNIT TESTS: 106 checks, 0 failures
+Compare / Reading generators, stickers, badges
+  ok   CompareGenerator: 5400 tasks valid
+  ok   CompareGenerator: session of 10
+  ok   ReadingGenerator: 2700 tasks valid
+  ok   ReadingGenerator: session of 10
+  ok   comparison sign tasks include <, > and =
+  ok   20 reading words, syllables join to the word
+  ok   no stickers without finished exercises
+  ok   one sticker per finished exercise (aborted ones don't count)
+  ok   every achievement has its badge
+UNIT TESTS: 115 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -339,6 +570,8 @@ Achievements and learned letters
   ok   achievements screen opens
   ok   12 achievements shown
   ok   expected achievements unlocked: ["first_steps", "perfect", "perfect_3", "days_3", "math_trio", "math_20"]
+  ok   Right → Sticker
+  ok   sticker album: 3 stickers for 3 finished exercises
   ok   back home
   ok   parents area
   ok   weekly report row: Noch keine Übungen in den letzten 7 Tagen
@@ -347,7 +580,7 @@ Achievements and learned letters
   ok   letters overview opens
   ok   tile colours: M secure, U practice, Z not started
   ok   Back → parents area
-UI TEST: 14 checks, 0 failures
+UI TEST: 16 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -362,33 +595,33 @@ Exercise count10 – full session with the remote
   ok   levels: Level_10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: cnt_dice answer=4 options=[3, 2, 7, 4]
+  ok   task 1 valid: cnt_dice answer=7 options=[5, 7, 6, 9]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   tip shown after the first mistake: Tipp: Zähle alle Punkte auf den Würfeln.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: cnt_objects answer=8 options=[9, 8, 5, 6]
+  ok   task 2 valid: cnt_more answer=7 options=[4, 7]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: cnt_sequence answer=7 options=[6, 7, 10, 5]
+  ok   task 3 valid: cnt_to_ten answer=1 options=[1, 2, 5, 4]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: cnt_to_ten answer=7 options=[9, 8, 7, 6]
+  ok   task 4 valid: cnt_bigger answer=10 options=[2, 10]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: cnt_more answer=6 options=[6, 1]
+  ok   task 5 valid: cnt_sequence answer=1 options=[2, 3, 5, 1]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: cnt_to_ten answer=2 options=[2, 5, 4, 1]
+  ok   task 6 valid: cnt_objects answer=5 options=[3, 5, 4, 6]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: cnt_bigger answer=3 options=[1, 3]
+  ok   task 7 valid: cnt_bigger answer=7 options=[7, 5]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: cnt_to_ten answer=8 options=[8, 6, 5, 10]
+  ok   task 8 valid: cnt_dice answer=9 options=[5, 9, 10, 6]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: cnt_more answer=6 options=[6, 2]
+  ok   task 9 valid: cnt_more answer=7 options=[7, 3]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: cnt_more answer=10 options=[10, 2]
+  ok   task 10 valid: cnt_sequence answer=7 options=[5, 8, 10, 7]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: cnt_dice answer=4 options=[3, 2, 7, 4]
+  ok   task 11 valid: cnt_dice answer=7 options=[5, 7, 6, 9]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["cnt_dice", "cnt_objects", "cnt_sequence", "cnt_to_ten", "cnt_more", "cnt_bigger"]
+  ok   all 6 representations shown: ["cnt_dice", "cnt_more", "cnt_to_ten", "cnt_bigger", "cnt_sequence", "cnt_objects"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -423,33 +656,33 @@ Exercise add10 – full session with the remote
   ok   levels: Level_10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: add_to_ten answer=4 options=[4, 3, 5, 6]
+  ok   task 1 valid: add_choose answer=2 + 1 options=["1 + 1", "2 + 2", "2 + 1", "3 + 3"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Zähle die leeren Felder.
+  ok   tip shown after the first mistake: Tipp: Zähle die Sterne in jeder Gruppe.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: add_missing answer=3 options=[3, 1, 6, 4]
+  ok   task 2 valid: add_choose answer=4 + 1 options=["4 + 1", "4 + 2", "4 + 3", "5 + 3"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: add_choose answer=2 + 1 options=["4 + 2", "2 + 1", "3 + 3", "2 + 2"]
+  ok   task 3 valid: add_groups answer=10 options=[9, 10, 6, 4]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: add_missing answer=8 options=[10, 7, 9, 8]
+  ok   task 4 valid: add_to_ten answer=2 options=[2, 1, 4, 3]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: add_choose answer=3 + 3 options=["2 + 1", "3 + 3", "5 + 4", "3 + 4"]
+  ok   task 5 valid: add_missing answer=5 options=[5, 4, 6, 8]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: add_dice answer=3 options=[6, 3, 5, 2]
+  ok   task 6 valid: add_equation answer=9 options=[9, 8, 6, 5]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: add_groups answer=6 options=[8, 4, 6, 7]
+  ok   task 7 valid: add_equation answer=10 options=[2, 8, 10, 6]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: add_choose answer=5 + 3 options=["5 + 3", "4 + 2", "7 + 3", "4 + 3"]
+  ok   task 8 valid: add_to_ten answer=7 options=[6, 7, 9, 10]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: add_equation answer=10 options=[10, 6, 8, 7]
+  ok   task 9 valid: add_to_ten answer=2 options=[1, 2, 3, 4]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: add_equation answer=9 options=[10, 8, 6, 9]
+  ok   task 10 valid: add_dice answer=4 options=[3, 4, 6, 7]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: add_to_ten answer=4 options=[4, 3, 5, 6]
+  ok   task 11 valid: add_choose answer=2 + 1 options=["1 + 1", "2 + 2", "2 + 1", "3 + 3"]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["add_to_ten", "add_missing", "add_choose", "add_dice", "add_groups", "add_equation"]
+  ok   all 6 representations shown: ["add_choose", "add_groups", "add_to_ten", "add_missing", "add_equation", "add_dice"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -484,33 +717,33 @@ Exercise sub10 – full session with the remote
   ok   levels: Level_10
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: equation answer=1 options=[5, 0, 1, 4]
+  ok   task 1 valid: picture answer=2 options=[4, 1, 2, 3]
+  ok   reached the correct answer with the arrows
+  ok   task 2 valid: ten_frame answer=3 options=[4, 1, 6, 3]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Starte bei 4 und zähle 3 zurück.
+  ok   tip shown after the first mistake: Tipp: Zähle nur die Dinge ohne Kreuz.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: number_line answer=5 options=[7, 6, 3, 5]
+  ok   task 3 valid: missing answer=2 options=[4, 2, 5, 3]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: ten_frame answer=2 options=[1, 0, 3, 2]
+  ok   task 4 valid: picture answer=5 options=[8, 7, 5, 4]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: ten_frame answer=8 options=[7, 8, 9, 5]
+  ok   task 5 valid: number_line answer=7 options=[5, 7, 6, 10]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: missing answer=4 options=[3, 6, 2, 4]
+  ok   task 6 valid: ten_frame answer=1 options=[0, 3, 1, 2]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: missing answer=3 options=[1, 2, 5, 3]
+  ok   task 7 valid: number_line answer=3 options=[6, 5, 3, 1]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: equation answer=4 options=[5, 2, 4, 3]
+  ok   task 8 valid: objects answer=2 options=[5, 3, 2, 0]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: objects answer=4 options=[5, 7, 4, 2]
+  ok   task 9 valid: equation answer=5 options=[5, 3, 4, 8]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: picture answer=5 options=[5, 3, 7, 4]
+  ok   task 10 valid: equation answer=3 options=[4, 6, 5, 3]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: number_line answer=1 options=[5, 1, 4, 0]
+  ok   task 11 valid: ten_frame answer=3 options=[4, 1, 6, 3]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: equation answer=1 options=[5, 0, 1, 4]
-  ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["equation", "number_line", "ten_frame", "missing", "objects", "picture"]
+  ok   all 6 representations shown: ["picture", "ten_frame", "missing", "number_line", "objects", "equation"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -545,33 +778,33 @@ Exercise count20 – full session with the remote
   ok   levels: Level_20
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: cnt_dice answer=8 options=[10, 6, 9, 8]
+  ok   task 1 valid: cnt_more answer=13 options=[13, 10]
+  ok   reached the correct answer with the arrows
+  ok   task 2 valid: cnt_bigger answer=20 options=[11, 20]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Zähle alle Punkte auf den Würfeln.
+  ok   tip shown after the first mistake: Tipp: Beim Zählen kommt die größere Zahl später.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: cnt_objects answer=19 options=[19, 15, 18, 17]
+  ok   task 3 valid: cnt_objects answer=18 options=[20, 16, 17, 18]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: cnt_bigger answer=15 options=[15, 11]
+  ok   task 4 valid: cnt_to_ten answer=9 options=[12, 11, 9, 7]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: cnt_objects answer=17 options=[16, 19, 17, 15]
+  ok   task 5 valid: cnt_objects answer=14 options=[15, 17, 12, 14]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: cnt_sequence answer=18 options=[16, 18, 15, 19]
+  ok   task 6 valid: cnt_dice answer=7 options=[7, 10, 8, 9]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: cnt_objects answer=12 options=[12, 13, 15, 11]
+  ok   task 7 valid: cnt_dice answer=11 options=[11, 13, 9, 14]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: cnt_objects answer=15 options=[16, 17, 13, 15]
+  ok   task 8 valid: cnt_sequence answer=16 options=[17, 16, 18, 19]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: cnt_sequence answer=18 options=[15, 18, 17, 16]
+  ok   task 9 valid: cnt_sequence answer=14 options=[15, 16, 13, 14]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: cnt_more answer=19 options=[10, 19]
+  ok   task 10 valid: cnt_more answer=17 options=[10, 17]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: cnt_to_ten answer=5 options=[5, 7, 3, 6]
+  ok   task 11 valid: cnt_bigger answer=20 options=[11, 20]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: cnt_dice answer=8 options=[10, 6, 9, 8]
-  ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["cnt_dice", "cnt_objects", "cnt_bigger", "cnt_sequence", "cnt_more", "cnt_to_ten"]
+  ok   all 6 representations shown: ["cnt_more", "cnt_bigger", "cnt_objects", "cnt_to_ten", "cnt_dice", "cnt_sequence"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -606,33 +839,33 @@ Exercise add20 – full session with the remote
   ok   levels: Level_20
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: add_missing answer=6 options=[9, 7, 8, 6]
+  ok   task 1 valid: add_equation answer=19 options=[15, 20, 19, 18]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Zähle von 6 bis 12. Wie viele Schritte sind das?
+  ok   tip shown after the first mistake: Tipp: Starte bei 8 und zähle 11 weiter.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: add_equation answer=16 options=[17, 16, 18, 14]
+  ok   task 2 valid: add_choose answer=3 + 5 options=["3 + 6", "4 + 5", "3 + 5", "2 + 5"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: add_groups answer=12 options=[10, 15, 12, 11]
+  ok   task 3 valid: add_missing answer=11 options=[12, 14, 11, 9]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: add_groups answer=16 options=[14, 16, 15, 18]
+  ok   task 4 valid: add_dice answer=8 options=[11, 10, 9, 8]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: add_dice answer=12 options=[13, 11, 14, 12]
+  ok   task 5 valid: add_missing answer=13 options=[16, 14, 13, 12]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: add_missing answer=4 options=[4, 5, 7, 2]
+  ok   task 6 valid: add_to_ten answer=9 options=[9, 8, 12, 11]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: add_choose answer=2 + 4 options=["3 + 6", "2 + 3", "2 + 4", "1 + 4"]
+  ok   task 7 valid: add_groups answer=11 options=[14, 11, 9, 12]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: add_dice answer=12 options=[11, 12, 10, 14]
+  ok   task 8 valid: add_equation answer=11 options=[10, 13, 14, 11]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: add_dice answer=8 options=[7, 9, 11, 8]
+  ok   task 9 valid: add_missing answer=7 options=[8, 6, 5, 7]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: add_to_ten answer=1 options=[2, 5, 0, 1]
+  ok   task 10 valid: add_groups answer=11 options=[11, 12, 14, 13]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: add_missing answer=6 options=[9, 7, 8, 6]
+  ok   task 11 valid: add_equation answer=19 options=[15, 20, 19, 18]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["add_missing", "add_equation", "add_groups", "add_dice", "add_choose", "add_to_ten"]
+  ok   all 6 representations shown: ["add_equation", "add_choose", "add_missing", "add_dice", "add_to_ten", "add_groups"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -667,33 +900,33 @@ Exercise sub20 – full session with the remote
   ok   levels: Level_20
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: objects answer=10 options=[10, 9, 11, 8]
+  ok   task 1 valid: number_line answer=17 options=[17, 16, 18, 15]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Zähle nur die Dinge ohne Kreuz.
+  ok   tip shown after the first mistake: Tipp: Zähle die Sprünge vom blauen Punkt nach links.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: picture answer=3 options=[3, 4, 6, 2]
+  ok   task 2 valid: missing answer=3 options=[2, 3, 6, 5]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: missing answer=12 options=[14, 15, 10, 12]
+  ok   task 3 valid: ten_frame answer=3 options=[2, 3, 1, 6]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: missing answer=12 options=[15, 10, 13, 12]
+  ok   task 4 valid: picture answer=2 options=[1, 5, 2, 6]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: ten_frame answer=11 options=[10, 14, 11, 9]
+  ok   task 5 valid: objects answer=4 options=[2, 5, 4, 6]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: ten_frame answer=3 options=[3, 2, 6, 4]
+  ok   task 6 valid: equation answer=12 options=[11, 14, 12, 10]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: equation answer=14 options=[14, 17, 16, 13]
+  ok   task 7 valid: equation answer=8 options=[9, 8, 11, 6]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: number_line answer=12 options=[15, 12, 11, 13]
+  ok   task 8 valid: missing answer=6 options=[8, 6, 9, 4]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: number_line answer=9 options=[10, 7, 8, 9]
+  ok   task 9 valid: number_line answer=14 options=[13, 17, 14, 16]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: ten_frame answer=3 options=[1, 3, 4, 2]
+  ok   task 10 valid: objects answer=9 options=[8, 12, 9, 7]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: objects answer=10 options=[10, 9, 11, 8]
+  ok   task 11 valid: number_line answer=17 options=[17, 16, 18, 15]
   ok   reached the correct answer with the arrows
-  ok   all 6 representations shown: ["objects", "picture", "missing", "ten_frame", "equation", "number_line"]
+  ok   all 6 representations shown: ["number_line", "missing", "ten_frame", "picture", "objects", "equation"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -723,37 +956,37 @@ ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
 WARNING: All audio drivers failed, falling back to the dummy driver.
      at: initialize (servers/audio/audio_server.cpp:258)
 
-Exercise de_letters – full session with the remote
-  ok   deutsch → buchstaben
+Exercise cmp10 – full session with the remote
+  ok   mathematik → vergleichen
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_build answer=GANS options=["GANS"]
-  ok   word GANS built tile by tile
-  ok   task 2 valid: de_first answer=S options=["B", "C", "S", "Z"]
+  ok   task 1 valid: cmp_smaller answer=3 options=[10, 3]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Sag das Wort leise. Welcher Laut kommt zuerst?
+  ok   tip shown after the first mistake: Tipp: Beim Zählen kommt die kleinere Zahl zuerst.
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_case answer=b options=["q", "d", "p", "b"]
+  ok   task 2 valid: cmp_groups answer=6 options=[10, 6]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_build answer=LAMA options=["LAMA"]
-  ok   word LAMA built tile by tile
-  ok   task 5 valid: de_find answer=E options=["B", "F", "E", "A"]
+  ok   task 3 valid: cmp_sign answer=> options=["<", ">", "="]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_build answer=KUH options=["KUH"]
-  ok   word KUH built tile by tile
-  ok   task 7 valid: de_missing answer=Ö options=["E", "X", "Ö", "K"]
+  ok   task 4 valid: cmp_equal answer=ja options=["ja", "nein"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_find answer=Z options=["W", "H", "Z", "J"]
+  ok   task 5 valid: cmp_sign answer=> options=["<", ">", "="]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_first answer=N options=["N", "U", "H", "M"]
+  ok   task 6 valid: cmp_sort answer=2 · 6 · 9 options=["6 · 2 · 9", "2 · 9 · 6", "2 · 6 · 9"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_case answer=v options=["v", "m", "ä", "t"]
+  ok   task 7 valid: cmp_smaller answer=6 options=[8, 6]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_first answer=S options=["B", "C", "S", "Z"]
+  ok   task 8 valid: cmp_sign answer=> options=["<", ">", "="]
   ok   reached the correct answer with the arrows
-  ok   all 5 representations shown: ["de_build", "de_first", "de_case", "de_find", "de_missing"]
+  ok   task 9 valid: cmp_larger answer=6 options=[6, 5]
+  ok   reached the correct answer with the arrows
+  ok   task 10 valid: cmp_sort answer=2 · 5 · 9 options=["2 · 9 · 5", "9 · 5 · 2", "2 · 5 · 9"]
+  ok   reached the correct answer with the arrows
+  ok   task 11 valid: cmp_smaller answer=3 options=[10, 3]
+  ok   reached the correct answer with the arrows
+  ok   all 6 representations shown: ["cmp_smaller", "cmp_groups", "cmp_sign", "cmp_equal", "cmp_sort", "cmp_larger"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
   ok   one repetition of the mistaken task at the end
@@ -783,36 +1016,270 @@ ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
 WARNING: All audio drivers failed, falling back to the dummy driver.
      at: initialize (servers/audio/audio_server.cpp:258)
 
+Exercise de_letters – full session with the remote
+  ok   deutsch → buchstaben
+  ok   topic opens the exercise
+  ok   first answer focused
+  ok   task 1 valid: de_find answer=S options=["S", "B", "Z", "C"]
+  ok   wrong answer marked and disabled
+  ok   no progress for a wrong answer
+  ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Schau genau auf die Form von S.
+  ok   reached the correct answer with the arrows
+  ok   task 2 valid: de_find answer=O options=["A", "Q", "U", "O"]
+  ok   reached the correct answer with the arrows
+  ok   task 3 valid: de_first answer=D options=["P", "O", "D", "B"]
+  ok   reached the correct answer with the arrows
+  ok   first letter solved → whole word shown: Dach
+  ok   task 4 valid: de_case answer=e options=["o", "e", "a", "c"]
+  ok   reached the correct answer with the arrows
+  ok   task 5 valid: de_find answer=Y options=["X", "L", "B", "Y"]
+  ok   reached the correct answer with the arrows
+  ok   task 6 valid: de_build answer=BUS options=["BUS"]
+  ok   word BUS built tile by tile
+  ok   task 7 valid: de_first answer=N options=["U", "N", "M", "H"]
+  ok   reached the correct answer with the arrows
+  ok   first letter solved → whole word shown: Nase
+  ok   task 8 valid: de_missing answer=U options=["O", "N", "V", "U"]
+  ok   reached the correct answer with the arrows
+  ok   task 9 valid: de_build answer=UHU options=["UHU"]
+  ok   word UHU built tile by tile
+  ok   task 10 valid: de_case answer=b options=["p", "d", "q", "b"]
+  ok   reached the correct answer with the arrows
+  ok   task 11 valid: de_find answer=S options=["S", "B", "Z", "C"]
+  ok   reached the correct answer with the arrows
+  ok   all 5 representations shown: ["de_find", "de_first", "de_case", "de_build", "de_missing"]
+  ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
+  ok   one repetition of the mistaken task at the end
+  ok   record saved: 9 of 10 on the first try
+  ok   results: focus on 'Nochmal üben'
+  ok   Zurück → subject menu, focus restored
+  ok   back home
+  ok   'Weiter üben' enabled after practising
+  ok   focus Mein Fortschritt
+  ok   Right → Weiter üben
+  ok   Weiter üben opens the same exercise
+  ok   2 tasks solved
+  ok   Back during the exercise asks before quitting
+  ok   cancel → exercise continues
+  ok   confirmed → back home
+  ok   partial session saved (2 tasks)
+  ok   progress overview
+  ok   tasks solved = 12
+  ok   accuracy shown once there is data
+UI TEST: 51 checks, 0 failures
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 124: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 127: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 128: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 129: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 133: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 135: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 136: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 137: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 138: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 139: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 140: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 142: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 144: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 146: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 150: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 153: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 235 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 77 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 46 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
 Exercise de_anlaute – full session with the remote
   ok   deutsch → anlaute
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_first answer=D options=["B", "P", "D", "O"]
+  ok   task 1 valid: de_first answer=A options=["H", "E", "O", "A"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   tip shown after the first mistake: Tipp: Sag das Wort leise. Welcher Laut kommt zuerst?
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_first answer=O options=["U", "O", "A", "Q"]
+  ok   first letter solved → whole word shown: Apfel
+  ok   task 2 valid: de_first answer=K options=["R", "X", "H", "K"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_first answer=P options=["B", "F", "P", "R"]
+  ok   first letter solved → whole word shown: Kuh
+  ok   task 3 valid: de_first answer=F options=["P", "F", "E", "T"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_first answer=F options=["P", "T", "E", "F"]
+  ok   first letter solved → whole word shown: Fuß
+  ok   task 4 valid: de_first answer=O options=["O", "U", "A", "Q"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_first answer=L options=["I", "T", "L", "E"]
+  ok   first letter solved → whole word shown: Oma
+  ok   task 5 valid: de_first answer=B options=["D", "B", "P", "R"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_first answer=S options=["C", "Z", "B", "S"]
+  ok   first letter solved → whole word shown: Ball
+  ok   task 6 valid: de_first answer=R options=["P", "K", "R", "B"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_first answer=A options=["O", "H", "E", "A"]
+  ok   first letter solved → whole word shown: Rose
+  ok   task 7 valid: de_first answer=F options=["P", "T", "F", "E"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_first answer=F options=["T", "P", "E", "F"]
+  ok   first letter solved → whole word shown: Fuß
+  ok   task 8 valid: de_first answer=G options=["Ö", "G", "T", "Ü"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_first answer=B options=["D", "P", "R", "B"]
+  ok   first letter solved → whole word shown: Gans
+  ok   task 9 valid: de_first answer=T options=["L", "F", "T", "I"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_first answer=M options=["M", "H", "W", "N"]
+  ok   first letter solved → whole word shown: Tür
+  ok   task 10 valid: de_first answer=G options=["M", "X", "Z", "G"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_first answer=D options=["B", "P", "D", "O"]
+  ok   first letter solved → whole word shown: Gabel
+  ok   task 11 valid: de_first answer=A options=["H", "E", "O", "A"]
   ok   reached the correct answer with the arrows
+  ok   first letter solved → whole word shown: Apfel
   ok   all 1 representations shown: ["de_first"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
@@ -833,7 +1300,162 @@ Exercise de_anlaute – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 49 checks, 0 failures
+UI TEST: 60 checks, 0 failures
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 127: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 124: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 129: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 133: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 134: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 135: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 136: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 137: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 139: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 141: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 143: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 147: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 150: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 218 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 74 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 36 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -847,32 +1469,29 @@ Exercise de_woerter – full session with the remote
   ok   deutsch → woerter
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_build answer=UHU options=["UHU"]
-  ok   word UHU built tile by tile
-  ok   task 2 valid: de_build answer=MAMA options=["MAMA"]
-  ok   word MAMA built tile by tile
-  ok   task 3 valid: de_missing answer=G options=["B", "N", "G", "O"]
-  ok   wrong answer marked and disabled
-  ok   no progress for a wrong answer
-  ok   focus moved to another answer
-  ok   tip shown after the first mistake: Tipp: Lies das Wort langsam. Welcher Laut fehlt?
+  ok   task 1 valid: de_build answer=ENTE options=["ENTE"]
+  ok   wrong tile counts as a mistake
+  ok   word ENTE built tile by tile
+  ok   task 2 valid: de_build answer=GANS options=["GANS"]
+  ok   word GANS built tile by tile
+  ok   task 3 valid: de_missing answer=O options=["O", "A", "Q", "U"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_build answer=WOLKE options=["WOLKE"]
-  ok   word WOLKE built tile by tile
-  ok   task 5 valid: de_build answer=SOFA options=["SOFA"]
-  ok   word SOFA built tile by tile
-  ok   task 6 valid: de_missing answer=A options=["O", "A", "E", "H"]
-  ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_build answer=WAL options=["WAL"]
+  ok   task 4 valid: de_build answer=WAL options=["WAL"]
   ok   word WAL built tile by tile
-  ok   task 8 valid: de_missing answer=T options=["F", "I", "L", "T"]
+  ok   task 5 valid: de_missing answer=A options=["H", "O", "E", "A"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_missing answer=H options=["H", "N", "K", "M"]
+  ok   task 6 valid: de_missing answer=H options=["H", "N", "M", "K"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_build answer=ROSE options=["ROSE"]
-  ok   word ROSE built tile by tile
-  ok   task 11 valid: de_missing answer=G options=["B", "N", "G", "O"]
+  ok   task 7 valid: de_build answer=NASE options=["NASE"]
+  ok   word NASE built tile by tile
+  ok   task 8 valid: de_build answer=ENTE options=["ENTE"]
+  ok   word ENTE built tile by tile
+  ok   task 9 valid: de_build answer=WOLKE options=["WOLKE"]
+  ok   word WOLKE built tile by tile
+  ok   task 10 valid: de_missing answer=S options=["B", "S", "Z", "C"]
   ok   reached the correct answer with the arrows
+  ok   task 11 valid: de_build answer=ENTE options=["ENTE"]
+  ok   word ENTE built tile by tile
   ok   all 2 representations shown: ["de_build", "de_missing"]
   ok   session finished
   ok   adaptive: many right answers in a row → harder tasks (hard)
@@ -893,7 +1512,176 @@ Exercise de_woerter – full session with the remote
   ok   progress overview
   ok   tasks solved = 12
   ok   accuracy shown once there is data
-UI TEST: 49 checks, 0 failures
+UI TEST: 46 checks, 0 failures
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 127: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 128: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 129: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 133: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 134: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 124: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 136: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 137: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 140: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 141: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 142: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 143: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 138: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 139: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 144: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 146: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 148: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 150: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 154: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 157: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 247 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 81 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 50 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -907,31 +1695,31 @@ Exercise de_case – full session with the remote
   ok   deutsch → gross_klein
   ok   topic opens the exercise
   ok   first answer focused
-  ok   task 1 valid: de_case answer=i options=["f", "t", "j", "i"]
+  ok   task 1 valid: de_case answer=u options=["v", "u", "n", "o"]
   ok   wrong answer marked and disabled
   ok   no progress for a wrong answer
   ok   focus moved to another answer
   ok   tip shown after the first mistake: Tipp: Groß und klein sehen oft ähnlich aus. Vergleiche genau.
   ok   reached the correct answer with the arrows
-  ok   task 2 valid: de_case answer=e options=["a", "o", "c", "e"]
+  ok   task 2 valid: de_case answer=h options=["b", "h", "k", "n"]
   ok   reached the correct answer with the arrows
-  ok   task 3 valid: de_case answer=F options=["E", "F", "T", "P"]
+  ok   task 3 valid: de_case answer=N options=["H", "M", "N", "U"]
   ok   reached the correct answer with the arrows
-  ok   task 4 valid: de_case answer=S options=["Z", "C", "S", "B"]
+  ok   task 4 valid: de_case answer=p options=["p", "q", "b", "d"]
   ok   reached the correct answer with the arrows
-  ok   task 5 valid: de_case answer=W options=["V", "N", "W", "M"]
+  ok   task 5 valid: de_case answer=U options=["V", "O", "N", "U"]
   ok   reached the correct answer with the arrows
-  ok   task 6 valid: de_case answer=k options=["x", "h", "t", "k"]
+  ok   task 6 valid: de_case answer=d options=["d", "p", "b", "q"]
   ok   reached the correct answer with the arrows
-  ok   task 7 valid: de_case answer=h options=["h", "n", "k", "b"]
+  ok   task 7 valid: de_case answer=i options=["t", "f", "i", "j"]
   ok   reached the correct answer with the arrows
-  ok   task 8 valid: de_case answer=C options=["U", "M", "Z", "C"]
+  ok   task 8 valid: de_case answer=a options=["e", "d", "a", "o"]
   ok   reached the correct answer with the arrows
-  ok   task 9 valid: de_case answer=M options=["W", "H", "M", "N"]
+  ok   task 9 valid: de_case answer=A options=["E", "A", "H", "O"]
   ok   reached the correct answer with the arrows
-  ok   task 10 valid: de_case answer=o options=["o", "e", "c", "a"]
+  ok   task 10 valid: de_case answer=v options=["ö", "v", "k", "i"]
   ok   reached the correct answer with the arrows
-  ok   task 11 valid: de_case answer=i options=["f", "t", "j", "i"]
+  ok   task 11 valid: de_case answer=u options=["v", "u", "n", "o"]
   ok   reached the correct answer with the arrows
   ok   all 1 representations shown: ["de_case"]
   ok   session finished
@@ -954,3 +1742,599 @@ Exercise de_case – full session with the remote
   ok   tasks solved = 12
   ok   accuracy shown once there is data
 UI TEST: 49 checks, 0 failures
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 124: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 127: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 128: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 129: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 133: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 134: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 135: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 136: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 138: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 140: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 142: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 144: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 148: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 151: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 234 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 75 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 50 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
+Exercise le_silben – full session with the remote
+  ok   lesen → silben
+  ok   topic opens the exercise
+  ok   first answer focused
+  ok   task 1 valid: le_syllables answer=Rakete options=["Rakete"]
+  ok   wrong tile counts as a mistake
+  ok   word Rakete built tile by tile
+  ok   task 2 valid: le_syllables answer=Puppe options=["Puppe"]
+  ok   word Puppe built tile by tile
+  ok   task 3 valid: le_syllables answer=Nase options=["Nase"]
+  ok   word Nase built tile by tile
+  ok   task 4 valid: le_syllables answer=Banane options=["Banane"]
+  ok   word Banane built tile by tile
+  ok   task 5 valid: le_syllables answer=Melone options=["Melone"]
+  ok   word Melone built tile by tile
+  ok   task 6 valid: le_syllables answer=Limo options=["Limo"]
+  ok   word Limo built tile by tile
+  ok   task 7 valid: le_syllables answer=Sofa options=["Sofa"]
+  ok   word Sofa built tile by tile
+  ok   task 8 valid: le_syllables answer=Oma options=["Oma"]
+  ok   word Oma built tile by tile
+  ok   task 9 valid: le_syllables answer=Rose options=["Rose"]
+  ok   word Rose built tile by tile
+  ok   task 10 valid: le_syllables answer=Rakete options=["Rakete"]
+  ok   word Rakete built tile by tile
+  ok   task 11 valid: le_syllables answer=Rakete options=["Rakete"]
+  ok   word Rakete built tile by tile
+  ok   all 1 representations shown: ["le_syllables"]
+  ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
+  ok   one repetition of the mistaken task at the end
+  ok   record saved: 9 of 10 on the first try
+  ok   results: focus on 'Nochmal üben'
+  ok   Zurück → subject menu, focus restored
+  ok   back home
+  ok   'Weiter üben' enabled after practising
+  ok   focus Mein Fortschritt
+  ok   Right → Weiter üben
+  ok   Weiter üben opens the same exercise
+  ok   2 tasks solved
+  ok   Back during the exercise asks before quitting
+  ok   cancel → exercise continues
+  ok   confirmed → back home
+  ok   partial session saved (2 tasks)
+  ok   progress overview
+  ok   tasks solved = 12
+  ok   accuracy shown once there is data
+UI TEST: 46 checks, 0 failures
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 127: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 128: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 124: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 134: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 135: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 136: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 137: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 133: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 138: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 139: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 141: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 143: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 145: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 150: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 152: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 222 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 76 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 36 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+ERROR: Condition "status < 0" is true. Returning: ERR_CANT_OPEN
+   at: init_output_device (drivers/alsa/audio_driver_alsa.cpp:97)
+WARNING: All audio drivers failed, falling back to the dummy driver.
+     at: initialize (servers/audio/audio_server.cpp:258)
+
+Exercise le_woerter – full session with the remote
+  ok   lesen → woerter
+  ok   topic opens the exercise
+  ok   first answer focused
+  ok   task 1 valid: le_word_pic answer=Hose options=["Papa", "Hose", "Mama", "Nase"]
+  ok   wrong answer marked and disabled
+  ok   no progress for a wrong answer
+  ok   focus moved to another answer
+  ok   tip shown after the first mistake: Tipp: Lies das Wort Buchstabe für Buchstabe.
+  ok   reached the correct answer with the arrows
+  ok   task 2 valid: le_syllables answer=Melone options=["Melone"]
+  ok   word Melone built tile by tile
+  ok   task 3 valid: le_syllables answer=Lampe options=["Lampe"]
+  ok   word Lampe built tile by tile
+  ok   task 4 valid: le_word_pic answer=Nase options=["Dose", "Rose", "Nase", "Mama"]
+  ok   reached the correct answer with the arrows
+  ok   task 5 valid: le_pic_word answer=Nase options=["Nase", "Rose", "Sofa", "Mama"]
+  ok   reached the correct answer with the arrows
+  ok   task 6 valid: le_syllables answer=Melone options=["Melone"]
+  ok   word Melone built tile by tile
+  ok   task 7 valid: le_pic_word answer=Nase options=["Dose", "Sofa", "Papa", "Nase"]
+  ok   reached the correct answer with the arrows
+  ok   task 8 valid: le_pic_word answer=Limo options=["Papa", "Limo", "Hose", "Dose"]
+  ok   reached the correct answer with the arrows
+  ok   task 9 valid: le_word_pic answer=Sofa options=["Papa", "Sonne", "Sofa", "Mama"]
+  ok   reached the correct answer with the arrows
+  ok   task 10 valid: le_word_pic answer=Tasche options=["Tasse", "Banane", "Tasche", "Tomate"]
+  ok   reached the correct answer with the arrows
+  ok   task 11 valid: le_word_pic answer=Hose options=["Papa", "Hose", "Mama", "Nase"]
+  ok   reached the correct answer with the arrows
+  ok   all 3 representations shown: ["le_word_pic", "le_syllables", "le_pic_word"]
+  ok   session finished
+  ok   adaptive: many right answers in a row → harder tasks (hard)
+  ok   one repetition of the mistaken task at the end
+  ok   record saved: 9 of 10 on the first try
+  ok   results: focus on 'Nochmal üben'
+  ok   Zurück → subject menu, focus restored
+  ok   back home
+  ok   'Weiter üben' enabled after practising
+  ok   focus Mein Fortschritt
+  ok   Right → Weiter üben
+  ok   Weiter üben opens the same exercise
+  ok   2 tasks solved
+  ok   Back during the exercise asks before quitting
+  ok   cancel → exercise continues
+  ok   confirmed → back home
+  ok   partial session saved (2 tasks)
+  ok   progress overview
+  ok   tasks solved = 12
+  ok   accuracy shown once there is data
+UI TEST: 49 checks, 0 failures
+ERROR: Texture with GL ID of 27: leaked 134620 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 28: leaked 133020 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 39: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 40: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 41: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 42: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 43: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 44: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 45: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 46: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 47: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 48: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 49: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 50: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 51: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 52: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 53: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 54: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 55: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 56: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 57: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 58: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 59: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 60: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 61: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 62: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 63: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 64: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 65: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 66: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 67: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 68: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 69: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 70: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 71: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 72: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 73: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 74: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 75: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 76: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 77: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 78: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 79: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 80: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 81: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 84: leaked 3535292 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 85: leaked 56584 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 86: leaked 31708 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 87: leaked 57328 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 88: leaked 52120 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 89: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 90: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 91: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 92: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 93: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 122: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 128: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 129: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 130: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 132: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 133: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 126: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 134: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 135: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 136: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 139: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 140: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 141: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 142: leaked 699050 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 124: leaked 2796202 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 125: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 131: leaked 174762 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 137: leaked 824056 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 143: leaked 838336 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 145: leaked 829656 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 147: leaked 228956 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 152: leaked 52504 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+ERROR: Texture with GL ID of 154: leaked 14512 bytes.
+   at: ~Utilities (drivers/gles3/storage/utilities.cpp:82)
+WARNING: 229 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 28 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: 78 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+ERROR: 38 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 3 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
