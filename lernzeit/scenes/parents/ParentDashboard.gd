@@ -37,12 +37,12 @@ func _ready() -> void:
 	add_child(panel)
 	_scroll = ScrollContainer.new()
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	_scroll.follow_focus = true
 	panel.add_child(_scroll)
 	_rows_box = VBoxContainer.new()
 	_rows_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_rows_box.add_theme_constant_override("separation", 10)
 	_scroll.add_child(_rows_box)
+	keep_rows_visible(_scroll, _rows_box)
 
 	_build_rows()
 
@@ -168,6 +168,9 @@ func _build_rows() -> void:
 	var bkr := _row("res://assets/icons/Parents_Icon_Backup.png", "p_backup", "p_backup_sub")
 	bkr.add_control(bk)
 	bkr.show_later_badge()
+	bkr.name = "BackupRow"
+	bkr.make_focusable()
+	_row_controls.append([bkr])
 
 	# App-Version
 	var ver := Label.new()
@@ -175,7 +178,11 @@ func _build_rows() -> void:
 	ver.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	ver.text = AppState.app_version()
 	ver.name = "VersionLabel"
-	_row("res://assets/icons/Parents_Icon_Info.png", "p_version", "p_version_sub").add_control(ver)
+	var vr := _row("res://assets/icons/Parents_Icon_Info.png", "p_version", "p_version_sub")
+	vr.add_control(ver)
+	vr.name = "VersionRow"
+	vr.make_focusable()
+	_row_controls.append([vr])
 
 
 func _link() -> void:

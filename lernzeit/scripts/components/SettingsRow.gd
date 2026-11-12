@@ -91,6 +91,18 @@ func show_later_badge(on: bool = true) -> void:
 	_badge.visible = on
 
 
+## Info rows without controls become focusable so the remote can reach
+## (and scroll to) them.
+func make_focusable() -> void:
+	focus_mode = Control.FOCUS_ALL
+
+
 func _on_focus_changed(c: Control) -> void:
-	var inside := c != null and is_ancestor_of(c)
+	var inside := c != null and (c == self or is_ancestor_of(c))
 	add_theme_stylebox_override("panel", UiSkin.row(tint, inside))
+	queue_redraw()
+
+
+func _draw() -> void:
+	if has_focus():
+		UiTheme.focus_ring(26).draw(get_canvas_item(), Rect2(Vector2(3, 3), size - Vector2(6, 6)))

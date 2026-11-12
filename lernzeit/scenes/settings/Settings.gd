@@ -50,12 +50,12 @@ func _ready() -> void:
 	add_child(panel)
 	_scroll = ScrollContainer.new()
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	_scroll.follow_focus = true
 	panel.add_child(_scroll)
 	_rows_box = VBoxContainer.new()
 	_rows_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_rows_box.add_theme_constant_override("separation", 12)
 	_scroll.add_child(_rows_box)
+	keep_rows_visible(_scroll, _rows_box)
 
 	back_button = PillButton.make("back", "light", preload("res://assets/icons/Settings_Icon_Back.png"))
 	back_button.name = "BackButton"
@@ -124,6 +124,11 @@ func _build_section(id: String) -> void:
 		"parents": _build_parents()
 		"data": _build_data()
 		"about": _build_about()
+	# Rows without own controls (Daten, Über die App) are focusable themselves
+	if _row_controls.is_empty():
+		for r in _rows_box.get_children():
+			(r as SettingsRow).make_focusable()
+			_row_controls.append([r])
 	_link_content()
 	_scroll.scroll_vertical = 0
 

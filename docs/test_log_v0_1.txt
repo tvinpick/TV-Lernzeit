@@ -75,6 +75,11 @@ Settings / T05 Russian / T06 values
   ok   Back in content → nav column
   ok   read aloud shown as unavailable
   ok   read aloud cannot be switched on
+  ok   Über die App: rows reachable with Right
+  ok   Down reaches the last info row
+  ok   last row scrolled fully into view
+  ok   first row: list scrolled to the very top
+  ok   Back → section menu
   ok   Back → Home
   ok   card title translated
 T08 PIN create / verify
@@ -101,7 +106,7 @@ Language back to German for the remaining screenshots
   ok   not saved yet
   ok   Back with unsaved changes asks for confirmation
   ok   Back closes dialog, stays
-  ok   reach Speichern
+  ok   reach Speichern (via backup + version rows)
   ok   saved: Logik disabled
 T09 reset progress (PIN + confirmation)
   ok   test record present
@@ -126,7 +131,7 @@ T04 exit confirmation
 lockout after 5 wrong PINs
   ok   PIN pad locked after 5 wrong attempts
   ok   even the right PIN is refused while locked
-UI TEST: 108 checks, 0 failures
+UI TEST: 113 checks, 0 failures
 Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
 WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
      at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
@@ -163,7 +168,7 @@ Localization
   ok   all topic keys translated []
 PIN hashing
   ok   16-byte salt
-       hash time: 25 ms
+       hash time: 17 ms
   ok   hash is hex SHA-256, not the PIN
   ok   deterministic for same salt
   ok   different salt → different hash

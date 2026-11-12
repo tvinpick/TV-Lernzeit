@@ -80,6 +80,38 @@ func add_bottom_bar(left: Array, right: Array) -> HBoxContainer:
 	return bar
 
 
+## Scrolls so that the complete row (not only the focused button inside it)
+## is visible; the first/last row scroll fully to the top/bottom.
+func keep_rows_visible(scroll: ScrollContainer, rows_box: Container) -> void:
+	scroll.follow_focus = false
+	get_viewport().gui_focus_changed.connect(func(c: Control):
+		if c == null or not is_instance_valid(scroll) or not rows_box.is_ancestor_of(c):
+			return
+		var row: Control = c
+		while row.get_parent() != rows_box:
+			row = row.get_parent()
+		_scroll_to_row.call_deferred(scroll, rows_box, row))
+
+
+func _scroll_to_row(scroll: ScrollContainer, rows_box: Container, row: Control) -> void:
+	if not is_instance_valid(row):
+		return
+	var rows := rows_box.get_children()
+	var bar := scroll.get_v_scroll_bar()
+	if row == rows.front():
+		scroll.scroll_vertical = 0
+	elif row == rows.back():
+		scroll.scroll_vertical = int(bar.max_value)
+	else:
+		var top := row.position.y
+		var bottom := top + row.size.y
+		var view := scroll.size.y
+		if top < scroll.scroll_vertical:
+			scroll.scroll_vertical = int(top)
+		elif bottom > scroll.scroll_vertical + view:
+			scroll.scroll_vertical = int(bottom - view)
+
+
 func toast(text: String) -> void:
 	if main:
 		main.toast(text)

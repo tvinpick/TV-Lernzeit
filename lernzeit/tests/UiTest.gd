@@ -213,6 +213,22 @@ func run_main() -> void:
 	await key(KEY_ESCAPE)
 	await keys([KEY_DOWN, KEY_DOWN]); await shot("10_settings_data_ru_large")
 	await key(KEY_DOWN); await shot("11_settings_about_ru_large")
+	await key(KEY_RIGHT)
+	var st2 = main.current_screen()
+	var about_rows: Array = st2._rows_box.get_children()
+	check(get_viewport().gui_get_focus_owner() == about_rows[0], "Über die App: rows reachable with Right")
+	for i in about_rows.size() + 1:
+		await key(KEY_DOWN, 0.15)
+	check(get_viewport().gui_get_focus_owner() == about_rows.back(), "Down reaches the last info row")
+	await wait(0.2)
+	var sb: VScrollBar = st2._scroll.get_v_scroll_bar()
+	check(st2._scroll.scroll_vertical >= int(sb.max_value - sb.page) - 1, "last row scrolled fully into view")
+	await shot("11b_settings_about_last_row_ru_large")
+	for i in about_rows.size():
+		await key(KEY_UP, 0.15)
+	check(st2._scroll.scroll_vertical == 0, "first row: list scrolled to the very top")
+	await key(KEY_ESCAPE, 0.35)
+	check(focus_name() == "Nav_about", "Back → section menu")
 	await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "home", "Back → Home")
 	await shot("12_home_ru_large")
@@ -278,15 +294,15 @@ func run_main() -> void:
 	await key(KEY_ESCAPE, 0.3)
 	check(not main.has_dialog() and main.current_id() == "parents", "Back closes dialog, stays")
 	# save via the Speichern button: go down to the bottom
-	for i in 12:
+	for i in 14:
 		await key(KEY_DOWN, 0.12)
-	check(focus_name() == "SaveButton", "reach Speichern")
+	check(focus_name() == "SaveButton", "reach Speichern (via backup + version rows)")
 	await key(KEY_ENTER, 0.4)
 	check(not SettingsRepository.is_subject_enabled("logik"), "saved: Logik disabled")
 	print("T09 reset progress (PIN + confirmation)")
 	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 4, 5, 120, "test"))
 	check(ProgressRepository.record_count() == 1, "test record present")
-	for i in 8:
+	for i in 12:
 		await key(KEY_UP, 0.12)
 	await keys([KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN, KEY_DOWN])
 	check(focus_name() == "ResetProgress", "reach reset button: " + focus_name())

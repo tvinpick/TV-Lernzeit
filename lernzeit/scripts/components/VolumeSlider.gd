@@ -18,6 +18,11 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_THEME_CHANGED:
+		queue_redraw()
+
+
 func set_value(v: int) -> void:
 	value = clampi(v, 0, 100)
 	queue_redraw()
@@ -45,9 +50,15 @@ func _gui_input(event: InputEvent) -> void:
 		changed.emit(value)
 
 
+func _pill_width() -> float:
+	var f := get_theme_font("font", "HeadingLabel")
+	var fs := get_theme_font_size("font_size", "HeadingLabel")
+	return f.get_string_size("100 %", HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 44.0
+
+
 func _track_rect() -> Rect2:
 	var left := 76.0
-	var right := 150.0
+	var right := _pill_width() + 40.0   # room for the knob + gap before the % pill
 	return Rect2(Vector2(left, size.y / 2.0 - 20), Vector2(size.x - left - right, 40))
 
 
@@ -73,7 +84,8 @@ func _draw() -> void:
 	var fs := get_theme_font_size("font_size", "HeadingLabel")
 	var txt := "%d %%" % value
 	var w := f.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-	var pill_r := Rect2(Vector2(size.x - 136, size.y / 2.0 - 34), Vector2(132, 68))
+	var pw := _pill_width()
+	var pill_r := Rect2(Vector2(size.x - pw - 4, size.y / 2.0 - 36), Vector2(pw, 72))
 	UiSkin.pill("light").draw(get_canvas_item(), pill_r)
 	draw_string(f, Vector2(pill_r.get_center().x - w / 2.0, pill_r.get_center().y + fs * 0.36), txt,
 		HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiTheme.NAVY)
