@@ -77,7 +77,7 @@ static func title_key(id: String) -> String:
 
 
 # ----------------------------------------------------------------- stickers ---
-## Sticker album: one sticker for every finished exercise, 20 in total.
+## Sticker album: one sticker for every new level ("Stufe"), 20 in total.
 const STICKER_COUNT := 20
 
 
@@ -86,8 +86,4 @@ static func sticker_path(i: int) -> String:
 
 
 static func stickers_earned() -> int:
-	var n := 0
-	for r in ProgressRepository.get_records():
-		if r.complete:
-			n += 1
-	return mini(n, STICKER_COUNT)
+	return clampi(Progression.level() - 1, 0, STICKER_COUNT)

@@ -292,7 +292,7 @@
  "sticker_new": "Neuer Sticker!",
  "stickers": "Sticker",
  "stickers_title": "Mein Stickeralbum",
- "stickers_count": "{n} von {total} Stickern · für jede fertige Übung gibt es einen",
+ "stickers_count": "{n} von {total} Stickern · für jede neue Stufe gibt es einen",
  "ex_cmp10_title": "Vergleichen bis 10",
  "cmp_prompt_larger": "Welche Zahl ist größer?",
  "cmp_prompt_smaller": "Welche Zahl ist kleiner?",
@@ -359,5 +359,8 @@
  "p_goal_sub": "So viele Übungen am Tag – Sterne auf dem Startbildschirm.",
  "p_goal_off": "Aus",
  "goal_today": "Heute",
- "goal_done": "Tagesziel geschafft! Toll!"
+ "goal_done": "Tagesziel geschafft! Toll!",
+ "xp_level": "Stufe {n} · {xp} / {need}",
+ "xp_gain": "+{n} Sterne-Punkte",
+ "level_up": "Neue Stufe {n}!"
 }

@@ -8,6 +8,7 @@ var continue_button: ArtButton
 var gear: TextureButton
 var review_button: PillButton     ## "Fehler üben": only when earlier mistakes wait
 var goal_box: HBoxContainer       ## daily goal: "Heute ★★☆" (parents choose 2/3/5 or off)
+var xp_bar: XpBar                 ## level ("Stufe") and experience
 
 
 func _ready() -> void:
@@ -100,13 +101,18 @@ func _ready() -> void:
 
 	review_button = PillButton.make("home_review", "light", preload("res://assets/icons/Settings_Icon_Repeat.png"), true)
 	review_button.name = "ReviewButton"
-	review_button.position = Vector2(110, 62)
-	review_button.custom_minimum_size = Vector2(0, 84)
+	review_button.position = Vector2(110, 150)
+	review_button.custom_minimum_size = Vector2(0, 76)
 	add_child(review_button)
 	review_button.pressed.connect(func():
 		var r := ProgressRepository.review_exercise()
 		if r[0] != "":
 			main.push(Curriculum.screen_for(r[0]), {"exercise": r[0], "review": true}))
+
+	xp_bar = XpBar.make(400)
+	xp_bar.name = "XpBar"
+	xp_bar.position = Vector2(110, 58)
+	add_child(xp_bar)
 
 	goal_box = HBoxContainer.new()
 	goal_box.name = "GoalBox"
@@ -127,6 +133,7 @@ func _ready() -> void:
 	FocusManager.set_neighbors(l, null, g, m, progress_button)
 	FocusManager.set_neighbors(g, l, null, d, progress_button)
 	FocusManager.set_neighbors(progress_button, null, null, l, null)
+	FocusManager.set_neighbors(review_button, null, null, null, m)
 	FocusManager.set_neighbors(continue_button, progress_button, null, g, null)
 	FocusManager.set_neighbors(gear, d, null, null, d)
 	_refresh()
@@ -148,6 +155,7 @@ func _refresh() -> void:
 	review_button.text = Localization.t("home_review", {"n": rv[1]})
 	review_button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	FocusManager.set_one(cards["mathematik"], SIDE_TOP, review_button if review_button.visible else cards["mathematik"])
+	xp_bar.show_xp(Progression.xp_total())
 	for sid in cards:
 		cards[sid].dimmed = not SettingsRepository.is_subject_enabled(sid)
 	# "Weiter üben": continue the exercise that was practised before (only real exercises).

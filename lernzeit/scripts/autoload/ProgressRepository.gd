@@ -28,7 +28,11 @@ func load_records() -> void:
 	_records.clear()
 	_letters.clear()
 	_history.clear()
+	_tests.clear()
 	var d := SafeFile.read_json_dict(_path())
+	for t in d.get("tests", []):
+		if t is Dictionary and t.get("subject") is String:
+			_tests.append(_intify(t))
 	var hd = d.get("history", {})
 	if hd is Dictionary:
 		for ex in hd:
@@ -52,12 +56,26 @@ func _save() -> bool:
 	var arr := []
 	for r in _records:
 		arr.append(r.to_dict())
-	return SafeFile.write_text(_path(), JSON.stringify({"schema": SCHEMA, "records": arr, "letters": _letters, "history": _history}, "\t"))
+	return SafeFile.write_text(_path(), JSON.stringify({"schema": SCHEMA, "records": arr, "letters": _letters, "history": _history, "tests": _tests}, "\t"))
 
 
 # ------------------------------------------------------------ task history ---
 ## Per exercise: keys of the last tasks (the generator avoids them) and tasks that
 ## were wrong at the first try (asked again in later sessions until solved twice).
+
+## Lernkontrollen (tests started by the parents): [{ts, subject, correct, total, secs, topics: {topic: [right, total]}}]
+var _tests: Array = []
+
+
+func get_tests() -> Array:
+	return _tests.duplicate(true)
+
+
+func add_test(t: Dictionary) -> void:
+	_tests.append(t)
+	_save()
+	progress_changed.emit()
+
 
 const HISTORY_KEYS := 40
 const HISTORY_MISTAKES := 12
@@ -170,6 +188,7 @@ func reset_all() -> int:
 	_records.clear()
 	_letters.clear()
 	_history.clear()
+	_tests.clear()
 	_save()
 	progress_changed.emit()
 	return n

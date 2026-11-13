@@ -623,7 +623,8 @@ func run_extras() -> void:
 	await key(KEY_ESCAPE, 0.4)
 	await key(KEY_RIGHT); check(focus_name() == "StickersButton", "Right → Sticker")
 	await key(KEY_ENTER, 0.5)
-	check(main.current_id() == "stickers" and main.current_screen().slots.filter(func(x): return x["earned"]).size() == 3, "sticker album: 3 stickers for 3 finished exercises")
+	check(main.current_id() == "stickers" and main.current_screen().slots.filter(func(x): return x["earned"]).size() == 2,
+		"sticker album: 3 exercises (360 XP) = Stufe 3 → 2 stickers")
 	await shot("sticker_album")
 	await key(KEY_ESCAPE, 0.4); await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "home", "back home")

@@ -408,6 +408,7 @@ func _ready() -> void:
 	_test_task_history()
 	_test_zahlenreihen()
 	_test_solutions()
+	_test_progression()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -563,3 +564,19 @@ func _test_solutions() -> void:
 			if txt != "" and not txt.contains(str(t["answer"])) and not t["mode"] in ["cmp_sign"]:
 				bad += 1
 	check(bad == 0, "solution text contains the answer (%d bad)" % bad)
+
+
+func _test_progression() -> void:
+	check(Progression.level_info(0) == [1, 0, 100] and Progression.level_info(100) == [2, 0, 140]
+		and Progression.level_info(239) == [2, 139, 140] and Progression.level_info(240) == [3, 0, 180], "levels: 100, 140, 180 … XP")
+	ProgressRepository.reset_all()
+	check(Progression.xp_total() == 0 and Achievements.stickers_earned() == 0, "no XP, no sticker at the start")
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 9, 10, 60, "add10-v1"))
+	check(Progression.xp_total() == 9 * 10 + 3 + 20 and Progression.level() == 2 and Achievements.stickers_earned() == 1,
+		"one exercise (9 of 10): 113 XP → Stufe 2 → first sticker")
+	ProgressRepository.add_test({"ts": 1, "subject": "mathematik", "correct": 12, "total": 15, "secs": 300, "topics": {}})
+	check(Progression.xp_total() == 113 + 120 + 30, "Lernkontrolle gives XP")
+	ProgressRepository.load_records()
+	check(ProgressRepository.get_tests().size() == 1 and ProgressRepository.get_tests()[0]["correct"] is int, "tests saved and restored")
+	ProgressRepository.reset_all()
+	check(ProgressRepository.get_tests().is_empty() and Progression.xp_total() == 0, "reset clears tests and XP")

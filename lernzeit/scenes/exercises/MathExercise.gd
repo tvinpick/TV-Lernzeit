@@ -101,6 +101,7 @@ func _ready() -> void:
 	_build_header()
 	_build_body()
 	_stickers_before = Achievements.stickers_earned()
+	_xp_before = Progression.xp_total()
 	_owl = Mascot.make("thinking", 190, Vector2(270, 112))
 	_owl.visible = false
 	add_child(_owl)
@@ -1003,6 +1004,7 @@ func _show_feedback(ok: bool) -> void:
 
 var _ach_before: Array = []
 var _stickers_before := 0
+var _xp_before := 0
 var _owl: TextureRect          ## thinking owl next to a tip
 
 
@@ -1201,5 +1203,5 @@ func _celebrate(star_nodes: Array) -> void:
 			tw.tween_property(st, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			if i < session.first_try_correct:
 				tw.tween_callback(Sfx.play.bind("pop"))
-	ResultsDecor.add(_results, session.first_try_correct, _stickers_before)
+	ResultsDecor.add(_results, session.first_try_correct, _stickers_before, _xp_before)
 	PauseReminder.maybe_show(self, main, 1.9)
