@@ -149,7 +149,8 @@ Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле
 198 немецких фраз (HeyGen Voice «Nele — Friendly & Natural», подготовлены пользователем по
 `docs/VOICE_PHRASES.md`). Сконвертированы в OGG Vorbis (моно, 44,1 кГц, качество 4) скриптом
 `tools/convert_voice.sh` → `lernzeit/assets/voice/de/` (2,6 МБ вместо 17 МБ WAV); тексты не менялись.
-В архиве нет звуков букв (`sound_*`) и подсказок `tip_de_find`, `tip_de_build`, `tip_equal`,
+Звуки букв пришли отдельно: `Lernzeit_DE_Nele_29_Sounds.zip` (29 файлов `sound_*`, C → k, Q → kw,
+V → f, X → ks, Y → ü, Z → ts). В архивах нет подсказок `tip_de_find`, `tip_de_build`, `tip_equal`,
 `tip_le_word_pic`, `tip_le_pic_word`, `tip_*` с числами — эти места остаются без голоса.
 
 | Что звучит | Когда |
@@ -158,6 +159,7 @@ Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле
 | буква / слово к вопросу | «Finde den Buchstaben … M», «Baue das Wort … Maus»; в «Чтении» слово **не** произносится |
 | `ex_correct*`, `ex_wrong*` | правильный / неправильный ответ (случайный вариант) |
 | слово после ответа | «Das Wort heißt … Apfel» (Anlaute), «Super! … Banane» (слова, чтение) |
+| звук буквы `sound_*` | «Первый звук»: после ответа «Das Wort heißt … Apfel … aaa», после 2-й ошибки «Apfel … aaa»; «Найди букву»: «Richtig! M … mmm» |
 | `tip_*` | подсказка после первой ошибки — только если язык подсказок у родителей немецкий |
 | `ex_streak`, `ex_done`, `ex_done_perfect` | серия правильных, конец занятия |
 | `home_prompt`, `pause` | после запуска и «Пора отдохнуть» — только при немецком интерфейсе |

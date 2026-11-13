@@ -142,6 +142,11 @@ static func letter(l: String) -> String:
 	return "letter_" + {"Ä": "AE", "Ö": "OE", "Ü": "UE"}.get(u, u)
 
 
+## how the letter sounds at the start of a word: "M" → "sound_M" ("mmm")
+static func sound(l: String) -> String:
+	return letter(l).replace("letter_", "sound_")
+
+
 ## picture path → word clip: ".../Deutsch_L_Loewe.png" → "word_Loewe"
 static func word_from_picture(path: String) -> String:
 	return "word_" + path.get_file().get_basename().get_slice("_", path.get_file().get_basename().get_slice_count("_") - 1)

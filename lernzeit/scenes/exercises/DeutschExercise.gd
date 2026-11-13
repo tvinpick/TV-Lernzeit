@@ -492,8 +492,10 @@ func _speak_task(t: Dictionary) -> void:
 ## Praise after a solved task; word tasks then say the whole word.
 func _speak_solved(t: Dictionary) -> void:
 	var w := Voice.word_from_picture(str(t.get("picture", "")))
-	if t["mode"] == "de_first" and Voice.say_all(["de_word_is", w]):
-		return
+	if t["mode"] == "de_first" and Voice.say_all(["de_word_is", w, Voice.sound(t["answer"])]):
+		return      # "Das Wort heißt … Apfel … aaa"
+	if t["mode"] == "de_find" and Voice.say_all(["ex_correct", Voice.letter(t["answer"]), Voice.sound(t["answer"])]):
+		return      # "Richtig! M … mmm"
 	var praise := ["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"].pick_random() as String
 	if t["mode"] in ["de_missing", "de_build", "le_syllables", "le_word_pic", "le_pic_word"] and Voice.say_all([praise, w]):
 		return
@@ -651,6 +653,8 @@ func _mistake() -> void:
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
 	else:
 		var want: String = _parts(t)[_placed] if _is_build(t) else t["answer"]
+		if t["mode"] == "de_first":
+			Voice.say([Voice.word_from_picture(t["picture"]), Voice.sound(want)])   # "Apfel … aaa"
 		for b in active_buttons():
 			if b.value == want:
 				Juice.hint_pulse(b)

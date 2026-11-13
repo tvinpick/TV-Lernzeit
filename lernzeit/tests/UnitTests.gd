@@ -420,6 +420,8 @@ func _test_voice() -> void:
 	for l in LetterGenerator.LETTERS_ALL:
 		if not Voice.has(Voice.letter(l)) or not Voice.has(Voice.letter(l.to_lower())):
 			missing.append(Voice.letter(l))
+		if not Voice.has(Voice.sound(l)):
+			missing.append(Voice.sound(l))
 	for e in LetterGenerator.dictionary() + ReadingGenerator.words():
 		if not Voice.has(Voice.word_from_picture(e["picture"])):
 			missing.append(Voice.word_from_picture(e["picture"]))
@@ -436,7 +438,7 @@ func _test_voice() -> void:
 	check(missing.is_empty(), "voice recordings for every prompt, number, letter and word " + str(missing))
 	check(Voice.word_from_picture("res://assets/deutsch/words/Deutsch_L_Loewe.png") == "word_Loewe"
 		and Voice.word_from_picture("res://assets/lesen/words/Lesen_Banane.png") == "word_Banane"
-		and Voice.letter("ä") == "letter_AE", "voice clip names")
+		and Voice.letter("ä") == "letter_AE" and Voice.sound("Ö") == "sound_OE", "voice clip names")
 	SettingsRepository.set_value("read_aloud", true)
 	SettingsRepository.set_value("volume", 50)
 	check(Voice.say(["de_prompt_find", "letter_M"]) and Voice.history.back() == "de_prompt_find", "voice says a sentence")
