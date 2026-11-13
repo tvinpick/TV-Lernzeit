@@ -50,6 +50,7 @@ var _results: Control
 var _hole_label: Label
 var _word_reveal: Label         ## de_first: the whole word appears under the picture when solved
 var _hole_pic: TextureRect      ## Logik: the "?" place that shows the chosen picture when solved
+var _pattern_items: Array = []  ## Muster: the pictures of the row (first repetition pulses as help)
 var _slots: Array = []          ## [{rect, label}] while building a word
 var _placed := 0
 var _build_wrong := {}          ## letters that were expected when a wrong tile was chosen
@@ -511,13 +512,16 @@ func _stage_pattern(t: Dictionary) -> void:
 	panel.add_child(items)
 	var seq: Array = t["sequence"]
 	var s := 150 if seq.size() >= 7 else 165
+	_pattern_items = []
 	for pth in seq:
 		var r := TextureRect.new()
 		r.texture = load(pth)
 		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		r.custom_minimum_size = Vector2(s, s)
+		r.pivot_offset = Vector2(s, s) / 2.0
 		items.add_child(r)
+		_pattern_items.append(r)
 	items.add_child(_hole(s))
 
 
@@ -782,6 +786,7 @@ func _mistake() -> void:
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
 	else:
+		_show_solution(t)
 		var want: String = _parts(t)[_placed] if _is_build(t) else t["answer"]
 		if t["mode"] == "de_first":
 			Voice.say([Voice.word_from_picture(t["picture"]), Voice.sound(want)])   # "Apfel … aaa"
@@ -789,6 +794,28 @@ func _mistake() -> void:
 			if b.value == want:
 				Juice.hint_pulse(b)
 				break
+
+
+## 2nd mistake: "So geht's: Löwe → L" in the question panel; Muster: the repeating part pulses.
+func _show_solution(t: Dictionary) -> void:
+	var text := ""
+	match t["mode"]:
+		"de_find", "de_case":
+			text = str(t["answer"])
+		"de_first":
+			text = "%s → %s" % [t.get("display", ""), t["answer"]]
+		"de_missing":
+			text = (t["word"] as String).capitalize()
+			for e in LetterGenerator.dictionary():          # "FUSS" → "Fuß"
+				if e["upper"] == t["word"]:
+					text = e["word"]
+		"lg_muster":
+			for i in mini(str(t["kind"]).length(), _pattern_items.size()):
+				Juice.hint_pulse(_pattern_items[i])
+	if text != "":
+		_prompt.set_wrapped(true, 30)
+		_prompt.text = Localization.help("ex_show", {"t": text})
+		_prompt.add_theme_color_override("font_color", Color("1f7a33"))
 
 
 func _show_feedback(ok: bool) -> void:

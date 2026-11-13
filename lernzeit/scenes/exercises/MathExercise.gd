@@ -896,6 +896,35 @@ func _give_help() -> void:
 		for b in active_buttons():
 			if b.value == t["answer"]:
 				Juice.hint_pulse(b)
+		_show_solution(t)
+
+
+## 2nd mistake: "So geht's: 7 − 3 = 4" in the question banner (besides the glowing answer).
+func _show_solution(t: Dictionary) -> void:
+	var text := solution_text(t)
+	if text == "" or not is_inside_tree():
+		return
+	_prompt.set_wrapped(true, 30)
+	_prompt.text = Localization.help("ex_show", {"t": text})
+	_prompt.add_theme_color_override("font_color", Color("1f7a33"))
+	_owl.visible = true
+
+
+static func solution_text(t: Dictionary) -> String:
+	var m: String = t["mode"]
+	if m in ["equation", "objects", "number_line", "ten_frame", "missing"] and t.has("result"):
+		return "%d − %d = %d" % [t["a"], t["b"], t["result"]]
+	if m in ["add_groups", "add_equation", "add_missing", "add_to_ten", "add_dice"] and t.has("sum"):
+		return "%d + %d = %d" % [t["a"], t["b"], t["sum"]]
+	if m in ["cnt_sequence", "zr_step"]:
+		var seq: Array = t["sequence"]
+		var step: int = seq[1] - seq[0]
+		return "%s   (%s%d)" % [" ".join(PackedStringArray(seq.map(func(x): return str(x)))), "+" if step > 0 else "−", absi(step)]
+	if m in ["cnt_bigger", "cmp_larger", "cmp_smaller", "cmp_sign"] and t.has("x"):
+		var x: int = t["x"]
+		var y: int = t["y"]
+		return "%d %s %d" % [x, ">" if x > y else ("<" if x < y else "="), y]
+	return ""
 
 
 func _tip_text(t: Dictionary) -> String:

@@ -407,6 +407,7 @@ func _ready() -> void:
 	_test_logik()
 	_test_task_history()
 	_test_zahlenreihen()
+	_test_solutions()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -543,3 +544,22 @@ func _test_zahlenreihen() -> void:
 	check(steps.has("easy:2:false") and not steps.has("easy:1:true") and steps.has("auto:5:true") and steps.has("hard:3:false"),
 		"Zahlenreihen: steps by difficulty " + str(steps.keys()))
 	check(Curriculum.exercise_for("mathematik", "zahlenreihen") == "zr20", "Zahlenreihen playable")
+
+
+func _test_solutions() -> void:
+	var ms: GDScript = load("res://scenes/exercises/MathExercise.gd")
+	check(ms.solution_text({"mode": "equation", "a": 7, "b": 3, "result": 4}) == "7 − 3 = 4"
+		and ms.solution_text({"mode": "add_missing", "a": 2, "b": 5, "sum": 7}) == "2 + 5 = 7"
+		and ms.solution_text({"mode": "zr_step", "sequence": [10, 8, 6, 4]}) == "10 8 6 4   (−2)"
+		and ms.solution_text({"mode": "cmp_sign", "x": 3, "y": 3}) == "3 = 3"
+		and ms.solution_text({"mode": "cnt_objects", "n": 4}) == "", "'So geht's' texts after the 2nd mistake")
+	var bad := 0
+	for ex in ["sub10", "add20", "zr20", "cmp10"]:
+		var g: MathGenerator = {"sub10": SubtractionGenerator, "add20": AdditionGenerator, "zr20": ZahlenreihenGenerator, "cmp10": CompareGenerator}[ex].new(3)
+		g.max_value = 20 if ex.ends_with("20") else 10
+		for i in 200:
+			var t := g.make_task(g.modes()[i % g.modes().size()])
+			var txt: String = ms.solution_text(t)
+			if txt != "" and not txt.contains(str(t["answer"])) and not t["mode"] in ["cmp_sign"]:
+				bad += 1
+	check(bad == 0, "solution text contains the answer (%d bad)" % bad)
