@@ -6,6 +6,7 @@ var cards := {}
 var progress_button: ArtButton
 var continue_button: ArtButton
 var gear: TextureButton
+var review_button: PillButton     ## "Fehler üben": only when earlier mistakes wait
 
 
 func _ready() -> void:
@@ -96,11 +97,22 @@ func _ready() -> void:
 		Sfx.play("select")
 		main.push("settings"))
 
+	review_button = PillButton.make("home_review", "light", preload("res://assets/icons/Settings_Icon_Repeat.png"), true)
+	review_button.name = "ReviewButton"
+	review_button.position = Vector2(110, 62)
+	review_button.custom_minimum_size = Vector2(0, 84)
+	add_child(review_button)
+	review_button.pressed.connect(func():
+		var r := ProgressRepository.review_exercise()
+		if r[0] != "":
+			main.push(Curriculum.screen_for(r[0]), {"exercise": r[0], "review": true}))
+
 	var m: Control = cards["mathematik"]
 	var d: Control = cards["deutsch"]
 	var l: Control = cards["lesen"]
 	var g: Control = cards["logik"]
 	FocusManager.set_neighbors(m, null, d, null, l)
+	FocusManager.set_neighbors(review_button, null, null, null, m)
 	FocusManager.set_neighbors(d, m, gear, gear, g)
 	FocusManager.set_neighbors(l, null, g, m, progress_button)
 	FocusManager.set_neighbors(g, l, null, d, progress_button)
@@ -119,6 +131,12 @@ func on_shown() -> void:
 
 
 func _refresh() -> void:
+	var rv := ProgressRepository.review_exercise()
+	review_button.visible = rv[0] != ""
+	review_button.focus_mode = Control.FOCUS_ALL if review_button.visible else Control.FOCUS_NONE
+	review_button.text = Localization.t("home_review", {"n": rv[1]})
+	review_button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	FocusManager.set_one(cards["mathematik"], SIDE_TOP, review_button if review_button.visible else cards["mathematik"])
 	for sid in cards:
 		cards[sid].dimmed = not SettingsRepository.is_subject_enabled(sid)
 	# "Weiter üben": continue the exercise that was practised before (only real exercises).

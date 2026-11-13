@@ -464,7 +464,7 @@ func _test_logik() -> void:
 				seen_kinds[mode + ":" + str(t.get("kind", t.get("prompt", "")))] = true
 				if not g.is_valid(t):
 					bad.append(t)
-	check(bad.is_empty(), "Logik: 270 generated tasks valid " + str(bad.slice(0, 2)))
+	check(bad.is_empty(), "Logik: 270 generated tasks valid (colour patterns without red + green) " + str(bad.slice(0, 2)))
 	check(seen_kinds.has("lg_muster:ABC") and seen_kinds.has("lg_reihenfolge:middle")
 		and seen_kinds.has("lg_formen:lg_prompt_thing_form"), "Logik: all task kinds appear " + str(seen_kinds.keys()))
 	var t2 := {"mode": "lg_muster", "kind": "AB", "answer": LogikGenerator.shape("Kreis", "Rot"),

@@ -545,6 +545,20 @@ func run_exercise() -> void:
 	check(main.current_id() == "home", "back home")
 	var home = main.current_screen()
 	check(not home.continue_button.disabled, "'Weiter üben' enabled after practising")
+	check(home.review_button.visible and home.review_button.text.contains("(1)"), "'Fehler üben (1)' after one mistake: " + home.review_button.text)
+	var back_focus := focus_name()
+	if focus_name() == "Card_mathematik":
+		await key(KEY_UP); check(focus_name() == "ReviewButton", "Up from Mathematik → 'Fehler üben'")
+		await key(KEY_ENTER, 0.6)
+		var rv = main.current_screen()
+		check(rv.exercise_id == exercise and rv.session.main_count == 5 and rv.session.tasks.filter(func(t): return t.get("again", false)).size() == 1,
+			"'Fehler üben' opens %s: 5 tasks, the earlier mistake among them" % exercise)
+		await key(KEY_ESCAPE, 0.4)
+		if main.top_dialog():
+			await key(KEY_ENTER, 0.6)        # quit without answering (nothing saved)
+		check(main.current_id() == "home", "back home from the review")
+		await key(KEY_DOWN)
+		check(focus_name() == "Card_mathematik", "focus back on Mathematik (" + back_focus + ")")
 	await keys([KEY_DOWN, KEY_DOWN])
 	check(focus_name() == "ProgressButton", "focus Mein Fortschritt")
 	await key(KEY_RIGHT); check(focus_name() == "ContinueButton", "Right → Weiter üben")

@@ -70,6 +70,17 @@ var _mistakes := 0             ## mistakes in the current task (tips, then highl
 var adaptive: AdaptiveLevel
 
 
+
+## Tasks of this session. params.review ("Fehler üben" on Home): the earlier mistakes
+## of this exercise (at least 5 tasks, filled up with new ones).
+func _make_tasks() -> Array:
+	var again := ProgressRepository.mistake_tasks(exercise_id)
+	var recent := ProgressRepository.recent_task_keys(exercise_id)
+	if params.get("review", false) and not again.is_empty():
+		var n := clampi(again.size(), 5, generator.session_size(10))
+		return generator.make_session(n, recent, again, n)
+	return generator.make_session(generator.session_size(10), recent, again)
+
 func _ready() -> void:
 	exercise_id = params.get("exercise", "sub10")
 	config = EXERCISES[exercise_id]
@@ -85,8 +96,7 @@ func _ready() -> void:
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
 	session = ExerciseSession.new("mathematik", config["topic"], config["version"],
-		generator.make_session(generator.session_size(10), ProgressRepository.recent_task_keys(exercise_id),
-			ProgressRepository.mistake_tasks(exercise_id)), bool(SettingsRepository.get_value("repeat_mistakes")))
+		_make_tasks(), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_header()
 	_build_body()

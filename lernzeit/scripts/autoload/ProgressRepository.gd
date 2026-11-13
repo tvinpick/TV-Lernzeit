@@ -79,6 +79,16 @@ func mistake_tasks(exercise_id: String) -> Array:
 	return out
 
 
+## Exercise for "Fehler üben": the playable one with the most open mistakes in an
+## enabled subject ("" if none) and how many tasks wait there.
+func review_exercise() -> Array:
+	for e in mistake_overview():
+		var ex: String = e["exercise"]
+		if ex in Curriculum.PLAYABLE.values() and SettingsRepository.is_subject_enabled(Curriculum.subject_of(ex)):
+			return [ex, (e["tasks"] as Array).size()]
+	return ["", 0]
+
+
 ## Exercises with open mistakes: [{exercise, tasks}] (most mistakes first).
 func mistake_overview() -> Array:
 	var out: Array = []

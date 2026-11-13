@@ -11,6 +11,8 @@ const ALL_MODES: Array[String] = ["lg_muster", "lg_formen", "lg_reihenfolge"]
 const SHAPES := ["Kreis", "Quadrat", "Rechteck", "Dreieck", "Stern", "Herz", "Raute"]
 const BASIC_SHAPES := ["Kreis", "Quadrat", "Rechteck", "Dreieck"]
 const COLORS := ["Rot", "Blau", "Gelb", "Gruen"]
+## colour sets for colour patterns without the red/green pair (colour vision deficiency)
+const SAFE_PALETTES := [["Rot", "Blau", "Gelb"], ["Gruen", "Blau", "Gelb"]]
 ## things for "Formen erkennen" (file name part after "Logik_Form_")
 const FORM_OBJECTS := {
 	"Kreis": ["Ball", "Uhr", "Pizza"],
@@ -107,12 +109,15 @@ func _muster() -> Dictionary:
 	var pool: Array = []           # similar pictures for distractors
 	match variant:
 		"color":
+			# never red and green in one task: ~8 % of boys hardly tell them apart
 			var s: String = _pick(SHAPES)
-			var cs := _shuffled(COLORS)
+			var palette: Array = _shuffled(_pick(SAFE_PALETTES))
 			for i in n:
-				units.append(shape(s, cs[i]))
-			for c in COLORS:
+				units.append(shape(s, palette[i]))
+			for c in palette:
 				pool.append(shape(s, c))
+			var other: String = _pick(SHAPES.filter(func(x): return x != s))
+			pool.append(shape(other, palette[0]))      # 4th answer: same colour, other shape
 		"shape":
 			var c: String = _pick(COLORS)
 			var ss := _shuffled(SHAPES)
@@ -221,6 +226,10 @@ static func validate(t: Dictionary) -> bool:
 	match t["mode"]:
 		"lg_muster":
 			var seq: Array = t["sequence"]
+			if t.get("variant", "") == "color":
+				var all := " ".join(PackedStringArray(seq + opts))
+				if all.contains("_Rot.") and all.contains("_Gruen."):
+					return false
 			var k: String = t["kind"]
 			# the pattern really repeats and the answer continues it
 			var full: Array = seq + [t["answer"]]

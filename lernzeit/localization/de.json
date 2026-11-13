@@ -345,5 +345,6 @@
  "diag_app_mem": "Speicher der App",
  "diag_video_mem": "Grafikspeicher der App",
  "diag_open": "Ladezeit der letzten Bildschirme",
- "diag_data": "Gespeicherte Übungen"
+ "diag_data": "Gespeicherte Übungen",
+ "home_review": "Fehler üben ({n})"
 }

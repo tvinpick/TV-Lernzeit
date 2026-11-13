@@ -52,11 +52,11 @@ func is_valid(_t: Dictionary) -> bool:
 const MAX_AGAIN := 2
 
 
-func make_session(count: int = 10, avoid: Array = [], again: Array = []) -> Array:
+func make_session(count: int = 10, avoid: Array = [], again: Array = [], max_again: int = MAX_AGAIN) -> Array:
 	var tasks: Array = []
 	var seen := {}
 	for t in again:
-		if tasks.size() >= mini(MAX_AGAIN, count - 1):
+		if tasks.size() >= mini(max_again, count if max_again > MAX_AGAIN else count - 1):
 			break
 		if t is Dictionary and t.get("mode", "") in modes() and not seen.has(t.get("key", "")) and is_valid(t):
 			var c: Dictionary = (t as Dictionary).duplicate(true)
