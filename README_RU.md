@@ -5,8 +5,8 @@ Lernzeit — отдельное приложение для добровольн
 Управление только пультом (стрелки, OK, Назад). Интерфейс на немецком (по умолчанию) или русском,
 учебное содержание всегда на немецком.
 
-**Что есть в версии 0.9.1**
-- **Математика:** Zählen, Addition, Subtraktion до 10 и до 20; Vergleichen до 10.
+**Что есть в версии 0.10.0**
+- **Математика:** Zählen, Addition, Subtraktion до 10 и до 20; Vergleichen до 10; Zahlenreihen до 20.
 - **Немецкий:** Buchstaben, Anlaute, Wörter, Groß und klein.
 - **Чтение:** Silben, Wörter.
 - **Логика:** Muster fortsetzen, Formen erkennen, Reihenfolgen.
@@ -15,11 +15,11 @@ Lernzeit — отдельное приложение для добровольн
   память о прошлых заданиях (не повторяются подряд).
 - Прогресс, «Выученные буквы», 12 достижений, альбом наклеек, недельный отчёт и PIN для родителей,
   напоминание о паузе.
-- Ещё нет: Lesen · Sätze/Texte, Logik · Unterschiede finden, Mathematik · Zahlenreihen/Textaufgaben,
-  уровни до 50/100 (там показывается «недоступно»). На самом телевизоре автоматически ничего не проверялось.
+- Ещё нет: Lesen · Sätze/Texte, Logik · Unterschiede finden, Mathematik · Textaufgaben,
+  уровней до 50/100 (по программе 1-го класса счёт до 20). На самом телевизоре автоматически ничего не проверялось.
 
 - Движок: Godot 4.7.2 (stable), GDScript, рендерер Compatibility, без сторонних плагинов.
-- Пакет: `app.lernzeit.tv`, versionName `0.9.1`, versionCode `17`.
+- Пакет: `app.lernzeit.tv`, versionName `0.10.0`, versionCode `18`.
 - Без интернета, аккаунтов, рекламы и облака. Сетевых разрешений в APK нет.
 
 ## Что в репозитории
