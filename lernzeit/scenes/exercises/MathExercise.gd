@@ -1110,6 +1110,62 @@ func get_default_focus() -> Control:
 	return active_buttons()[0]
 
 
+# ----------------------------------------------------------- remote digits ---
+## Number answers can also be chosen with the digit keys of the remote:
+## "7" answers 7 at once; for 1 / 12 / 15 the second digit is awaited briefly.
+
+var _digits := ""
+var _digit_token := 0
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or finished or _busy or main == null or main.has_dialog():
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		var k: int = event.keycode
+		var d := -1
+		if k >= KEY_0 and k <= KEY_9:
+			d = k - KEY_0
+		elif k >= KEY_KP_0 and k <= KEY_KP_9:
+			d = k - KEY_KP_0
+		if d >= 0 and session.current().get("option_style", "") == "number":
+			get_viewport().set_input_as_handled()
+			type_digit(d)
+
+
+func _number_buttons() -> Array:
+	return active_buttons().filter(func(b): return b.state != "wrong" and (b.value is int))
+
+
+func type_digit(d: int) -> void:
+	var buf := _digits + str(d)
+	var hits := _number_buttons().filter(func(b): return str(b.value).begins_with(buf))
+	if hits.is_empty():
+		buf = str(d)                     # start a new number
+		hits = _number_buttons().filter(func(b): return str(b.value).begins_with(buf))
+	if hits.is_empty():
+		_digits = ""
+		Sfx.play("error")
+		return
+	_digits = buf
+	var exact: Array = hits.filter(func(b): return str(b.value) == buf)
+	(hits[0] as Control).grab_focus()
+	if not exact.is_empty():
+		(exact[0] as Control).grab_focus()
+		if hits.size() == 1:             # nothing longer starts like this: answer now
+			_digits = ""
+			_on_answer(exact[0])
+			return
+	_digit_token += 1
+	var token := _digit_token
+	await get_tree().create_timer(0.9).timeout
+	if token != _digit_token or not is_inside_tree():
+		return
+	_digits = ""
+	if not exact.is_empty() and not _busy and not finished and is_instance_valid(exact[0]) and exact[0].state != "wrong":
+		_on_answer(exact[0])
+
+
 func handle_back() -> bool:
 	if finished:
 		return false

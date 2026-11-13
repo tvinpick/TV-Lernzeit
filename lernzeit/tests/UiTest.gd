@@ -664,6 +664,34 @@ func run_extras() -> void:
 	await shot("diagnostics")
 	await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "parents" and focus_name() == "DiagnoseButton", "Back → parents, focus on Diagnose")
+	await run_digit_keys()
+
+
+## Number answers with the remote's digit keys (one and two digits, unknown number ignored).
+func run_digit_keys() -> void:
+	print("Digit keys in maths")
+	var ex = main.push("exercise", {"exercise": "zr20", "seed": 21})
+	await wait(0.5)
+	for round in 2:
+		var t: Dictionary = ex.current_task()
+		var ans: int = t["answer"]
+		var unknown := -1
+		for d in 10:
+			if ex._number_buttons().filter(func(b): return str(b.value).begins_with(str(d))).is_empty():
+				unknown = d
+				break
+		if unknown >= 0:
+			await key(KEY_0 + unknown, 0.1)
+			check(ex.session.solved == round and ex.session.attempts == round, "digit %d (no such answer) is ignored" % unknown)
+		for ch in str(ans):
+			await key(KEY_0 + int(ch), 0.08)
+		await wait(1.0)
+		check(ex.session.solved == round + 1, "answer %d typed with the digit keys" % ans)
+		await wait(1.0)
+	main.pop()
+	await wait(0.4)
+	if main.top_dialog():
+		await key(KEY_ENTER, 0.5)
 
 
 func run_restart_checks() -> void:
