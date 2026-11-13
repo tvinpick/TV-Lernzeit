@@ -88,12 +88,15 @@ func _ready() -> void:
 	FocusManager.link_column(topic_buttons)
 	FocusManager.set_one(topic_buttons.back(), SIDE_BOTTOM, back_button)
 	FocusManager.set_neighbors(back_button, null, null, topic_buttons.back(), null)
-	# levels grid 2×2
+	# levels grid with 2 columns (arrows stay inside the grid)
 	var lb0 := level_buttons
-	FocusManager.set_neighbors(lb0[0], null, lb0[1], null, lb0[2])
-	FocusManager.set_neighbors(lb0[1], lb0[0], null, null, lb0[3])
-	FocusManager.set_neighbors(lb0[2], null, lb0[3], lb0[0], null)
-	FocusManager.set_neighbors(lb0[3], lb0[2], null, lb0[1], null)
+	var cols := _levels_box.columns
+	for k in lb0.size():
+		var lft: Control = lb0[k - 1] if k % cols > 0 else null
+		var rgt: Control = lb0[k + 1] if k % cols < cols - 1 and k + 1 < lb0.size() else null
+		var up: Control = lb0[k - cols] if k >= cols else null
+		var down: Control = lb0[k + cols] if k + cols < lb0.size() else null
+		FocusManager.set_neighbors(lb0[k], lft, rgt, up, down)
 	_show_topic(0)
 
 
@@ -126,8 +129,8 @@ func _show_topic(i: int) -> void:
 	# Right / Left links between topic list and levels
 	for b in topic_buttons:
 		FocusManager.set_one(b, SIDE_RIGHT, level_buttons[0] if has_levels and b == topic_buttons[i] else b)
-	for lb in [level_buttons[0], level_buttons[2]]:
-		FocusManager.set_one(lb, SIDE_LEFT, topic_buttons[i])
+	for k in range(0, level_buttons.size(), _levels_box.columns):     # first column → topic list
+		FocusManager.set_one(level_buttons[k], SIDE_LEFT, topic_buttons[i])
 	for b in topic_buttons:
 		b.selected = b == topic_buttons[i]
 

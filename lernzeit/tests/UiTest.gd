@@ -166,17 +166,19 @@ func run_main() -> void:
 	await key(KEY_ENTER); check(focus_name() == "Level_10", "OK on Zählen → level 'bis 10'")
 	await key(KEY_RIGHT); check(focus_name() == "Level_20", "Right → 'bis 20'")
 	await shot("04_subject_math_levels_de")
-	await key(KEY_DOWN); check(focus_name() == "Level_100", "Down → 'bis 100'")
-	await key(KEY_LEFT); check(focus_name() == "Level_50", "Left → 'bis 50'")
-	await key(KEY_ENTER, 0.4)
-	check(main.current_id() == "unavailable", "bis 50 (no exercise yet) → not-available screen")
-	var crumb: Label = main.current_screen()._crumb
-	check(crumb.text == "Mathematik › Zählen › bis 50", "breadcrumb: " + crumb.text)
-	await key(KEY_ESCAPE, 0.4); check(focus_name() == "Level_50", "Back → level focus restored")
-	await key(KEY_ESCAPE); check(focus_name() == "Topic_zaehlen", "Back in levels → topic list")
+	await key(KEY_DOWN); check(focus_name() == "Level_20", "only 'bis 10' and 'bis 20' (1st grade): Down stays")
+	await key(KEY_RIGHT); check(focus_name() == "Level_20", "Right at the last level stays")
+	await key(KEY_LEFT); await key(KEY_LEFT); check(focus_name() == "Topic_zaehlen", "Left ×2 → topic list")
+	await key(KEY_RIGHT); await key(KEY_ESCAPE); check(focus_name() == "Topic_zaehlen", "Back in levels → topic list")
 	await key(KEY_DOWN); await key(KEY_DOWN); await key(KEY_DOWN)
 	check(focus_name() == "Topic_vergleichen", "Down ×3 → Vergleichen")
 	await key(KEY_RIGHT); check(focus_name() == "Topic_vergleichen", "no levels → Right stays")
+	await key(KEY_DOWN); await key(KEY_DOWN); check(focus_name() == "Topic_textaufgaben", "Down ×2 → Textaufgaben")
+	await key(KEY_ENTER, 0.4)
+	check(main.current_id() == "unavailable", "Textaufgaben (no exercise yet) → not-available screen")
+	var crumb: Label = main.current_screen()._crumb
+	check(crumb.text == "Mathematik › Textaufgaben", "breadcrumb: " + crumb.text)
+	await key(KEY_ESCAPE, 0.4); check(focus_name() == "Topic_textaufgaben", "Back → topic focus restored")
 	await key(KEY_ESCAPE, 0.4); check(main.current_id() == "home" and focus_name() == "Card_mathematik", "Back → Home")
 
 	print("T07 progress")
@@ -412,12 +414,12 @@ func run_exercise() -> void:
 	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen",
 		"sub20": "subtraktion", "add20": "addition", "count20": "zaehlen",
 		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein",
-		"cmp10": "vergleichen", "le_silben": "silben", "le_woerter": "woerter",
+		"cmp10": "vergleichen", "zr20": "zahlenreihen", "le_silben": "silben", "le_woerter": "woerter",
 		"lg_muster": "muster", "lg_formen": "formen", "lg_reihenfolge": "reihenfolge"}[exercise]
 	var german := exercise.begins_with("de_") or exercise.begins_with("le_") or exercise.begins_with("lg_")
 	var screen_id := "exercise_de" if german else "exercise"
 	var subject := Curriculum.subject_of(exercise)
-	var no_levels := german or exercise == "cmp10"
+	var no_levels := german or exercise in ["cmp10", "zr20"]
 	print("Exercise %s – full session with the remote" % exercise)
 	if subject == "deutsch":
 		await key(KEY_RIGHT)
@@ -428,7 +430,7 @@ func run_exercise() -> void:
 	await keys([KEY_ENTER])
 	await wait(0.4)
 	var order: Array = {"deutsch": ["buchstaben", "anlaute", "woerter", "gross_klein"], "lesen": ["silben", "woerter", "saetze", "texte"],
-		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen"],
+		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen", "zahlenreihen"],
 		"logik": ["muster", "formen", "unterschiede", "reihenfolge"]}[subject]
 	for i in order.find(topic):
 		await key(KEY_DOWN)

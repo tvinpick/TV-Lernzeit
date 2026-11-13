@@ -406,6 +406,7 @@ func _ready() -> void:
 	_test_voice()
 	_test_logik()
 	_test_task_history()
+	_test_zahlenreihen()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -518,3 +519,21 @@ func _test_task_history() -> void:
 		and ProgressRecord.from_dict({"subject_id": "m", "topic_id": "t", "total_count": 10, "correct_count": 9}).complete,
 		"finished flag: short Logik sessions count, unfinished do not, old records with 10 tasks count")
 	ProgressRepository.reset_all()
+
+
+func _test_zahlenreihen() -> void:
+	var bad: Array = []
+	var steps := {}
+	for diff in ["easy", "auto", "hard"]:
+		var g := ZahlenreihenGenerator.new(5)
+		g.max_value = 20
+		g.difficulty = diff
+		for i in 300:
+			var t := g.make_task("zr_step")
+			steps["%s:%d:%s" % [diff, t["step"], t["backwards"]]] = true
+			if not g.is_valid(t):
+				bad.append(t)
+	check(bad.is_empty(), "Zahlenreihen: 900 tasks valid " + str(bad.slice(0, 2)))
+	check(steps.has("easy:2:false") and not steps.has("easy:1:true") and steps.has("auto:5:true") and steps.has("hard:3:false"),
+		"Zahlenreihen: steps by difficulty " + str(steps.keys()))
+	check(Curriculum.exercise_for("mathematik", "zahlenreihen") == "zr20", "Zahlenreihen playable")

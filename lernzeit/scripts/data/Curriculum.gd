@@ -11,7 +11,7 @@ const SUBJECTS := {
 	"logik": {"card": "res://assets/buttons/card_logik.png", "icon": "res://assets/icons/subject_logik.png", "color": Color("f29a12"), "row": "gold"},
 }
 
-const MATH_LEVELS: Array[int] = [10, 20, 50, 100]
+const MATH_LEVELS: Array[int] = [10, 20]     ## 1st grade (Bavaria): numbers up to 20
 
 ## Topics/levels that already have a real exercise: "subject/topic/level" -> exercise id
 ## (opened with Main.push("exercise", {"exercise": id})).
@@ -20,6 +20,7 @@ const PLAYABLE := {
 	"mathematik/addition/10": "add10",
 	"mathematik/subtraktion/10": "sub10",
 	"mathematik/vergleichen/0": "cmp10",
+	"mathematik/zahlenreihen/0": "zr20",
 	"mathematik/zaehlen/20": "count20",
 	"mathematik/addition/20": "add20",
 	"mathematik/subtraktion/20": "sub20",

@@ -234,7 +234,7 @@ func run_all() -> void:
 	dr.cancel()
 	await frames(3)
 	# every mode of every exercise, in all difficulties' widest cases
-	for ex_id in ["count10", "add10", "sub10", "count20", "add20", "sub20", "cmp10"]:
+	for ex_id in ["count10", "add10", "sub10", "count20", "add20", "sub20", "cmp10", "zr20"]:
 		await audit_exercise("exercise", ex_id)
 	for ex_id in ["de_letters", "le_woerter", "lg_muster", "lg_formen", "lg_reihenfolge"]:
 		await audit_exercise("exercise_de", ex_id)

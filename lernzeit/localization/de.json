@@ -327,5 +327,7 @@
  "tip_lg_muster": "Sag die Reihe leise auf. Was wiederholt sich?",
  "tip_lg_formen": "Fahre mit dem Finger am Rand entlang. Ist er rund oder eckig?",
  "tip_lg_reihenfolge": "Überlege: Was passiert am Anfang, was am Ende?",
- "ex_listen": "Anhören"
+ "ex_listen": "Anhören",
+ "ex_zr_title": "Zahlenreihen bis 20",
+ "tip_zr": "Wie groß ist der Sprung von einer Zahl zur nächsten?"
 }

@@ -20,6 +20,8 @@ const EXERCISES := {
 		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
 	"add20": {"title": "ex_add20_title", "topic": "addition", "version": "add20-v1", "max": 20,
 		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
+	"zr20": {"title": "ex_zr_title", "topic": "zahlenreihen", "version": "zr20-v1", "max": 20,
+		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
 	"count20": {"title": "ex_count20_title", "topic": "zaehlen", "version": "count20-v1", "max": 20,
 		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
 }
@@ -77,6 +79,7 @@ func _ready() -> void:
 		"add": generator = AdditionGenerator.new(seed_value)
 		"count": generator = CountingGenerator.new(seed_value)
 		"cmp": generator = CompareGenerator.new(seed_value)
+		"zr": generator = ZahlenreihenGenerator.new(seed_value)
 		_: generator = SubtractionGenerator.new(seed_value)
 	generator.max_value = config.get("max", 10)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
@@ -381,7 +384,7 @@ func _show_task() -> void:
 		"cmp_sign": _stage_formula([t["x"], "?", t["y"]])
 		"cmp_equal": _stage_groups(t["x"], t["y"], t["object"], preload("res://assets/math/vergleichen_10/ui/Compare_Sign_Question.png"))
 		"cmp_sort": _stage_sequence({"sequence": t["numbers"], "hole": -1})
-		"cnt_sequence": _stage_sequence(t)
+		"cnt_sequence", "zr_step": _stage_sequence(t)
 		"cnt_dice": _stage_dice(t["a"], t["b"], false)
 		"cnt_to_ten": _stage_frame_with_formula(t["n"], [])
 	_link_focus()
@@ -903,6 +906,7 @@ func _tip_text(t: Dictionary) -> String:
 		"cnt_bigger": return Localization.help("tip_bigger")
 		"cnt_more": return Localization.help("tip_more")
 		"cnt_sequence": return Localization.help("tip_backwards") if t.get("backwards", false) else Localization.help("tip_forwards")
+		"zr_step": return Localization.help("tip_zr")
 		"cmp_larger": return Localization.help("tip_bigger")
 		"cmp_smaller": return Localization.help("tip_smaller")
 		"cmp_sign": return Localization.help("tip_sign")
