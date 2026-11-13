@@ -446,6 +446,16 @@ func run_exercise() -> void:
 	var first_prompt := Voice.clip_name(ex.current_task()["prompt"])
 	check(not Voice.has(first_prompt) or Voice.history.back() == first_prompt or (Voice._queue.size() > 0 and Voice._queue[0] == first_prompt),
 		"first question read aloud: " + first_prompt)
+	if Voice.has(first_prompt):
+		await key(KEY_UP); await key(KEY_RIGHT)
+		check(focus_name() == "ListenButton", "Up, Right → 'Anhören'")
+		var n_before := Voice.history.size()
+		await key(KEY_ENTER, 0.3)
+		check(Voice.history.size() > n_before and Voice.history[n_before] == first_prompt, "'Anhören' reads the question again")
+		await key(KEY_DOWN)
+		check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0"], "Down from 'Anhören' → first answer")
+	else:
+		check(not ex.listen_button.visible, "no 'Anhören' without a recording")
 	var shot_modes := {}
 	var guard := 0
 	var made_mistake := false

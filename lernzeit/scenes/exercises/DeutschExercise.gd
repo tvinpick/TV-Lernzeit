@@ -40,6 +40,7 @@ var session: ExerciseSession
 var letter_buttons: Array[LetterButton] = []
 var tile_buttons: Array[LetterButton] = []
 var back_button: PillButton
+var listen_button: PillButton     ## "Anhören": the question once more (only with the voice on)
 var finished := false
 
 var _prompt: FitLabel
@@ -123,6 +124,12 @@ func _build_layout() -> void:
 	back_button.sound = "back"
 	back_button.pressed.connect(_request_quit)
 	h.add_child(back_button)
+	listen_button = PillButton.make("ex_listen", "purple", preload("res://assets/icons/Settings_Icon_Voice.png"), true)
+	listen_button.name = "ListenButton"
+	listen_button.custom_minimum_size = Vector2(0, 72)
+	listen_button.sound = ""
+	listen_button.pressed.connect(func(): if not finished: _speak_task(session.current(), true))
+	h.add_child(listen_button)
 	var ic := TextureRect.new()
 	ic.texture = load(Curriculum.SUBJECTS[subject]["icon"])
 	ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -292,6 +299,7 @@ func _show_task() -> void:
 	_owl.visible = false
 	var t := session.current()
 	_prompt.text = Localization.t(t["prompt"], t.get("args", {}))
+	listen_button.visible = Voice.enabled() and Voice.has(t["prompt"])
 	_speak_task(t)
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
 	_repeat_badge.visible = session.is_repeat()
@@ -366,7 +374,15 @@ func _link_focus() -> void:
 	FocusManager.point_all(btns, SIDE_TOP, back_button)
 	for b in btns:
 		FocusManager.set_one(b, SIDE_BOTTOM, b)
-	FocusManager.set_neighbors(back_button, null, null, null, btns[0] if not btns.is_empty() else null)
+	_link_header(btns[0] if not btns.is_empty() else null)
+
+
+## Header: Back ↔ "Anhören"; Down goes to the first answer.
+func _link_header(first: Control) -> void:
+	var listen: Control = listen_button if listen_button.visible else null
+	FocusManager.set_neighbors(back_button, null, listen, null, first)
+	if listen:
+		FocusManager.set_neighbors(listen_button, back_button, null, null, first)
 
 
 ## Tasks answered with the 4 picture buttons.
@@ -565,7 +581,7 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 
 ## Reads the question aloud. Reading tasks (le_word_pic, le_pic_word, le_syllables)
 ## never say the word – the child has to read it.
-func _speak_task(t: Dictionary) -> void:
+func _speak_task(t: Dictionary, interrupt: bool = false) -> void:
 	var clips: Array = [t["prompt"]]
 	match t["mode"]:
 		"de_find":
@@ -574,8 +590,8 @@ func _speak_task(t: Dictionary) -> void:
 			clips.append(Voice.letter(t["shown"]))
 		"de_first", "de_missing", "de_build":
 			clips.append(Voice.word_from_picture(t["picture"]))
-	if not Voice.say_all(clips, false) and t["mode"] in ["de_first", "de_missing"]:
-		Voice.say([t["prompt"]], false)
+	if not Voice.say_all(clips, interrupt) and t["mode"] in ["de_first", "de_missing"]:
+		Voice.say([t["prompt"]], interrupt)
 
 
 ## Praise after a solved task; word tasks then say the whole word.
@@ -892,6 +908,7 @@ func _finish() -> void:
 	for b in pic_buttons:                # picture answers stay behind the results panel
 		b.focus_mode = Control.FOCUS_NONE
 	back_button.focus_mode = Control.FOCUS_NONE
+	listen_button.focus_mode = Control.FOCUS_NONE
 	again.grab_focus.call_deferred()
 
 

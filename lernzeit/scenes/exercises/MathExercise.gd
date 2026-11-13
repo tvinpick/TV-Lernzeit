@@ -47,6 +47,7 @@ var generator: MathGenerator
 var answer_buttons: Array[AnswerButton] = []
 var picture_buttons: Array[AnswerButton] = []
 var back_button: PillButton
+var listen_button: PillButton     ## "Anhören": the question once more (only with the voice on)
 var finished := false
 
 var _prompt: FitLabel
@@ -127,6 +128,12 @@ func _build_header() -> void:
 	back_button.sound = "back"
 	back_button.pressed.connect(_request_quit)
 	h.add_child(back_button)
+	listen_button = PillButton.make("ex_listen", "light", preload("res://assets/icons/Settings_Icon_Voice.png"), true)
+	listen_button.name = "ListenButton"
+	listen_button.custom_minimum_size = Vector2(0, 72)
+	listen_button.sound = ""
+	listen_button.pressed.connect(func(): if not finished: _speak_task(session.current(), true))
+	h.add_child(listen_button)
 	var ic := TextureRect.new()
 	ic.texture = load(Curriculum.SUBJECTS["mathematik"]["icon"])
 	ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -320,6 +327,7 @@ func _show_task() -> void:
 	_mistakes = 0
 	var t := session.current()
 	_prompt.text = tr(t["prompt"])
+	listen_button.visible = Voice.enabled() and Voice.has(t["prompt"])
 	_speak_task(t)
 	_prompt.remove_theme_color_override("font_color")
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
@@ -401,7 +409,15 @@ func _link_focus() -> void:
 		FocusManager.point_all(btns, SIDE_TOP, back_button)
 		for b in btns:
 			FocusManager.set_one(b, SIDE_BOTTOM, b)
-	FocusManager.set_neighbors(back_button, null, null, null, btns[0])
+	_link_header(btns[0])
+
+
+## Header: Back ↔ "Anhören"; Down goes to the first answer.
+func _link_header(first: Control) -> void:
+	var listen: Control = listen_button if listen_button.visible else null
+	FocusManager.set_neighbors(back_button, null, listen, null, first)
+	if listen:
+		FocusManager.set_neighbors(listen_button, back_button, null, null, first)
 
 
 func _digit(text: String, size: int = 150) -> Label:
@@ -746,12 +762,12 @@ func _stage_sequence(t: Dictionary) -> void:
 
 ## Reads the question aloud (German voice); equations also read the numbers.
 ## Waits for a "Richtig!" that is still playing.
-func _speak_task(t: Dictionary) -> void:
+func _speak_task(t: Dictionary, interrupt: bool = false) -> void:
 	if t["mode"] in ["equation", "add_equation"]:
 		if Voice.say_all([t["prompt"], Voice.num(t["a"]), "minus" if t["mode"] == "equation" else "plus",
-				Voice.num(t["b"])], false):
+				Voice.num(t["b"])], interrupt):
 			return
-	Voice.say([t["prompt"]], false)
+	Voice.say([t["prompt"]], interrupt)
 
 
 const TIP_VOICE := {
@@ -915,7 +931,7 @@ func _relink_after_wrong() -> void:
 		for b in avail:
 			FocusManager.set_neighbors(b)
 		FocusManager.link_row(avail)
-	FocusManager.set_neighbors(back_button, null, null, null, avail[0])
+	_link_header(avail[0])
 
 
 func _show_feedback(ok: bool) -> void:
@@ -1040,7 +1056,7 @@ func _finish() -> void:
 	h.add_child(again)
 	FocusManager.set_neighbors(back, null, again)
 	FocusManager.set_neighbors(again, back, null)
-	for b in answer_buttons + picture_buttons + [back_button]:
+	for b in answer_buttons + picture_buttons + [back_button, listen_button]:
 		b.focus_mode = Control.FOCUS_NONE
 	again.grab_focus.call_deferred()
 
