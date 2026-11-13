@@ -207,4 +207,5 @@ func _celebrate_goal() -> void:
 	Juice.burst(self, goal_box.get_global_rect().get_center(), 12, 26)
 	Sfx.play("streak")
 	toast(tr("goal_done"))
-	Voice.say(["ex_correct_3"], false)
+	if not (Localization.current == "de" and Voice.say(["goal_done"], false)):
+		Voice.say(["ex_correct_3"], false)

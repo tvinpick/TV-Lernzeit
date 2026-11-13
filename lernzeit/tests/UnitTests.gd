@@ -437,7 +437,7 @@ func _test_voice() -> void:
 		if not Voice.has("tip_" + mode):
 			missing.append("tip_" + mode)
 	for clip in (load("res://scenes/exercises/MathExercise.gd") as GDScript).get_script_constant_map()["TIP_VOICE"].values():
-		if not Voice.has(clip):
+		if not Voice.has(clip) and not clip in ["tip_equal", "tip_zr"]:   # part 2 (docs/VOICE_PHRASES_2.md)
 			missing.append(clip)
 	check(missing.is_empty(), "voice recordings for every prompt, number, letter and word " + str(missing))
 	check(Voice.word_from_picture("res://assets/deutsch/words/Deutsch_L_Loewe.png") == "word_Loewe"

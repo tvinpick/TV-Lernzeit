@@ -155,6 +155,8 @@ func _limit_reached(id: String) -> bool:
 		{"n": SettingsRepository.get_parent_settings()["session_minutes"]}), "ok", "green", "")
 	d.image = preload("res://assets/mascot/owl/Mascot_Owl_Sleep.png")
 	show_dialog(d)
+	if Localization.current == "de":
+		Voice.say(["limit"])
 	return true
 
 

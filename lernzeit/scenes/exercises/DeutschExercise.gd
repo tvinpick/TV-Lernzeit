@@ -626,6 +626,8 @@ func _speak_solved(t: Dictionary) -> void:
 	if t["mode"] == "de_find" and Voice.say_all(["ex_correct", Voice.letter(t["answer"]), Voice.sound(t["answer"])]):
 		return      # "Richtig! M … mmm"
 	var praise := ["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"].pick_random() as String
+	if t["mode"] == "lg_formen" and Voice.say_all([praise, "shape_" + str(t["shape"])]):
+		return      # "Super! … Dreieck"
 	if t["mode"] in ["de_missing", "de_build", "le_syllables", "le_word_pic", "le_pic_word"] and Voice.say_all([praise, w]):
 		return
 	Voice.say_random(["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"])
@@ -781,7 +783,10 @@ func _mistake() -> void:
 		_prompt.set_wrapped(true, 30)
 		_prompt.text = Localization.help("ex_tip", {"t": tip})
 		if Localization.help_language() == "de":
-			Voice.say(["tip_" + t["mode"]], false)
+			if t["mode"] == "de_find":           # "Schau genau auf die Form von … M"
+				Voice.say_all(["tip_de_find", Voice.letter(t["letter"])], false)
+			else:
+				Voice.say(["tip_" + t["mode"]], false)
 		_owl.visible = true
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))

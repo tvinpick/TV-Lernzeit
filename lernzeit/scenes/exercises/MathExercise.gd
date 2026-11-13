@@ -789,7 +789,7 @@ const TIP_VOICE := {
 	"cnt_to_ten": "tip_count_empty", "add_dice": "tip_dice", "cnt_dice": "tip_dice",
 	"add_choose": "tip_add_choose", "cnt_bigger": "tip_bigger", "cnt_more": "tip_more",
 	"cmp_larger": "tip_bigger", "cmp_smaller": "tip_smaller", "cmp_sign": "tip_sign",
-	"cmp_groups": "tip_fewer", "cmp_sort": "tip_sort",
+	"cmp_groups": "tip_fewer", "cmp_sort": "tip_sort", "cmp_equal": "tip_equal", "zr_step": "tip_zr",
 }
 
 
