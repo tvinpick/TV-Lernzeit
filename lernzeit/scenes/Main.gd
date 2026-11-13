@@ -16,6 +16,7 @@ const SCREENS := {
 	"achievements": "res://scenes/progress/AchievementsScreen.tscn",
 	"stickers": "res://scenes/progress/StickerAlbum.tscn",
 	"letters": "res://scenes/parents/LettersOverview.tscn",
+	"diagnostics": "res://scenes/parents/Diagnostics.tscn",
 }
 
 var _host: Control
@@ -153,7 +154,12 @@ func pop_to_home() -> void:
 	_focus_default()
 
 
+## Milliseconds from "open" until the screen was first drawn (last time per screen; Diagnose).
+var open_times := {}
+
+
 func _open(id: String, p: Dictionary) -> BaseScreen:
+	var t0 := Time.get_ticks_usec()
 	var s: BaseScreen = load(SCREENS[id]).instantiate()
 	s.main = self
 	s.params = p
@@ -161,7 +167,16 @@ func _open(id: String, p: Dictionary) -> BaseScreen:
 	_stack.append({"id": id, "screen": s, "focus": null})
 	_slide_in(s, 1)
 	_focus_default()
+	_measure_open(id, t0)
 	return s
+
+
+func _measure_open(id: String, t0: int) -> void:
+	await RenderingServer.frame_post_draw
+	open_times.erase(id)
+	open_times[id] = int((Time.get_ticks_usec() - t0) / 1000)
+	if open_times.size() > 6:
+		open_times.erase(open_times.keys()[0])
 
 
 ## New screens slide in from the right (back: from the left) while fading in.

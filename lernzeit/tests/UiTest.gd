@@ -635,6 +635,21 @@ func run_extras() -> void:
 	await shot("letters_overview")
 	await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "parents", "Back → parents area")
+	for i in 30:
+		if focus_name() == "DiagnoseButton":
+			break
+		await key(KEY_DOWN, 0.12)
+	check(focus_name() == "DiagnoseButton", "reach 'Diagnose' (last row)")
+	await key(KEY_ENTER, 0.6)
+	check(main.current_id() == "diagnostics", "Diagnose opens")
+	var dg = main.current_screen()
+	var cpu: String = dg._values["diag_cpu"].text
+	var opened: String = dg._values["diag_open"].text
+	check(cpu.begins_with(Engine.get_architecture_name()) and opened.contains("letters") and opened.contains(" ms"),
+		"Diagnose: processor type and screen opening times (%s | %s)" % [cpu, opened])
+	await shot("diagnostics")
+	await key(KEY_ESCAPE, 0.4)
+	check(main.current_id() == "parents" and focus_name() == "DiagnoseButton", "Back → parents, focus on Diagnose")
 
 
 func run_restart_checks() -> void:

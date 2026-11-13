@@ -222,8 +222,12 @@ func _build_rows() -> void:
 	var vr := _row("res://assets/icons/Parents_Icon_Info.png", "p_version", "p_version_sub")
 	vr.add_control(ver)
 	vr.name = "VersionRow"
-	vr.make_focusable()
-	_row_controls.append([vr])
+	var diag := PillButton.make("diag_button", "light", null, true)
+	diag.name = "DiagnoseButton"
+	vr.add_control(diag)
+	diag.pressed.connect(func(): main.push("diagnostics"))
+	_row_controls.append([diag])
+	controls["diagnostics"] = diag
 
 
 func _link() -> void:

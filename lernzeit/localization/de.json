@@ -332,5 +332,18 @@
  "tip_zr": "Wie groß ist der Sprung von einer Zahl zur nächsten?",
  "p_hard": "Das fällt noch schwer",
  "p_hard_none": "Gerade nichts – Fehler werden in den nächsten Übungen wiederholt.",
- "p_hard_count": "{n} Aufgaben"
+ "p_hard_count": "{n} Aufgaben",
+ "diag_title": "Diagnose",
+ "diag_button": "Diagnose",
+ "diag_app": "App",
+ "diag_device": "Gerät",
+ "diag_cpu": "Prozessor (Bibliothek · Kerne)",
+ "diag_screen": "Bildschirm",
+ "diag_fps": "Bilder pro Sekunde",
+ "diag_renderer": "Grafik",
+ "diag_ram": "Arbeitsspeicher frei / gesamt",
+ "diag_app_mem": "Speicher der App",
+ "diag_video_mem": "Grafikspeicher der App",
+ "diag_open": "Ladezeit der letzten Bildschirme",
+ "diag_data": "Gespeicherte Übungen"
 }
