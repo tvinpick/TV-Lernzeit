@@ -30,4 +30,5 @@ for cfg in "de 0" "de 1" "ru 0" "ru 1"; do
 done
 echo "-----"
 cat "$OUT"/*.log | grep -E "UI TEST|UNIT TESTS" | awk '{s+=$3; f+=$5} END {print "checks:", s, " failures:", f}'
-cat "$OUT"/audit_*.log | grep -E "LAYOUT AUDIT" | awk '{s+=$4; f+=$(NF-1)} END {print "layout audit screens:", s, " issues:", f}'
+cat "$OUT"/audit_*.log | grep -E "LAYOUT AUDIT" | sed -E 's/.*\]: ([0-9]+) screens, ([0-9]+) focusable.*, ([0-9]+) issues.*/\1 \2 \3/' \
+  | awk '{s+=$1; c+=$2; f+=$3} END {print "layout audit screens:", s, " focusable controls:", c, " issues:", f}'
