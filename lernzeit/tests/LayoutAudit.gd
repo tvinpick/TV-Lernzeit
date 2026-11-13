@@ -190,8 +190,11 @@ func run_all() -> void:
 		main.push("progress_detail", {"subject_id": sid})
 		await check_screen("progress_detail_" + sid)
 		main.pop()
-	main.push("achievements")
+	var ach = main.push("achievements")
 	await check_screen("achievements")
+	for pg in range(1, ach.pages()):
+		ach._show_page(pg)
+		await check_screen("achievements_page%d" % (pg + 1))
 	main.pop()
 	main.push("stickers")
 	await check_screen("stickers")
