@@ -95,8 +95,11 @@ func _ready() -> void:
 	generator.max_value = config.get("max", 10)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
-	session = ExerciseSession.new("mathematik", config["topic"], config["version"],
-		_make_tasks(), bool(SettingsRepository.get_value("repeat_mistakes")))
+	test_subject = str(params.get("test", ""))
+	var tasks: Array = _make_tasks() if test_subject == "" else \
+		LernTest.build(test_subject, generator.difficulty, int(params.get("seed", -1)))
+	session = ExerciseSession.new("mathematik", config["topic"], config["version"], tasks,
+		test_subject == "" and bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_header()
 	_build_body()
@@ -163,6 +166,9 @@ func _build_header() -> void:
 	h.add_child(_spacer())
 	var title := Label.new()
 	title.text = config["title"]
+	if test_subject != "":
+		title.text = Localization.t("test_title", {"s": tr(Curriculum.title_key(test_subject))})
+		title.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	title.add_theme_font_override("font", UiTheme.font(UiTheme.FONT_XBOLD))
 	title.add_theme_font_size_override("font_size", 34)
 	title.add_theme_color_override("font_color", Color.WHITE)
@@ -801,6 +807,12 @@ func _exit_tree() -> void:
 func _on_answer(btn: AnswerButton) -> void:
 	if _busy or finished:
 		return
+	if test_subject != "":
+		var ok := session.submit(btn.value)
+		if not ok:
+			session.submit(session.current()["answer"])     # done, but wrong at the first try
+		_test_next(ok, btn)
+		return
 	if session.submit(btn.value):
 		_busy = true
 		var first_try := not session.was_wrong_this_task()
@@ -1017,6 +1029,8 @@ func _show_new_achievements() -> void:
 
 
 func _save() -> void:
+	if test_subject != "":
+		return              # a test only counts when finished (LernTest.save)
 	if session.solved > 0 and not has_meta("saved"):
 		set_meta("saved", true)
 		ProgressRepository.remember_session(exercise_id, session.task_results())
@@ -1205,3 +1219,49 @@ func _celebrate(star_nodes: Array) -> void:
 				tw.tween_callback(Sfx.play.bind("pop"))
 	ResultsDecor.add(_results, session.first_try_correct, _stickers_before, _xp_before)
 	PauseReminder.maybe_show(self, main, 1.9)
+
+
+# --------------------------------------------------------- Lernkontrolle ---
+## Test mode (params.test = subject, started by the parents): one answer per task,
+## no feedback, tips or repetition; results per topic at the end.
+
+var test_subject := ""
+var _test_results: Array = []
+
+
+func _test_next(ok: bool, from: Control) -> void:
+	_busy = true
+	_test_results.append({"task": session.current(), "ok": ok})
+	Sfx.play("select")
+	if from:
+		Juice.pop(from, 1.12)
+	await get_tree().create_timer(0.5).timeout
+	if not is_inside_tree() or finished:
+		return
+	if session.advance():
+		_show_task()
+	else:
+		_finish_test()
+
+
+func _finish_test() -> void:
+	finished = true
+	_owl.visible = false
+	_feedback.visible = false
+	var rec := LernTest.save(test_subject, _test_results, session.duration_seconds())
+	_results = Control.new()
+	_results.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(_results)
+	var dim := ColorRect.new()
+	dim.color = Color(0.05, 0.08, 0.25, 0.5)
+	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_results.add_child(dim)
+	var back := LernTest.build_results(_results, rec, Color("1d2b6b"))
+	back.pressed.connect(func(): main.pop())
+	for b in answer_buttons + picture_buttons + [back_button, listen_button]:
+		b.focus_mode = Control.FOCUS_NONE
+	ResultsDecor.add(_results, int(rec["correct"] * 10 / maxi(1, rec["total"])), _stickers_before, _xp_before)
+	Juice.burst(self, Vector2(960, 300), 10, 30)
+	Sfx.play("streak")
+	Voice.say(["ex_done_perfect" if rec["correct"] >= rec["total"] else "ex_done"], false)
+	back.grab_focus.call_deferred()

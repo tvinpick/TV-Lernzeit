@@ -391,5 +391,15 @@
  "ach_test_green_d": "Lernkontrolle: alle Themen sicher",
  "ach_page": "Seite {n} von {total}",
  "page_prev": "Zurückblättern",
- "page_next": "Weiterblättern"
+ "page_next": "Weiterblättern",
+ "test_title": "Lernkontrolle · {s}",
+ "test_done": "Lernkontrolle geschafft!",
+ "test_summary": "{n} von {total} Aufgaben richtig",
+ "test_status_secure": "sicher",
+ "test_status_almost": "fast",
+ "test_status_practice": "noch üben",
+ "test_praise": "Toll, dass du es versucht hast! Was noch schwer ist, üben wir in den nächsten Übungen.",
+ "test_none": "Noch keine Lernkontrolle.",
+ "p_test": "Lernkontrolle",
+ "p_test_start": "Starten"
 }

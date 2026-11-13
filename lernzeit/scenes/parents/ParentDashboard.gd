@@ -157,6 +157,34 @@ func _build_rows() -> void:
 	_row_controls.append([hr])
 	_update_hard()
 
+	# Lernkontrolle: the parents choose a subject and start it for the child
+	var tr_row := _row("res://assets/icons/Lernzeit_Icon_Tasks.png", "p_test", "", "row_gold")
+	var tsub := Label.new()
+	tsub.theme_type_variation = &"CaptionLabel"
+	tsub.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	tsub.name = "TestSub"
+	tsub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tr_row.title_label.get_parent().get_parent().add_child(tsub)
+	var opts: Array = []
+	for sid in Curriculum.SUBJECT_IDS:
+		if SettingsRepository.is_subject_enabled(sid):
+			opts.append({"value": sid, "key": Curriculum.title_key(sid)})
+	var ts := OptionGroup.make(opts, opts[0]["value"], 190)
+	tr_row.add_control(ts)
+	var start := PillButton.make("p_test_start", "green", null, true)
+	start.name = "TestStart"
+	tr_row.add_control(start)
+	start.pressed.connect(func():
+		var sid: String = ts.value
+		main.pop_to_home()
+		main.push(LernTest.screen_for(sid), {"exercise": LernTest.look_exercise(sid), "test": sid}))
+	FocusManager.set_one(ts.buttons.back(), SIDE_RIGHT, start)
+	FocusManager.set_one(start, SIDE_LEFT, ts.buttons.back())
+	_row_controls.append(ts.buttons + [start])
+	controls["test_subject"] = ts
+	controls["test_start"] = start
+	_update_tests()
+
 	# Schwierigkeit
 	var diff := OptionGroup.make([
 		{"value": "easy", "key": "diff_easy"}, {"value": "auto", "key": "diff_auto"},
@@ -272,6 +300,7 @@ func _notification(what: int) -> void:
 		_update_letters()
 		_update_week()
 		_update_hard()
+		_update_tests()
 
 
 func _update_profile() -> void:
@@ -294,6 +323,12 @@ func on_shown() -> void:
 	_update_letters()
 	_update_week()
 	_update_hard()
+
+
+func _update_tests() -> void:
+	var l: Label = find_child("TestSub", true, false)
+	if l:
+		l.text = LernTest.history_text()
 
 
 ## Up to 3 topics with tasks that went wrong and were not yet practised again,

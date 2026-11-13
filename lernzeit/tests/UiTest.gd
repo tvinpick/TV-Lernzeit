@@ -31,6 +31,8 @@ func _ready() -> void:
 		await run_exercise()
 	elif phase == "extras":
 		await run_extras()
+	elif phase == "lerntest":
+		await run_lerntest()
 	elif phase == "shots4k":
 		await run_4k_shots()
 	else:
@@ -751,3 +753,74 @@ func run_4k_shots() -> void:
 	await key(KEY_ESCAPE, 0.4)
 	await keys([KEY_DOWN, KEY_DOWN, KEY_ENTER]); await wait(0.4)
 	await shot("4k_03_progress")
+
+
+## Lernkontrolle for every subject: started from the parents area, answered with the
+## remote (one deliberate mistake), results per topic, saved test, achievement.
+func run_lerntest() -> void:
+	print("Lernkontrolle")
+	SettingsRepository.save_parent_settings({"daily_goal": 0})
+	var n_tests := 0
+	for subj in ["mathematik", "deutsch", "lesen", "logik"]:
+		main.pop_to_home()
+		await wait(0.3)
+		var pd = main.push("parents")
+		await wait(0.4)
+		pd.controls["test_subject"].set_value(subj)
+		pd.controls["test_start"].pressed.emit()
+		await wait(0.6)
+		var ex = main.current_screen()
+		check(ex.test_subject == subj and main._stack.size() == 2, "%s: test opened above Home" % subj)
+		check(ex.session.main_count == 12 and not ex.session.repeat_enabled, "%s: 12 tasks, no repetition" % subj)
+		var topics := {}
+		for t in ex.session.tasks:
+			topics[t["topic"]] = true
+		check(topics.size() == LernTest.PLAN[subj].map(func(p): return p[1]).reduce(func(acc, x): return acc if x in acc else acc + [x], []).size(),
+			"%s: tasks from every topic %s" % [subj, topics.keys()])
+		var guard := 0
+		var wrong_done := false
+		while not ex.finished and guard < 20:
+			guard += 1
+			var t: Dictionary = ex.current_task()
+			if guard == 1:
+				await shot("lerntest_%s_01" % subj)
+			if t["mode"] in ["de_build", "le_syllables"]:
+				var parts: Array = ex._parts(t)
+				for k in parts.size():
+					for b in ex.active_buttons():
+						if b.value == parts[k]:
+							await navigate_to(b)
+							break
+					await key(KEY_ENTER, 0.15)
+					if ex.current_task() != t:
+						break
+			else:
+				var want = t["answer"]
+				var target: Control = null
+				for b in ex.active_buttons():
+					if (b.value != want) if (not wrong_done and guard == 2) else (b.value == want):
+						target = b
+						break
+				if guard == 2:
+					wrong_done = true
+				await navigate_to(target)
+				await key(KEY_ENTER, 0.2)
+				check(ex._prompt.text != "" and not ex._feedback.visible and not ex._owl.visible, "%s task %d: no feedback, no tip" % [subj, guard])
+			await wait(0.75)
+		check(ex.finished, "%s: test finished" % subj)
+		var tests := ProgressRepository.get_tests()
+		n_tests += 1
+		check(tests.size() == n_tests and tests.back()["subject"] == subj and tests.back()["total"] == 12
+			and tests.back()["correct"] == 11, "%s: saved 11 / 12 (one mistake)" % subj)
+		var rows: Control = ex._results.find_child("TopicRows", true, false)
+		check(rows != null and rows.get_child_count() == topics.size() * 3, "%s: one result row per topic" % subj)
+		check(focus_name() == "ResultsBack", "%s: focus on 'Zurück' in the results" % subj)
+		await shot("lerntest_%s_results" % subj)
+		await key(KEY_ENTER, 0.6)
+		check(main.current_id() == "home", "%s: back home" % subj)
+	check("test_1" in Achievements.unlocked_ids(), "achievement 'Erster Test'")
+	var pd2 = main.push("parents")
+	await wait(0.4)
+	var hist: Label = pd2.find_child("TestSub", true, false)
+	check(hist.text.contains("11/12"), "parents: test history '%s'" % hist.text)
+	await shot("parents_tests")

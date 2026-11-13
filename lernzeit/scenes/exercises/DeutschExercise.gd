@@ -92,8 +92,11 @@ func _ready() -> void:
 	generator.allowed_modes = config["modes"]
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
+	test_subject = str(params.get("test", ""))
+	var tasks: Array = _make_tasks() if test_subject == "" else \
+		LernTest.build(test_subject, generator.difficulty, int(params.get("seed", -1)))
 	session = ExerciseSession.new(subject, config["topic"], {"lesen": "lesen-v1", "logik": "logik-v1"}.get(subject, "de-letters-v1"),
-		_make_tasks(), bool(SettingsRepository.get_value("repeat_mistakes")))
+		tasks, test_subject == "" and bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_layout()
 	_stickers_before = Achievements.stickers_earned()
@@ -162,6 +165,9 @@ func _build_layout() -> void:
 	var title := Label.new()
 	title.theme_type_variation = &"RowTitle"
 	title.text = config["title"]
+	if test_subject != "":
+		title.text = Localization.t("test_title", {"s": tr(Curriculum.title_key(test_subject))})
+		title.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	title.add_theme_color_override("font_color", INK)
 	title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(title)
@@ -641,6 +647,12 @@ func _exit_tree() -> void:
 func _on_letter(btn) -> void:
 	if _busy or finished:
 		return
+	if test_subject != "":
+		var ok := session.submit(btn.value)
+		if not ok:
+			session.submit(session.current()["answer"])     # done, but wrong at the first try
+		_test_next(ok, btn)
+		return
 	if session.submit(btn.value):
 		btn.state = "correct"
 		if _word_reveal:
@@ -686,9 +698,16 @@ func _on_tile(tile: LetterButton) -> void:
 		tile.state = "used"
 		if _placed == parts.size():
 			session.submit(w)
+			if test_subject != "":
+				_test_next(not session.was_wrong_this_task(), tile)
+				return
 			await _solved(tile.get_global_rect().get_center())
 		else:
 			_focus_next_available(tile, tile_buttons)
+	elif test_subject != "":
+		session.mark_wrong()                 # test: one wrong tile ends the task
+		session.submit(w)
+		_test_next(false, tile)
 	else:
 		Sfx.play("error")
 		session.mark_wrong()
@@ -864,6 +883,8 @@ func _show_new_achievements() -> void:
 
 
 func _save() -> void:
+	if test_subject != "":
+		return              # a test only counts when finished (LernTest.save)
 	if session.solved > 0 and not has_meta("saved"):
 		set_meta("saved", true)
 		ProgressRepository.remember_session(exercise_id, session.task_results())
@@ -990,3 +1011,49 @@ func _request_quit() -> void:
 		_save()
 		main.pop())
 	main.show_dialog(d)
+
+
+# --------------------------------------------------------- Lernkontrolle ---
+## Test mode (params.test = subject, started by the parents): one answer per task,
+## no feedback, tips or repetition; results per topic at the end.
+
+var test_subject := ""
+var _test_results: Array = []
+
+
+func _test_next(ok: bool, from: Control) -> void:
+	_busy = true
+	_test_results.append({"task": session.current(), "ok": ok})
+	Sfx.play("select")
+	if from:
+		Juice.pop(from, 1.12)
+	await get_tree().create_timer(0.5).timeout
+	if not is_inside_tree() or finished:
+		return
+	if session.advance():
+		_show_task()
+	else:
+		_finish_test()
+
+
+func _finish_test() -> void:
+	finished = true
+	_owl.visible = false
+	_feedback.visible = false
+	var rec := LernTest.save(test_subject, _test_results, session.duration_seconds())
+	_results = Control.new()
+	_results.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(_results)
+	var dim := ColorRect.new()
+	dim.color = Color(0.05, 0.08, 0.25, 0.5)
+	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_results.add_child(dim)
+	var back := LernTest.build_results(_results, rec, INK)
+	back.pressed.connect(func(): main.pop())
+	for b in letter_buttons + tile_buttons + pic_buttons + [back_button, listen_button]:
+		b.focus_mode = Control.FOCUS_NONE
+	ResultsDecor.add(_results, int(rec["correct"] * 10 / maxi(1, rec["total"])), _stickers_before, _xp_before)
+	Juice.burst(self, Vector2(960, 300), 10, 30)
+	Sfx.play("streak")
+	Voice.say(["ex_done_perfect" if rec["correct"] >= rec["total"] else "ex_done"], false)
+	back.grab_focus.call_deferred()
