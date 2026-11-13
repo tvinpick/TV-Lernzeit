@@ -18,17 +18,9 @@ const EXERCISES := {
 	"lg_reihenfolge": {"title": "ex_lg_reihenfolge_title", "topic": "reihenfolge", "modes": ["lg_reihenfolge"], "subject": "logik"},
 }
 const BG := "res://assets/deutsch/backgrounds/Deutsch_Buchstaben_Background_1080p.png"
-const INK := Color("2c1a6e")
-const DOT := {
-	"done": preload("res://assets/deutsch/ui/progress/Deutsch_Progress_Dot_Done.png"),
-	"current": preload("res://assets/deutsch/ui/progress/Deutsch_Progress_Dot_Current.png"),
-	"pending": preload("res://assets/deutsch/ui/progress/Deutsch_Progress_Dot_Pending.png"),
-}
-const SLOT := {
-	"blank": preload("res://assets/deutsch/ui/word_tiles/Deutsch_Word_Slot_Blank.png"),
-	"filled": preload("res://assets/deutsch/ui/word_tiles/Deutsch_Word_Slot_Filled.png"),
-	"selected": preload("res://assets/deutsch/ui/word_tiles/Deutsch_Word_Slot_Selected.png"),
-}
+var INK := Color("2c1a6e")        ## text colour (dark brown in Logik)
+var DOT := {}
+var SLOT := {}
 
 var exercise_id := "de_letters"
 var config: Dictionary
@@ -69,8 +61,16 @@ var adaptive: AdaptiveLevel
 func _ready() -> void:
 	exercise_id = params.get("exercise", "de_letters")
 	config = EXERCISES[exercise_id]
-	add_background(BG)
 	subject = config.get("subject", "deutsch")
+	if subject == "logik":
+		INK = Color("5a2a00")
+	DOT = {"done": _ui("res://assets/deutsch/ui/progress/Deutsch_Progress_Dot_Done.png"),
+		"current": _ui("res://assets/deutsch/ui/progress/Deutsch_Progress_Dot_Current.png"),
+		"pending": _ui("res://assets/deutsch/ui/progress/Deutsch_Progress_Dot_Pending.png")}
+	SLOT = {"blank": _ui("res://assets/deutsch/ui/word_tiles/Deutsch_Word_Slot_Blank.png"),
+		"filled": _ui("res://assets/deutsch/ui/word_tiles/Deutsch_Word_Slot_Filled.png"),
+		"selected": _ui("res://assets/deutsch/ui/word_tiles/Deutsch_Word_Slot_Selected.png")}
+	add_background(_ui(BG).resource_path)
 	if subject == "lesen":
 		generator = ReadingGenerator.new(int(params.get("seed", -1)))
 	elif subject == "logik":
@@ -94,6 +94,15 @@ func _ready() -> void:
 
 # ------------------------------------------------------------------ layout ---
 
+## Logik uses the same layout in orange (assets/logik/ui, tools/make_logik_ui.py).
+func _ui(path: String) -> Texture2D:
+	if subject == "logik":
+		var lp := "res://assets/logik/ui/" + path.get_file().replace("Deutsch_Buchstaben_", "Logik_").replace("Deutsch_", "Logik_")
+		if ResourceLoader.exists(lp):
+			return load(lp)
+	return load(path)
+
+
 func _tex_box(tex: Texture2D, margin: int, content: int = 0) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
 	sb.texture = tex
@@ -111,7 +120,7 @@ func _tex_box(tex: Texture2D, margin: int, content: int = 0) -> StyleBoxTexture:
 func _build_layout() -> void:
 	# header
 	var bar := PanelContainer.new()
-	bar.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Header_Panel.png"), 50, 22))
+	bar.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Header_Panel.png"), 50, 22))
 	bar.position = Vector2(SAFE_X, SAFE_Y - 10)
 	bar.size = Vector2(1920 - SAFE_X * 2, 92)
 	add_child(bar)
@@ -155,20 +164,20 @@ func _build_layout() -> void:
 	_counter.theme_type_variation = &"RowTitle"
 	_counter.add_theme_color_override("font_color", INK)
 	_counter.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
-	var csb := _tex_box(preload("res://assets/deutsch/ui/controls/Deutsch_Progress_Counter_Blank.png"), 30, 26)
+	var csb := _tex_box(_ui("res://assets/deutsch/ui/controls/Deutsch_Progress_Counter_Blank.png"), 30, 26)
 	_counter.add_theme_stylebox_override("normal", csb)
 	_counter.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(_counter)
 
 	# content + question panel
 	var content := Panel.new()
-	content.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Content_Panel.png"), 70))
+	content.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Content_Panel.png"), 70))
 	content.position = Vector2(170, 228)
 	content.size = Vector2(1580, 660)
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(content)
 	var q := Panel.new()
-	q.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Question_Panel.png"), 60))
+	q.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Question_Panel.png"), 60))
 	q.position = Vector2(330, 160)
 	q.size = Vector2(1260, 128)
 	q.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -212,6 +221,7 @@ func _build_layout() -> void:
 		var pb := PictureButton.new()
 		pb.name = "Pic_%d" % i
 		pb.custom_minimum_size = Vector2(240, 240)
+		pb.frame = _ui("res://assets/deutsch/ui/panels/Deutsch_Picture_Frame.png")
 		pb.pressed.connect(_on_letter.bind(pb))
 		_pics_row.add_child(pb)
 		pic_buttons.append(pb)
@@ -237,7 +247,7 @@ func _build_layout() -> void:
 	track_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(track_row)
 	var track := PanelContainer.new()
-	track.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/progress/Deutsch_Progress_Track.png"), 40, 36))
+	track.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/progress/Deutsch_Progress_Track.png"), 40, 36))
 	track_row.add_child(track)
 	_dots = HBoxContainer.new()
 	_dots.add_theme_constant_override("separation", 10)
@@ -425,7 +435,7 @@ func _stage_big_letter(text: String, size: int = 250) -> void:
 
 func _picture_frame(path: String, s: int) -> PanelContainer:
 	var f := PanelContainer.new()
-	f.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Picture_Frame.png"), 60, 6))
+	f.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Picture_Frame.png"), 60, 6))
 	f.custom_minimum_size = Vector2(s, s)
 	f.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var p := TextureRect.new()
@@ -483,7 +493,7 @@ func _hole(s: int) -> TextureRect:
 func _stage_pattern(t: Dictionary) -> void:
 	var row := _centered_row(0)
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Word_Panel.png"), 50, 30))
+	panel.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Word_Panel.png"), 50, 30))
 	panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(panel)
 	var items := HBoxContainer.new()
@@ -545,7 +555,7 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 	if t["picture"] != "":
 		row.add_child(_picture_frame(t["picture"], 280))
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Word_Panel.png"), 50, 40))
+	panel.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Word_Panel.png"), 50, 40))
 	panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(panel)
 	var slots := HBoxContainer.new()
@@ -834,7 +844,7 @@ func _finish() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_results.add_child(center)
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Content_Panel.png"), 70, 70))
+	panel.add_theme_stylebox_override("panel", _tex_box(_ui("res://assets/deutsch/ui/panels/Deutsch_Content_Panel.png"), 70, 70))
 	panel.custom_minimum_size = Vector2(1000, 0)
 	center.add_child(panel)
 	var v := VBoxContainer.new()

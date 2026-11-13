@@ -144,6 +144,19 @@ func _build_rows() -> void:
 	_row_controls.append([wr])
 	_update_week()
 
+	# Schwierige Aufgaben (open mistakes from the task history)
+	var hr := _row("res://assets/icons/Lernzeit_Icon_Target.png", "p_hard", "", "row_purple")
+	var hsub := Label.new()
+	hsub.theme_type_variation = &"CaptionLabel"
+	hsub.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	hsub.name = "HardSub"
+	hsub.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	hr.title_label.get_parent().get_parent().add_child(hsub)
+	hr.name = "HardRow"
+	hr.make_focusable()
+	_row_controls.append([hr])
+	_update_hard()
+
 	# Schwierigkeit
 	var diff := OptionGroup.make([
 		{"value": "easy", "key": "diff_easy"}, {"value": "auto", "key": "diff_auto"},
@@ -235,6 +248,7 @@ func _notification(what: int) -> void:
 		_update_profile()
 		_update_letters()
 		_update_week()
+		_update_hard()
 
 
 func _update_profile() -> void:
@@ -256,6 +270,27 @@ func _update_letters() -> void:
 func on_shown() -> void:
 	_update_letters()
 	_update_week()
+	_update_hard()
+
+
+## Up to 3 topics with tasks that went wrong and were not yet practised again,
+## e.g. "Subtraktion bis 10: 7 − 3, 9 − 6 · Anlaute: Löwe".
+func _update_hard() -> void:
+	var l: Label = find_child("HardSub", true, false)
+	if l == null:
+		return
+	var parts: Array = []
+	for e in ProgressRepository.mistake_overview().slice(0, 3):
+		var ex: String = e["exercise"]
+		var examples: Array = []
+		for t in e["tasks"]:
+			var d := MathExerciseInfo.describe(t)
+			if d != "" and not d in examples:
+				examples.append(d)
+		var what := ", ".join(examples.slice(0, 3)) if not examples.is_empty() \
+			else Localization.t("p_hard_count", {"n": (e["tasks"] as Array).size()})
+		parts.append("%s: %s" % [tr(MathExerciseInfo.title_key(ex)), what])
+	l.text = tr("p_hard_none") if parts.is_empty() else " · ".join(parts)
 
 
 ## Last 7 days: minutes, number of exercises, strongest / weakest topic (by first-try accuracy).

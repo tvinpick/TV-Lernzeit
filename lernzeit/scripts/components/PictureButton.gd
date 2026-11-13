@@ -5,6 +5,7 @@ extends Button
 const FRAME := preload("res://assets/deutsch/ui/panels/Deutsch_Picture_Frame.png")
 
 var value := ""
+var frame: Texture2D = FRAME      ## set before adding to the tree (Logik: orange frame)
 var state := "normal":
 	set(v):
 		state = v
@@ -18,7 +19,7 @@ func _ready() -> void:
 	focus_mode = Control.FOCUS_ALL
 	flat = false          # the frame is the button's stylebox
 	var sb := StyleBoxTexture.new()
-	sb.texture = FRAME
+	sb.texture = frame
 	for m in ["texture_margin_left", "texture_margin_right", "texture_margin_top", "texture_margin_bottom"]:
 		sb.set(m, 60)
 	sb.content_margin_left = 10

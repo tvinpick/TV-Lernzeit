@@ -79,6 +79,17 @@ func mistake_tasks(exercise_id: String) -> Array:
 	return out
 
 
+## Exercises with open mistakes: [{exercise, tasks}] (most mistakes first).
+func mistake_overview() -> Array:
+	var out: Array = []
+	for ex in _history:
+		var ts := mistake_tasks(ex)
+		if not ts.is_empty():
+			out.append({"exercise": ex, "tasks": ts})
+	out.sort_custom(func(a, b): return a["tasks"].size() > b["tasks"].size())
+	return out
+
+
 ## results: [{task, ok}] from ExerciseSession.task_results().
 func remember_session(exercise_id: String, results: Array) -> void:
 	if results.is_empty():

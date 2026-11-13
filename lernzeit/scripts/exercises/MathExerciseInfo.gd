@@ -12,3 +12,24 @@ const TITLES := {"sub10": "ex_sub10_title", "add10": "ex_add10_title", "count10"
 
 static func title_key(exercise_id: String) -> String:
 	return TITLES.get(exercise_id, "continue")
+
+
+## Short text of a task for the parents' area ("7 − 3", "4 6 ? 10", "Löwe", "b"); "" if none.
+static func describe(t: Dictionary) -> String:
+	var m: String = t.get("mode", "")
+	if t.has("sequence") and (m == "zr_step" or m == "cnt_sequence"):
+		var parts: Array = []
+		for i in (t["sequence"] as Array).size():
+			parts.append("?" if i == int(t["hole"]) else str(t["sequence"][i]))
+		return " ".join(parts)
+	if m.begins_with("de_") or m.begins_with("le_"):
+		if m in ["de_find", "de_case"]:
+			return str(t.get("shown", t.get("letter", "")))
+		return str(t.get("display", str(t.get("word", "")).capitalize()))
+	if m.begins_with("lg_"):
+		return ""
+	if t.has("a") and t.has("b") and not m.ends_with("dice"):
+		return "%d %s %d" % [t["a"], "+" if m.begins_with("add") else "−", t["b"]]
+	if t.has("x") and t.has("y"):
+		return "%d / %d" % [t["x"], t["y"]]
+	return ""

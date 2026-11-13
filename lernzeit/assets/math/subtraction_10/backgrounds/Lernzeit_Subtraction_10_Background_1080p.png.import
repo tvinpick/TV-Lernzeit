@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3mb61rmme5sx"
-path="res://.godot/imported/Lernzeit_Subtraction_10_Background_1080p.png-8ec9282809502dc7dddf07fef097b014.ctex"
+path.s3tc="res://.godot/imported/Lernzeit_Subtraction_10_Background_1080p.png-8ec9282809502dc7dddf07fef097b014.s3tc.ctex"
+path.etc2="res://.godot/imported/Lernzeit_Subtraction_10_Background_1080p.png-8ec9282809502dc7dddf07fef097b014.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"
-dest_files=["res://.godot/imported/Lernzeit_Subtraction_10_Background_1080p.png-8ec9282809502dc7dddf07fef097b014.ctex"]
+dest_files=["res://.godot/imported/Lernzeit_Subtraction_10_Background_1080p.png-8ec9282809502dc7dddf07fef097b014.s3tc.ctex", "res://.godot/imported/Lernzeit_Subtraction_10_Background_1080p.png-8ec9282809502dc7dddf07fef097b014.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

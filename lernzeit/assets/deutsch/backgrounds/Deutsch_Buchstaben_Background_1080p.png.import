@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b65lyy31n10q0"
-path="res://.godot/imported/Deutsch_Buchstaben_Background_1080p.png-131afe8f9141010d66666f370b5d710a.ctex"
+path.s3tc="res://.godot/imported/Deutsch_Buchstaben_Background_1080p.png-131afe8f9141010d66666f370b5d710a.s3tc.ctex"
+path.etc2="res://.godot/imported/Deutsch_Buchstaben_Background_1080p.png-131afe8f9141010d66666f370b5d710a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/deutsch/backgrounds/Deutsch_Buchstaben_Background_1080p.png"
-dest_files=["res://.godot/imported/Deutsch_Buchstaben_Background_1080p.png-131afe8f9141010d66666f370b5d710a.ctex"]
+dest_files=["res://.godot/imported/Deutsch_Buchstaben_Background_1080p.png-131afe8f9141010d66666f370b5d710a.s3tc.ctex", "res://.godot/imported/Deutsch_Buchstaben_Background_1080p.png-131afe8f9141010d66666f370b5d710a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

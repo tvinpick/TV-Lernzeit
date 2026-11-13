@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbyyhjymv1nvt"
-path="res://.godot/imported/Lernzeit_Addition_10_Background_1080p.png-33f6914e0dc3418463536a64fb501fac.ctex"
+path.s3tc="res://.godot/imported/Lernzeit_Addition_10_Background_1080p.png-33f6914e0dc3418463536a64fb501fac.s3tc.ctex"
+path.etc2="res://.godot/imported/Lernzeit_Addition_10_Background_1080p.png-33f6914e0dc3418463536a64fb501fac.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"
-dest_files=["res://.godot/imported/Lernzeit_Addition_10_Background_1080p.png-33f6914e0dc3418463536a64fb501fac.ctex"]
+dest_files=["res://.godot/imported/Lernzeit_Addition_10_Background_1080p.png-33f6914e0dc3418463536a64fb501fac.s3tc.ctex", "res://.godot/imported/Lernzeit_Addition_10_Background_1080p.png-33f6914e0dc3418463536a64fb501fac.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

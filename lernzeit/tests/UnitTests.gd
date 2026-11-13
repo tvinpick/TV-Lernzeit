@@ -500,6 +500,12 @@ func _test_task_history() -> void:
 	var s3: Array = SubtractionGenerator.new(13).make_session(10, ProgressRepository.recent_task_keys("sub10"), again)
 	check(s3.filter(func(t): return t["key"] == s1[0]["key"] and t.get("again", false)).size() == 1, "earlier mistake asked again")
 	check(ProgressRepository.recent_task_keys("sub10").size() == 2, "recent keys stored")
+	var ov := ProgressRepository.mistake_overview()
+	check(ov.size() == 1 and ov[0]["exercise"] == "sub10"
+		and MathExerciseInfo.describe(ov[0]["tasks"][0]) == "%d − %d" % [s1[0]["a"], s1[0]["b"]], "parents: open mistakes with a short task text")
+	check(MathExerciseInfo.describe({"mode": "zr_step", "sequence": [2, 4, 6, 8], "hole": 2}) == "2 4 ? 8"
+		and MathExerciseInfo.describe({"mode": "de_first", "word": "LÖWE", "display": "Löwe"}) == "Löwe"
+		and MathExerciseInfo.describe({"mode": "add_equation", "a": 3, "b": 4}) == "3 + 4", "task descriptions")
 	# two right answers later → removed from the mistakes
 	for k in 2:
 		ProgressRepository.remember_session("sub10", [{"task": again[0], "ok": true}])

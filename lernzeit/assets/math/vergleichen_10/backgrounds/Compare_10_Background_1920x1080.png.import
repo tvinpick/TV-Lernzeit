@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgshlg40uwvh5"
-path="res://.godot/imported/Compare_10_Background_1920x1080.png-d0f27729caef4a32514d877ae77b871f.ctex"
+path.s3tc="res://.godot/imported/Compare_10_Background_1920x1080.png-d0f27729caef4a32514d877ae77b871f.s3tc.ctex"
+path.etc2="res://.godot/imported/Compare_10_Background_1920x1080.png-d0f27729caef4a32514d877ae77b871f.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/math/vergleichen_10/backgrounds/Compare_10_Background_1920x1080.png"
-dest_files=["res://.godot/imported/Compare_10_Background_1920x1080.png-d0f27729caef4a32514d877ae77b871f.ctex"]
+dest_files=["res://.godot/imported/Compare_10_Background_1920x1080.png-d0f27729caef4a32514d877ae77b871f.s3tc.ctex", "res://.godot/imported/Compare_10_Background_1920x1080.png-d0f27729caef4a32514d877ae77b871f.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

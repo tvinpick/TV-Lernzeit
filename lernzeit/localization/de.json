@@ -329,5 +329,8 @@
  "tip_lg_reihenfolge": "Überlege: Was passiert am Anfang, was am Ende?",
  "ex_listen": "Anhören",
  "ex_zr_title": "Zahlenreihen bis 20",
- "tip_zr": "Wie groß ist der Sprung von einer Zahl zur nächsten?"
+ "tip_zr": "Wie groß ist der Sprung von einer Zahl zur nächsten?",
+ "p_hard": "Das fällt noch schwer",
+ "p_hard_none": "Gerade nichts – Fehler werden in den nächsten Übungen wiederholt.",
+ "p_hard_count": "{n} Aufgaben"
 }
