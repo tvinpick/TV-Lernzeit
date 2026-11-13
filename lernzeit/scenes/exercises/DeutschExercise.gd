@@ -13,6 +13,9 @@ const EXERCISES := {
 	"de_case": {"title": "ex_de_case_title", "topic": "gross_klein", "modes": ["de_case"]},
 	"le_silben": {"title": "ex_le_silben_title", "topic": "silben", "modes": ["le_syllables"], "subject": "lesen"},
 	"le_woerter": {"title": "ex_le_woerter_title", "topic": "woerter", "modes": ["le_word_pic", "le_pic_word", "le_syllables"], "subject": "lesen"},
+	"lg_muster": {"title": "ex_lg_muster_title", "topic": "muster", "modes": ["lg_muster"], "subject": "logik"},
+	"lg_formen": {"title": "ex_lg_formen_title", "topic": "formen", "modes": ["lg_formen"], "subject": "logik"},
+	"lg_reihenfolge": {"title": "ex_lg_reihenfolge_title", "topic": "reihenfolge", "modes": ["lg_reihenfolge"], "subject": "logik"},
 }
 const BG := "res://assets/deutsch/backgrounds/Deutsch_Buchstaben_Background_1080p.png"
 const INK := Color("2c1a6e")
@@ -53,6 +56,7 @@ var _busy := false
 var _results: Control
 var _hole_label: Label
 var _word_reveal: Label         ## de_first: the whole word appears under the picture when solved
+var _hole_pic: TextureRect      ## Logik: the "?" place that shows the chosen picture when solved
 var _slots: Array = []          ## [{rect, label}] while building a word
 var _placed := 0
 var _build_wrong := {}          ## letters that were expected when a wrong tile was chosen
@@ -68,12 +72,14 @@ func _ready() -> void:
 	subject = config.get("subject", "deutsch")
 	if subject == "lesen":
 		generator = ReadingGenerator.new(int(params.get("seed", -1)))
+	elif subject == "logik":
+		generator = LogikGenerator.new(int(params.get("seed", -1)))
 	else:
 		generator = LetterGenerator.new(int(params.get("seed", -1)))
 	generator.allowed_modes = config["modes"]
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
-	session = ExerciseSession.new(subject, config["topic"], "lesen-v1" if subject == "lesen" else "de-letters-v1",
+	session = ExerciseSession.new(subject, config["topic"], {"lesen": "lesen-v1", "logik": "logik-v1"}.get(subject, "de-letters-v1"),
 		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_layout()
@@ -294,6 +300,7 @@ func _show_task() -> void:
 		c.queue_free()
 	_hole_label = null
 	_word_reveal = null
+	_hole_pic = null
 	_slots = []
 	_placed = 0
 	_build_wrong = {}
@@ -301,7 +308,7 @@ func _show_task() -> void:
 	_prompt.remove_theme_color_override("font_color")
 	_prompt.add_theme_color_override("font_color", INK)
 	var build := _is_build(t)
-	var pics: bool = t["mode"] == "le_word_pic"
+	var pics := _is_pics(t)
 	_letters_row.visible = not build and not pics
 	_tiles_row.visible = build
 	_pics_row.visible = pics
@@ -328,6 +335,9 @@ func _show_task() -> void:
 		"de_build", "le_syllables": _stage_word(t, true)
 		"le_word_pic": _stage_big_letter(t["word"], 200)
 		"le_pic_word": _stage_picture(t["picture"], 300)
+		"lg_formen": _stage_picture(t["show"], 250)
+		"lg_muster": _stage_pattern(t)
+		"lg_reihenfolge": _stage_story(t)
 	_link_focus()
 	active_buttons()[0].grab_focus.call_deferred()
 
@@ -341,7 +351,7 @@ func _update_dots() -> void:
 func active_buttons() -> Array:
 	var out: Array = []
 	var t := session.current()
-	var src: Array = tile_buttons if _is_build(t) else (pic_buttons if t.get("mode", "") == "le_word_pic" else letter_buttons)
+	var src: Array = tile_buttons if _is_build(t) else (pic_buttons if _is_pics(t) else letter_buttons)
 	for b in src:
 		if b.visible and b.state != "used" and b.state != "wrong":
 			out.append(b)
@@ -355,6 +365,11 @@ func _link_focus() -> void:
 	for b in btns:
 		FocusManager.set_one(b, SIDE_BOTTOM, b)
 	FocusManager.set_neighbors(back_button, null, null, null, btns[0] if not btns.is_empty() else null)
+
+
+## Tasks answered with the 4 picture buttons.
+func _is_pics(t: Dictionary) -> bool:
+	return t.get("mode", "") == "le_word_pic" or (t.get("mode", "") as String).begins_with("lg_")
 
 
 func _is_build(t: Dictionary) -> bool:
@@ -409,6 +424,78 @@ func _stage_picture(path: String, s: int) -> void:
 	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_stage.add_child(c)
 	c.add_child(_picture_frame(path, s))
+
+
+func _centered_row(sep: int) -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", sep)
+	row.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(row)
+	return row
+
+
+## The "?" place of a Logik task; shows the chosen picture once solved.
+func _hole(s: int) -> TextureRect:
+	var r := TextureRect.new()
+	r.texture = SLOT["selected"]
+	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	r.stretch_mode = TextureRect.STRETCH_SCALE
+	r.custom_minimum_size = Vector2(s, s)
+	r.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var l := _letter_label("?", int(s * 0.62))
+	l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	r.add_child(l)
+	var p := TextureRect.new()
+	p.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	p.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	p.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	p.offset_left = 10
+	p.offset_top = 10
+	p.offset_right = -10
+	p.offset_bottom = -10
+	p.visible = false                    # shows the chosen picture once solved
+	r.add_child(p)
+	_hole_pic = p
+	return r
+
+
+## Muster: the row of pictures in a panel, then the "?".
+func _stage_pattern(t: Dictionary) -> void:
+	var row := _centered_row(0)
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", _tex_box(preload("res://assets/deutsch/ui/panels/Deutsch_Word_Panel.png"), 50, 30))
+	panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(panel)
+	var items := HBoxContainer.new()
+	items.add_theme_constant_override("separation", 10)
+	panel.add_child(items)
+	var seq: Array = t["sequence"]
+	var s := 150 if seq.size() >= 7 else 165
+	for pth in seq:
+		var r := TextureRect.new()
+		r.texture = load(pth)
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		r.custom_minimum_size = Vector2(s, s)
+		items.add_child(r)
+	items.add_child(_hole(s))
+
+
+## Reihenfolge: three pictures with arrows; one of them is the "?".
+func _stage_story(t: Dictionary) -> void:
+	var row := _centered_row(22)
+	var frames: Array = t["frames"]
+	for i in frames.size():
+		if i > 0:
+			var arrow := _letter_label("→", 90)
+			arrow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			row.add_child(arrow)
+		if i == t["hole"]:
+			row.add_child(_hole(240))
+		else:
+			row.add_child(_picture_frame(frames[i], 240))
 
 
 ## Picture with an (initially empty) word label below; the word is revealed after the answer.
@@ -515,6 +602,11 @@ func _on_letter(btn) -> void:
 			_word_reveal.text = _word_reveal.get_meta("word")
 			_word_reveal.add_theme_color_override("font_color", Color("1f9a3a"))
 			Juice.pop(_word_reveal, 1.25)
+		if _hole_pic:
+			_hole_pic.texture = load(btn.value)
+			_hole_pic.visible = true
+			(_hole_pic.get_parent().get_child(0) as Label).text = ""
+			Juice.pop(_hole_pic.get_parent(), 1.2)
 		if _hole_label:
 			_hole_label.text = btn.value
 			_hole_label.add_theme_color_override("font_color", Color("1f9a3a"))
@@ -793,6 +885,8 @@ func _finish() -> void:
 	FocusManager.set_neighbors(back, null, again)
 	FocusManager.set_neighbors(again, back, null)
 	for b in letter_buttons + tile_buttons:
+		b.focus_mode = Control.FOCUS_NONE
+	for b in pic_buttons:                # picture answers stay behind the results panel
 		b.focus_mode = Control.FOCUS_NONE
 	back_button.focus_mode = Control.FOCUS_NONE
 	again.grab_focus.call_deferred()

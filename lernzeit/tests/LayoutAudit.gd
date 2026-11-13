@@ -236,7 +236,7 @@ func run_all() -> void:
 	# every mode of every exercise, in all difficulties' widest cases
 	for ex_id in ["count10", "add10", "sub10", "count20", "add20", "sub20", "cmp10"]:
 		await audit_exercise("exercise", ex_id)
-	for ex_id in ["de_letters", "le_woerter"]:
+	for ex_id in ["de_letters", "le_woerter", "lg_muster", "lg_formen", "lg_reihenfolge"]:
 		await audit_exercise("exercise_de", ex_id)
 
 
@@ -250,6 +250,8 @@ func audit_exercise(screen_id: String, ex_id: String) -> void:
 				ex.session.tasks[0] = ex.generator.make_task(m)
 				ex._show_task()
 				await check_screen("%s:%s:%s" % [ex_id, m, diff])
+				if screen_id == "exercise_de":
+					_check_stage_above_answers(ex, "%s:%s:%s" % [ex_id, m, diff])
 	# tip state + results overlay
 	ex._prompt.set_wrapped(true, 30)
 	ex._prompt.text = Localization.t("ex_tip", {"t": tr("tip_sub_missing").format({"a": 18, "r": 9})})
@@ -360,3 +362,20 @@ func _collect_panels(n: Node, out: Array) -> void:
 		out.append(n)
 	for c in n.get_children():
 		_collect_panels(c, out)
+
+
+## The task picture / word area must not reach into the row of answer buttons.
+func _check_stage_above_answers(ex, tag: String) -> void:
+	var top := INF
+	for b in ex.active_buttons():
+		top = minf(top, (b as Control).get_global_rect().position.y)
+	var bottom := 0.0
+	var stack: Array = ex._stage.get_children()
+	while not stack.is_empty():
+		var c: Node = stack.pop_back()
+		stack.append_array(c.get_children())
+		var drawn: bool = (c is TextureRect and (c as TextureRect).texture != null) or c is PanelContainer
+		if drawn and (c as Control).is_visible_in_tree() and (c as Control).size.y > 0:
+			bottom = maxf(bottom, (c as Control).get_global_rect().end.y)
+	if bottom > top - 6:
+		_report(tag, ex._stage, "task picture reaches the answer buttons (%d > %d)" % [bottom, top - 6])

@@ -412,8 +412,9 @@ func run_exercise() -> void:
 	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen",
 		"sub20": "subtraktion", "add20": "addition", "count20": "zaehlen",
 		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein",
-		"cmp10": "vergleichen", "le_silben": "silben", "le_woerter": "woerter"}[exercise]
-	var german := exercise.begins_with("de_") or exercise.begins_with("le_")
+		"cmp10": "vergleichen", "le_silben": "silben", "le_woerter": "woerter",
+		"lg_muster": "muster", "lg_formen": "formen", "lg_reihenfolge": "reihenfolge"}[exercise]
+	var german := exercise.begins_with("de_") or exercise.begins_with("le_") or exercise.begins_with("lg_")
 	var screen_id := "exercise_de" if german else "exercise"
 	var subject := Curriculum.subject_of(exercise)
 	var no_levels := german or exercise == "cmp10"
@@ -422,10 +423,13 @@ func run_exercise() -> void:
 		await key(KEY_RIGHT)
 	elif subject == "lesen":
 		await key(KEY_DOWN)
+	elif subject == "logik":
+		await keys([KEY_DOWN, KEY_RIGHT])
 	await keys([KEY_ENTER])
 	await wait(0.4)
 	var order: Array = {"deutsch": ["buchstaben", "anlaute", "woerter", "gross_klein"], "lesen": ["silben", "woerter", "saetze", "texte"],
-		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen"]}[subject]
+		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen"],
+		"logik": ["muster", "formen", "unterschiede", "reihenfolge"]}[subject]
 	for i in order.find(topic):
 		await key(KEY_DOWN)
 	check(focus_name() == "Topic_" + topic, subject + " → " + topic)
@@ -440,7 +444,7 @@ func run_exercise() -> void:
 	var ex = main.current_screen()
 	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0"], "first answer focused")
 	var first_prompt := Voice.clip_name(ex.current_task()["prompt"])
-	check(Voice.history.back() == first_prompt or (Voice._queue.size() > 0 and Voice._queue[0] == first_prompt),
+	check(not Voice.has(first_prompt) or Voice.history.back() == first_prompt or (Voice._queue.size() > 0 and Voice._queue[0] == first_prompt),
 		"first question read aloud: " + first_prompt)
 	var shot_modes := {}
 	var guard := 0

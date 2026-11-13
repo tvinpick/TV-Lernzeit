@@ -314,5 +314,17 @@
  "le_prompt_pic_word": "Welches Wort passt zum Bild?",
  "tip_le_syllables": "Sprich das Wort langsam: Welche Silbe kommt zuerst?",
  "tip_le_word_pic": "Lies das Wort Buchstabe für Buchstabe.",
- "tip_le_pic_word": "Wie heißt das Bild? Mit welchem Laut beginnt es?"
+ "tip_le_pic_word": "Wie heißt das Bild? Mit welchem Laut beginnt es?",
+ "ex_lg_muster_title": "Logik · Muster",
+ "ex_lg_formen_title": "Logik · Formen",
+ "ex_lg_reihenfolge_title": "Logik · Reihenfolge",
+ "lg_prompt_muster": "Wie geht das Muster weiter?",
+ "lg_prompt_form_thing": "Welches Ding hat diese Form?",
+ "lg_prompt_thing_form": "Welche Form hat das?",
+ "lg_prompt_next": "Was kommt danach?",
+ "lg_prompt_first": "Was war zuerst?",
+ "lg_prompt_middle": "Was passiert dazwischen?",
+ "tip_lg_muster": "Sag die Reihe leise auf. Was wiederholt sich?",
+ "tip_lg_formen": "Fahre mit dem Finger am Rand entlang. Ist er rund oder eckig?",
+ "tip_lg_reihenfolge": "Überlege: Was passiert am Anfang, was am Ende?"
 }

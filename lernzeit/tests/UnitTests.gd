@@ -404,6 +404,7 @@ func _ready() -> void:
 	ProgressRepository.reset_all()
 
 	_test_voice()
+	_test_logik()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -446,3 +447,30 @@ func _test_voice() -> void:
 	SettingsRepository.set_value("read_aloud", false)
 	check(not Voice.enabled() and not Voice.say(["ex_correct"]) and not Voice.is_speaking(), "read aloud off → silent")
 	SettingsRepository.set_value("read_aloud", true)
+
+
+func _test_logik() -> void:
+	var bad: Array = []
+	var seen_kinds := {}
+	for diff in ["easy", "auto", "hard"]:
+		for mode in LogikGenerator.ALL_MODES:
+			var g := LogikGenerator.new(7)
+			g.difficulty = diff
+			g.allowed_modes = [mode]
+			for i in 30:
+				var t := g.make_task(mode)
+				seen_kinds[mode + ":" + str(t.get("kind", t.get("prompt", "")))] = true
+				if not g.is_valid(t):
+					bad.append(t)
+	check(bad.is_empty(), "Logik: 270 generated tasks valid " + str(bad.slice(0, 2)))
+	check(seen_kinds.has("lg_muster:ABC") and seen_kinds.has("lg_reihenfolge:middle")
+		and seen_kinds.has("lg_formen:lg_prompt_thing_form"), "Logik: all task kinds appear " + str(seen_kinds.keys()))
+	var t2 := {"mode": "lg_muster", "kind": "AB", "answer": LogikGenerator.shape("Kreis", "Rot"),
+		"sequence": [LogikGenerator.shape("Kreis", "Rot"), LogikGenerator.shape("Kreis", "Blau"), LogikGenerator.shape("Kreis", "Rot"),
+			LogikGenerator.shape("Kreis", "Blau")],
+		"options": [LogikGenerator.shape("Kreis", "Rot"), LogikGenerator.shape("Kreis", "Blau"), LogikGenerator.shape("Kreis", "Gelb"), LogikGenerator.shape("Kreis", "Gruen")]}
+	check(LogikGenerator.validate(t2), "Logik: correct AB pattern accepted")
+	t2["answer"] = LogikGenerator.shape("Kreis", "Blau")
+	check(not LogikGenerator.validate(t2), "Logik: wrong continuation rejected")
+	check(Curriculum.exercise_for("logik", "muster") == "lg_muster" and Curriculum.screen_for("lg_formen") == "exercise_de"
+		and Curriculum.subject_of("lg_reihenfolge") == "logik", "Logik topics are playable")
