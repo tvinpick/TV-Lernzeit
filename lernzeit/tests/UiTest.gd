@@ -235,8 +235,11 @@ func run_main() -> void:
 	await key(KEY_DOWN); await key(KEY_ENTER)
 	await shot("09_settings_learning_ru_large")
 	var ra: ToggleSwitch = main.current_screen().controls["read_aloud"]
-	check(focus_name() != "" and ra.locked and not ra.button_pressed, "read aloud shown as unavailable")
-	await key(KEY_ENTER); check(not ra.button_pressed, "read aloud cannot be switched on")
+	check(get_viewport().gui_get_focus_owner() == ra and not ra.locked and ra.button_pressed, "read aloud available and on by default")
+	await key(KEY_ENTER, 0.3)
+	check(not ra.button_pressed and SettingsRepository.get_value("read_aloud") == false and not Voice.enabled(), "read aloud switched off")
+	await key(KEY_ENTER, 0.3)
+	check(SettingsRepository.get_value("read_aloud") == true and Voice.history.back() == "ex_correct_3", "read aloud on again, sample phrase played")
 	await key(KEY_ESCAPE)
 	await keys([KEY_DOWN, KEY_DOWN]); await shot("10_settings_data_ru_large")
 	await key(KEY_DOWN); await shot("11_settings_about_ru_large")
@@ -436,6 +439,9 @@ func run_exercise() -> void:
 	check(main.current_id() == screen_id and main.current_screen().exercise_id == exercise, "topic opens the exercise")
 	var ex = main.current_screen()
 	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0"], "first answer focused")
+	var first_prompt := Voice.clip_name(ex.current_task()["prompt"])
+	check(Voice.history.back() == first_prompt or (Voice._queue.size() > 0 and Voice._queue[0] == first_prompt),
+		"first question read aloud: " + first_prompt)
 	var shot_modes := {}
 	var guard := 0
 	var made_mistake := false

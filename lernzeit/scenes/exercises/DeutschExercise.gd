@@ -285,6 +285,7 @@ func _show_task() -> void:
 	_owl.visible = false
 	var t := session.current()
 	_prompt.text = Localization.t(t["prompt"], t.get("args", {}))
+	_speak_task(t)
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
 	_repeat_badge.visible = session.is_repeat()
 	_update_dots()
@@ -473,6 +474,36 @@ func _stage_word(t: Dictionary, build: bool) -> void:
 
 # ----------------------------------------------------------------- answers ---
 
+## Reads the question aloud. Reading tasks (le_word_pic, le_pic_word, le_syllables)
+## never say the word – the child has to read it.
+func _speak_task(t: Dictionary) -> void:
+	var clips: Array = [t["prompt"]]
+	match t["mode"]:
+		"de_find":
+			clips.append(Voice.letter(t["letter"]))
+		"de_case":
+			clips.append(Voice.letter(t["shown"]))
+		"de_first", "de_missing", "de_build":
+			clips.append(Voice.word_from_picture(t["picture"]))
+	if not Voice.say_all(clips, false) and t["mode"] in ["de_first", "de_missing"]:
+		Voice.say([t["prompt"]], false)
+
+
+## Praise after a solved task; word tasks then say the whole word.
+func _speak_solved(t: Dictionary) -> void:
+	var w := Voice.word_from_picture(str(t.get("picture", "")))
+	if t["mode"] == "de_first" and Voice.say_all(["de_word_is", w]):
+		return
+	var praise := ["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"].pick_random() as String
+	if t["mode"] in ["de_missing", "de_build", "le_syllables", "le_word_pic", "le_pic_word"] and Voice.say_all([praise, w]):
+		return
+	Voice.say_random(["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"])
+
+
+func _exit_tree() -> void:
+	Voice.stop()
+
+
 func _on_letter(btn) -> void:
 	if _busy or finished:
 		return
@@ -493,6 +524,7 @@ func _on_letter(btn) -> void:
 		btn.state = "wrong"
 		btn.shake()
 		_show_feedback(false)
+		Voice.say_random(["ex_wrong", "ex_wrong_2"])
 		_focus_next_available(btn, pic_buttons if btn is PictureButton else letter_buttons)
 		_mistake()
 
@@ -524,6 +556,7 @@ func _on_tile(tile: LetterButton) -> void:
 		_build_wrong[parts[_placed]] = true
 		tile.shake()
 		_show_feedback(false)
+		Voice.say_random(["ex_wrong", "ex_wrong_2"])
 		_mistake()
 
 
@@ -561,6 +594,7 @@ func _solved(from: Vector2 = Vector2(960, 540)) -> void:
 	_busy = true
 	Sfx.play("select")
 	_show_feedback(true)
+	_speak_solved(session.current())
 	Juice.burst(self, from)
 	_reward_progress(from, first_try)
 	await get_tree().create_timer(1.4 if AppState.animations_enabled() else 0.9).timeout
@@ -593,6 +627,7 @@ func _reward_progress(from: Vector2, first_try: bool) -> void:
 		if _streak in [3, 5, 7, 10]:
 			Sfx.play("streak")
 			Juice.banner(self, Localization.t("ex_streak", {"n": _streak}), Color("a23cc8"), 560)
+			Voice.say(["ex_streak"], false)
 	else:
 		_streak = 0
 
@@ -609,6 +644,8 @@ func _mistake() -> void:
 		var tip := Localization.help("tip_" + t["mode"], {"l": t.get("letter", t.get("shown", ""))})
 		_prompt.set_wrapped(true, 30)
 		_prompt.text = Localization.help("ex_tip", {"t": tip})
+		if Localization.help_language() == "de":
+			Voice.say(["tip_" + t["mode"]], false)
 		_owl.visible = true
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
@@ -716,6 +753,7 @@ func _finish() -> void:
 	msg.add_theme_color_override("font_color", INK)
 	msg.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	msg.text = Localization.t("ex_done_text", {"n": session.first_try_correct, "total": session.main_count})
+	Voice.say(["ex_done_perfect" if session.first_try_correct >= session.main_count else "ex_done"], false)
 	if session.tasks.size() > session.main_count:
 		msg.text += "\n" + tr("ex_done_repeat")
 	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

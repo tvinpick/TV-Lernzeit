@@ -24,6 +24,7 @@ ProgressRepository="*res://scripts/autoload/ProgressRepository.gd"
 Localization="*res://scripts/autoload/Localization.gd"
 Sfx="*res://scripts/autoload/Sfx.gd"
 AppState="*res://scripts/autoload/AppState.gd"
+Voice="*res://scripts/autoload/Voice.gd"
 
 [display]
 

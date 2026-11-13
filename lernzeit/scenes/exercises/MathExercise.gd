@@ -319,6 +319,7 @@ func _show_task() -> void:
 	_mistakes = 0
 	var t := session.current()
 	_prompt.text = tr(t["prompt"])
+	_speak_task(t)
 	_prompt.remove_theme_color_override("font_color")
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
 	_repeat_badge.visible = session.is_repeat()
@@ -742,6 +743,30 @@ func _stage_sequence(t: Dictionary) -> void:
 
 # ----------------------------------------------------------------- answers ---
 
+## Reads the question aloud (German voice); equations also read the numbers.
+## Waits for a "Richtig!" that is still playing.
+func _speak_task(t: Dictionary) -> void:
+	if t["mode"] in ["equation", "add_equation"]:
+		if Voice.say_all([t["prompt"], Voice.num(t["a"]), "minus" if t["mode"] == "equation" else "plus",
+				Voice.num(t["b"])], false):
+			return
+	Voice.say([t["prompt"]], false)
+
+
+const TIP_VOICE := {
+	"objects": "tip_count_rest", "ten_frame": "tip_count_rest", "number_line": "tip_number_line",
+	"add_groups": "tip_count_all", "cnt_objects": "tip_count_all", "add_to_ten": "tip_count_empty",
+	"cnt_to_ten": "tip_count_empty", "add_dice": "tip_dice", "cnt_dice": "tip_dice",
+	"add_choose": "tip_add_choose", "cnt_bigger": "tip_bigger", "cnt_more": "tip_more",
+	"cmp_larger": "tip_bigger", "cmp_smaller": "tip_smaller", "cmp_sign": "tip_sign",
+	"cmp_groups": "tip_fewer", "cmp_sort": "tip_sort",
+}
+
+
+func _exit_tree() -> void:
+	Voice.stop()
+
+
 func _on_answer(btn: AnswerButton) -> void:
 	if _busy or finished:
 		return
@@ -758,6 +783,7 @@ func _on_answer(btn: AnswerButton) -> void:
 		if _number_line:
 			_number_line.solved = true
 		_show_feedback(true)
+		Voice.say_random(["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"])
 		_reward_progress(btn.get_global_rect().get_center(), first_try)
 		await get_tree().create_timer(1.4 if AppState.animations_enabled() else 0.9).timeout
 		if not is_inside_tree() or finished:
@@ -776,6 +802,7 @@ func _on_answer(btn: AnswerButton) -> void:
 		_mistakes += 1
 		_streak = 0
 		_show_feedback(false)
+		Voice.say_random(["ex_wrong", "ex_wrong_2"])
 		_give_help()
 		# focus the nearest button that is still available
 		var btns := active_buttons()
@@ -808,6 +835,7 @@ func _reward_progress(from: Vector2, first_try: bool) -> void:
 		if _streak in [3, 5, 7, 10]:
 			Sfx.play("streak")
 			Juice.banner(self, Localization.t("ex_streak", {"n": _streak}), Color("ffb300"), 560)
+			Voice.say(["ex_streak"], false)
 	else:
 		_streak = 0
 
@@ -823,6 +851,11 @@ func _give_help() -> void:
 			return
 		_prompt.set_wrapped(true, 30)
 		_prompt.text = Localization.help("ex_tip", {"t": tip})
+		var tip_clip: String = TIP_VOICE.get(t["mode"], "")
+		if t["mode"] == "cnt_sequence":
+			tip_clip = "tip_backwards" if t.get("backwards", false) else "tip_forwards"
+		if Localization.help_language() == "de" and tip_clip != "":
+			Voice.say([tip_clip], false)
 		_owl.visible = true
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
@@ -981,6 +1014,7 @@ func _finish() -> void:
 	msg.theme_type_variation = &"BodyLabel"
 	msg.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	msg.text = Localization.t("ex_done_text", {"n": session.first_try_correct, "total": session.main_count})
+	Voice.say(["ex_done_perfect" if session.first_try_correct >= session.main_count else "ex_done"], false)
 	if session.tasks.size() > session.main_count:
 		msg.text += "\n" + tr("ex_done_repeat")
 	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

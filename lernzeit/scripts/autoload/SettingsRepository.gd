@@ -15,7 +15,7 @@ const GENERAL_DEFAULTS := {
 	"volume": 65,              # 0..100, step 5
 	"animations": true,
 	"text_size": "normal",     # normal | large
-	"read_aloud": true,        # stored only – feature not available in v0.1
+	"read_aloud": true,        # German voice-over of the tasks (Voice autoload)
 	"repeat_mistakes": true,   # repeat wrongly solved tasks at the end of an exercise
 	"pause_day": -1,           # local day on which the break reminder was last shown
 }

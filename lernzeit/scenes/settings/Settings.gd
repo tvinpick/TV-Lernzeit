@@ -194,9 +194,11 @@ func _build_learning() -> void:
 	var ra := ToggleSwitch.new()
 	var r := _row("res://assets/icons/Settings_Icon_Voice.png", "set_read_aloud", "set_read_aloud_sub")
 	r.add_control(ra)
-	r.show_later_badge()
-	ra.set_on(false)          # not available in v0.1 – shown off and locked
-	ra.locked = true
+	ra.set_on(SettingsRepository.get_value("read_aloud"))
+	ra.changed.connect(func(on):
+		SettingsRepository.set_value("read_aloud", on)
+		if on:
+			Voice.say(["ex_correct_3"]))     # short sample, so parents hear the voice
 	_row_controls.append([ra])
 	controls["read_aloud"] = ra
 

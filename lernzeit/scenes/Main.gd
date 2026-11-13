@@ -38,8 +38,17 @@ func _ready() -> void:
 	add_child(_toast)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	push("home")
-	if show_splash and AppState.animations_enabled():
+	var splash := show_splash and AppState.animations_enabled()
+	if splash:
 		_splash()
+	_greet(2.0 if splash else 0.4)
+
+
+## "Was möchtest du heute üben?" once after the start (German interface only).
+func _greet(delay: float) -> void:
+	await get_tree().create_timer(delay).timeout
+	if is_inside_tree() and Localization.current == "de" and _stack.size() == 1:
+		Voice.say(["home_prompt"], false)
 
 
 ## Start animation: logo pops in with sparkles, then fades into the home screen.

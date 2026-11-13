@@ -55,6 +55,11 @@ func keys_for(lang: String) -> Array:
 
 
 ## Text in the parents' "Hilfesprache" (tips after mistakes), independent of the menu language.
+## Language of the parents' help texts (tips), "de" or "ru".
+func help_language() -> String:
+	return str(SettingsRepository.get_parent_settings().get("help_language", current))
+
+
 func help(key: String, args: Dictionary = {}) -> String:
 	var lang: String = SettingsRepository.get_parent_settings().get("help_language", current)
 	var tro := TranslationServer.get_translation_object(lang)

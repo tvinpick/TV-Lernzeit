@@ -32,6 +32,8 @@ static func maybe_show(screen: Node, main: Node, delay: float) -> void:
 	if not is_instance_valid(screen) or not screen.is_inside_tree():
 		return
 	Sfx.play("pause")
+	if Localization.current == "de":
+		Voice.say(["pause"])
 	var d := ConfirmDialog.make("pause_title",
 		Localization.t("pause_message", {"n": int(today_seconds() / 60)}), "pause_home", "green", "pause_continue")
 	d.image = preload("res://assets/mascot/owl/Mascot_Owl_Sleep.png")

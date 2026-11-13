@@ -144,3 +144,23 @@ Equals_Blue,Cross_Red}`. Числовая прямая, десятка, поле
 | `Lernzeit_Vergleichen_FHD.zip` | `assets/math/vergleichen_10/` (фон 1920×1080 + 23 элемента UI) | «Vergleichen bis 10»: фон, знак «?» между группами. Макеты (`Reference_Only`) → `references/vergleichen_10/` |
 
 Кнопки ответов в «Сравнении» — общие кнопки математики (единый стиль). Картинка «Melone» — долька арбуза (Wassermelone).
+
+### Озвучка от 13.11 (v0.8.0): `Lernzeit_DE_Nele_198_WAV.zip`
+198 немецких фраз (HeyGen Voice «Nele — Friendly & Natural», подготовлены пользователем по
+`docs/VOICE_PHRASES.md`). Сконвертированы в OGG Vorbis (моно, 44,1 кГц, качество 4) скриптом
+`tools/convert_voice.sh` → `lernzeit/assets/voice/de/` (2,6 МБ вместо 17 МБ WAV); тексты не менялись.
+В архиве нет звуков букв (`sound_*`) и подсказок `tip_de_find`, `tip_de_build`, `tip_equal`,
+`tip_le_word_pic`, `tip_le_pic_word`, `tip_*` с числами — эти места остаются без голоса.
+
+| Что звучит | Когда |
+|---|---|
+| вопрос задания (`*_prompt_*`) | при показе задания; в «Rechne.» — ещё и пример («sieben minus drei») |
+| буква / слово к вопросу | «Finde den Buchstaben … M», «Baue das Wort … Maus»; в «Чтении» слово **не** произносится |
+| `ex_correct*`, `ex_wrong*` | правильный / неправильный ответ (случайный вариант) |
+| слово после ответа | «Das Wort heißt … Apfel» (Anlaute), «Super! … Banane» (слова, чтение) |
+| `tip_*` | подсказка после первой ошибки — только если язык подсказок у родителей немецкий |
+| `ex_streak`, `ex_done`, `ex_done_perfect` | серия правильных, конец занятия |
+| `home_prompt`, `pause` | после запуска и «Пора отдохнуть» — только при немецком интерфейсе |
+
+Выключается в Настройках → Обучение → «Aufgaben vorlesen»; громкость — общий ползунок.
+Произношение (особенно буквы и слоги) автоматически не проверялось — нужно прослушать.

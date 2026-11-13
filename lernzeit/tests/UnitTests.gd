@@ -403,5 +403,44 @@ func _ready() -> void:
 	check(Achievements.LIST.all(func(a): return ResourceLoader.exists(a[3]) and (a[3] as String).contains("badges")), "every achievement has its badge")
 	ProgressRepository.reset_all()
 
+	_test_voice()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
+
+
+func _test_voice() -> void:
+	var missing: Array = []
+	var de: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://localization/de.json"))
+	for k in de:
+		if RegEx.create_from_string("^(sub|add|cnt|cmp|de|le)_prompt_").search(k) and not Voice.has(k):
+			missing.append(k)
+	for n in 21:
+		if not Voice.has(Voice.num(n)):
+			missing.append(Voice.num(n))
+	for l in LetterGenerator.LETTERS_ALL:
+		if not Voice.has(Voice.letter(l)) or not Voice.has(Voice.letter(l.to_lower())):
+			missing.append(Voice.letter(l))
+	for e in LetterGenerator.dictionary() + ReadingGenerator.words():
+		if not Voice.has(Voice.word_from_picture(e["picture"])):
+			missing.append(Voice.word_from_picture(e["picture"]))
+	for c in ["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4", "ex_wrong", "ex_wrong_2",
+			"ex_streak", "ex_done", "ex_done_perfect", "home_prompt", "pause", "plus", "minus", "de_word_is"]:
+		if not Voice.has(c):
+			missing.append(c)
+	for mode in ["de_case", "de_first", "de_missing"]:   # tip_de_find / tip_de_build are not recorded (text only)
+		if not Voice.has("tip_" + mode):
+			missing.append("tip_" + mode)
+	for clip in (load("res://scenes/exercises/MathExercise.gd") as GDScript).get_script_constant_map()["TIP_VOICE"].values():
+		if not Voice.has(clip):
+			missing.append(clip)
+	check(missing.is_empty(), "voice recordings for every prompt, number, letter and word " + str(missing))
+	check(Voice.word_from_picture("res://assets/deutsch/words/Deutsch_L_Loewe.png") == "word_Loewe"
+		and Voice.word_from_picture("res://assets/lesen/words/Lesen_Banane.png") == "word_Banane"
+		and Voice.letter("ä") == "letter_AE", "voice clip names")
+	SettingsRepository.set_value("read_aloud", true)
+	SettingsRepository.set_value("volume", 50)
+	check(Voice.say(["de_prompt_find", "letter_M"]) and Voice.history.back() == "de_prompt_find", "voice says a sentence")
+	check(not Voice.say_all(["de_prompt_find", "letter_nonexistent"]), "incomplete sentence is not said")
+	SettingsRepository.set_value("read_aloud", false)
+	check(not Voice.enabled() and not Voice.say(["ex_correct"]) and not Voice.is_speaking(), "read aloud off → silent")
+	SettingsRepository.set_value("read_aloud", true)
