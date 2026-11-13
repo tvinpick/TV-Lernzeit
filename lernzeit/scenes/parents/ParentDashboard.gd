@@ -177,6 +177,25 @@ func _build_rows() -> void:
 	_row_controls.append(dur.buttons)
 	controls["duration"] = dur
 
+	# Nach der Übungszeit: Pause vorschlagen / keine neue Übung
+	var al := OptionGroup.make([{"value": "remind", "key": "p_after_remind"}, {"value": "stop", "key": "p_after_stop"}],
+		draft["after_limit"], 260)
+	al.changed.connect(func(v): draft["after_limit"] = v)
+	_row("res://assets/icons/Parents_Icon_Duration.png", "p_after", "p_after_sub").add_control(al)
+	_row_controls.append(al.buttons)
+	controls["after_limit"] = al
+
+	# Tagesziel
+	var dg := OptionGroup.make([
+		{"value": 0, "key": "p_goal_off"},
+		{"value": 2, "key": "2", "no_translate": true},
+		{"value": 3, "key": "3", "no_translate": true},
+		{"value": 5, "key": "5", "no_translate": true}], draft["daily_goal"], 120)
+	dg.changed.connect(func(v): draft["daily_goal"] = v)
+	_row("res://assets/icons/Lernzeit_Icon_Target.png", "p_goal", "p_goal_sub").add_control(dg)
+	_row_controls.append(dg.buttons)
+	controls["daily_goal"] = dg
+
 	# Hilfesprache
 	var hl := OptionGroup.make([
 		{"value": "de", "key": "lang_de", "icon": UiSkin.flag("de")},

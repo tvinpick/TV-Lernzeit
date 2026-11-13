@@ -9,6 +9,22 @@ static func local_day(ts: int) -> int:
 	return int(floor((ts + bias * 60) / 86400.0))
 
 
+## Finished exercises today (daily goal stars on Home).
+static func done_today() -> int:
+	var today := local_day(int(Time.get_unix_time_from_system()))
+	var n := 0
+	for r in ProgressRepository.get_records():
+		if r.complete and local_day(r.timestamp) == today:
+			n += 1
+	return n
+
+
+## Parents chose "stop" and today's practice time reached the session length.
+static func locked() -> bool:
+	var p := SettingsRepository.get_parent_settings()
+	return p.get("after_limit", "remind") == "stop" and today_seconds() >= int(p["session_minutes"]) * 60
+
+
 static func today_seconds() -> int:
 	var today := local_day(int(Time.get_unix_time_from_system()))
 	var sum := 0

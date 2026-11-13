@@ -7,6 +7,7 @@ var progress_button: ArtButton
 var continue_button: ArtButton
 var gear: TextureButton
 var review_button: PillButton     ## "Fehler üben": only when earlier mistakes wait
+var goal_box: HBoxContainer       ## daily goal: "Heute ★★☆" (parents choose 2/3/5 or off)
 
 
 func _ready() -> void:
@@ -107,6 +108,15 @@ func _ready() -> void:
 		if r[0] != "":
 			main.push(Curriculum.screen_for(r[0]), {"exercise": r[0], "review": true}))
 
+	goal_box = HBoxContainer.new()
+	goal_box.name = "GoalBox"
+	goal_box.alignment = BoxContainer.ALIGNMENT_END
+	goal_box.add_theme_constant_override("separation", 4)
+	goal_box.position = Vector2(1300, 88)
+	goal_box.size = Vector2(370, 56)
+	goal_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(goal_box)
+
 	var m: Control = cards["mathematik"]
 	var d: Control = cards["deutsch"]
 	var l: Control = cards["lesen"]
@@ -131,6 +141,7 @@ func on_shown() -> void:
 
 
 func _refresh() -> void:
+	_update_goal()
 	var rv := ProgressRepository.review_exercise()
 	review_button.visible = rv[0] != ""
 	review_button.focus_mode = Control.FOCUS_ALL if review_button.visible else Control.FOCUS_NONE
@@ -156,3 +167,44 @@ func _on_card(sid: String) -> void:
 		toast(Localization.t("subject_disabled_toast"))
 		return
 	main.push("subject", {"subject_id": sid})
+
+
+## Stars for today's finished exercises; a small celebration when the goal is reached (once a day).
+func _update_goal() -> void:
+	for c in goal_box.get_children():
+		goal_box.remove_child(c)
+		c.queue_free()
+	var goal: int = SettingsRepository.get_parent_settings().get("daily_goal", 3)
+	goal_box.visible = goal > 0
+	if goal <= 0:
+		return
+	var done := PauseReminder.done_today()
+	var l := Label.new()
+	l.theme_type_variation = &"OnDarkBody"
+	l.text = "goal_today"
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	goal_box.add_child(l)
+	for i in goal:
+		var st := TextureRect.new()
+		st.texture = preload("res://assets/math/shared_ui/Object_Star_Yellow.png")
+		st.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		st.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		st.custom_minimum_size = Vector2(46, 46)
+		st.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		if i >= done:
+			st.modulate = Color(0.35, 0.4, 0.6, 0.55)
+		goal_box.add_child(st)
+	var today := PauseReminder.local_day(int(Time.get_unix_time_from_system()))
+	if done >= goal and int(SettingsRepository.get_value("goal_day")) != today:
+		SettingsRepository.set_value("goal_day", today)
+		_celebrate_goal()
+
+
+func _celebrate_goal() -> void:
+	await get_tree().create_timer(0.5).timeout
+	if not is_inside_tree():
+		return
+	Juice.burst(self, goal_box.get_global_rect().get_center(), 12, 26)
+	Sfx.play("streak")
+	toast(tr("goal_done"))
+	Voice.say(["ex_correct_3"], false)

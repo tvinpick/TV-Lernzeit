@@ -18,6 +18,7 @@ const GENERAL_DEFAULTS := {
 	"read_aloud": true,        # German voice-over of the tasks (Voice autoload)
 	"repeat_mistakes": true,   # repeat wrongly solved tasks at the end of an exercise
 	"pause_day": -1,           # local day on which the break reminder was last shown
+	"goal_day": -1,            # local day on which the daily goal was celebrated
 }
 
 const PARENT_DEFAULTS := {
@@ -27,6 +28,8 @@ const PARENT_DEFAULTS := {
 	"difficulty": "auto",      # easy | auto | hard
 	"session_minutes": 30,     # 15 | 30 | 45 (recommendation only)
 	"help_language": "de",     # de | ru
+	"daily_goal": 3,           # 0 (off) | 2 | 3 | 5 finished exercises per day (stars on Home)
+	"after_limit": "remind",   # remind (suggest a break) | stop (no new exercise today)
 }
 
 const MAX_NAME_LENGTH := 20
@@ -99,7 +102,7 @@ func _validate_general(key: String, v: Variant) -> Variant:
 			return v if v in ["de", "ru"] else d
 		"text_size":
 			return v if v in ["normal", "large"] else d
-		"pause_day":
+		"pause_day", "goal_day":
 			return int(v) if (v is int or v is float) else d
 		"volume":
 			if not (v is int or v is float):
@@ -162,6 +165,10 @@ func _validate_parent(key: String, v: Variant) -> Variant:
 			return int(v) if (v is int or v is float) and int(v) in [15, 30, 45] else d
 		"help_language":
 			return v if v in ["de", "ru"] else d
+		"daily_goal":
+			return int(v) if (v is int or v is float) and int(v) in [0, 2, 3, 5] else d
+		"after_limit":
+			return v if v in ["remind", "stop"] else d
 	return d
 
 

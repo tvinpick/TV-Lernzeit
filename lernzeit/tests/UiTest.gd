@@ -665,6 +665,35 @@ func run_extras() -> void:
 	await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "parents" and focus_name() == "DiagnoseButton", "Back → parents, focus on Diagnose")
 	await run_digit_keys()
+	await run_goal_and_limit()
+
+
+## Daily goal stars on Home and the parents' hard time limit.
+func run_goal_and_limit() -> void:
+	print("Daily goal and time limit")
+	main.pop_to_home()
+	await wait(0.4)
+	var now := int(Time.get_unix_time_from_system())
+	SettingsRepository.save_parent_settings({"daily_goal": 2, "session_minutes": 15, "after_limit": "stop"})
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 9, 10, 400, "add10-v1", now - 60))
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 10, 10, 600, "add10-v1", now - 30))
+	var home = main.current_screen()
+	home.on_shown()
+	await wait(1.0)
+	var lit: int = home.goal_box.get_children().filter(func(c): return c is TextureRect and c.modulate == Color.WHITE).size()
+	check(home.goal_box.visible and lit == 2, "daily goal: 2 of 2 stars (%d)" % lit)
+	check(int(SettingsRepository.get_value("goal_day")) == PauseReminder.local_day(now), "goal celebrated once today")
+	await shot("home_daily_goal")
+	check(PauseReminder.locked(), "16 min today with 15 min and 'stop' → locked")
+	main.push("exercise", {"exercise": "add10"})
+	await wait(0.4)
+	check(main.current_id() == "home" and main.top_dialog() != null, "no new exercise: 'Für heute ist Schluss' instead")
+	await shot("limit_dialog")
+	check(main.top_dialog().cancel_button.visible == false, "information dialog has a single OK button")
+	await key(KEY_ENTER, 0.4)
+	check(main.top_dialog() == null, "OK closes it")
+	SettingsRepository.save_parent_settings({"after_limit": "remind", "daily_goal": 3})
+	check(not PauseReminder.locked(), "'Pause vorschlagen' → exercises open again")
 
 
 ## Number answers with the remote's digit keys (one and two digits, unknown number ignored).

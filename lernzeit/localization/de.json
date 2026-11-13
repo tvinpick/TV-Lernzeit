@@ -347,5 +347,17 @@
  "diag_open": "Ladezeit der letzten Bildschirme",
  "diag_data": "Gespeicherte Übungen",
  "home_review": "Fehler üben ({n})",
- "ex_show": "So geht's: {t}"
+ "ex_show": "So geht's: {t}",
+ "limit_title": "Für heute ist Schluss!",
+ "limit_message": "Du hast heute schon {n} Minuten geübt. Super! Morgen geht es weiter.",
+ "ok": "OK",
+ "p_after": "Nach der Übungszeit",
+ "p_after_sub": "Was passiert, wenn die Sitzungsdauer heute erreicht ist.",
+ "p_after_remind": "Pause vorschlagen",
+ "p_after_stop": "Keine neue Übung",
+ "p_goal": "Tagesziel",
+ "p_goal_sub": "So viele Übungen am Tag – Sterne auf dem Startbildschirm.",
+ "p_goal_off": "Aus",
+ "goal_today": "Heute",
+ "goal_done": "Tagesziel geschafft! Toll!"
 }

@@ -110,6 +110,8 @@ func _full_rect_control() -> Control:
 # ------------------------------------------------------------- navigation ---
 
 func push(id: String, p: Dictionary = {}) -> BaseScreen:
+	if _limit_reached(id):
+		return _top()["screen"]
 	var cur := _top()
 	if not cur.is_empty():
 		cur["focus"] = get_viewport().gui_get_focus_owner()
@@ -118,6 +120,8 @@ func push(id: String, p: Dictionary = {}) -> BaseScreen:
 
 
 func replace(id: String, p: Dictionary = {}) -> BaseScreen:
+	if _limit_reached(id):
+		return _top()["screen"]
 	var cur := _top()
 	if not cur.is_empty():
 		_stack.pop_back()
@@ -140,6 +144,18 @@ func pop() -> void:
 		f.grab_focus.call_deferred()
 	else:
 		_focus_default()
+
+
+## Parents' time limit with "stop": no new exercise today, a friendly note instead.
+func _limit_reached(id: String) -> bool:
+	if not id.begins_with("exercise") or not PauseReminder.locked():
+		return false
+	Sfx.play("pause")
+	var d := ConfirmDialog.make("limit_title", Localization.t("limit_message",
+		{"n": SettingsRepository.get_parent_settings()["session_minutes"]}), "ok", "green", "")
+	d.image = preload("res://assets/mascot/owl/Mascot_Owl_Sleep.png")
+	show_dialog(d)
+	return true
 
 
 ## Closes every screen above Home (e.g. "Pause machen").

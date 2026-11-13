@@ -82,7 +82,12 @@ func _ready() -> void:
 	cancel_button.pressed.connect(cancel)
 	confirm_button.pressed.connect(_on_confirm)
 	_return_focus = get_viewport().gui_get_focus_owner()
-	cancel_button.grab_focus.call_deferred()
+	if cancel_key == "":                 # information only: one button
+		cancel_button.visible = false
+		FocusManager.set_neighbors(confirm_button)
+		confirm_button.grab_focus.call_deferred()
+	else:
+		cancel_button.grab_focus.call_deferred()
 	if AppState.animations_enabled():
 		modulate.a = 0.0
 		create_tween().tween_property(self, "modulate:a", 1.0, 0.15)
