@@ -91,4 +91,14 @@ func duration_seconds() -> int:
 
 ## Record for the progress repository (only answered main tasks count).
 func to_record() -> ProgressRecord:
-	return ProgressRecord.create(subject_id, topic_id, first_try_correct, solved, duration_seconds(), version)
+	return ProgressRecord.create(subject_id, topic_id, first_try_correct, solved, duration_seconds(), version,
+		-1, 1 if solved >= main_count else 0)
+
+
+## Main tasks that were answered, with "right at the first try" – for the task history.
+func task_results() -> Array:
+	var out: Array = []
+	for i in mini(index if index < main_count else main_count, main_count):
+		var t: Dictionary = tasks[i]
+		out.append({"task": t, "ok": not _wrong_first.has(t)})
+	return out

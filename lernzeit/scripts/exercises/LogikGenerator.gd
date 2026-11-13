@@ -42,6 +42,23 @@ func modes() -> Array:
 	return allowed_modes
 
 
+## Few picture stories / things yet: shorter sessions (at least 6) without repeats.
+func session_size(default_count: int = 10) -> int:
+	var n := 0
+	for m in allowed_modes:
+		match m:
+			"lg_muster":
+				return default_count
+			"lg_formen":
+				var things := 0
+				for s in FORM_OBJECTS:
+					things += (FORM_OBJECTS[s] as Array).size()
+				n += things * (1 if difficulty == "easy" else 2)
+			"lg_reihenfolge":
+				n += STORIES.size() * (2 if difficulty == "easy" else 3)
+	return clampi(n, 6, default_count)
+
+
 func _pick(arr: Array) -> Variant:
 	return arr[rng.randi_range(0, arr.size() - 1)]
 

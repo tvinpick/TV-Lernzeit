@@ -32,7 +32,7 @@ static func stats() -> Dictionary:
 		days["%d-%d-%d" % [d.year, d.month, d.day]] = true
 		topics[r.subject_id + "/" + r.topic_id] = true
 		tasks += r.total_count
-		if r.total_count >= 10 and r.correct_count == r.total_count:
+		if r.complete and r.correct_count == r.total_count:
 			perfect += 1
 		if r.exercise_version.contains("20"):
 			math20 = true
@@ -77,7 +77,7 @@ static func title_key(id: String) -> String:
 
 
 # ----------------------------------------------------------------- stickers ---
-## Sticker album: one sticker for every finished exercise (10 tasks), 20 in total.
+## Sticker album: one sticker for every finished exercise, 20 in total.
 const STICKER_COUNT := 20
 
 
@@ -88,6 +88,6 @@ static func sticker_path(i: int) -> String:
 static func stickers_earned() -> int:
 	var n := 0
 	for r in ProgressRepository.get_records():
-		if r.total_count >= 10:
+		if r.complete:
 			n += 1
 	return mini(n, STICKER_COUNT)

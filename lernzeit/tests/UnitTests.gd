@@ -405,6 +405,7 @@ func _ready() -> void:
 
 	_test_voice()
 	_test_logik()
+	_test_task_history()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -474,3 +475,46 @@ func _test_logik() -> void:
 	check(not LogikGenerator.validate(t2), "Logik: wrong continuation rejected")
 	check(Curriculum.exercise_for("logik", "muster") == "lg_muster" and Curriculum.screen_for("lg_formen") == "exercise_de"
 		and Curriculum.subject_of("lg_reihenfolge") == "logik", "Logik topics are playable")
+
+
+func _test_task_history() -> void:
+	ProgressRepository.reset_all()
+	var g := SubtractionGenerator.new(11)
+	var s1: Array = g.make_session(10)
+	var keys1: Array = s1.map(func(t): return t["key"])
+	var s2: Array = SubtractionGenerator.new(12).make_session(10, keys1)
+	var overlap := s2.filter(func(t): return t["key"] in keys1).size()
+	check(overlap == 0, "next session avoids the tasks of the last one (%d repeated)" % overlap)
+	# a mistake comes back in the next session, with whole numbers (JSON round trip)
+	var sess := ExerciseSession.new("mathematik", "subtraktion", "sub10-v1", s1, false)
+	sess.submit(-99)                       # wrong first try on task 0
+	sess.submit(s1[0]["answer"])
+	sess.advance()
+	sess.submit(s1[1]["answer"])
+	sess.advance()
+	ProgressRepository.remember_session("sub10", sess.task_results())
+	ProgressRepository.load_records()      # from disk
+	var again: Array = ProgressRepository.mistake_tasks("sub10")
+	check(again.size() == 1 and again[0]["key"] == s1[0]["key"] and again[0]["answer"] is int, "mistake stored and restored with int numbers")
+	var s3: Array = SubtractionGenerator.new(13).make_session(10, ProgressRepository.recent_task_keys("sub10"), again)
+	check(s3.filter(func(t): return t["key"] == s1[0]["key"] and t.get("again", false)).size() == 1, "earlier mistake asked again")
+	check(ProgressRepository.recent_task_keys("sub10").size() == 2, "recent keys stored")
+	# two right answers later → removed from the mistakes
+	for k in 2:
+		ProgressRepository.remember_session("sub10", [{"task": again[0], "ok": true}])
+	check(ProgressRepository.mistake_tasks("sub10").is_empty(), "mistake forgotten after two right answers")
+	# small Logik topics: shorter sessions without repeats
+	var lg := LogikGenerator.new(3)
+	lg.allowed_modes = ["lg_reihenfolge"]
+	lg.difficulty = "easy"
+	var n := lg.session_size(10)
+	var ls: Array = lg.make_session(n)
+	var u := {}
+	for t in ls:
+		u[t["key"]] = true
+	check(n == 6 and u.size() == 6, "Reihenfolge (easy): 6 different tasks per session")
+	var rec := sess.to_record()
+	check(not rec.complete and ProgressRecord.create("logik", "reihenfolge", 6, 6, 60, "logik-v1", -1, 1).complete
+		and ProgressRecord.from_dict({"subject_id": "m", "topic_id": "t", "total_count": 10, "correct_count": 9}).complete,
+		"finished flag: short Logik sessions count, unfinished do not, old records with 10 tasks count")
+	ProgressRepository.reset_all()

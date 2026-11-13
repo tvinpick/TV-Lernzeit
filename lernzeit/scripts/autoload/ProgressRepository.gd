@@ -27,7 +27,13 @@ func _path() -> String:
 func load_records() -> void:
 	_records.clear()
 	_letters.clear()
+	_history.clear()
 	var d := SafeFile.read_json_dict(_path())
+	var hd = d.get("history", {})
+	if hd is Dictionary:
+		for ex in hd:
+			if ex is String and hd[ex] is Dictionary:
+				_history[ex] = hd[ex]
 	var ld = d.get("letters", {})
 	if ld is Dictionary:
 		for k in ld:
@@ -46,7 +52,76 @@ func _save() -> bool:
 	var arr := []
 	for r in _records:
 		arr.append(r.to_dict())
-	return SafeFile.write_text(_path(), JSON.stringify({"schema": SCHEMA, "records": arr, "letters": _letters}, "\t"))
+	return SafeFile.write_text(_path(), JSON.stringify({"schema": SCHEMA, "records": arr, "letters": _letters, "history": _history}, "\t"))
+
+
+# ------------------------------------------------------------ task history ---
+## Per exercise: keys of the last tasks (the generator avoids them) and tasks that
+## were wrong at the first try (asked again in later sessions until solved twice).
+
+const HISTORY_KEYS := 40
+const HISTORY_MISTAKES := 12
+var _history := {}
+
+
+func recent_task_keys(exercise_id: String) -> Array:
+	var h: Dictionary = _history.get(exercise_id, {})
+	return (h.get("recent", []) as Array).duplicate() if h.get("recent") is Array else []
+
+
+## Stored tasks with mistakes, oldest first (numbers restored to int).
+func mistake_tasks(exercise_id: String) -> Array:
+	var h: Dictionary = _history.get(exercise_id, {})
+	var out: Array = []
+	for m in (h.get("mistakes", []) if h.get("mistakes") is Array else []):
+		if m is Dictionary and m.get("task") is Dictionary:
+			out.append(_intify(m["task"]))
+	return out
+
+
+## results: [{task, ok}] from ExerciseSession.task_results().
+func remember_session(exercise_id: String, results: Array) -> void:
+	if results.is_empty():
+		return
+	var h: Dictionary = _history.get(exercise_id, {})
+	var recent: Array = h.get("recent", []) if h.get("recent") is Array else []
+	var mistakes: Array = h.get("mistakes", []) if h.get("mistakes") is Array else []
+	for r in results:
+		var t: Dictionary = (r["task"] as Dictionary).duplicate(true)
+		t.erase("repeat")
+		var key := str(t.get("key", ""))
+		recent.erase(key)
+		recent.append(key)
+		var found := -1
+		for i in mistakes.size():
+			if str((mistakes[i] as Dictionary).get("task", {}).get("key", "")) == key:
+				found = i
+		if not r["ok"]:
+			if found >= 0:
+				mistakes.remove_at(found)
+			mistakes.append({"task": t, "left": 2})          # must be right twice more
+		elif found >= 0:
+			mistakes[found]["left"] = int(mistakes[found].get("left", 1)) - 1
+			if int(mistakes[found]["left"]) <= 0:
+				mistakes.remove_at(found)
+	h["recent"] = recent.slice(maxi(0, recent.size() - HISTORY_KEYS))
+	h["mistakes"] = mistakes.slice(maxi(0, mistakes.size() - HISTORY_MISTAKES))
+	_history[exercise_id] = h
+	_save()
+
+
+## JSON turns every number into a float; tasks need whole numbers back as int.
+static func _intify(v: Variant) -> Variant:
+	if v is float and v == floorf(v):
+		return int(v)
+	if v is Array:
+		return (v as Array).map(func(x): return _intify(x))
+	if v is Dictionary:
+		var d := {}
+		for k in v:
+			d[k] = _intify(v[k])
+		return d
+	return v
 
 
 func add_record(r: ProgressRecord) -> void:
@@ -73,6 +148,7 @@ func reset_all() -> int:
 	var n := _records.size()
 	_records.clear()
 	_letters.clear()
+	_history.clear()
 	_save()
 	progress_changed.emit()
 	return n

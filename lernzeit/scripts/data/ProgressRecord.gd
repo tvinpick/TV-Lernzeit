@@ -10,10 +10,11 @@ var correct_count: int = 0
 var total_count: int = 0
 var duration_seconds: int = 0
 var exercise_version: String = ""
+var complete := false             ## the whole session was finished (sticker, "perfect" badge)
 
 
 static func create(p_subject: String, p_topic: String, p_correct: int, p_total: int,
-		p_duration: int, p_version: String, p_timestamp: int = -1) -> ProgressRecord:
+		p_duration: int, p_version: String, p_timestamp: int = -1, p_complete: int = -1) -> ProgressRecord:
 	var r := ProgressRecord.new()
 	r.subject_id = p_subject
 	r.topic_id = p_topic
@@ -22,6 +23,7 @@ static func create(p_subject: String, p_topic: String, p_correct: int, p_total: 
 	r.duration_seconds = maxi(0, p_duration)
 	r.exercise_version = p_version
 	r.timestamp = p_timestamp if p_timestamp >= 0 else int(Time.get_unix_time_from_system())
+	r.complete = r.total_count >= 10 if p_complete < 0 else p_complete == 1
 	return r
 
 
@@ -30,6 +32,7 @@ func to_dict() -> Dictionary:
 		"subject_id": subject_id, "topic_id": topic_id, "timestamp": timestamp,
 		"correct_count": correct_count, "total_count": total_count,
 		"duration_seconds": duration_seconds, "exercise_version": exercise_version,
+		"complete": complete,
 	}
 
 
@@ -44,4 +47,5 @@ static func from_dict(d: Dictionary) -> ProgressRecord:
 	r.total_count = maxi(r.correct_count, int(d.get("total_count", 0)))
 	r.duration_seconds = maxi(0, int(d.get("duration_seconds", 0)))
 	r.exercise_version = str(d.get("exercise_version", ""))
+	r.complete = bool(d.get("complete", r.total_count >= 10))   # records before 0.9.1: 10 tasks = finished
 	return r

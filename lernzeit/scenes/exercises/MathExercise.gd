@@ -81,7 +81,8 @@ func _ready() -> void:
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
 	session = ExerciseSession.new("mathematik", config["topic"], config["version"],
-		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
+		generator.make_session(generator.session_size(10), ProgressRepository.recent_task_keys(exercise_id),
+			ProgressRepository.mistake_tasks(exercise_id)), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_header()
 	_build_body()
@@ -957,6 +958,7 @@ func _show_new_achievements() -> void:
 func _save() -> void:
 	if session.solved > 0 and not has_meta("saved"):
 		set_meta("saved", true)
+		ProgressRepository.remember_session(exercise_id, session.task_results())
 		ProgressRepository.add_record(session.to_record())
 
 

@@ -7,7 +7,7 @@ Lernzeit — отдельное приложение для добровольн
 ведут на экран «Noch keine Übungen verfügbar / Упражнения пока недоступны».
 
 - Движок: Godot 4.7.2 (stable), GDScript, рендерер Compatibility, без сторонних плагинов.
-- Пакет: `app.lernzeit.tv`, versionName `0.9.0`, versionCode `16`.
+- Пакет: `app.lernzeit.tv`, versionName `0.9.1`, versionCode `17`.
 - Без интернета, аккаунтов, рекламы и облака. Сетевых разрешений в APK нет.
 
 ## Что в репозитории

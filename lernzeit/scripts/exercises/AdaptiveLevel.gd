@@ -45,5 +45,15 @@ func record(first_try: bool) -> bool:
 
 ## Regenerates the main tasks after the current one with the generator's new level.
 static func regenerate(session: ExerciseSession, generator) -> void:
+	var used := {}
+	for i in session.main_count:
+		used[session.tasks[i].get("key", "")] = true
 	for i in range(session.index + 1, session.main_count):
-		session.tasks[i] = generator.make_task(session.tasks[i]["mode"])
+		if session.tasks[i].get("again", false):
+			continue                    # earlier mistakes stay in the session
+		for attempt in 30:              # new level, but no task twice in one session
+			var t: Dictionary = generator.make_task(session.tasks[i]["mode"])
+			if not used.has(t["key"]) or attempt == 29:
+				used[t["key"]] = true
+				session.tasks[i] = t
+				break

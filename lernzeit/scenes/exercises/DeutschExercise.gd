@@ -80,7 +80,8 @@ func _ready() -> void:
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
 	adaptive = AdaptiveLevel.new(generator.difficulty)
 	session = ExerciseSession.new(subject, config["topic"], {"lesen": "lesen-v1", "logik": "logik-v1"}.get(subject, "de-letters-v1"),
-		generator.make_session(10), bool(SettingsRepository.get_value("repeat_mistakes")))
+		generator.make_session(generator.session_size(10), ProgressRepository.recent_task_keys(exercise_id),
+			ProgressRepository.mistake_tasks(exercise_id)), bool(SettingsRepository.get_value("repeat_mistakes")))
 	_ach_before = Achievements.unlocked_ids()
 	_build_layout()
 	_stickers_before = Achievements.stickers_earned()
@@ -344,6 +345,7 @@ func _show_task() -> void:
 
 func _update_dots() -> void:
 	for i in 10:
+		_dots.get_child(i).visible = i < session.main_count      # shorter sessions in small topics
 		var tex: Texture2D = DOT["done"] if i < session.solved else (DOT["current"] if i == session.solved and not finished else DOT["pending"])
 		(_dots.get_child(i) as TextureRect).texture = tex
 
@@ -794,6 +796,7 @@ func _show_new_achievements() -> void:
 func _save() -> void:
 	if session.solved > 0 and not has_meta("saved"):
 		set_meta("saved", true)
+		ProgressRepository.remember_session(exercise_id, session.task_results())
 		ProgressRepository.add_record(session.to_record())
 
 

@@ -47,23 +47,57 @@ func is_valid(_t: Dictionary) -> bool:
 
 
 ## `count` tasks: every mode once, the rest random; shuffled; no duplicate tasks.
-func make_session(count: int = 10) -> Array:
+## avoid: task keys of recent sessions (avoided while other tasks are possible);
+## again: earlier tasks with mistakes – up to MAX_AGAIN of them are asked again.
+const MAX_AGAIN := 2
+
+
+func make_session(count: int = 10, avoid: Array = [], again: Array = []) -> Array:
+	var tasks: Array = []
+	var seen := {}
+	for t in again:
+		if tasks.size() >= mini(MAX_AGAIN, count - 1):
+			break
+		if t is Dictionary and t.get("mode", "") in modes() and not seen.has(t.get("key", "")) and is_valid(t):
+			var c: Dictionary = (t as Dictionary).duplicate(true)
+			c["again"] = true
+			tasks.append(c)
+			seen[c["key"]] = true
+	var avoid_set := {}                  # key -> how recent (0 = oldest)
+	for i in avoid.size():
+		avoid_set[avoid[i]] = i
 	var ms: Array = modes().duplicate()
 	while ms.size() < count:
 		ms.append(modes()[rng.randi_range(0, modes().size() - 1)])
 	shuffle(ms)
-	var tasks: Array = []
-	var seen := {}
-	for m in ms.slice(0, count):
+	for m in ms.slice(0, count - tasks.size()):
 		var t := {}
-		for attempt in 40:
+		var fallback := {}
+		var fallback_rank := 1 << 30
+		for attempt in 80:
 			t = make_task(m)
-			if not seen.has(t["key"]):
-				break
+			if seen.has(t["key"]):
+				continue
+			if avoid_set.has(t["key"]):
+				if avoid_set[t["key"]] < fallback_rank:     # the one seen longest ago
+					fallback = t
+					fallback_rank = avoid_set[t["key"]]
+				continue
+			fallback = {}
+			break
+		if not fallback.is_empty():       # only recent tasks are possible: take the oldest of those
+			t = fallback
 		seen[t["key"]] = true
 		assert(is_valid(t), "invalid task %s" % t)
 		tasks.append(t)
+	shuffle(tasks)
 	return tasks
+
+
+## Number of tasks in one session (smaller topics get shorter sessions,
+## so a session does not show the same task twice).
+func session_size(default_count: int = 10) -> int:
+	return default_count
 
 
 ## Answer + near distractors (plus typical mistakes), unique, inside [lo, hi].
