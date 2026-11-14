@@ -166,3 +166,14 @@ V → f, X → ks, Y → ü, Z → ts). В архивах нет подсказ�
 
 Выключается в Настройках → Обучение → «Aufgaben vorlesen»; громкость — общий ползунок.
 Произношение (особенно буквы и слоги) автоматически не проверялось — нужно прослушать.
+
+### Пакеты от 14.11 (v0.13.0)
+| Архив | В проект | Где используется |
+|---|---|---|
+| `Lernzeit_Logik_Kit.zip` | `assets/logik/differences/` (8 пар 760×560), `assets/logik/objects/` (+Schild, Buch, Handy; истории Kuchen, Schmetterling, Schnee; Apfel, Blatt), `data/logik_unterschiede.json` | «Unterschiede finden», «Formen», «Reihenfolgen», «Muster». Фон и UI набора не использованы: Логика остаётся в оранжевой рамке (`tools/make_logik_ui.py`); уже имеющиеся картинки форм/историй не заменялись |
+| `Lernzeit_Lesen_Saetze_Texte.zip` | `assets/lesen/saetze/` (30), `assets/lesen/answers/` (18), `data/lesen_saetze.json`, `data/lesen_texte.json` | «Lesen · Sätze», «Lesen · Texte» |
+| `Lernzeit_Textaufgaben_Kit.zip` | `assets/math/textaufgaben/` (фон 1920×1080 в ETC2, 10 предметов), `data/textaufgaben.json` | «Textaufgaben bis 10» |
+| `Lernzeit_Nele_Voice_Source_Handoff.zip` | 109 записей Nele скачаны по ссылкам из `audio_sources.tsv`, обрезка тишины, громкость −20 LUFS как у части 1, **без** дополнительного замедления 0.9 из скрипта (темп совпадает с частью 1) → `assets/voice/de/*.ogg` | вопросы Логики, фигуры, предложения/тексты (после ответа), текстовые задачи (сразу), 29 слов. 4 слова (Ball, Uhr, Tür, Blume) уже были — оставлены записи части 1 |
+
+Документация и `Reference_Only` наборов → `references/Lernzeit_*`. Новые картинки нарисованы проще прежних
+(плоская векторная графика) — стоит посмотреть на телевизоре.
