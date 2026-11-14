@@ -9,6 +9,7 @@ var gear: TextureButton
 var review_button: PillButton     ## "Fehler üben": only when earlier mistakes wait
 var goal_box: HBoxContainer       ## daily goal: "Heute ★★☆" (parents choose 2/3/5 or off)
 var xp_bar: XpBar                 ## level ("Stufe") and experience
+var game_button: PillButton       ## "Ballon-Spiel": after 15 minutes of practice, once a day
 
 
 func _ready() -> void:
@@ -109,6 +110,15 @@ func _ready() -> void:
 		if r[0] != "":
 			main.push(Curriculum.screen_for(r[0]), {"exercise": r[0], "review": true}))
 
+	game_button = PillButton.make("game_button", "light", preload("res://assets/game/Balloon_Rot.png"), true)
+	game_button.name = "GameButton"
+	game_button.custom_minimum_size = Vector2(0, 76)
+	game_button.position = Vector2(1430, 150)
+	add_child(game_button)
+	game_button.pressed.connect(func():
+		if PauseReminder.game_unlocked():
+			main.push("balloon"))
+
 	xp_bar = XpBar.make(400)
 	xp_bar.name = "XpBar"
 	xp_bar.position = Vector2(110, 58)
@@ -148,6 +158,17 @@ func on_shown() -> void:
 
 
 func _refresh() -> void:
+	var game := PauseReminder.game_unlocked()
+	game_button.visible = game
+	game_button.focus_mode = Control.FOCUS_ALL if game else Control.FOCUS_NONE
+	FocusManager.set_neighbors(game_button, null, null, gear, cards["deutsch"])
+	FocusManager.set_one(cards["deutsch"], SIDE_TOP, game_button if game else gear)
+	FocusManager.set_one(gear, SIDE_BOTTOM, game_button if game else cards["deutsch"])
+	if game and not has_meta("game_told"):
+		set_meta("game_told", true)
+		toast(tr("game_unlocked"))
+		if AppState.animations_enabled():
+			Juice.pop(game_button, 1.25)
 	_update_goal()
 	var rv := ProgressRepository.review_exercise()
 	review_button.visible = rv[0] != ""

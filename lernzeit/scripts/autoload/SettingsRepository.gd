@@ -19,6 +19,7 @@ const GENERAL_DEFAULTS := {
 	"repeat_mistakes": true,   # repeat wrongly solved tasks at the end of an exercise
 	"pause_day": -1,           # local day on which the break reminder was last shown
 	"goal_day": -1,            # local day on which the daily goal was celebrated
+	"game_day": -1,            # local day on which the balloon game was played
 }
 
 const PARENT_DEFAULTS := {
@@ -30,6 +31,7 @@ const PARENT_DEFAULTS := {
 	"help_language": "de",     # de | ru
 	"daily_goal": 3,           # 0 (off) | 2 | 3 | 5 finished exercises per day (stars on Home)
 	"after_limit": "remind",   # remind (suggest a break) | stop (no new exercise today)
+	"reward_game": true,       # balloon game once a day after 15 minutes of practice
 }
 
 const MAX_NAME_LENGTH := 20
@@ -102,7 +104,7 @@ func _validate_general(key: String, v: Variant) -> Variant:
 			return v if v in ["de", "ru"] else d
 		"text_size":
 			return v if v in ["normal", "large"] else d
-		"pause_day", "goal_day":
+		"pause_day", "goal_day", "game_day":
 			return int(v) if (v is int or v is float) else d
 		"volume":
 			if not (v is int or v is float):
@@ -169,6 +171,8 @@ func _validate_parent(key: String, v: Variant) -> Variant:
 			return int(v) if (v is int or v is float) and int(v) in [0, 2, 3, 5] else d
 		"after_limit":
 			return v if v in ["remind", "stop"] else d
+		"reward_game":
+			return v if v is bool else d
 	return d
 
 

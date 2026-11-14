@@ -33,6 +33,8 @@ func _ready() -> void:
 		await run_extras()
 	elif phase == "lerntest":
 		await run_lerntest()
+	elif phase == "game":
+		await run_game()
 	elif phase == "shots4k":
 		await run_4k_shots()
 	else:
@@ -863,3 +865,54 @@ func run_lerntest() -> void:
 	var hist: Label = pd2.find_child("TestSub", true, false)
 	check(hist.text.contains("11/12"), "parents: test history '%s'" % hist.text)
 	await shot("parents_tests")
+
+
+## Balloon game: locked before 15 minutes, unlocked after, played with the remote, once a day.
+func run_game() -> void:
+	print("Ballon-Spiel")
+	var home = main.current_screen()
+	check(not home.game_button.visible and not PauseReminder.game_unlocked(), "no game before practising")
+	ProgressRepository.add_record(ProgressRecord.create("mathematik", "addition", 10, 10, 16 * 60, "add10-v1"))
+	home.on_shown()
+	await wait(0.3)
+	check(home.game_button.visible, "16 minutes today → 'Ballon-Spiel' on Home")
+	await shot("home_game_button")
+	await keys([KEY_RIGHT, KEY_UP])
+	check(focus_name() == "GameButton", "Deutsch ↑ → 'Ballon-Spiel'")
+	await key(KEY_ENTER, 0.5)
+	check(main.current_id() == "balloon", "game opens")
+	var g = main.current_screen()
+	check(focus_name() == "Needle", "the needle has the focus")
+	check(not PauseReminder.game_unlocked(), "playing uses today's game")
+	var lane0: int = g.lane
+	await key(KEY_LEFT, 0.1)
+	check(g.lane == lane0 - 1, "← moves the needle")
+	await key(KEY_RIGHT, 0.1)
+	# wait for balloons, then pop some in the needle's lane
+	var pops := 0
+	for i in 60:
+		await wait(0.12)
+		for b in g.balloons:
+			var y: float = (b["node"] as Control).position.y
+			if y < 880 and y > 100:
+				while g.lane != b["lane"]:
+					await key(KEY_RIGHT if b["lane"] > g.lane else KEY_LEFT, 0.05)
+				var before: int = g.popped
+				await key(KEY_ENTER, 0.05)
+				if g.popped > before:
+					pops += 1
+				break
+		if pops >= 4:
+			break
+	check(pops >= 4 and g.score >= 0, "balloons popped with OK (%d, %d stars)" % [pops, g.score])
+	check(g._target_l.text != "" and (g.target.is_valid_int() or g.target in g.LETTERS), "a number / letter is asked for: " + g._target_l.text)
+	await shot("balloon_game")
+	await wait(float(g._left) + 0.6)
+	check(g.finished and focus_name() == "ResultsBack", "time over: results with 'Zurück'")
+	await shot("balloon_results")
+	await key(KEY_ENTER, 0.5)
+	check(main.current_id() == "home" and not main.current_screen().game_button.visible, "back home, game used for today")
+	SettingsRepository.save_parent_settings({"reward_game": false})
+	SettingsRepository.set_value("game_day", -1)
+	main.current_screen().on_shown()
+	check(not main.current_screen().game_button.visible, "parents can switch the game off")

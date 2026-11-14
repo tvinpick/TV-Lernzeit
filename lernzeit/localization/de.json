@@ -414,5 +414,13 @@
  "tip_ta_minus": "Es gehen welche weg: Zähle nur die ohne Kreuz.",
  "ex_lg_unterschiede_title": "Logik · Unterschiede",
  "lg_prompt_unterschiede": "Finde die Unterschiede!",
- "tip_lg_unterschiede": "Vergleiche Stück für Stück: oben, in der Mitte, unten."
+ "tip_lg_unterschiede": "Vergleiche Stück für Stück: oben, in der Mitte, unten.",
+ "game_button": "Ballon-Spiel",
+ "game_target": "Lass alle Ballons mit {x} platzen!",
+ "game_hint": "← → zielen · OK: Ballon platzen lassen",
+ "game_done": "Super gespielt!",
+ "game_result": "{n} Sterne · {b} Ballons geplatzt",
+ "game_unlocked": "Du hast 15 Minuten geübt – das Ballon-Spiel ist frei!",
+ "p_game": "Ballon-Spiel als Belohnung",
+ "p_game_sub": "Nach 15 Minuten Üben einmal am Tag ein kurzes Spiel (45 Sekunden)."
 }

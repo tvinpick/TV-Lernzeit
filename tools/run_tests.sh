@@ -22,6 +22,7 @@ run restart 1920x1080 res://tests/UiTest.tscn --lz-data-dir="$OUT/d_main" --phas
 run uhd 3840x2160 res://tests/UiTest.tscn --lz-data-dir="$OUT/d_4k" --shots="$OUT/shots_main" --phase=shots4k
 run extras 1920x1080 res://tests/UiTest.tscn --lz-data-dir="$OUT/d_x" --shots="$OUT/shots_main" --phase=extras
 run lerntest 1920x1080 res://tests/UiTest.tscn --lz-data-dir="$OUT/d_t" --shots="$OUT/shots_main" --phase=lerntest
+run game 1920x1080 res://tests/UiTest.tscn --lz-data-dir="$OUT/d_g" --shots="$OUT/shots_main" --phase=game --seconds=12
 for e in count10 add10 sub10 count20 add20 sub20 cmp10 zr20 ta10 de_letters de_anlaute de_woerter de_case le_silben le_woerter le_saetze le_texte lg_muster lg_formen lg_reihenfolge lg_unterschiede; do
   run "ex_$e" 1920x1080 res://tests/UiTest.tscn --lz-data-dir="$OUT/d_$e" --shots="$OUT/shots_ex" --phase=exercise --exercise=$e
 done

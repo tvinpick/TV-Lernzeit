@@ -17,6 +17,7 @@ const SCREENS := {
 	"stickers": "res://scenes/progress/StickerAlbum.tscn",
 	"letters": "res://scenes/parents/LettersOverview.tscn",
 	"diagnostics": "res://scenes/parents/Diagnostics.tscn",
+	"balloon": "res://scenes/game/BalloonGame.tscn",
 }
 
 var _host: Control

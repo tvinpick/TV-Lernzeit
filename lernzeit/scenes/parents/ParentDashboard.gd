@@ -213,6 +213,14 @@ func _build_rows() -> void:
 	_row_controls.append(al.buttons)
 	controls["after_limit"] = al
 
+	# Ballon-Spiel als Belohnung
+	var rg := ToggleSwitch.new()
+	_row("res://assets/game/Balloon_Rot.png", "p_game", "p_game_sub").add_control(rg)
+	rg.set_on(draft["reward_game"])
+	rg.changed.connect(func(on): draft["reward_game"] = on)
+	_row_controls.append([rg])
+	controls["reward_game"] = rg
+
 	# Tagesziel
 	var dg := OptionGroup.make([
 		{"value": 0, "key": "p_goal_off"},

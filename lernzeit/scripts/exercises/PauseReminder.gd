@@ -19,6 +19,16 @@ static func done_today() -> int:
 	return n
 
 
+const GAME_AFTER_SECONDS := 15 * 60
+
+
+## Balloon game: 15 minutes practised today, not played yet today, allowed by the parents.
+static func game_unlocked() -> bool:
+	return bool(SettingsRepository.get_parent_settings().get("reward_game", true)) \
+		and today_seconds() >= GAME_AFTER_SECONDS \
+		and int(SettingsRepository.get_value("game_day")) != local_day(int(Time.get_unix_time_from_system()))
+
+
 ## Parents chose "stop" and today's practice time reached the session length.
 static func locked() -> bool:
 	var p := SettingsRepository.get_parent_settings()
