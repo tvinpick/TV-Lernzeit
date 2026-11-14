@@ -20,6 +20,8 @@ const EXERCISES := {
 		"bg": "res://assets/math/subtraction_10/backgrounds/Lernzeit_Subtraction_10_Background_1080p.png"},
 	"add20": {"title": "ex_add20_title", "topic": "addition", "version": "add20-v1", "max": 20,
 		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
+	"ta10": {"title": "ex_ta_title", "topic": "textaufgaben", "version": "ta10-v1",
+		"bg": "res://assets/math/textaufgaben/backgrounds/Textaufgaben_Background_1920x1080.png"},
 	"zr20": {"title": "ex_zr_title", "topic": "zahlenreihen", "version": "zr20-v1", "max": 20,
 		"bg": "res://assets/math/addition_10/backgrounds/Lernzeit_Addition_10_Background_1080p.png"},
 	"count20": {"title": "ex_count20_title", "topic": "zaehlen", "version": "count20-v1", "max": 20,
@@ -91,6 +93,7 @@ func _ready() -> void:
 		"count": generator = CountingGenerator.new(seed_value)
 		"cmp": generator = CompareGenerator.new(seed_value)
 		"zr": generator = ZahlenreihenGenerator.new(seed_value)
+		"ta": generator = TextaufgabenGenerator.new(seed_value)
 		_: generator = SubtractionGenerator.new(seed_value)
 	generator.max_value = config.get("max", 10)
 	generator.difficulty = SettingsRepository.get_parent_settings()["difficulty"]
@@ -402,6 +405,7 @@ func _show_task() -> void:
 		"cmp_equal": _stage_groups(t["x"], t["y"], t["object"], preload("res://assets/math/vergleichen_10/ui/Compare_Sign_Question.png"))
 		"cmp_sort": _stage_sequence({"sequence": t["numbers"], "hole": -1})
 		"cnt_sequence", "zr_step": _stage_sequence(t)
+		"ta_task": _stage_word_problem(t)
 		"cnt_dice": _stage_dice(t["a"], t["b"], false)
 		"cnt_to_ten": _stage_frame_with_formula(t["n"], [])
 	_link_focus()
@@ -755,6 +759,61 @@ func _stage_count(n: int, tex_key: String) -> void:
 
 
 ## Number tiles in a row (forwards / backwards), one hidden behind "?".
+## Textaufgabe: the text (also read aloud) and the objects: a + b in two groups,
+## or a with the last b crossed out.
+func _stage_word_problem(t: Dictionary) -> void:
+	var v := VBoxContainer.new()
+	v.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.add_theme_constant_override("separation", 14)
+	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(v)
+	var l := Label.new()
+	l.text = t["text"]
+	l.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.add_theme_font_override("font", UiTheme.font(UiTheme.FONT_XBOLD))
+	l.add_theme_font_size_override("font_size", 38)
+	l.add_theme_color_override("font_color", Color("1d2b6b"))
+	l.custom_minimum_size = Vector2(1300, 0)
+	l.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	v.add_child(l)
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 6)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(row)
+	var tex: Texture2D = load(t["picture"])
+	var a: int = t["a"]
+	var b: int = t["b"]
+	var n := a + b if t["op"] == "+" else a
+	var s := 96 if n <= 7 else 78
+	for i in n:
+		if t["op"] == "+" and i == a:
+			var p := TextureRect.new()
+			p.texture = PLUS
+			p.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			p.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			p.custom_minimum_size = Vector2(56, s)
+			row.add_child(p)
+		var o := TextureRect.new()
+		o.texture = tex
+		o.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		o.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		o.custom_minimum_size = Vector2(s, s)
+		o.set_meta("count", true)
+		if t["op"] == "-" and i >= a - b:
+			o.modulate = Color(1, 1, 1, 0.55)
+			var x := TextureRect.new()
+			x.texture = CROSS
+			x.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			x.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			x.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+			o.add_child(x)
+		row.add_child(o)
+
+
 func _stage_sequence(t: Dictionary) -> void:
 	var row := _centered_row(18)
 	var seq: Array = t["sequence"]
@@ -783,6 +842,8 @@ func _stage_sequence(t: Dictionary) -> void:
 ## Reads the question aloud (German voice); equations also read the numbers.
 ## Waits for a "Richtig!" that is still playing.
 func _speak_task(t: Dictionary, interrupt: bool = false) -> void:
+	if t["mode"] == "ta_task" and Voice.say_all(["ta_prompt", str(t["id"])], interrupt):
+		return          # the whole word problem is read aloud
 	if t["mode"] in ["equation", "add_equation"]:
 		if Voice.say_all([t["prompt"], Voice.num(t["a"]), "minus" if t["mode"] == "equation" else "plus",
 				Voice.num(t["b"])], interrupt):
@@ -903,7 +964,7 @@ func _give_help() -> void:
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
 		var key := "empty" if t["mode"] in ["add_to_ten", "cnt_to_ten"] else "count"
-		if t["mode"] in ["objects", "ten_frame", "add_groups", "add_choose", "add_to_ten", "cnt_objects", "cnt_to_ten", "cmp_equal"]:
+		if t["mode"] in ["objects", "ten_frame", "add_groups", "add_choose", "add_to_ten", "cnt_objects", "cnt_to_ten", "cmp_equal", "ta_task"]:
 			Juice.count_overlay(_stage, _find_meta(_stage, key))
 	else:
 		for b in active_buttons():
@@ -927,6 +988,8 @@ static func solution_text(t: Dictionary) -> String:
 	var m: String = t["mode"]
 	if m in ["equation", "objects", "number_line", "ten_frame", "missing"] and t.has("result"):
 		return "%d − %d = %d" % [t["a"], t["b"], t["result"]]
+	if m == "ta_task":
+		return "%d %s %d = %d" % [t["a"], "+" if t["op"] == "+" else "−", t["b"], t["answer"]]
 	if m in ["add_groups", "add_equation", "add_missing", "add_to_ten", "add_dice"] and t.has("sum"):
 		return "%d + %d = %d" % [t["a"], t["b"], t["sum"]]
 	if m in ["cnt_sequence", "zr_step"]:
@@ -959,6 +1022,7 @@ func _tip_text(t: Dictionary) -> String:
 		"cnt_more": return Localization.help("tip_more")
 		"cnt_sequence": return Localization.help("tip_backwards") if t.get("backwards", false) else Localization.help("tip_forwards")
 		"zr_step": return Localization.help("tip_zr")
+		"ta_task": return Localization.help("tip_ta_plus" if t["op"] == "+" else "tip_ta_minus")
 		"cmp_larger": return Localization.help("tip_bigger")
 		"cmp_smaller": return Localization.help("tip_smaller")
 		"cmp_sign": return Localization.help("tip_sign")

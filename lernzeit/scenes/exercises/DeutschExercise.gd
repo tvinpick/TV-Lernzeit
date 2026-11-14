@@ -13,9 +13,12 @@ const EXERCISES := {
 	"de_case": {"title": "ex_de_case_title", "topic": "gross_klein", "modes": ["de_case"]},
 	"le_silben": {"title": "ex_le_silben_title", "topic": "silben", "modes": ["le_syllables"], "subject": "lesen"},
 	"le_woerter": {"title": "ex_le_woerter_title", "topic": "woerter", "modes": ["le_word_pic", "le_pic_word", "le_syllables"], "subject": "lesen"},
+	"le_saetze": {"title": "ex_le_saetze_title", "topic": "saetze", "modes": ["le_satz"], "subject": "lesen"},
+	"le_texte": {"title": "ex_le_texte_title", "topic": "texte", "modes": ["le_text"], "subject": "lesen"},
 	"lg_muster": {"title": "ex_lg_muster_title", "topic": "muster", "modes": ["lg_muster"], "subject": "logik"},
 	"lg_formen": {"title": "ex_lg_formen_title", "topic": "formen", "modes": ["lg_formen"], "subject": "logik"},
 	"lg_reihenfolge": {"title": "ex_lg_reihenfolge_title", "topic": "reihenfolge", "modes": ["lg_reihenfolge"], "subject": "logik"},
+	"lg_unterschiede": {"title": "ex_lg_unterschiede_title", "topic": "unterschiede", "modes": ["lg_unterschiede"], "subject": "logik"},
 }
 const BG := "res://assets/deutsch/backgrounds/Deutsch_Buchstaben_Background_1080p.png"
 var INK := Color("2c1a6e")        ## text colour (dark brown in Logik)
@@ -327,7 +330,7 @@ func _show_task() -> void:
 	_owl.visible = false
 	var t := session.current()
 	_prompt.text = Localization.t(t["prompt"], t.get("args", {}))
-	listen_button.visible = Voice.enabled() and Voice.has(t["prompt"])
+	listen_button.visible = Voice.enabled() and (Voice.has(t["prompt"]) or t["mode"] == "le_text")
 	_speak_task(t)
 	_counter.text = "%d / %d" % [mini(session.solved + 1, session.main_count), session.main_count]
 	_repeat_badge.visible = session.is_repeat()
@@ -346,7 +349,9 @@ func _show_task() -> void:
 	_prompt.add_theme_color_override("font_color", INK)
 	var build := _is_build(t)
 	var pics := _is_pics(t)
-	_letters_row.visible = not build and not pics
+	var diff: bool = t["mode"] == "lg_unterschiede"
+	_diff_cells = []
+	_letters_row.visible = not build and not pics and not diff
 	_tiles_row.visible = build
 	_pics_row.visible = pics
 	if build:
@@ -358,8 +363,15 @@ func _show_task() -> void:
 			if i < tiles.size():
 				tile_buttons[i].setup(tiles[i], "tile")
 	elif pics:
+		var n: int = (t["options"] as Array).size()
+		var scene: bool = t["mode"] in ["le_satz", "le_text"]       # wide scene pictures
 		for i in 4:
-			pic_buttons[i].setup(t["options"][i], t["pictures"][i])
+			pic_buttons[i].visible = i < n
+			pic_buttons[i].custom_minimum_size = Vector2(330, 248) if scene else Vector2(240, 240)
+			if i < n:
+				pic_buttons[i].setup(t["options"][i], t["pictures"][i])
+	elif diff:
+		pass                                 # the grid cells are built with the stage
 	else:
 		for i in 4:
 			letter_buttons[i].word_mode = t["mode"] == "le_pic_word"
@@ -373,8 +385,11 @@ func _show_task() -> void:
 		"le_word_pic": _stage_big_letter(t["word"], 200)
 		"le_pic_word": _stage_picture(t["picture"], 300)
 		"lg_formen": _stage_picture(t["show"], 250)
+		"le_satz": _stage_text(t["text"], 80)
+		"le_text": _stage_text(t["text"], 48)
 		"lg_muster": _stage_pattern(t)
 		"lg_reihenfolge": _stage_story(t)
+		"lg_unterschiede": _stage_differences(t)
 	_link_focus()
 	active_buttons()[0].grab_focus.call_deferred()
 
@@ -389,6 +404,8 @@ func _update_dots() -> void:
 func active_buttons() -> Array:
 	var out: Array = []
 	var t := session.current()
+	if t.get("mode", "") == "lg_unterschiede":
+		return _diff_cells.filter(func(c): return is_instance_valid(c))
 	var src: Array = tile_buttons if _is_build(t) else (pic_buttons if _is_pics(t) else letter_buttons)
 	for b in src:
 		if b.visible and b.state != "used" and b.state != "wrong":
@@ -397,6 +414,9 @@ func active_buttons() -> Array:
 
 
 func _link_focus() -> void:
+	if session.current().get("mode", "") == "lg_unterschiede":
+		_link_header(_diff_cells[0] if not _diff_cells.is_empty() else null)
+		return
 	var btns := active_buttons()
 	FocusManager.link_row(btns)
 	FocusManager.point_all(btns, SIDE_TOP, back_button)
@@ -415,7 +435,8 @@ func _link_header(first: Control) -> void:
 
 ## Tasks answered with the 4 picture buttons.
 func _is_pics(t: Dictionary) -> bool:
-	return t.get("mode", "") == "le_word_pic" or (t.get("mode", "") as String).begins_with("lg_")
+	var m: String = t.get("mode", "")
+	return m in ["le_word_pic", "le_satz", "le_text"] or (m.begins_with("lg_") and m != "lg_unterschiede")
 
 
 func _is_build(t: Dictionary) -> bool:
@@ -505,6 +526,16 @@ func _hole(s: int) -> TextureRect:
 	r.add_child(p)
 	_hole_pic = p
 	return r
+
+
+## Sätze / Texte: the German text to read (wrapped, centred).
+func _stage_text(text: String, size: int) -> void:
+	var l := _letter_label(text, size)
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	l.offset_left = 30
+	l.offset_right = -30
+	_stage.add_child(l)
 
 
 ## Muster: the row of pictures in a panel, then the "?".
@@ -621,6 +652,8 @@ func _speak_task(t: Dictionary, interrupt: bool = false) -> void:
 			clips.append(Voice.letter(t["shown"]))
 		"de_first", "de_missing", "de_build":
 			clips.append(Voice.word_from_picture(t["picture"]))
+		"le_text":
+			clips = ["le_prompt_text"]          # the child reads the story and the question
 	if not Voice.say_all(clips, interrupt) and t["mode"] in ["de_first", "de_missing"]:
 		Voice.say([t["prompt"]], interrupt)
 
@@ -633,6 +666,10 @@ func _speak_solved(t: Dictionary) -> void:
 	if t["mode"] == "de_find" and Voice.say_all(["ex_correct", Voice.letter(t["answer"]), Voice.sound(t["answer"])]):
 		return      # "Richtig! M … mmm"
 	var praise := ["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4"].pick_random() as String
+	if t["mode"] == "le_satz" and Voice.say_all([praise, "satz_" + str(t["id"])]):
+		return      # the sentence is read aloud only after the right answer
+	if t["mode"] == "le_text" and Voice.say_all([praise, "text_" + str(t["id"])]):
+		return
 	if t["mode"] == "lg_formen" and Voice.say_all([praise, "shape_" + str(t["shape"])]):
 		return      # "Super! … Dreieck"
 	if t["mode"] in ["de_missing", "de_build", "le_syllables", "le_word_pic", "le_pic_word"] and Voice.say_all([praise, w]):
@@ -810,6 +847,11 @@ func _mistake() -> void:
 		_owl.visible = true
 		Mascot.appear(_owl)
 		_prompt.add_theme_color_override("font_color", Color("c25e00"))
+	elif t["mode"] == "lg_unterschiede":
+		for c in _diff_cells:
+			if diff_at(c) >= 0:
+				c.grab_focus()                   # the yellow frame jumps onto a difference
+				break
 	else:
 		_show_solution(t)
 		var want: String = _parts(t)[_placed] if _is_build(t) else t["answer"]
@@ -1057,3 +1099,145 @@ func _finish_test() -> void:
 	Sfx.play("streak")
 	Voice.say(["ex_done_perfect" if rec["correct"] >= rec["total"] else "ex_done"], false)
 	back.grab_focus.call_deferred()
+
+
+# ----------------------------------------------------- Unterschiede finden ---
+## Two pictures side by side; a yellow frame moves over the right one in a 5 × 4 grid
+## (arrows), OK marks a difference. 3 found = solved. Boxes come from the kit's JSON.
+
+const DIFF_COLS := 5
+const DIFF_ROWS := 4
+const DIFF_SCALE := 0.84
+var _diff_cells: Array = []
+var _diff_found: Array = []
+var _diff_marks: Array = []          ## [left mark parent, right mark parent]
+var _diff_stars: Array = []
+
+
+func _stage_differences(t: Dictionary) -> void:
+	_diff_found = [false, false, false]
+	_letters_row.visible = false
+	_tiles_row.visible = false
+	_pics_row.visible = false
+	var sz := LogikGenerator.DIFF_SIZE * DIFF_SCALE
+	var box := Control.new()
+	box.position = Vector2(960 - sz.x - 14, 300) - _stage.position
+	box.size = Vector2(sz.x * 2 + 28, sz.y + 70)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_stage.add_child(box)
+	var pics: Array = []
+	for i in 2:
+		var r := TextureRect.new()
+		r.texture = load(t["left"] if i == 0 else t["right"])
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_SCALE
+		r.position = Vector2(i * (sz.x + 28), 0)
+		r.size = sz
+		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		box.add_child(r)
+		pics.append(r)
+	_diff_marks = pics
+	var cw := sz.x / DIFF_COLS
+	var ch := sz.y / DIFF_ROWS
+	for row in DIFF_ROWS:
+		for col in DIFF_COLS:
+			var c := Button.new()
+			c.name = "Cell_%d_%d" % [col, row]
+			c.flat = true
+			c.focus_mode = Control.FOCUS_ALL
+			for st in ["normal", "hover", "pressed", "focus", "disabled"]:
+				c.add_theme_stylebox_override(st, StyleBoxEmpty.new())
+			c.position = Vector2(col * cw, row * ch)
+			c.size = Vector2(cw, ch)
+			c.set_meta("rect", Rect2(col * cw / DIFF_SCALE, row * ch / DIFF_SCALE, cw / DIFF_SCALE, ch / DIFF_SCALE))
+			c.draw.connect(func():
+				if c.has_focus():
+					UiTheme.focus_ring(18).draw(c.get_canvas_item(), Rect2(Vector2(4, 4), c.size - Vector2(8, 8))))
+			c.focus_entered.connect(c.queue_redraw)
+			c.focus_exited.connect(c.queue_redraw)
+			c.pressed.connect(_on_diff_cell.bind(c))
+			pics[1].add_child(c)
+			_diff_cells.append(c)
+	for i in _diff_cells.size():
+		var col := i % DIFF_COLS
+		var row := i / DIFF_COLS
+		FocusManager.set_neighbors(_diff_cells[i],
+			_diff_cells[i - 1] if col > 0 else _diff_cells[i],
+			_diff_cells[i + 1] if col < DIFF_COLS - 1 else _diff_cells[i],
+			_diff_cells[i - DIFF_COLS] if row > 0 else back_button,
+			_diff_cells[i + DIFF_COLS] if row < DIFF_ROWS - 1 else _diff_cells[i])
+	var stars := HBoxContainer.new()
+	stars.alignment = BoxContainer.ALIGNMENT_CENTER
+	stars.add_theme_constant_override("separation", 10)
+	stars.position = Vector2(0, sz.y + 10)
+	stars.size = Vector2(box.size.x, 56)
+	stars.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(stars)
+	_diff_stars = []
+	for i in 3:
+		var s := TextureRect.new()
+		s.texture = preload("res://assets/math/shared_ui/Object_Star_Yellow.png")
+		s.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		s.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		s.custom_minimum_size = Vector2(52, 52)
+		s.modulate = Color(0.45, 0.4, 0.55, 0.45)
+		s.pivot_offset = Vector2(26, 26)
+		stars.add_child(s)
+		_diff_stars.append(s)
+
+
+## Index of the not yet found difference this cell shows (most overlap), or -1.
+func diff_at(cell: Control) -> int:
+	var r: Rect2 = cell.get_meta("rect")
+	var best := -1
+	var best_area := 0.0
+	var t := session.current()
+	for i in 3:
+		if _diff_found[i]:
+			continue
+		var b: Array = t["diffs"][i]
+		var dr := Rect2(b[0], b[1], b[2], b[3])
+		var inter := r.intersection(dr)
+		var area := inter.get_area()
+		if area >= 0.2 * minf(r.get_area(), dr.get_area()) and area > best_area:
+			best = i
+			best_area = area
+	return best
+
+
+func _on_diff_cell(cell: Control) -> void:
+	if _busy or finished:
+		return
+	var i := diff_at(cell)
+	if i < 0:
+		Sfx.play("error")
+		Juice.pop(cell, 0.9)
+		if test_subject == "":
+			session.mark_wrong()
+			_show_feedback(false)
+			Voice.say_random(["ex_wrong", "ex_wrong_2"])
+			_mistake()
+		return
+	_diff_found[i] = true
+	Sfx.play("pop")
+	var b: Array = session.current()["diffs"][i]
+	for pic in _diff_marks:
+		var m := Panel.new()
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color(0, 0, 0, 0)
+		sb.border_color = Color("2fd14a")
+		sb.set_border_width_all(7)
+		sb.set_corner_radius_all(200)
+		m.add_theme_stylebox_override("panel", sb)
+		m.position = Vector2(b[0], b[1]) * DIFF_SCALE - Vector2(8, 8)
+		m.size = Vector2(b[2], b[3]) * DIFF_SCALE + Vector2(16, 16)
+		m.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		m.pivot_offset = m.size / 2.0
+		pic.add_child(m)
+		Juice.pop(m, 1.2)
+	var star: TextureRect = _diff_stars[_diff_found.count(true) - 1]
+	star.modulate = Color.WHITE
+	Juice.pop(star, 1.5)
+	if not _diff_found.has(false):
+		session.submit("done")
+		await _solved(cell.get_global_rect().get_center())

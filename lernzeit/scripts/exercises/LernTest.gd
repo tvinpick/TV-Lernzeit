@@ -8,13 +8,13 @@ extends RefCounted
 
 ## subject -> [[exercise id, topic, mode, count], …]  (12 tasks)
 const PLAN := {
-	"mathematik": [["count20", "zaehlen", "", 2], ["add10", "addition", "", 2], ["add20", "addition", "", 1],
-		["sub10", "subtraktion", "", 2], ["sub20", "subtraktion", "", 1], ["cmp10", "vergleichen", "", 2],
-		["zr20", "zahlenreihen", "zr_step", 2]],
+	"mathematik": [["count20", "zaehlen", "", 1], ["add10", "addition", "", 2], ["add20", "addition", "", 1],
+		["sub10", "subtraktion", "", 2], ["sub20", "subtraktion", "", 1], ["cmp10", "vergleichen", "", 1],
+		["zr20", "zahlenreihen", "zr_step", 2], ["ta10", "textaufgaben", "ta_task", 2]],
 	"deutsch": [["de_letters", "buchstaben", "de_find", 3], ["de_case", "gross_klein", "de_case", 3],
 		["de_anlaute", "anlaute", "de_first", 3], ["de_woerter", "woerter", "de_missing", 2], ["de_woerter", "woerter", "de_build", 1]],
-	"lesen": [["le_silben", "silben", "le_syllables", 4], ["le_woerter", "woerter", "le_word_pic", 4],
-		["le_woerter", "woerter", "le_pic_word", 4]],
+	"lesen": [["le_silben", "silben", "le_syllables", 3], ["le_woerter", "woerter", "le_word_pic", 2],
+		["le_woerter", "woerter", "le_pic_word", 2], ["le_saetze", "saetze", "le_satz", 3], ["le_texte", "texte", "le_text", 2]],
 	"logik": [["lg_muster", "muster", "lg_muster", 4], ["lg_formen", "formen", "lg_formen", 4],
 		["lg_reihenfolge", "reihenfolge", "lg_reihenfolge", 4]],
 }
@@ -43,6 +43,7 @@ static func _generator(ex: String, mode: String, seed_value: int) -> MathGenerat
 			"count": g = CountingGenerator.new(seed_value)
 			"cmp": g = CompareGenerator.new(seed_value)
 			"zr": g = ZahlenreihenGenerator.new(seed_value)
+			"ta": g = TextaufgabenGenerator.new(seed_value)
 			_: g = SubtractionGenerator.new(seed_value)
 		g.max_value = 20 if ex.ends_with("20") else 10
 	if mode != "" and "allowed_modes" in g:

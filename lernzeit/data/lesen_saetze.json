@@ -1,0 +1,154 @@
+{
+ "saetze": [
+  {
+   "id": "s01",
+   "text": "Die Insel ist klein.",
+   "picture": "res://assets/lesen/saetze/Satz_s01.png"
+  },
+  {
+   "id": "s02",
+   "text": "Oma hat eine Tasse.",
+   "picture": "res://assets/lesen/saetze/Satz_s02.png"
+  },
+  {
+   "id": "s03",
+   "text": "Der Ball ist rot.",
+   "picture": "res://assets/lesen/saetze/Satz_s03.png"
+  },
+  {
+   "id": "s04",
+   "text": "Papa sieht das Sofa.",
+   "picture": "res://assets/lesen/saetze/Satz_s04.png"
+  },
+  {
+   "id": "s05",
+   "text": "Die Sonne scheint hell.",
+   "picture": "res://assets/lesen/saetze/Satz_s05.png"
+  },
+  {
+   "id": "s06",
+   "text": "Die Katze ist süß.",
+   "picture": "res://assets/lesen/saetze/Satz_s06.png"
+  },
+  {
+   "id": "s07",
+   "text": "Mama hat eine Tasche.",
+   "picture": "res://assets/lesen/saetze/Satz_s07.png"
+  },
+  {
+   "id": "s08",
+   "text": "Der Bus ist gelb.",
+   "picture": "res://assets/lesen/saetze/Satz_s08.png"
+  },
+  {
+   "id": "s09",
+   "text": "Die Ente schwimmt im See.",
+   "picture": "res://assets/lesen/saetze/Satz_s09.png"
+  },
+  {
+   "id": "s10",
+   "text": "Die Blume ist rosa.",
+   "picture": "res://assets/lesen/saetze/Satz_s10.png"
+  },
+  {
+   "id": "s11",
+   "text": "Die Kuh steht im Gras.",
+   "picture": "res://assets/lesen/saetze/Satz_s11.png"
+  },
+  {
+   "id": "s12",
+   "text": "Der Fisch schwimmt im Wasser.",
+   "picture": "res://assets/lesen/saetze/Satz_s12.png"
+  },
+  {
+   "id": "s13",
+   "text": "Der Mond scheint heute.",
+   "picture": "res://assets/lesen/saetze/Satz_s13.png"
+  },
+  {
+   "id": "s14",
+   "text": "Die Rakete fliegt hoch.",
+   "picture": "res://assets/lesen/saetze/Satz_s14.png"
+  },
+  {
+   "id": "s15",
+   "text": "Die Banane ist gelb.",
+   "picture": "res://assets/lesen/saetze/Satz_s15.png"
+  },
+  {
+   "id": "s16",
+   "text": "Der Igel sieht einen Pilz.",
+   "picture": "res://assets/lesen/saetze/Satz_s16.png"
+  },
+  {
+   "id": "s17",
+   "text": "Das Lama steht im Gras.",
+   "picture": "res://assets/lesen/saetze/Satz_s17.png"
+  },
+  {
+   "id": "s18",
+   "text": "Die Puppe sitzt auf dem Sofa.",
+   "picture": "res://assets/lesen/saetze/Satz_s18.png"
+  },
+  {
+   "id": "s19",
+   "text": "Die Rose ist rot.",
+   "picture": "res://assets/lesen/saetze/Satz_s19.png"
+  },
+  {
+   "id": "s20",
+   "text": "Das Auto fährt schnell.",
+   "picture": "res://assets/lesen/saetze/Satz_s20.png"
+  },
+  {
+   "id": "s21",
+   "text": "Der Wal schwimmt im Meer.",
+   "picture": "res://assets/lesen/saetze/Satz_s21.png"
+  },
+  {
+   "id": "s22",
+   "text": "Der Uhu sitzt auf dem Ast.",
+   "picture": "res://assets/lesen/saetze/Satz_s22.png"
+  },
+  {
+   "id": "s23",
+   "text": "Opa hat einen Hut.",
+   "picture": "res://assets/lesen/saetze/Satz_s23.png"
+  },
+  {
+   "id": "s24",
+   "text": "Der Esel sieht eine Tasche.",
+   "picture": "res://assets/lesen/saetze/Satz_s24.png"
+  },
+  {
+   "id": "s25",
+   "text": "Die Tomate ist rot.",
+   "picture": "res://assets/lesen/saetze/Satz_s25.png"
+  },
+  {
+   "id": "s26",
+   "text": "Die Ameise ist klein.",
+   "picture": "res://assets/lesen/saetze/Satz_s26.png"
+  },
+  {
+   "id": "s27",
+   "text": "Das Nest liegt im Baum.",
+   "picture": "res://assets/lesen/saetze/Satz_s27.png"
+  },
+  {
+   "id": "s28",
+   "text": "Die Uhr hängt an der Wand.",
+   "picture": "res://assets/lesen/saetze/Satz_s28.png"
+  },
+  {
+   "id": "s29",
+   "text": "Die Gans steht am See.",
+   "picture": "res://assets/lesen/saetze/Satz_s29.png"
+  },
+  {
+   "id": "s30",
+   "text": "Der Löwe ist groß.",
+   "picture": "res://assets/lesen/saetze/Satz_s30.png"
+  }
+ ]
+}

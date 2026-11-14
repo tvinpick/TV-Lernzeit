@@ -148,17 +148,23 @@ func run_main() -> void:
 	var cont: Button = main.current_screen().continue_button
 	check(cont.disabled and cont.focus_mode == Control.FOCUS_NONE, "T10 'Weiter üben' disabled")
 
-	print("Subject → topic → not available → back (focus restore)")
+	print("Subject → topic → exercise → back (focus restore)")
 	await key(KEY_ENTER, 0.4)
 	check(main.current_id() == "subject", "OK on Lesen opens subject menu")
 	check(focus_name() == "Topic_silben", "first topic focused")
 	await shot("02_subject_lesen_de")
-	await key(KEY_DOWN); await key(KEY_DOWN); check(focus_name() == "Topic_saetze", "Down ×2 → Sätze (no exercise yet)")
-	await key(KEY_ENTER, 0.4)
-	check(main.current_id() == "unavailable", "topic without levels → not-available screen")
-	await shot("03_unavailable_de")
+	await key(KEY_DOWN); await key(KEY_DOWN); check(focus_name() == "Topic_saetze", "Down ×2 → Sätze")
+	await key(KEY_ENTER, 0.6)
+	check(main.current_id() == "exercise_de" and main.current_screen().exercise_id == "le_saetze", "Sätze opens its exercise")
+	await shot("03_lesen_saetze_de")
 	await key(KEY_ESCAPE, 0.4)
 	check(main.current_id() == "subject" and focus_name() == "Topic_saetze", "Back → subject, focus restored")
+	var all_playable := true
+	for sid in Curriculum.SUBJECT_IDS:
+		for tp in Curriculum.topics(sid):
+			for lv in (tp["levels"] if not (tp["levels"] as Array).is_empty() else [0]):
+				all_playable = all_playable and Curriculum.exercise_for(sid, tp["id"], lv) != ""
+	check(all_playable, "every topic and level has an exercise (no 'not available' left)")
 	await android_back()
 	check(main.current_id() == "home" and focus_name() == "Card_lesen", "Android Back → Home, focus on Lesen")
 
@@ -176,10 +182,8 @@ func run_main() -> void:
 	check(focus_name() == "Topic_vergleichen", "Down ×3 → Vergleichen")
 	await key(KEY_RIGHT); check(focus_name() == "Topic_vergleichen", "no levels → Right stays")
 	await key(KEY_DOWN); await key(KEY_DOWN); check(focus_name() == "Topic_textaufgaben", "Down ×2 → Textaufgaben")
-	await key(KEY_ENTER, 0.4)
-	check(main.current_id() == "unavailable", "Textaufgaben (no exercise yet) → not-available screen")
-	var crumb: Label = main.current_screen()._crumb
-	check(crumb.text == "Mathematik › Textaufgaben", "breadcrumb: " + crumb.text)
+	await key(KEY_ENTER, 0.6)
+	check(main.current_id() == "exercise" and main.current_screen().exercise_id == "ta10", "Textaufgaben opens its exercise")
 	await key(KEY_ESCAPE, 0.4); check(focus_name() == "Topic_textaufgaben", "Back → topic focus restored")
 	await key(KEY_ESCAPE, 0.4); check(main.current_id() == "home" and focus_name() == "Card_mathematik", "Back → Home")
 
@@ -416,12 +420,13 @@ func run_exercise() -> void:
 	var topic: String = {"sub10": "subtraktion", "add10": "addition", "count10": "zaehlen",
 		"sub20": "subtraktion", "add20": "addition", "count20": "zaehlen",
 		"de_letters": "buchstaben", "de_anlaute": "anlaute", "de_woerter": "woerter", "de_case": "gross_klein",
-		"cmp10": "vergleichen", "zr20": "zahlenreihen", "le_silben": "silben", "le_woerter": "woerter",
+		"cmp10": "vergleichen", "zr20": "zahlenreihen", "ta10": "textaufgaben", "le_silben": "silben", "le_woerter": "woerter",
+		"le_saetze": "saetze", "le_texte": "texte", "lg_unterschiede": "unterschiede",
 		"lg_muster": "muster", "lg_formen": "formen", "lg_reihenfolge": "reihenfolge"}[exercise]
 	var german := exercise.begins_with("de_") or exercise.begins_with("le_") or exercise.begins_with("lg_")
 	var screen_id := "exercise_de" if german else "exercise"
 	var subject := Curriculum.subject_of(exercise)
-	var no_levels := german or exercise in ["cmp10", "zr20"]
+	var no_levels := german or exercise in ["cmp10", "zr20", "ta10"]
 	print("Exercise %s – full session with the remote" % exercise)
 	if subject == "deutsch":
 		await key(KEY_RIGHT)
@@ -432,7 +437,7 @@ func run_exercise() -> void:
 	await keys([KEY_ENTER])
 	await wait(0.4)
 	var order: Array = {"deutsch": ["buchstaben", "anlaute", "woerter", "gross_klein"], "lesen": ["silben", "woerter", "saetze", "texte"],
-		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen", "zahlenreihen"],
+		"mathematik": ["zaehlen", "addition", "subtraktion", "vergleichen", "zahlenreihen", "textaufgaben"],
 		"logik": ["muster", "formen", "unterschiede", "reihenfolge"]}[subject]
 	for i in order.find(topic):
 		await key(KEY_DOWN)
@@ -446,7 +451,7 @@ func run_exercise() -> void:
 	await key(KEY_ENTER, 0.6)
 	check(main.current_id() == screen_id and main.current_screen().exercise_id == exercise, "topic opens the exercise")
 	var ex = main.current_screen()
-	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0"], "first answer focused")
+	check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0", "Cell_0_0"], "first answer focused")
 	var first_prompt := Voice.clip_name(ex.current_task()["prompt"])
 	check(not Voice.has(first_prompt) or Voice.history.back() == first_prompt or (Voice._queue.size() > 0 and Voice._queue[0] == first_prompt),
 		"first question read aloud: " + first_prompt)
@@ -457,9 +462,9 @@ func run_exercise() -> void:
 		await key(KEY_ENTER, 0.3)
 		check(Voice.history.size() > n_before and Voice.history[n_before] == first_prompt, "'Anhören' reads the question again")
 		await key(KEY_DOWN)
-		check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0"], "Down from 'Anhören' → first answer")
+		check(focus_name() in ["Answer_0", "Picture_0", "Letter_0", "Tile_0", "Pic_0", "Cell_0_0"], "Down from 'Anhören' → first answer")
 	else:
-		check(not ex.listen_button.visible, "no 'Anhören' without a recording")
+		check(not ex.listen_button.visible or ex.current_task()["mode"] == "le_text", "no 'Anhören' without a recording")
 	var shot_modes := {}
 	var guard := 0
 	var made_mistake := false
@@ -471,6 +476,32 @@ func run_exercise() -> void:
 		if not shot_modes.has(t["mode"]):
 			shot_modes[t["mode"]] = true
 			await shot("%s_%02d_%s" % [exercise, shot_modes.size(), t["mode"]])
+		if t["mode"] == "lg_unterschiede":
+			var cells: Array = ex.active_buttons()
+			if not made_mistake:          # one cell without a difference first
+				made_mistake = true
+				for c in cells:
+					if ex.diff_at(c) < 0:
+						c.grab_focus()
+						break
+				await key(KEY_ENTER, 0.4)
+				check(ex.session.was_wrong_this_task() and ex._diff_found.count(true) == 0, "empty spot: a mistake, nothing found")
+				await wait(1.3)
+				await shot(exercise + "_tip")
+			check(focus_name().begins_with("Cell_"), "the frame is on the picture grid (%s)" % focus_name())
+			await key(KEY_RIGHT); await key(KEY_DOWN)
+			check(focus_name().begins_with("Cell_"), "arrows move the frame over the picture (%s)" % focus_name())
+			for k in 3:
+				for c in ex.active_buttons():
+					if ex.diff_at(c) >= 0:
+						c.grab_focus()
+						break
+				await key(KEY_ENTER, 0.35)
+				if k == 0:
+					await shot(exercise + "_found_one")
+			check(ex.session.solved >= 1, "3 differences found → solved")
+			await wait_next_task(ex, t)
+			continue
 		if t["mode"] in ["de_build", "le_syllables"]:
 			var w: String = t["word"]
 			var parts: Array = ex._parts(t)
@@ -570,7 +601,15 @@ func run_exercise() -> void:
 	ex = main.current_screen()
 	for i in 2:
 		var ct: Dictionary = ex.current_task()
-		if ct["mode"] in ["de_build", "le_syllables"]:
+		if ct["mode"] == "lg_unterschiede":
+			for k in 3:
+				for c in ex.active_buttons():
+					if ex.diff_at(c) >= 0:
+						c.grab_focus()
+						break
+				await key(KEY_ENTER, 0.3)
+			await wait_next_task(ex, ct)
+		elif ct["mode"] in ["de_build", "le_syllables"]:
 			var cparts: Array = ex._parts(ct)
 			for k in cparts.size():
 				await navigate_to((ex.active_buttons() as Array).filter(func(b): return b.value == cparts[k])[0])

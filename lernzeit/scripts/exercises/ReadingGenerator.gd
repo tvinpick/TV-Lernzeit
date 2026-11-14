@@ -51,7 +51,73 @@ func _distractors(e: Dictionary) -> Array:
 	return others.slice(0, 3)
 
 
+# ------------------------------------------------- Sätze und Mini-Texte ---
+##   le_satz – read a sentence, choose the matching picture (3 scenes)
+##   le_text – read a mini story, answer the question with one of 3 pictures
+const SAETZE_FILE := "res://data/lesen_saetze.json"
+const TEXTE_FILE := "res://data/lesen_texte.json"
+static var _saetze: Array = []
+static var _texte: Array = []
+
+
+static func saetze() -> Array:
+	if _saetze.is_empty():
+		var d = JSON.parse_string(FileAccess.get_file_as_string(SAETZE_FILE))
+		_saetze = (d["saetze"] if d is Dictionary else []).duplicate()
+	return _saetze
+
+
+static func texte() -> Array:
+	if _texte.is_empty():
+		var d = JSON.parse_string(FileAccess.get_file_as_string(TEXTE_FILE))
+		_texte = (d["texte"] if d is Dictionary else []).duplicate()
+	return _texte
+
+
+## Only 8 mini texts yet: shorter sessions without repeats.
+func session_size(default_count: int = 10) -> int:
+	return 6 if allowed_modes == ["le_text"] else default_count
+
+
+## Sentences whose pictures could also fit the other sentence (never together as answers).
+const SIMILAR_SAETZE := [["s09", "s29", "s22", "s27"], ["s10", "s19"], ["s04", "s18"], ["s07", "s24"],
+	["s11", "s17"], ["s12", "s21"], ["s05", "s13"]]
+
+
+static func similar_saetze(a: String, b: String) -> bool:
+	for g in SIMILAR_SAETZE:
+		if a in g and b in g:
+			return true
+	return false
+
+
+func _satz() -> Dictionary:
+	var all := saetze()
+	var e: Dictionary = _pick(all)
+	var others := all.filter(func(x): return x["picture"] != e["picture"] and not similar_saetze(str(x["id"]), str(e["id"])))
+	shuffle(others)
+	var opts: Array = [e["picture"], others[0]["picture"], others[1]["picture"]]
+	shuffle(opts)
+	return {"mode": "le_satz", "text": e["text"], "id": e["id"], "picture": e["picture"], "answer": e["picture"],
+		"options": opts, "pictures": opts, "option_style": "pictures", "prompt": "le_prompt_satz",
+		"key": "satz:" + str(e["id"])}
+
+
+func _text() -> Dictionary:
+	var e: Dictionary = _pick(texte())
+	var opts: Array = (e["answers"] as Array).duplicate()
+	var answer: String = opts[int(e["correct"])]
+	shuffle(opts)
+	return {"mode": "le_text", "text": e["text"], "id": e["id"], "picture": answer, "answer": answer,
+		"options": opts, "pictures": opts, "option_style": "pictures", "prompt": "le_prompt_question",
+		"args": {"q": e["question"]}, "key": "text:" + str(e["id"])}
+
+
 func make_task(mode: String) -> Dictionary:
+	if mode == "le_satz":
+		return _satz()
+	if mode == "le_text":
+		return _text()
 	var pool := _pool()
 	if difficulty == "hard" and mode == "le_syllables":
 		var three := pool.filter(func(e): return (e["syllables"] as Array).size() == 3)
@@ -99,6 +165,14 @@ static func validate(t: Dictionary) -> bool:
 	if not ResourceLoader.exists(t["picture"]):
 		return false
 	match t["mode"]:
+		"le_satz", "le_text":
+			var o: Array = t["options"]
+			var u := {}
+			for x in o:
+				if u.has(x) or not ResourceLoader.exists(x):
+					return false
+				u[x] = true
+			return o.size() == 3 and o.count(t["answer"]) == 1 and str(t["text"]) != ""
 		"le_syllables":
 			var parts: Array = t["parts"]
 			var tiles: Array = (t["tiles"] as Array).duplicate()

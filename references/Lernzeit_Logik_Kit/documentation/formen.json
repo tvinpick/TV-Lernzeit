@@ -1,0 +1,34 @@
+[
+  {
+    "shape": "Kreis",
+    "objects": [
+      "Ball",
+      "Uhr",
+      "Pizza"
+    ]
+  },
+  {
+    "shape": "Quadrat",
+    "objects": [
+      "Fenster",
+      "Wuerfel",
+      "Kissen"
+    ]
+  },
+  {
+    "shape": "Dreieck",
+    "objects": [
+      "Pizzastueck",
+      "Schild",
+      "Zelt"
+    ]
+  },
+  {
+    "shape": "Rechteck",
+    "objects": [
+      "Tuer",
+      "Buch",
+      "Handy"
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+{
+ "texte": [
+  {
+   "id": "t01",
+   "text": "Mia hat einen Hund. Der Hund ist braun. Er spielt mit einem Ball.",
+   "question": "Womit spielt der Hund?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Ball.png",
+    "res://assets/lesen/answers/Answer_Puppe.png",
+    "res://assets/lesen/answers/Answer_Auto.png"
+   ],
+   "correct": 0
+  },
+  {
+   "id": "t02",
+   "text": "Oma hat eine rote Tasche. In der Tasche liegt eine Rose.",
+   "question": "Was liegt in der Tasche?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Rose.png",
+    "res://assets/lesen/answers/Answer_Fisch.png",
+    "res://assets/lesen/answers/Answer_Banane.png"
+   ],
+   "correct": 0
+  },
+  {
+   "id": "t03",
+   "text": "Papa sieht einen Bus. Der Bus ist gelb. Er fährt zur Schule.",
+   "question": "Was ist gelb?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Ball.png",
+    "res://assets/lesen/answers/Answer_Bus.png",
+    "res://assets/lesen/answers/Answer_Katze.png"
+   ],
+   "correct": 1
+  },
+  {
+   "id": "t04",
+   "text": "Mia pflückt eine Blume. Die Blume ist rosa. Sie gibt sie Mama.",
+   "question": "Was gibt Mia Mama?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Blume.png",
+    "res://assets/lesen/answers/Answer_Puppe.png",
+    "res://assets/lesen/answers/Answer_Hut.png"
+   ],
+   "correct": 0
+  },
+  {
+   "id": "t05",
+   "text": "Die Katze liegt auf dem Sofa. Sie schläft dort.",
+   "question": "Wo schläft die Katze?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Dach.png",
+    "res://assets/lesen/answers/Answer_Sofa.png",
+    "res://assets/lesen/answers/Answer_Bus.png"
+   ],
+   "correct": 1
+  },
+  {
+   "id": "t06",
+   "text": "Tom isst eine Banane. Danach trinkt er Limo.",
+   "question": "Was trinkt Tom?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Limo.png",
+    "res://assets/lesen/answers/Answer_Apfel.png",
+    "res://assets/lesen/answers/Answer_Tasse.png"
+   ],
+   "correct": 0
+  },
+  {
+   "id": "t07",
+   "text": "Ein Fisch schwimmt im See. Der Fisch ist blau.",
+   "question": "Welches Tier schwimmt im See?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Kuh.png",
+    "res://assets/lesen/answers/Answer_Fisch.png",
+    "res://assets/lesen/answers/Answer_Lama.png"
+   ],
+   "correct": 1
+  },
+  {
+   "id": "t08",
+   "text": "Opa hat einen Hut. Der Hut ist grün.",
+   "question": "Was hat Opa?",
+   "answers": [
+    "res://assets/lesen/answers/Answer_Hut.png",
+    "res://assets/lesen/answers/Answer_Tasche.png",
+    "res://assets/lesen/answers/Answer_Ball.png"
+   ],
+   "correct": 0
+  }
+ ]
+}

@@ -21,6 +21,7 @@ const PLAYABLE := {
 	"mathematik/subtraktion/10": "sub10",
 	"mathematik/vergleichen/0": "cmp10",
 	"mathematik/zahlenreihen/0": "zr20",
+	"mathematik/textaufgaben/0": "ta10",
 	"mathematik/zaehlen/20": "count20",
 	"mathematik/addition/20": "add20",
 	"mathematik/subtraktion/20": "sub20",
@@ -30,9 +31,12 @@ const PLAYABLE := {
 	"deutsch/gross_klein/0": "de_case",
 	"lesen/silben/0": "le_silben",
 	"lesen/woerter/0": "le_woerter",
+	"lesen/saetze/0": "le_saetze",
+	"lesen/texte/0": "le_texte",
 	"logik/muster/0": "lg_muster",
 	"logik/formen/0": "lg_formen",
 	"logik/reihenfolge/0": "lg_reihenfolge",
+	"logik/unterschiede/0": "lg_unterschiede",
 }
 
 

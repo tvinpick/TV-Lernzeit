@@ -14,6 +14,11 @@ const ALIASES := {
 	"sub_prompt_missing": "add_prompt_missing",
 	"add_prompt_to_ten": "cnt_prompt_to_ten",
 	"add_prompt_to_twenty": "cnt_prompt_to_twenty",
+	"lg_prompt_muster": "g_prompt_muster",
+	"lg_prompt_form_thing": "g_prompt_formen",
+	"lg_prompt_first": "g_prompt_reihenfolge",
+	"lg_prompt_next": "g_prompt_reihenfolge_next",
+	"lg_prompt_unterschiede": "g_prompt_unterschiede",
 }
 
 var _player: AudioStreamPlayer

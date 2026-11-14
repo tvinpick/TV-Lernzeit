@@ -409,6 +409,7 @@ func _ready() -> void:
 	_test_zahlenreihen()
 	_test_solutions()
 	_test_progression()
+	_test_new_content()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
 
@@ -417,7 +418,7 @@ func _test_voice() -> void:
 	var missing: Array = []
 	var de: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://localization/de.json"))
 	for k in de:
-		if RegEx.create_from_string("^(sub|add|cnt|cmp|de|le)_prompt_").search(k) and not Voice.has(k):
+		if RegEx.create_from_string("^(sub|add|cnt|cmp|de|le|ta)_prompt").search(k) and k != "le_prompt_question" and not Voice.has(k):
 			missing.append(k)
 	for n in 21:
 		if not Voice.has(Voice.num(n)):
@@ -521,7 +522,8 @@ func _test_task_history() -> void:
 	var u := {}
 	for t in ls:
 		u[t["key"]] = true
-	check(n == 6 and u.size() == 6, "Reihenfolge (easy): 6 different tasks per session")
+	var want := mini(10, LogikGenerator.STORIES.size() * 2)
+	check(n == want and u.size() == want, "Reihenfolge (easy): %d different tasks per session" % want)
 	var rec := sess.to_record()
 	check(not rec.complete and ProgressRecord.create("logik", "reihenfolge", 6, 6, 60, "logik-v1", -1, 1).complete
 		and ProgressRecord.from_dict({"subject_id": "m", "topic_id": "t", "total_count": 10, "correct_count": 9}).complete,
@@ -580,3 +582,50 @@ func _test_progression() -> void:
 	check(ProgressRepository.get_tests().size() == 1 and ProgressRepository.get_tests()[0]["correct"] is int, "tests saved and restored")
 	ProgressRepository.reset_all()
 	check(ProgressRepository.get_tests().is_empty() and Progression.xp_total() == 0, "reset clears tests and XP")
+
+
+func _test_new_content() -> void:
+	var bad: Array = []
+	var rg := ReadingGenerator.new(4)
+	var by_pic := {}
+	for e in ReadingGenerator.saetze():
+		by_pic[e["picture"]] = str(e["id"])
+	for m in ["le_satz", "le_text"]:
+		for i in 60:
+			var t := rg.make_task(m)
+			if not rg.is_valid(t):
+				bad.append(t)
+			if m == "le_satz":
+				for o in t["options"]:
+					if o != t["answer"] and ReadingGenerator.similar_saetze(by_pic[o], str(t["id"])):
+						bad.append(["similar picture as wrong answer", t["id"], by_pic[o]])
+	var tg := TextaufgabenGenerator.new(4)
+	for d in ["easy", "auto"]:
+		tg.difficulty = d
+		for i in 60:
+			var t := tg.make_task("ta_task")
+			if not tg.is_valid(t):
+				bad.append(t)
+	var lg := LogikGenerator.new(4)
+	for i in 30:
+		var t := lg.make_task("lg_unterschiede")
+		if not lg.is_valid(t):
+			bad.append(t)
+	check(bad.is_empty(), "Sätze, Texte, Textaufgaben, Unterschiede: generated tasks valid " + str(bad.slice(0, 2)))
+	check(ReadingGenerator.saetze().size() == 30 and ReadingGenerator.texte().size() == 8
+		and TextaufgabenGenerator.aufgaben().size() == 30 and LogikGenerator.pairs().size() == 8, "kit data: 30 sentences, 8 texts, 30 word problems, 8 picture pairs")
+	var missing: Array = []
+	for e in ReadingGenerator.saetze():
+		if not Voice.has("satz_" + str(e["id"])): missing.append(e["id"])
+	for e in ReadingGenerator.texte():
+		if not Voice.has("text_" + str(e["id"])): missing.append(e["id"])
+	for e in TextaufgabenGenerator.aufgaben():
+		if not Voice.has(str(e["id"])): missing.append(e["id"])
+	for k in ["lg_prompt_muster", "lg_prompt_form_thing", "lg_prompt_first", "lg_prompt_next", "lg_prompt_unterschiede",
+			"le_prompt_satz", "le_prompt_text", "ta_prompt", "shape_Kreis", "shape_Dreieck"]:
+		if not Voice.has(k): missing.append(k)
+	for th in ["Schild", "Buch", "Handy", "Pizza", "Zelt"]:
+		if not Voice.has("word_" + th): missing.append(th)
+	check(missing.is_empty(), "voice part 2: sentences, stories, word problems, Logik prompts, shapes " + str(missing))
+	var ms: GDScript = load("res://scenes/exercises/MathExercise.gd")
+	check(ms.solution_text({"mode": "ta_task", "a": 6, "b": 3, "op": "-", "answer": 3}) == "6 − 3 = 3", "'So geht's' for word problems")

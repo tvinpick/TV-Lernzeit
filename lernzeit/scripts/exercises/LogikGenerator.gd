@@ -7,7 +7,18 @@ extends MathGenerator
 ##   lg_reihenfolge – picture stories: what comes next / what was first / what is in between
 ## Option values are picture paths (unique), so session.submit() compares paths.
 
-const ALL_MODES: Array[String] = ["lg_muster", "lg_formen", "lg_reihenfolge"]
+const ALL_MODES: Array[String] = ["lg_muster", "lg_formen", "lg_reihenfolge", "lg_unterschiede"]
+## Unterschiede: pairs of 760×560 pictures with exactly 3 differences (boxes in the right picture)
+const DIFF_FILE := "res://data/logik_unterschiede.json"
+const DIFF_SIZE := Vector2(760, 560)
+static var _pairs: Array = []
+
+
+static func pairs() -> Array:
+	if _pairs.is_empty():
+		var d = JSON.parse_string(FileAccess.get_file_as_string(DIFF_FILE))
+		_pairs = (d["pairs"] if d is Dictionary else []).duplicate()
+	return _pairs
 const SHAPES := ["Kreis", "Quadrat", "Rechteck", "Dreieck", "Stern", "Herz", "Raute"]
 const BASIC_SHAPES := ["Kreis", "Quadrat", "Rechteck", "Dreieck"]
 const COLORS := ["Rot", "Blau", "Gelb", "Gruen"]
@@ -17,16 +28,19 @@ const SAFE_PALETTES := [["Rot", "Blau", "Gelb"], ["Gruen", "Blau", "Gelb"]]
 const FORM_OBJECTS := {
 	"Kreis": ["Ball", "Uhr", "Pizza"],
 	"Quadrat": ["Fenster", "Wuerfel", "Kissen"],
-	"Dreieck": ["Zelt", "Pizzastueck"],
-	"Rechteck": ["Tuer"],
+	"Dreieck": ["Zelt", "Pizzastueck", "Schild"],
+	"Rechteck": ["Tuer", "Buch", "Handy"],
 }
 ## objects for object patterns
-const PATTERN_OBJECTS := ["Muster_Fisch", "Muster_Birne", "Form_Ball", "Story_Blume", "Story_Kueken", "Form_Uhr"]
+const PATTERN_OBJECTS := ["Muster_Fisch", "Muster_Birne", "Muster_Apfel", "Muster_Blatt", "Form_Ball", "Story_Blume", "Story_Kueken", "Form_Uhr"]
 ## picture stories in the right order
 const STORIES := [
 	["Story_Samen", "Story_Keimling", "Story_Blume"],
 	["Story_Ei", "Story_Kueken", "Story_Huhn"],
 	["Tag_Morgen", "Tag_Mittag", "Tag_Abend"],
+	["Story_Kuchen_1", "Story_Kuchen_2", "Story_Kuchen_3"],
+	["Story_Schmetterling_1", "Story_Schmetterling_2", "Story_Schmetterling_3"],
+	["Story_Schnee_1", "Story_Schnee_2", "Story_Schnee_3"],
 ]
 
 var allowed_modes: Array = ALL_MODES
@@ -58,6 +72,8 @@ func session_size(default_count: int = 10) -> int:
 				n += things * (1 if difficulty == "easy" else 2)
 			"lg_reihenfolge":
 				n += STORIES.size() * (2 if difficulty == "easy" else 3)
+			"lg_unterschiede":
+				return 5                    # every picture needs 3 finds: 5 pictures are enough
 	return clampi(n, 6, default_count)
 
 
@@ -76,7 +92,18 @@ func make_task(mode: String) -> Dictionary:
 		"lg_muster": return _muster()
 		"lg_formen": return _formen()
 		"lg_reihenfolge": return _reihenfolge()
+		"lg_unterschiede": return _unterschiede()
 	return {}
+
+
+func _unterschiede() -> Dictionary:
+	var p: Dictionary = _pick(pairs())
+	var boxes: Array = []
+	for b in p["diffs"]:
+		boxes.append([int(b[0]), int(b[1]), int(b[2]), int(b[3])])
+	return {"mode": "lg_unterschiede", "prompt": "lg_prompt_unterschiede", "pair": p["pair"],
+		"left": p["left"], "right": p["right"], "diffs": boxes, "answer": "done", "options": ["done"],
+		"option_style": "grid", "key": "diff:" + str(p["pair"])}
 
 
 ## Options = answer + 3 distractors (preferring `near`, then `far`), shuffled.
@@ -215,6 +242,13 @@ func is_valid(t: Dictionary) -> bool:
 
 
 static func validate(t: Dictionary) -> bool:
+	if t.get("mode", "") == "lg_unterschiede":
+		if not ResourceLoader.exists(t["left"]) or not ResourceLoader.exists(t["right"]) or (t["diffs"] as Array).size() != 3:
+			return false
+		for b in t["diffs"]:
+			if b[0] < 0 or b[1] < 0 or b[0] + b[2] > DIFF_SIZE.x or b[1] + b[3] > DIFF_SIZE.y:
+				return false
+		return true
 	var opts: Array = t.get("options", [])
 	if opts.size() != 4 or opts.count(t["answer"]) != 1:
 		return false
