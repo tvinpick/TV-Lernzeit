@@ -29,7 +29,7 @@ Lernzeit — отдельное приложение для добровольн
 
 | Путь | Что это |
 |---|---|
-| `release/Lernzeit_v0_1.apk` | Собранный и подписанный APK (armeabi-v7a + arm64-v8a, 84 МБ; версия 0.14.0, SHA-256 `65bc8432…96d457`) |
+| `release/Lernzeit_v0_1.apk` | Собранный и подписанный APK (armeabi-v7a + arm64-v8a, 86 МБ; версия 0.14.1, SHA-256 `3b29fdba…3dc931`) |
 | `lernzeit/` | Исходный проект Godot (открывать файл `lernzeit/project.godot`) |
 | `tools/prepare_assets.py` | Подготовка графики из архива ассетов (удаление вшитого немецкого текста и т. п.) |
 | `tools/make_sounds.py` | Генерация коротких UI-звуков |
