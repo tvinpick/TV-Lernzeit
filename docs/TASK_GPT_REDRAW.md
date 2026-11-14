@@ -32,7 +32,7 @@ Lesen, «Zebra», «Qualle»). Часть картинок из последни
 | `Deutsch_Picture_Stern.png` | Stern — жёлтая звезда с лицом и бликом | плоская |
 | `Deutsch_Picture_Apfel.png` | Apfel — по желанию, сейчас почти нормально | — |
 
-И отдельно в `lernzeit/assets/deutsch/words/` (400×400):
+И отдельно в `lernzeit/assets/deutsch/words/` (600×600, прозрачный фон):
 
 | Файл | Что нарисовать | Сейчас |
 |---|---|---|
