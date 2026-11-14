@@ -188,7 +188,9 @@ func _new_target() -> void:
 	_retarget = 15.0
 	_target_l.text = Localization.t("game_target", {"x": target})
 	Juice.pop(_target_l, 1.15)
-	Voice.say([Voice.num(int(target)) if number else Voice.letter(target)])
+	var sign_clip := Voice.num(int(target)) if number else Voice.letter(target)
+	if not Voice.say_all(["game_target_a", sign_clip, "game_target_b"]):    # "Lass alle Ballons mit … 5 … platzen!"
+		Voice.say([sign_clip])
 
 
 func _spawn_balloon() -> void:
@@ -343,5 +345,6 @@ func _finish() -> void:
 	Mascot.appear(owl)
 	Juice.burst(self, Vector2(960, 300), 12, 30)
 	Sfx.play("streak")
-	Voice.say(["ex_correct_3"], false)
+	if not Voice.say(["game_done"], false):
+		Voice.say(["ex_correct_3"], false)
 	back.grab_focus.call_deferred()
