@@ -1,0 +1,79 @@
+{
+  "project": "Lernzeit",
+  "kit": "Textaufgaben",
+  "assets": [
+    {
+      "path": "Game_Assets/Backgrounds/Textaufgaben_Background_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "description": "Full HD peaceful meadow and pond with open top area for task text"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Vogel.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Vogel for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Ente.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Ente for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Schmetterling.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Schmetterling for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Fisch.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Fisch for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Apfel.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Apfel for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Karotte.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Karotte for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Ballon.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Ballon for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Auto.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Auto for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Muffin.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Muffin for arithmetic word problems"
+    },
+    {
+      "path": "Game_Assets/Objects/Textaufgaben_Katze.png",
+      "width": 200,
+      "height": 200,
+      "description": "One cartoon Katze for arithmetic word problems"
+    }
+  ],
+  "data_files": [
+    {
+      "path": "Game_Assets/Data/textaufgaben.json",
+      "size_bytes": 7526,
+      "description": "Game-readable JSON dataset: textaufgaben.json"
+    }
+  ]
+}

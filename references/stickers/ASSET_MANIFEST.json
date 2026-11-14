@@ -1,0 +1,231 @@
+{
+  "pack": "Lernzeit_Sticker_Album_v1",
+  "version": "1.0",
+  "asset_count": 20,
+  "size_px": [
+    300,
+    300
+  ],
+  "assets": [
+    {
+      "id": "01",
+      "path": "Mascot/Stickers/Sticker_01.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "animals",
+      "subject": "Cat",
+      "description": "Friendly grey kitten with a pink bow"
+    },
+    {
+      "id": "02",
+      "path": "Mascot/Stickers/Sticker_02.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "animals",
+      "subject": "Dog",
+      "description": "Happy brown and white puppy with a blue collar"
+    },
+    {
+      "id": "03",
+      "path": "Mascot/Stickers/Sticker_03.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "animals",
+      "subject": "Rabbit",
+      "description": "Cute cream bunny holding a carrot"
+    },
+    {
+      "id": "04",
+      "path": "Mascot/Stickers/Sticker_04.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "animals",
+      "subject": "Fox",
+      "description": "Smiling orange fox with fluffy tail"
+    },
+    {
+      "id": "05",
+      "path": "Mascot/Stickers/Sticker_05.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "animals",
+      "subject": "Panda",
+      "description": "Panda holding green bamboo"
+    },
+    {
+      "id": "06",
+      "path": "Mascot/Stickers/Sticker_06.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "transport",
+      "subject": "Car",
+      "description": "Happy red car with expressive eyes"
+    },
+    {
+      "id": "07",
+      "path": "Mascot/Stickers/Sticker_07.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "transport",
+      "subject": "Excavator",
+      "description": "Cheerful yellow tracked excavator"
+    },
+    {
+      "id": "08",
+      "path": "Mascot/Stickers/Sticker_08.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "transport",
+      "subject": "Airplane",
+      "description": "Friendly white and blue passenger airplane"
+    },
+    {
+      "id": "09",
+      "path": "Mascot/Stickers/Sticker_09.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "transport",
+      "subject": "Train",
+      "description": "Cute red and blue steam train"
+    },
+    {
+      "id": "10",
+      "path": "Mascot/Stickers/Sticker_10.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "transport",
+      "subject": "Bus",
+      "description": "Yellow school bus"
+    },
+    {
+      "id": "11",
+      "path": "Mascot/Stickers/Sticker_11.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "space",
+      "subject": "Rocket",
+      "description": "Red and white rocket launching through clouds"
+    },
+    {
+      "id": "12",
+      "path": "Mascot/Stickers/Sticker_12.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "space",
+      "subject": "UFO",
+      "description": "Friendly green alien in a purple flying saucer"
+    },
+    {
+      "id": "13",
+      "path": "Mascot/Stickers/Sticker_13.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "space",
+      "subject": "Astronaut",
+      "description": "Friendly astronaut in a white space suit"
+    },
+    {
+      "id": "14",
+      "path": "Mascot/Stickers/Sticker_14.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "space",
+      "subject": "Planet",
+      "description": "Bright purple and blue ringed planet"
+    },
+    {
+      "id": "15",
+      "path": "Mascot/Stickers/Sticker_15.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "space",
+      "subject": "Moon",
+      "description": "Smiling yellow moon with stars"
+    },
+    {
+      "id": "16",
+      "path": "Mascot/Stickers/Sticker_16.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "food",
+      "subject": "Burger",
+      "description": "Cheerful hamburger with cheese and lettuce"
+    },
+    {
+      "id": "17",
+      "path": "Mascot/Stickers/Sticker_17.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "food",
+      "subject": "IceCream",
+      "description": "Three colorful ice cream scoops in a cone"
+    },
+    {
+      "id": "18",
+      "path": "Mascot/Stickers/Sticker_18.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "food",
+      "subject": "Cupcake",
+      "description": "Pink frosted cupcake with sprinkles"
+    },
+    {
+      "id": "19",
+      "path": "Mascot/Stickers/Sticker_19.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "food",
+      "subject": "Pizza",
+      "description": "Smiling slice of cheesy pizza"
+    },
+    {
+      "id": "20",
+      "path": "Mascot/Stickers/Sticker_20.png",
+      "width": 300,
+      "height": 300,
+      "format": "PNG",
+      "mode": "RGBA",
+      "category": "food",
+      "subject": "Popcorn",
+      "description": "Red and white striped popcorn bucket"
+    }
+  ]
+}

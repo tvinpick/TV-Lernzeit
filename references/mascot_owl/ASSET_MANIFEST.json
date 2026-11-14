@@ -1,0 +1,78 @@
+{
+  "pack": "Lernzeit Mascot Owl v1",
+  "character": "Single consistent schoolgirl owl",
+  "files": [
+    {
+      "path": "Mascot/Mascot_Owl_Idle.png",
+      "size": "800x800",
+      "width": 800,
+      "height": 800,
+      "format": "PNG RGBA",
+      "pose": "idle",
+      "description": "Friendly schoolgirl owl standing calmly, wearing purple glasses, graduation cap, pink bow, purple gold-trimmed cape, and gold star badge",
+      "background": "transparent",
+      "character": "schoolgirl_owl",
+      "margin_percent_min": 5
+    },
+    {
+      "path": "Mascot/Mascot_Owl_Happy.png",
+      "size": "800x800",
+      "width": 800,
+      "height": 800,
+      "format": "PNG RGBA",
+      "pose": "happy",
+      "description": "Same schoolgirl owl standing happily with both wings raised and eyes closed in joy",
+      "background": "transparent",
+      "character": "schoolgirl_owl",
+      "margin_percent_min": 5
+    },
+    {
+      "path": "Mascot/Mascot_Owl_Thinking.png",
+      "size": "800x800",
+      "width": 800,
+      "height": 800,
+      "format": "PNG RGBA",
+      "pose": "thinking",
+      "description": "Same schoolgirl owl looking upward thoughtfully with one wing at her chin; no question-mark icon",
+      "background": "transparent",
+      "character": "schoolgirl_owl",
+      "margin_percent_min": 5
+    },
+    {
+      "path": "Mascot/Mascot_Owl_Cheer.png",
+      "size": "800x800",
+      "width": 800,
+      "height": 800,
+      "format": "PNG RGBA",
+      "pose": "cheer",
+      "description": "Same schoolgirl owl jumping up joyfully with both wings raised",
+      "background": "transparent",
+      "character": "schoolgirl_owl",
+      "margin_percent_min": 5
+    },
+    {
+      "path": "Mascot/Mascot_Owl_Sleep.png",
+      "size": "800x800",
+      "width": 800,
+      "height": 800,
+      "format": "PNG RGBA",
+      "pose": "sleep",
+      "description": "Same schoolgirl owl sleeping peacefully on a pink star-patterned cushion; no Z letters",
+      "background": "transparent",
+      "character": "schoolgirl_owl",
+      "margin_percent_min": 5
+    },
+    {
+      "path": "Mascot/Mascot_Owl_Wave.png",
+      "size": "800x800",
+      "width": 800,
+      "height": 800,
+      "format": "PNG RGBA",
+      "pose": "wave",
+      "description": "Same schoolgirl owl smiling and waving one wing",
+      "background": "transparent",
+      "character": "schoolgirl_owl",
+      "margin_percent_min": 5
+    }
+  ]
+}

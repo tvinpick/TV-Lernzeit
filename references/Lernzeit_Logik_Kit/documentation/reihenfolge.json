@@ -1,0 +1,50 @@
+[
+  {
+    "story": "Blume",
+    "frames": [
+      "Sequences/Logik_Sequence_Blume_1.png",
+      "Sequences/Logik_Sequence_Blume_2.png",
+      "Sequences/Logik_Sequence_Blume_3.png"
+    ]
+  },
+  {
+    "story": "Huhn",
+    "frames": [
+      "Sequences/Logik_Sequence_Huhn_1.png",
+      "Sequences/Logik_Sequence_Huhn_2.png",
+      "Sequences/Logik_Sequence_Huhn_3.png"
+    ]
+  },
+  {
+    "story": "Tag",
+    "frames": [
+      "Sequences/Logik_Sequence_Tag_1.png",
+      "Sequences/Logik_Sequence_Tag_2.png",
+      "Sequences/Logik_Sequence_Tag_3.png"
+    ]
+  },
+  {
+    "story": "Kuchen",
+    "frames": [
+      "Sequences/Logik_Sequence_Kuchen_1.png",
+      "Sequences/Logik_Sequence_Kuchen_2.png",
+      "Sequences/Logik_Sequence_Kuchen_3.png"
+    ]
+  },
+  {
+    "story": "Schmetterling",
+    "frames": [
+      "Sequences/Logik_Sequence_Schmetterling_1.png",
+      "Sequences/Logik_Sequence_Schmetterling_2.png",
+      "Sequences/Logik_Sequence_Schmetterling_3.png"
+    ]
+  },
+  {
+    "story": "Schnee",
+    "frames": [
+      "Sequences/Logik_Sequence_Schnee_1.png",
+      "Sequences/Logik_Sequence_Schnee_2.png",
+      "Sequences/Logik_Sequence_Schnee_3.png"
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+# Godot caches / generated
+lernzeit/.godot/
+lernzeit/android/
+*.import.tmp
+# local build output (the released APK lives in release/)
+build/
+# signing keys are never committed
+*.keystore
+*.jks
+lernzeit/.godot/export_credentials.cfg

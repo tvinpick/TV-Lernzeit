@@ -1,0 +1,144 @@
+{
+  "pack": "Lernzeit Achievement Badges v1",
+  "category": "Mascot/Badges",
+  "format": "PNG RGBA",
+  "image_size_px": [
+    400,
+    400
+  ],
+  "style": "glossy colorful candy-style badges",
+  "assets": [
+    {
+      "id": "first_steps",
+      "path": "Mascot/Badges/Badge_first_steps.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Blue child boot representing first steps",
+      "achievement": "Первый шаг — ботинок",
+      "transparent": true
+    },
+    {
+      "id": "sessions_10",
+      "path": "Mascot/Badges/Badge_sessions_10.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Stack of three colorful books",
+      "achievement": "10 занятий — стопка книг",
+      "transparent": true
+    },
+    {
+      "id": "sessions_30",
+      "path": "Mascot/Badges/Badge_sessions_30.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Golden trophy cup",
+      "achievement": "30 занятий — кубок",
+      "transparent": true
+    },
+    {
+      "id": "tasks_100",
+      "path": "Mascot/Badges/Badge_tasks_100.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Red and white rocket taking off",
+      "achievement": "100 заданий — ракета",
+      "transparent": true
+    },
+    {
+      "id": "perfect",
+      "path": "Mascot/Badges/Badge_perfect.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Happy golden star with a crown",
+      "achievement": "10 из 10 — звезда с короной",
+      "transparent": true
+    },
+    {
+      "id": "perfect_3",
+      "path": "Mascot/Badges/Badge_perfect_3.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Three gold stars",
+      "achievement": "Три занятия без ошибок — три звезды",
+      "transparent": true
+    },
+    {
+      "id": "days_3",
+      "path": "Mascot/Badges/Badge_days_3.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Calendar with three check marks",
+      "achievement": "Три дня — календарь с галочками",
+      "transparent": true
+    },
+    {
+      "id": "days_7",
+      "path": "Mascot/Badges/Badge_days_7.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Rainbow with white clouds",
+      "achievement": "Неделя — радуга",
+      "transparent": true
+    },
+    {
+      "id": "math_trio",
+      "path": "Mascot/Badges/Badge_math_trio.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Colorful abacus",
+      "achievement": "Математика — счёты",
+      "transparent": true
+    },
+    {
+      "id": "math_20",
+      "path": "Mascot/Badges/Badge_math_20.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Ascending ladder above clouds",
+      "achievement": "Числа до 20 — лестница",
+      "transparent": true
+    },
+    {
+      "id": "letters_8",
+      "path": "Mascot/Badges/Badge_letters_8.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Three toy cubes displaying letters A B C",
+      "achievement": "Восемь букв — кубики ABC",
+      "transparent": true
+    },
+    {
+      "id": "letters_19",
+      "path": "Mascot/Badges/Badge_letters_19.png",
+      "size": [
+        400,
+        400
+      ],
+      "description": "Smiling schoolgirl owl with purple spectacles and graduation cap",
+      "achievement": "19 букв — сова в выпускной шапке",
+      "transparent": true
+    }
+  ]
+}

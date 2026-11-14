@@ -1,0 +1,377 @@
+{
+  "name": "Lernzeit Deutsch Buchstaben Kit",
+  "version": "1.0",
+  "assets": [
+    {
+      "path": "Pictures/Deutsch_Picture_Haus.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Auto.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Sonne.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Fisch.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Stern.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Maus.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Apfel.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Pictures/Deutsch_Picture_Ball.png",
+      "width": 600,
+      "height": 600,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "Backgrounds/Deutsch_Buchstaben_Background_4K.png",
+      "width": 3840,
+      "height": 2160,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "Visual_References/Deutsch_01_Find_Letter_Illustration.png",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent": false
+    },
+    {
+      "path": "Visual_References/Deutsch_04_Initial_Sound_Illustration.png",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent": false
+    },
+    {
+      "path": "Visual_References/Deutsch_05_Missing_Letter_Illustration.png",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent": false
+    },
+    {
+      "path": "Visual_References/Deutsch_03_Upper_Lower_Illustration.png",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent": false
+    },
+    {
+      "path": "Visual_References/Deutsch_06_Build_Word_Illustration.png",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent": false
+    },
+    {
+      "path": "Visual_References/Deutsch_02_Listen_Illustration.png",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "transparent": false
+    },
+    {
+      "path": "Screens_1920x1080/Deutsch_04_Initial_Sound.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "Screens_1920x1080/Deutsch_01_Find_Letter.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "Screens_1920x1080/Deutsch_05_Missing_Letter.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "Screens_1920x1080/Deutsch_06_Build_Word.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "Screens_1920x1080/Deutsch_02_Listen_And_Choose.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "Screens_1920x1080/Deutsch_03_Uppercase_Lowercase.png",
+      "width": 1920,
+      "height": 1080,
+      "mode": "RGBA",
+      "transparent": false
+    },
+    {
+      "path": "UI/Progress/Deutsch_Progress_Dot_Pending.png",
+      "width": 85,
+      "height": 85,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Progress/Deutsch_Progress_Dot_Done.png",
+      "width": 85,
+      "height": 85,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Progress/Deutsch_Progress_Dot_Current.png",
+      "width": 85,
+      "height": 85,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Progress/Deutsch_Progress_Track.png",
+      "width": 845,
+      "height": 100,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Panels/Deutsch_Picture_Frame.png",
+      "width": 420,
+      "height": 420,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Panels/Deutsch_Word_Panel.png",
+      "width": 1150,
+      "height": 270,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Panels/Deutsch_Header_Panel.png",
+      "width": 1650,
+      "height": 106,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Panels/Deutsch_Content_Panel.png",
+      "width": 1540,
+      "height": 560,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Panels/Deutsch_Question_Panel.png",
+      "width": 1450,
+      "height": 175,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Feedback/Deutsch_Feedback_Try_Again_Blank.png",
+      "width": 700,
+      "height": 150,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Feedback/Deutsch_Icon_Cross.png",
+      "width": 168,
+      "height": 168,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Feedback/Deutsch_Icon_Check.png",
+      "width": 168,
+      "height": 168,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Feedback/Deutsch_Feedback_Correct_Blank.png",
+      "width": 700,
+      "height": 150,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Progress_Counter_Blank.png",
+      "width": 210,
+      "height": 95,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Button_Listen_Blank.png",
+      "width": 650,
+      "height": 105,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Button_Next_Blank.png",
+      "width": 400,
+      "height": 112,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Icon_Replay.png",
+      "width": 168,
+      "height": 168,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Icon_Speaker.png",
+      "width": 168,
+      "height": 168,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Button_Hint_Blank.png",
+      "width": 400,
+      "height": 112,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Icon_Hint.png",
+      "width": 168,
+      "height": 168,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Controls/Deutsch_Icon_Back.png",
+      "width": 168,
+      "height": 168,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Word_Tiles/Deutsch_Word_Slot_Filled.png",
+      "width": 190,
+      "height": 200,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Word_Tiles/Deutsch_Letter_Tile_Default.png",
+      "width": 200,
+      "height": 200,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Word_Tiles/Deutsch_Letter_Tile_Focused.png",
+      "width": 200,
+      "height": 200,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Word_Tiles/Deutsch_Word_Slot_Blank.png",
+      "width": 190,
+      "height": 200,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Word_Tiles/Deutsch_Word_Slot_Selected.png",
+      "width": 190,
+      "height": 200,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Letter_Buttons/Deutsch_Letter_Button_Default.png",
+      "width": 330,
+      "height": 216,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Letter_Buttons/Deutsch_Letter_Button_Focused.png",
+      "width": 366,
+      "height": 252,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Letter_Buttons/Deutsch_Focus_Overlay.png",
+      "width": 366,
+      "height": 252,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Letter_Buttons/Deutsch_Letter_Button_Incorrect.png",
+      "width": 330,
+      "height": 216,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Letter_Buttons/Deutsch_Letter_Button_Correct.png",
+      "width": 330,
+      "height": 216,
+      "mode": "RGBA",
+      "transparent": true
+    },
+    {
+      "path": "UI/Letter_Buttons/Deutsch_Letter_Button_Disabled.png",
+      "width": 330,
+      "height": 216,
+      "mode": "RGBA",
+      "transparent": true
+    }
+  ]
+}

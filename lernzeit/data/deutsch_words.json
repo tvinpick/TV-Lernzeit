@@ -1,0 +1,357 @@
+{
+ "_comment": "German picture words for the letter exercises (generated from the asset manifests; edit to add words). word = German spelling, letter = first letter, picture = texture.",
+ "words": [
+  {
+   "word": "Ameise",
+   "letter": "A",
+   "picture": "res://assets/deutsch/words/Deutsch_A_Ameise.png"
+  },
+  {
+   "word": "Apfel",
+   "letter": "A",
+   "picture": "res://assets/deutsch/pictures/Deutsch_Picture_Apfel.png"
+  },
+  {
+   "word": "Ast",
+   "letter": "A",
+   "picture": "res://assets/deutsch/words/Deutsch_A_Ast.png"
+  },
+  {
+   "word": "Auto",
+   "letter": "A",
+   "picture": "res://assets/deutsch/pictures/Deutsch_Picture_Auto.png"
+  },
+  {
+   "word": "Ball",
+   "letter": "B",
+   "picture": "res://assets/deutsch/pictures/Deutsch_Picture_Ball.png"
+  },
+  {
+   "word": "Banane",
+   "letter": "B",
+   "picture": "res://assets/deutsch/words/Deutsch_B_Banane.png"
+  },
+  {
+   "word": "Bus",
+   "letter": "B",
+   "picture": "res://assets/deutsch/words/Deutsch_B_Bus.png"
+  },
+  {
+   "word": "Dach",
+   "letter": "D",
+   "picture": "res://assets/deutsch/words/Deutsch_D_Dach.png"
+  },
+  {
+   "word": "Dose",
+   "letter": "D",
+   "picture": "res://assets/deutsch/words/Deutsch_D_Dose.png"
+  },
+  {
+   "word": "Ente",
+   "letter": "E",
+   "picture": "res://assets/deutsch/words/Deutsch_E_Ente.png"
+  },
+  {
+   "word": "Esel",
+   "letter": "E",
+   "picture": "res://assets/deutsch/words/Deutsch_E_Esel.png"
+  },
+  {
+   "word": "Fisch",
+   "letter": "F",
+   "picture": "res://assets/deutsch/words/Deutsch_F_Fisch.png"
+  },
+  {
+   "word": "Fuß",
+   "letter": "F",
+   "picture": "res://assets/deutsch/words/Deutsch_F_Fuss.png"
+  },
+  {
+   "word": "Gabel",
+   "letter": "G",
+   "picture": "res://assets/deutsch/words/Deutsch_G_Gabel.png"
+  },
+  {
+   "word": "Gans",
+   "letter": "G",
+   "picture": "res://assets/deutsch/words/Deutsch_G_Gans.png"
+  },
+  {
+   "word": "Haus",
+   "letter": "H",
+   "picture": "res://assets/deutsch/pictures/Deutsch_Picture_Haus.png"
+  },
+  {
+   "word": "Hose",
+   "letter": "H",
+   "picture": "res://assets/deutsch/words/Deutsch_H_Hose.png"
+  },
+  {
+   "word": "Hut",
+   "letter": "H",
+   "picture": "res://assets/deutsch/words/Deutsch_H_Hut.png"
+  },
+  {
+   "word": "Igel",
+   "letter": "I",
+   "picture": "res://assets/deutsch/words/Deutsch_I_Igel.png"
+  },
+  {
+   "word": "Insel",
+   "letter": "I",
+   "picture": "res://assets/deutsch/words/Deutsch_I_Insel.png"
+  },
+  {
+   "word": "Katze",
+   "letter": "K",
+   "picture": "res://assets/deutsch/words/Deutsch_K_Katze.png"
+  },
+  {
+   "word": "Kuh",
+   "letter": "K",
+   "picture": "res://assets/deutsch/words/Deutsch_K_Kuh.png"
+  },
+  {
+   "word": "Lama",
+   "letter": "L",
+   "picture": "res://assets/deutsch/words/Deutsch_L_Lama.png"
+  },
+  {
+   "word": "Löwe",
+   "letter": "L",
+   "picture": "res://assets/deutsch/words/Deutsch_L_Loewe.png"
+  },
+  {
+   "word": "Mama",
+   "letter": "M",
+   "picture": "res://assets/deutsch/words/Deutsch_M_Mama.png"
+  },
+  {
+   "word": "Maus",
+   "letter": "M",
+   "picture": "res://assets/deutsch/pictures/Deutsch_Picture_Maus.png"
+  },
+  {
+   "word": "Mond",
+   "letter": "M",
+   "picture": "res://assets/deutsch/words/Deutsch_M_Mond.png"
+  },
+  {
+   "word": "Nase",
+   "letter": "N",
+   "picture": "res://assets/deutsch/words/Deutsch_N_Nase.png"
+  },
+  {
+   "word": "Nest",
+   "letter": "N",
+   "picture": "res://assets/deutsch/words/Deutsch_N_Nest.png"
+  },
+  {
+   "word": "Ohr",
+   "letter": "O",
+   "picture": "res://assets/deutsch/words/Deutsch_O_Ohr.png"
+  },
+  {
+   "word": "Oma",
+   "letter": "O",
+   "picture": "res://assets/deutsch/words/Deutsch_O_Oma.png"
+  },
+  {
+   "word": "Pilz",
+   "letter": "P",
+   "picture": "res://assets/deutsch/words/Deutsch_P_Pilz.png"
+  },
+  {
+   "word": "Pinsel",
+   "letter": "P",
+   "picture": "res://assets/deutsch/words/Deutsch_P_Pinsel.png"
+  },
+  {
+   "word": "Rad",
+   "letter": "R",
+   "picture": "res://assets/deutsch/words/Deutsch_R_Rad.png"
+  },
+  {
+   "word": "Rose",
+   "letter": "R",
+   "picture": "res://assets/deutsch/words/Deutsch_R_Rose.png"
+  },
+  {
+   "word": "Sofa",
+   "letter": "S",
+   "picture": "res://assets/deutsch/words/Deutsch_S_Sofa.png"
+  },
+  {
+   "word": "Sonne",
+   "letter": "S",
+   "picture": "res://assets/deutsch/words/Deutsch_S_Sonne.png"
+  },
+  {
+   "word": "Stern",
+   "letter": "S",
+   "picture": "res://assets/deutsch/pictures/Deutsch_Picture_Stern.png"
+  },
+  {
+   "word": "Tomate",
+   "letter": "T",
+   "picture": "res://assets/deutsch/words/Deutsch_T_Tomate.png"
+  },
+  {
+   "word": "Tür",
+   "letter": "T",
+   "picture": "res://assets/deutsch/words/Deutsch_T_Tuer.png"
+  },
+  {
+   "word": "Uhr",
+   "letter": "U",
+   "picture": "res://assets/deutsch/words/Deutsch_U_Uhr.png"
+  },
+  {
+   "word": "Uhu",
+   "letter": "U",
+   "picture": "res://assets/deutsch/words/Deutsch_U_Uhu.png"
+  },
+  {
+   "word": "Wal",
+   "letter": "W",
+   "picture": "res://assets/deutsch/words/Deutsch_W_Wal.png"
+  },
+  {
+   "word": "Wolke",
+   "letter": "W",
+   "picture": "res://assets/deutsch/words/Deutsch_W_Wolke.png"
+  },
+  {
+   "word": "Clown",
+   "letter": "C",
+   "picture": "res://assets/deutsch/words/Deutsch_C_Clown.png",
+   "anlaut": false
+  },
+  {
+   "word": "Computer",
+   "letter": "C",
+   "picture": "res://assets/deutsch/words/Deutsch_C_Computer.png",
+   "anlaut": false
+  },
+  {
+   "word": "Jacke",
+   "letter": "J",
+   "picture": "res://assets/deutsch/words/Deutsch_J_Jacke.png"
+  },
+  {
+   "word": "Joghurt",
+   "letter": "J",
+   "picture": "res://assets/deutsch/words/Deutsch_J_Joghurt.png"
+  },
+  {
+   "word": "Jojo",
+   "letter": "J",
+   "picture": "res://assets/deutsch/words/Deutsch_J_Jojo.png"
+  },
+  {
+   "word": "Qualle",
+   "letter": "Q",
+   "picture": "res://assets/deutsch/words/Deutsch_Q_Qualle.png",
+   "anlaut": false
+  },
+  {
+   "word": "Quelle",
+   "letter": "Q",
+   "picture": "res://assets/deutsch/words/Deutsch_Q_Quelle.png",
+   "anlaut": false
+  },
+  {
+   "word": "Quark",
+   "letter": "Q",
+   "picture": "res://assets/deutsch/words/Deutsch_Q_Quark.png",
+   "anlaut": false
+  },
+  {
+   "word": "Vase",
+   "letter": "V",
+   "picture": "res://assets/deutsch/words/Deutsch_V_Vase.png",
+   "anlaut": false
+  },
+  {
+   "word": "Violine",
+   "letter": "V",
+   "picture": "res://assets/deutsch/words/Deutsch_V_Violine.png",
+   "anlaut": false
+  },
+  {
+   "word": "Vulkan",
+   "letter": "V",
+   "picture": "res://assets/deutsch/words/Deutsch_V_Vulkan.png",
+   "anlaut": false
+  },
+  {
+   "word": "Xylofon",
+   "letter": "X",
+   "picture": "res://assets/deutsch/words/Deutsch_X_Xylofon.png",
+   "anlaut": false
+  },
+  {
+   "word": "Yak",
+   "letter": "Y",
+   "picture": "res://assets/deutsch/words/Deutsch_Y_Yak.png",
+   "anlaut": false
+  },
+  {
+   "word": "Yacht",
+   "letter": "Y",
+   "picture": "res://assets/deutsch/words/Deutsch_Y_Yacht.png",
+   "anlaut": false
+  },
+  {
+   "word": "Yogamatte",
+   "letter": "Y",
+   "picture": "res://assets/deutsch/words/Deutsch_Y_Yogamatte.png",
+   "anlaut": false
+  },
+  {
+   "word": "Zebra",
+   "letter": "Z",
+   "picture": "res://assets/deutsch/words/Deutsch_Z_Zebra.png"
+  },
+  {
+   "word": "Zahn",
+   "letter": "Z",
+   "picture": "res://assets/deutsch/words/Deutsch_Z_Zahn.png"
+  },
+  {
+   "word": "Zitrone",
+   "letter": "Z",
+   "picture": "res://assets/deutsch/words/Deutsch_Z_Zitrone.png"
+  },
+  {
+   "word": "Äpfel",
+   "letter": "Ä",
+   "picture": "res://assets/deutsch/words/Deutsch_AE_Aepfel.png"
+  },
+  {
+   "word": "Ärmel",
+   "letter": "Ä",
+   "picture": "res://assets/deutsch/words/Deutsch_AE_Aermel.png"
+  },
+  {
+   "word": "Öl",
+   "letter": "Ö",
+   "picture": "res://assets/deutsch/words/Deutsch_OE_Oel.png"
+  },
+  {
+   "word": "Ölkanne",
+   "letter": "Ö",
+   "picture": "res://assets/deutsch/words/Deutsch_OE_Oelkanne.png"
+  },
+  {
+   "word": "Übertopf",
+   "letter": "Ü",
+   "picture": "res://assets/deutsch/words/Deutsch_UE_Uebertopf.png"
+  },
+  {
+   "word": "Übungsheft",
+   "letter": "Ü",
+   "picture": "res://assets/deutsch/words/Deutsch_UE_Uebungsheft.png"
+  }
+ ]
+}

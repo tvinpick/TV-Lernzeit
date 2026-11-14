@@ -1,0 +1,486 @@
+{
+  "title": "Lernzeit — Vergleichen bis 10 — Full HD",
+  "version": "2.0",
+  "date": "2026-11-12",
+  "base_resolution": [
+    1920,
+    1080
+  ],
+  "full_hd_only": true,
+  "sprite_images_rgba": true,
+  "reference_only_static_screens": 6,
+  "runtime_requirements": {
+    "engine": "Godot",
+    "target": "Android TV / Sony BRAVIA 3",
+    "controller": "D-pad + OK",
+    "session_length": 10,
+    "german_default": true,
+    "dynamic_text_answers": true
+  },
+  "integration": {
+    "game_assets_directory": "Game_Assets",
+    "exclude_from_godot_import": "Reference_Only"
+  },
+  "lesson_types": [
+    {
+      "id": "larger_number",
+      "question_de": "Welche Zahl ist größer?"
+    },
+    {
+      "id": "smaller_number",
+      "question_de": "Welche Zahl ist kleiner?"
+    },
+    {
+      "id": "comparison_sign",
+      "question_de": "Setze das richtige Zeichen ein!"
+    },
+    {
+      "id": "compare_groups",
+      "question_de": "Wo sind mehr Äpfel?"
+    },
+    {
+      "id": "equal_quantities",
+      "question_de": "Ist es gleich viel?"
+    },
+    {
+      "id": "sort_numbers",
+      "question_de": "Ordne von klein nach groß"
+    }
+  ],
+  "files": [
+    {
+      "path": "Game_Assets/UI/Buttons/Compare_Answer_Button_Blue_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        454,
+        191
+      ],
+      "alpha": true,
+      "source_resolution": [
+        760,
+        320
+      ],
+      "size_kb": 23.2
+    },
+    {
+      "path": "Game_Assets/UI/Buttons/Compare_Answer_Button_Disabled_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        454,
+        191
+      ],
+      "alpha": true,
+      "source_resolution": [
+        760,
+        320
+      ],
+      "size_kb": 26.0
+    },
+    {
+      "path": "Game_Assets/UI/Buttons/Compare_Answer_Button_Focused_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        454,
+        191
+      ],
+      "alpha": true,
+      "source_resolution": [
+        760,
+        320
+      ],
+      "size_kb": 28.1
+    },
+    {
+      "path": "Game_Assets/UI/Buttons/Compare_Choice_Three_Options_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        330,
+        174
+      ],
+      "alpha": true,
+      "source_resolution": [
+        550,
+        290
+      ],
+      "size_kb": 18.8
+    },
+    {
+      "path": "Game_Assets/UI/Focus/Compare_Focus_Ring_Transparent.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        454,
+        191
+      ],
+      "alpha": true,
+      "source_resolution": [
+        760,
+        320
+      ],
+      "size_kb": 26.0
+    },
+    {
+      "path": "Game_Assets/UI/Panels/Compare_Comparison_Sign_Slot_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        190,
+        208
+      ],
+      "alpha": true,
+      "source_resolution": [
+        310,
+        340
+      ],
+      "size_kb": 15.9
+    },
+    {
+      "path": "Game_Assets/UI/Panels/Compare_Main_Panel_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        1460,
+        819
+      ],
+      "alpha": true,
+      "source_resolution": [
+        2140,
+        1200
+      ],
+      "size_kb": 97.9
+    },
+    {
+      "path": "Game_Assets/UI/Panels/Compare_Number_Tile_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        250,
+        250
+      ],
+      "alpha": true,
+      "source_resolution": [
+        440,
+        440
+      ],
+      "size_kb": 18.9
+    },
+    {
+      "path": "Game_Assets/UI/Panels/Compare_Object_Group_Panel_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        440,
+        324
+      ],
+      "alpha": true,
+      "source_resolution": [
+        760,
+        560
+      ],
+      "size_kb": 23.7
+    },
+    {
+      "path": "Game_Assets/UI/Panels/Compare_Question_Panel_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        990,
+        204
+      ],
+      "alpha": true,
+      "source_resolution": [
+        1550,
+        320
+      ],
+      "size_kb": 25.5
+    },
+    {
+      "path": "Game_Assets/UI/Panels/Compare_Sequence_Slot_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        250,
+        250
+      ],
+      "alpha": true,
+      "source_resolution": [
+        490,
+        490
+      ],
+      "size_kb": 15.6
+    },
+    {
+      "path": "Game_Assets/UI/Progress/Compare_Progress_Bar_Empty.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        560,
+        112
+      ],
+      "alpha": true,
+      "source_resolution": [
+        1000,
+        200
+      ],
+      "size_kb": 7.7
+    },
+    {
+      "path": "Game_Assets/UI/Progress/Compare_Progress_Bar_Fill_Stretch.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        530,
+        81
+      ],
+      "alpha": true,
+      "source_resolution": [
+        950,
+        145
+      ],
+      "size_kb": 7.0
+    },
+    {
+      "path": "Game_Assets/UI/Progress/Compare_Progress_Dot_Empty.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        64,
+        64
+      ],
+      "alpha": true,
+      "source_resolution": [
+        130,
+        130
+      ],
+      "size_kb": 3.6
+    },
+    {
+      "path": "Game_Assets/UI/Progress/Compare_Progress_Dot_Filled.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        64,
+        64
+      ],
+      "alpha": true,
+      "source_resolution": [
+        130,
+        130
+      ],
+      "size_kb": 3.6
+    },
+    {
+      "path": "Game_Assets/UI/Sorting/Compare_Arrow_Down.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        144,
+        144
+      ],
+      "alpha": true,
+      "source_resolution": [
+        260,
+        260
+      ],
+      "size_kb": 9.0
+    },
+    {
+      "path": "Game_Assets/UI/Sorting/Compare_Arrow_Left.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        144,
+        144
+      ],
+      "alpha": true,
+      "source_resolution": [
+        260,
+        260
+      ],
+      "size_kb": 9.1
+    },
+    {
+      "path": "Game_Assets/UI/Sorting/Compare_Arrow_Right.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        144,
+        144
+      ],
+      "alpha": true,
+      "source_resolution": [
+        260,
+        260
+      ],
+      "size_kb": 9.1
+    },
+    {
+      "path": "Game_Assets/UI/Sorting/Compare_Arrow_Up.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        144,
+        144
+      ],
+      "alpha": true,
+      "source_resolution": [
+        260,
+        260
+      ],
+      "size_kb": 8.9
+    },
+    {
+      "path": "Game_Assets/UI/Sorting/Compare_Sort_Sequence_Answer_Blank.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        470,
+        166
+      ],
+      "alpha": true,
+      "source_resolution": [
+        850,
+        300
+      ],
+      "size_kb": 21.4
+    },
+    {
+      "path": "Game_Assets/UI/Symbols/Compare_Sign_Equal.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        182,
+        182
+      ],
+      "alpha": true,
+      "source_resolution": [
+        350,
+        350
+      ],
+      "size_kb": 1.4
+    },
+    {
+      "path": "Game_Assets/UI/Symbols/Compare_Sign_Greater.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        182,
+        182
+      ],
+      "alpha": true,
+      "source_resolution": [
+        350,
+        350
+      ],
+      "size_kb": 6.8
+    },
+    {
+      "path": "Game_Assets/UI/Symbols/Compare_Sign_Less.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        182,
+        182
+      ],
+      "alpha": true,
+      "source_resolution": [
+        350,
+        350
+      ],
+      "size_kb": 6.8
+    },
+    {
+      "path": "Game_Assets/UI/Symbols/Compare_Sign_Question.png",
+      "kind": "game_ui_sprite",
+      "resolution": [
+        182,
+        182
+      ],
+      "alpha": true,
+      "source_resolution": [
+        350,
+        350
+      ],
+      "size_kb": 5.7
+    },
+    {
+      "path": "Game_Assets/Backgrounds/Compare_10_Background_1920x1080.png",
+      "kind": "game_background",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "size_kb": 233.0
+    },
+    {
+      "path": "Reference_Only/Concept_Screens_1920x1080/Compare_10_01_Choose_Larger_Number.jpg",
+      "kind": "reference_only",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        1672,
+        941
+      ],
+      "size_kb": 247.3
+    },
+    {
+      "path": "Reference_Only/Concept_Screens_1920x1080/Compare_10_02_Choose_Smaller_Number.jpg",
+      "kind": "reference_only",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        1672,
+        941
+      ],
+      "size_kb": 257.9
+    },
+    {
+      "path": "Reference_Only/Concept_Screens_1920x1080/Compare_10_03_Insert_Comparison_Sign.jpg",
+      "kind": "reference_only",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        1672,
+        941
+      ],
+      "size_kb": 269.3
+    },
+    {
+      "path": "Reference_Only/Concept_Screens_1920x1080/Compare_10_04_Compare_Object_Groups.jpg",
+      "kind": "reference_only",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        1672,
+        941
+      ],
+      "size_kb": 291.1
+    },
+    {
+      "path": "Reference_Only/Concept_Screens_1920x1080/Compare_10_05_Equal_Quantities.jpg",
+      "kind": "reference_only",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        1672,
+        941
+      ],
+      "size_kb": 287.0
+    },
+    {
+      "path": "Reference_Only/Concept_Screens_1920x1080/Compare_10_06_Sort_Numbers.jpg",
+      "kind": "reference_only",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "alpha": false,
+      "source_resolution": [
+        1672,
+        941
+      ],
+      "size_kb": 279.2
+    }
+  ]
+}

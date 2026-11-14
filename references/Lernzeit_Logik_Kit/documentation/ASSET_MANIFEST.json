@@ -1,0 +1,562 @@
+{
+  "project": "Lernzeit",
+  "kit": "Logik",
+  "assets": [
+    {
+      "path": "Game_Assets/Backgrounds/Logik_Background_1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "description": "Full-HD decorative blue-purple lesson background"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Question_Panel.png",
+      "width": 1200,
+      "height": 190,
+      "description": "Empty glossy question panel with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Pattern_Row_Panel.png",
+      "width": 1390,
+      "height": 300,
+      "description": "Empty glossy pattern row panel with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Slot.png",
+      "width": 232,
+      "height": 232,
+      "description": "Empty glossy slot with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Slot_Missing.png",
+      "width": 232,
+      "height": 232,
+      "description": "Empty glossy slot missing with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Answer_Normal.png",
+      "width": 400,
+      "height": 156,
+      "description": "Empty glossy answer normal with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Answer_Focused.png",
+      "width": 420,
+      "height": 168,
+      "description": "Empty glossy answer focused with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Answer_Disabled.png",
+      "width": 400,
+      "height": 156,
+      "description": "Empty glossy answer disabled with no text"
+    },
+    {
+      "path": "Game_Assets/UI/Logik_Focus_Frame.png",
+      "width": 432,
+      "height": 180,
+      "description": "Empty glossy focus frame with no text"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Circle_Red.png",
+      "width": 256,
+      "height": 256,
+      "description": "red glossy circle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Square_Red.png",
+      "width": 256,
+      "height": 256,
+      "description": "red glossy square for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Triangle_Red.png",
+      "width": 256,
+      "height": 256,
+      "description": "red glossy triangle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Star_Red.png",
+      "width": 256,
+      "height": 256,
+      "description": "red glossy star for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Heart_Red.png",
+      "width": 256,
+      "height": 256,
+      "description": "red glossy heart for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Diamond_Red.png",
+      "width": 256,
+      "height": 256,
+      "description": "red glossy diamond for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Circle_Blue.png",
+      "width": 256,
+      "height": 256,
+      "description": "blue glossy circle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Square_Blue.png",
+      "width": 256,
+      "height": 256,
+      "description": "blue glossy square for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Triangle_Blue.png",
+      "width": 256,
+      "height": 256,
+      "description": "blue glossy triangle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Star_Blue.png",
+      "width": 256,
+      "height": 256,
+      "description": "blue glossy star for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Heart_Blue.png",
+      "width": 256,
+      "height": 256,
+      "description": "blue glossy heart for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Diamond_Blue.png",
+      "width": 256,
+      "height": 256,
+      "description": "blue glossy diamond for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Circle_Yellow.png",
+      "width": 256,
+      "height": 256,
+      "description": "yellow glossy circle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Square_Yellow.png",
+      "width": 256,
+      "height": 256,
+      "description": "yellow glossy square for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Triangle_Yellow.png",
+      "width": 256,
+      "height": 256,
+      "description": "yellow glossy triangle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Star_Yellow.png",
+      "width": 256,
+      "height": 256,
+      "description": "yellow glossy star for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Heart_Yellow.png",
+      "width": 256,
+      "height": 256,
+      "description": "yellow glossy heart for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Diamond_Yellow.png",
+      "width": 256,
+      "height": 256,
+      "description": "yellow glossy diamond for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Circle_Green.png",
+      "width": 256,
+      "height": 256,
+      "description": "green glossy circle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Square_Green.png",
+      "width": 256,
+      "height": 256,
+      "description": "green glossy square for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Triangle_Green.png",
+      "width": 256,
+      "height": 256,
+      "description": "green glossy triangle for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Star_Green.png",
+      "width": 256,
+      "height": 256,
+      "description": "green glossy star for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Heart_Green.png",
+      "width": 256,
+      "height": 256,
+      "description": "green glossy heart for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Shape_Diamond_Green.png",
+      "width": 256,
+      "height": 256,
+      "description": "green glossy diamond for patterns"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Pattern_Apfel.png",
+      "width": 256,
+      "height": 256,
+      "description": "Cute glossy Apfel for pattern exercises",
+      "german_word": "Apfel"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Pattern_Birne.png",
+      "width": 256,
+      "height": 256,
+      "description": "Cute glossy Birne for pattern exercises",
+      "german_word": "Birne"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Pattern_Blatt.png",
+      "width": 256,
+      "height": 256,
+      "description": "Cute glossy Blatt for pattern exercises",
+      "german_word": "Blatt"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Pattern_Ball.png",
+      "width": 256,
+      "height": 256,
+      "description": "Cute glossy Ball for pattern exercises",
+      "german_word": "Ball"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Pattern_Fisch.png",
+      "width": 256,
+      "height": 256,
+      "description": "Cute glossy Fisch for pattern exercises",
+      "german_word": "Fisch"
+    },
+    {
+      "path": "Game_Assets/Patterns/Logik_Pattern_Blume.png",
+      "width": 256,
+      "height": 256,
+      "description": "Cute glossy Blume for pattern exercises",
+      "german_word": "Blume"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_Form_Kreis.png",
+      "width": 400,
+      "height": 400,
+      "description": "Large neutral purple shape Kreis",
+      "german_word": "Kreis"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_Form_Quadrat.png",
+      "width": 400,
+      "height": 400,
+      "description": "Large neutral purple shape Quadrat",
+      "german_word": "Quadrat"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_Form_Dreieck.png",
+      "width": 400,
+      "height": 400,
+      "description": "Large neutral purple shape Dreieck",
+      "german_word": "Dreieck"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_Form_Rechteck.png",
+      "width": 400,
+      "height": 400,
+      "description": "Large neutral purple shape Rechteck",
+      "german_word": "Rechteck"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Ball.png",
+      "width": 360,
+      "height": 360,
+      "description": "Ball everyday object showing shape Kreis",
+      "german_word": "Ball"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Uhr.png",
+      "width": 360,
+      "height": 360,
+      "description": "Uhr everyday object showing shape Kreis",
+      "german_word": "Uhr"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Pizza.png",
+      "width": 360,
+      "height": 360,
+      "description": "Pizza everyday object showing shape Kreis",
+      "german_word": "Pizza"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Fenster.png",
+      "width": 360,
+      "height": 360,
+      "description": "Fenster everyday object showing shape Quadrat",
+      "german_word": "Fenster"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Wuerfel.png",
+      "width": 360,
+      "height": 360,
+      "description": "Wuerfel everyday object showing shape Quadrat",
+      "german_word": "Würfel"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Kissen.png",
+      "width": 360,
+      "height": 360,
+      "description": "Kissen everyday object showing shape Quadrat",
+      "german_word": "Kissen"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Pizzastueck.png",
+      "width": 360,
+      "height": 360,
+      "description": "Pizzastueck everyday object showing shape Dreieck",
+      "german_word": "Pizzastueck"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Schild.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schild everyday object showing shape Dreieck",
+      "german_word": "Schild"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Zelt.png",
+      "width": 360,
+      "height": 360,
+      "description": "Zelt everyday object showing shape Dreieck",
+      "german_word": "Zelt"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Tuer.png",
+      "width": 360,
+      "height": 360,
+      "description": "Tuer everyday object showing shape Rechteck",
+      "german_word": "Tür"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Buch.png",
+      "width": 360,
+      "height": 360,
+      "description": "Buch everyday object showing shape Rechteck",
+      "german_word": "Buch"
+    },
+    {
+      "path": "Game_Assets/Forms/Logik_FormObject_Handy.png",
+      "width": 360,
+      "height": 360,
+      "description": "Handy everyday object showing shape Rechteck",
+      "german_word": "Handy"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Garten_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Garten find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Garten_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Garten find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Zimmer_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Zimmer find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Zimmer_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Zimmer find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Strand_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Strand find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Strand_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Strand find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Wald_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Wald find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Wald_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Wald find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Kueche_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Kueche find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Kueche_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Kueche find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Spielplatz_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Spielplatz find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Spielplatz_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Spielplatz find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_See_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "See find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_See_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "See find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Stadt_Left.png",
+      "width": 760,
+      "height": 560,
+      "description": "Stadt find-three-differences scene, left"
+    },
+    {
+      "path": "Game_Assets/Differences/Logik_Diff_Stadt_Right.png",
+      "width": 760,
+      "height": 560,
+      "description": "Stadt find-three-differences scene, right"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Blume_1.png",
+      "width": 360,
+      "height": 360,
+      "description": "Blume story step 1"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Blume_2.png",
+      "width": 360,
+      "height": 360,
+      "description": "Blume story step 2"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Blume_3.png",
+      "width": 360,
+      "height": 360,
+      "description": "Blume story step 3"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Huhn_1.png",
+      "width": 360,
+      "height": 360,
+      "description": "Huhn story step 1"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Huhn_2.png",
+      "width": 360,
+      "height": 360,
+      "description": "Huhn story step 2"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Huhn_3.png",
+      "width": 360,
+      "height": 360,
+      "description": "Huhn story step 3"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Tag_1.png",
+      "width": 360,
+      "height": 360,
+      "description": "Tag story step 1"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Tag_2.png",
+      "width": 360,
+      "height": 360,
+      "description": "Tag story step 2"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Tag_3.png",
+      "width": 360,
+      "height": 360,
+      "description": "Tag story step 3"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Kuchen_1.png",
+      "width": 360,
+      "height": 360,
+      "description": "Kuchen story step 1"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Kuchen_2.png",
+      "width": 360,
+      "height": 360,
+      "description": "Kuchen story step 2"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Kuchen_3.png",
+      "width": 360,
+      "height": 360,
+      "description": "Kuchen story step 3"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Schmetterling_1.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schmetterling story step 1"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Schmetterling_2.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schmetterling story step 2"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Schmetterling_3.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schmetterling story step 3"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Schnee_1.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schnee story step 1"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Schnee_2.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schnee story step 2"
+    },
+    {
+      "path": "Game_Assets/Sequences/Logik_Sequence_Schnee_3.png",
+      "width": 360,
+      "height": 360,
+      "description": "Schnee story step 3"
+    }
+  ]
+}

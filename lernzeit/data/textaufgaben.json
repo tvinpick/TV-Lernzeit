@@ -1,0 +1,304 @@
+{
+ "aufgaben": [
+  {
+   "id": "ta_01",
+   "text": "3 Vögel sitzen auf dem Ast. 2 Vögel fliegen dazu. Wie viele Vögel sind es jetzt?",
+   "object": "Vogel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Vogel.png",
+   "a": 3,
+   "b": 2,
+   "op": "+",
+   "answer": 5
+  },
+  {
+   "id": "ta_02",
+   "text": "4 Enten schwimmen im Teich. 3 Enten schwimmen dazu. Wie viele Enten sind es jetzt?",
+   "object": "Ente",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Ente.png",
+   "a": 4,
+   "b": 3,
+   "op": "+",
+   "answer": 7
+  },
+  {
+   "id": "ta_03",
+   "text": "2 Schmetterlinge fliegen über der Wiese. 5 Schmetterlinge fliegen dazu. Wie viele Schmetterlinge sind es jetzt?",
+   "object": "Schmetterling",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Schmetterling.png",
+   "a": 2,
+   "b": 5,
+   "op": "+",
+   "answer": 7
+  },
+  {
+   "id": "ta_04",
+   "text": "5 Fische schwimmen im Teich. 2 Fische schwimmen dazu. Wie viele Fische sind es jetzt?",
+   "object": "Fisch",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Fisch.png",
+   "a": 5,
+   "b": 2,
+   "op": "+",
+   "answer": 7
+  },
+  {
+   "id": "ta_05",
+   "text": "3 Äpfel liegen im Korb. 4 Äpfel werden dazugelegt. Wie viele Äpfel sind es jetzt?",
+   "object": "Apfel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Apfel.png",
+   "a": 3,
+   "b": 4,
+   "op": "+",
+   "answer": 7
+  },
+  {
+   "id": "ta_06",
+   "text": "4 Karotten liegen im Korb. 4 Karotten werden dazugelegt. Wie viele Karotten sind es jetzt?",
+   "object": "Karotte",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Karotte.png",
+   "a": 4,
+   "b": 4,
+   "op": "+",
+   "answer": 8
+  },
+  {
+   "id": "ta_07",
+   "text": "2 Ballons schweben im Zimmer. 6 Ballons kommen dazu. Wie viele Ballons sind es jetzt?",
+   "object": "Ballon",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Ballon.png",
+   "a": 2,
+   "b": 6,
+   "op": "+",
+   "answer": 8
+  },
+  {
+   "id": "ta_08",
+   "text": "5 Autos stehen auf dem Parkplatz. 3 Autos kommen dazu. Wie viele Autos sind es jetzt?",
+   "object": "Auto",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Auto.png",
+   "a": 5,
+   "b": 3,
+   "op": "+",
+   "answer": 8
+  },
+  {
+   "id": "ta_09",
+   "text": "6 Muffins liegen auf dem Teller. 2 Muffins werden dazugelegt. Wie viele Muffins sind es jetzt?",
+   "object": "Muffin",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Muffin.png",
+   "a": 6,
+   "b": 2,
+   "op": "+",
+   "answer": 8
+  },
+  {
+   "id": "ta_10",
+   "text": "3 Katzen spielen im Garten. 5 Katzen kommen dazu. Wie viele Katzen sind es jetzt?",
+   "object": "Katze",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Katze.png",
+   "a": 3,
+   "b": 5,
+   "op": "+",
+   "answer": 8
+  },
+  {
+   "id": "ta_11",
+   "text": "2 Vögel sitzen auf dem Ast. 4 Vögel fliegen dazu. Wie viele Vögel sind es jetzt?",
+   "object": "Vogel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Vogel.png",
+   "a": 2,
+   "b": 4,
+   "op": "+",
+   "answer": 6
+  },
+  {
+   "id": "ta_12",
+   "text": "5 Enten schwimmen im Teich. 4 Enten schwimmen dazu. Wie viele Enten sind es jetzt?",
+   "object": "Ente",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Ente.png",
+   "a": 5,
+   "b": 4,
+   "op": "+",
+   "answer": 9
+  },
+  {
+   "id": "ta_13",
+   "text": "4 Schmetterlinge fliegen über der Wiese. 2 Schmetterlinge fliegen dazu. Wie viele Schmetterlinge sind es jetzt?",
+   "object": "Schmetterling",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Schmetterling.png",
+   "a": 4,
+   "b": 2,
+   "op": "+",
+   "answer": 6
+  },
+  {
+   "id": "ta_14",
+   "text": "2 Fische schwimmen im Teich. 7 Fische schwimmen dazu. Wie viele Fische sind es jetzt?",
+   "object": "Fisch",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Fisch.png",
+   "a": 2,
+   "b": 7,
+   "op": "+",
+   "answer": 9
+  },
+  {
+   "id": "ta_15",
+   "text": "6 Äpfel liegen im Korb. 3 Äpfel werden dazugelegt. Wie viele Äpfel sind es jetzt?",
+   "object": "Apfel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Apfel.png",
+   "a": 6,
+   "b": 3,
+   "op": "+",
+   "answer": 9
+  },
+  {
+   "id": "ta_16",
+   "text": "6 Vögel sitzen auf dem Ast. 2 Vögel fliegen weg. Wie viele Vögel bleiben?",
+   "object": "Vogel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Vogel.png",
+   "a": 6,
+   "b": 2,
+   "op": "-",
+   "answer": 4
+  },
+  {
+   "id": "ta_17",
+   "text": "7 Enten schwimmen im Teich. 3 Enten schwimmen weg. Wie viele Enten bleiben?",
+   "object": "Ente",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Ente.png",
+   "a": 7,
+   "b": 3,
+   "op": "-",
+   "answer": 4
+  },
+  {
+   "id": "ta_18",
+   "text": "8 Schmetterlinge fliegen über der Wiese. 4 Schmetterlinge fliegen weg. Wie viele Schmetterlinge bleiben?",
+   "object": "Schmetterling",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Schmetterling.png",
+   "a": 8,
+   "b": 4,
+   "op": "-",
+   "answer": 4
+  },
+  {
+   "id": "ta_19",
+   "text": "5 Fische schwimmen im Teich. 2 Fische schwimmen weg. Wie viele Fische bleiben?",
+   "object": "Fisch",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Fisch.png",
+   "a": 5,
+   "b": 2,
+   "op": "-",
+   "answer": 3
+  },
+  {
+   "id": "ta_20",
+   "text": "9 Äpfel liegen im Korb. 3 Äpfel werden herausgenommen. Wie viele Äpfel bleiben?",
+   "object": "Apfel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Apfel.png",
+   "a": 9,
+   "b": 3,
+   "op": "-",
+   "answer": 6
+  },
+  {
+   "id": "ta_21",
+   "text": "6 Karotten liegen im Korb. 4 Karotten werden herausgenommen. Wie viele Karotten bleiben?",
+   "object": "Karotte",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Karotte.png",
+   "a": 6,
+   "b": 4,
+   "op": "-",
+   "answer": 2
+  },
+  {
+   "id": "ta_22",
+   "text": "7 Ballons schweben im Zimmer. 2 Ballons fliegen weg. Wie viele Ballons bleiben?",
+   "object": "Ballon",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Ballon.png",
+   "a": 7,
+   "b": 2,
+   "op": "-",
+   "answer": 5
+  },
+  {
+   "id": "ta_23",
+   "text": "8 Autos stehen auf dem Parkplatz. 3 Autos fahren weg. Wie viele Autos bleiben?",
+   "object": "Auto",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Auto.png",
+   "a": 8,
+   "b": 3,
+   "op": "-",
+   "answer": 5
+  },
+  {
+   "id": "ta_24",
+   "text": "9 Muffins liegen auf dem Teller. 4 Muffins werden gegessen. Wie viele Muffins bleiben?",
+   "object": "Muffin",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Muffin.png",
+   "a": 9,
+   "b": 4,
+   "op": "-",
+   "answer": 5
+  },
+  {
+   "id": "ta_25",
+   "text": "10 Katzen spielen im Garten. 5 Katzen laufen weg. Wie viele Katzen bleiben?",
+   "object": "Katze",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Katze.png",
+   "a": 10,
+   "b": 5,
+   "op": "-",
+   "answer": 5
+  },
+  {
+   "id": "ta_26",
+   "text": "5 Vögel sitzen auf dem Ast. 3 Vögel fliegen weg. Wie viele Vögel bleiben?",
+   "object": "Vogel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Vogel.png",
+   "a": 5,
+   "b": 3,
+   "op": "-",
+   "answer": 2
+  },
+  {
+   "id": "ta_27",
+   "text": "8 Enten schwimmen im Teich. 2 Enten schwimmen weg. Wie viele Enten bleiben?",
+   "object": "Ente",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Ente.png",
+   "a": 8,
+   "b": 2,
+   "op": "-",
+   "answer": 6
+  },
+  {
+   "id": "ta_28",
+   "text": "7 Schmetterlinge fliegen über der Wiese. 4 Schmetterlinge fliegen weg. Wie viele Schmetterlinge bleiben?",
+   "object": "Schmetterling",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Schmetterling.png",
+   "a": 7,
+   "b": 4,
+   "op": "-",
+   "answer": 3
+  },
+  {
+   "id": "ta_29",
+   "text": "9 Fische schwimmen im Teich. 5 Fische schwimmen weg. Wie viele Fische bleiben?",
+   "object": "Fisch",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Fisch.png",
+   "a": 9,
+   "b": 5,
+   "op": "-",
+   "answer": 4
+  },
+  {
+   "id": "ta_30",
+   "text": "6 Äpfel liegen im Korb. 3 Äpfel werden herausgenommen. Wie viele Äpfel bleiben?",
+   "object": "Apfel",
+   "picture": "res://assets/math/textaufgaben/objects/Textaufgaben_Apfel.png",
+   "a": 6,
+   "b": 3,
+   "op": "-",
+   "answer": 3
+  }
+ ]
+}

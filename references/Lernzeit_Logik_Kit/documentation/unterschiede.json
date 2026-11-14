@@ -1,0 +1,202 @@
+[
+  {
+    "pair": "Garten",
+    "left": "Differences/Logik_Diff_Garten_Left.png",
+    "right": "Differences/Logik_Diff_Garten_Right.png",
+    "diffs": [
+      [
+        270,
+        70,
+        140,
+        140
+      ],
+      [
+        325,
+        338,
+        145,
+        80
+      ],
+      [
+        548,
+        204,
+        95,
+        110
+      ]
+    ]
+  },
+  {
+    "pair": "Zimmer",
+    "left": "Differences/Logik_Diff_Zimmer_Left.png",
+    "right": "Differences/Logik_Diff_Zimmer_Right.png",
+    "diffs": [
+      [
+        506,
+        100,
+        155,
+        150
+      ],
+      [
+        101,
+        352,
+        145,
+        143
+      ],
+      [
+        633,
+        326,
+        70,
+        83
+      ]
+    ]
+  },
+  {
+    "pair": "Strand",
+    "left": "Differences/Logik_Diff_Strand_Left.png",
+    "right": "Differences/Logik_Diff_Strand_Right.png",
+    "diffs": [
+      [
+        214,
+        143,
+        165,
+        205
+      ],
+      [
+        493,
+        337,
+        155,
+        190
+      ],
+      [
+        74,
+        386,
+        102,
+        104
+      ]
+    ]
+  },
+  {
+    "pair": "Wald",
+    "left": "Differences/Logik_Diff_Wald_Left.png",
+    "right": "Differences/Logik_Diff_Wald_Right.png",
+    "diffs": [
+      [
+        386,
+        398,
+        144,
+        115
+      ],
+      [
+        286,
+        269,
+        91,
+        98
+      ],
+      [
+        580,
+        165,
+        116,
+        107
+      ]
+    ]
+  },
+  {
+    "pair": "Kueche",
+    "left": "Differences/Logik_Diff_Kueche_Left.png",
+    "right": "Differences/Logik_Diff_Kueche_Right.png",
+    "diffs": [
+      [
+        474,
+        259,
+        119,
+        115
+      ],
+      [
+        604,
+        344,
+        109,
+        111
+      ],
+      [
+        75,
+        334,
+        108,
+        127
+      ]
+    ]
+  },
+  {
+    "pair": "Spielplatz",
+    "left": "Differences/Logik_Diff_Spielplatz_Left.png",
+    "right": "Differences/Logik_Diff_Spielplatz_Right.png",
+    "diffs": [
+      [
+        159,
+        394,
+        180,
+        82
+      ],
+      [
+        354,
+        127,
+        135,
+        135
+      ],
+      [
+        540,
+        170,
+        120,
+        178
+      ]
+    ]
+  },
+  {
+    "pair": "See",
+    "left": "Differences/Logik_Diff_See_Left.png",
+    "right": "Differences/Logik_Diff_See_Right.png",
+    "diffs": [
+      [
+        261,
+        167,
+        164,
+        247
+      ],
+      [
+        501,
+        394,
+        125,
+        83
+      ],
+      [
+        65,
+        53,
+        132,
+        128
+      ]
+    ]
+  },
+  {
+    "pair": "Stadt",
+    "left": "Differences/Logik_Diff_Stadt_Left.png",
+    "right": "Differences/Logik_Diff_Stadt_Right.png",
+    "diffs": [
+      [
+        375,
+        208,
+        128,
+        123
+      ],
+      [
+        525,
+        322,
+        189,
+        131
+      ],
+      [
+        110,
+        381,
+        92,
+        94
+      ]
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+pill_light cap=54 size=111x96
+pill_blue cap=55 size=112x96
+pill_green cap=51 size=103x96
+pill_red cap=51 size=103x96
+pill_cyan cap=50 size=102x96
+pill_purple cap=50 size=103x96
+pill_gray cap=40 size=83x72
+track_light cap=27 size=57x48

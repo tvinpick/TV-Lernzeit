@@ -1,0 +1,176 @@
+{
+  "pack": "Lernzeit Lesen / Words 1A",
+  "version": "1.0",
+  "assets": [
+    {
+      "path": "Lesen/Words/Lesen_Mama.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Mama",
+      "description": "Friendly smiling cartoon mother",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        130,
+        30,
+        469,
+        570
+      ],
+      "file_bytes": 277850
+    },
+    {
+      "path": "Lesen/Words/Lesen_Papa.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Papa",
+      "description": "Friendly smiling cartoon father",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        168,
+        30,
+        431,
+        570
+      ],
+      "file_bytes": 198903
+    },
+    {
+      "path": "Lesen/Words/Lesen_Oma.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Oma",
+      "description": "Friendly smiling cartoon grandmother",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        125,
+        30,
+        475,
+        570
+      ],
+      "file_bytes": 292383
+    },
+    {
+      "path": "Lesen/Words/Lesen_Opa.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Opa",
+      "description": "Friendly smiling cartoon grandfather",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        171,
+        30,
+        428,
+        570
+      ],
+      "file_bytes": 221593
+    },
+    {
+      "path": "Lesen/Words/Lesen_Rose.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Rose",
+      "description": "Red rose with a friendly face",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        93,
+        30,
+        507,
+        570
+      ],
+      "file_bytes": 281141
+    },
+    {
+      "path": "Lesen/Words/Lesen_Nase.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Nase",
+      "description": "Smiling cartoon nose",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        63,
+        30,
+        536,
+        570
+      ],
+      "file_bytes": 240949
+    },
+    {
+      "path": "Lesen/Words/Lesen_Hose.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Hose",
+      "description": "Pair of blue trousers",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        84,
+        38,
+        515,
+        562
+      ],
+      "file_bytes": 355314
+    },
+    {
+      "path": "Lesen/Words/Lesen_Sofa.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Sofa",
+      "description": "Purple sofa with smiling face and cushions",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        30,
+        110,
+        570,
+        490
+      ],
+      "file_bytes": 239147
+    },
+    {
+      "path": "Lesen/Words/Lesen_Dose.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Dose",
+      "description": "Can of preserved tomatoes (tin can)",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        125,
+        37,
+        474,
+        562
+      ],
+      "file_bytes": 258954
+    },
+    {
+      "path": "Lesen/Words/Lesen_Limo.png",
+      "width": 600,
+      "height": 600,
+      "format": "PNG",
+      "mode": "RGBA",
+      "german_word": "Limo",
+      "description": "Glass of yellow lemonade with straw and lemon slice",
+      "alpha_corners_transparent": true,
+      "object_bbox": [
+        156,
+        86,
+        444,
+        514
+      ],
+      "file_bytes": 172931
+    }
+  ]
+}

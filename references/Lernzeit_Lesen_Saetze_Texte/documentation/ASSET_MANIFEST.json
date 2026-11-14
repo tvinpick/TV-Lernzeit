@@ -1,0 +1,354 @@
+{
+  "project": "Lernzeit",
+  "kit": "Lesen Saetze Texte",
+  "assets": [
+    {
+      "path": "Game_Assets/Sentences/Satz_s01.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Insel ist klein.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s02.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Oma hat eine Tasse.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s03.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Ball ist rot.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s04.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Papa sieht das Sofa.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s05.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Sonne scheint hell.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s06.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Katze ist süß.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s07.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Mama hat eine Tasche.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s08.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Bus ist gelb.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s09.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Ente schwimmt im See.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s10.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Blume ist rosa.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s11.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Kuh steht im Gras.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s12.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Fisch schwimmt im Wasser.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s13.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Mond scheint heute.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s14.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Rakete fliegt hoch.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s15.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Banane ist gelb.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s16.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Igel sieht einen Pilz.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s17.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Das Lama steht im Gras.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s18.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Puppe sitzt auf dem Sofa.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s19.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Rose ist rot.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s20.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Das Auto fährt schnell.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s21.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Wal schwimmt im Meer.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s22.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Uhu sitzt auf dem Ast.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s23.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Opa hat einen Hut.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s24.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Esel sieht eine Tasche.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s25.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Tomate ist rot.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s26.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Ameise ist klein.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s27.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Das Nest liegt im Baum.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s28.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Uhr hängt an der Wand.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s29.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Die Gans steht am See.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Sentences/Satz_s30.png",
+      "width": 480,
+      "height": 360,
+      "description": "No-text scene representing: Der Löwe ist groß.",
+      "type": "illustration"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Ball.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Ball",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Puppe.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Puppe",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Auto.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Auto",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Rose.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Rose",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Fisch.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Fisch",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Banane.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Banane",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Bus.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Bus",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Katze.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Katze",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Blume.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Blume",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Hut.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Hut",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Dach.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Dach",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Sofa.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Sofa",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Limo.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Limo",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Apfel.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Apfel",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Tasse.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Tasse",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Kuh.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Kuh",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Lama.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Lama",
+      "type": "answer"
+    },
+    {
+      "path": "Game_Assets/Answers/Answer_Tasche.png",
+      "width": 300,
+      "height": 300,
+      "description": "Text quiz answer: Tasche",
+      "type": "answer"
+    }
+  ],
+  "data_files": [
+    {
+      "path": "Game_Assets/Data/saetze.json",
+      "size_bytes": 2827,
+      "description": "Game-readable JSON dataset: saetze.json"
+    },
+    {
+      "path": "Game_Assets/Data/texte.json",
+      "size_bytes": 2000,
+      "description": "Game-readable JSON dataset: texte.json"
+    }
+  ]
+}
