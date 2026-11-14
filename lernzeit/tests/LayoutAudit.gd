@@ -256,7 +256,7 @@ func audit_exercise(screen_id: String, ex_id: String) -> void:
 				ex.session.tasks[0] = ex.generator.make_task(m)
 				ex._show_task()
 				await check_screen("%s:%s:%s" % [ex_id, m, diff])
-				if screen_id == "exercise_de":
+				if screen_id == "exercise_de" and m != "lg_unterschiede":   # there the grid lies on the picture
 					_check_stage_above_answers(ex, "%s:%s:%s" % [ex_id, m, diff])
 	# tip state + results overlay
 	ex._prompt.set_wrapped(true, 30)

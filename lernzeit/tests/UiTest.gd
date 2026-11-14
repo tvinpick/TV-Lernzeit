@@ -837,10 +837,10 @@ func run_lerntest() -> void:
 				var want = t["answer"]
 				var target: Control = null
 				for b in ex.active_buttons():
-					if (b.value != want) if (not wrong_done and guard == 2) else (b.value == want):
+					if (b.value != want) if (not wrong_done and guard >= 2) else (b.value == want):
 						target = b
 						break
-				if guard == 2:
+				if guard >= 2:
 					wrong_done = true
 				await navigate_to(target)
 				await key(KEY_ENTER, 0.2)

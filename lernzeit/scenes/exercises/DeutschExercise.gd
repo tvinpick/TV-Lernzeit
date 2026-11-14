@@ -1022,8 +1022,9 @@ func _finish() -> void:
 	FocusManager.set_neighbors(again, back, null)
 	for b in letter_buttons + tile_buttons:
 		b.focus_mode = Control.FOCUS_NONE
-	for b in pic_buttons:                # picture answers stay behind the results panel
-		b.focus_mode = Control.FOCUS_NONE
+	for b in pic_buttons + _diff_cells:  # picture answers / grid cells stay behind the results panel
+		if is_instance_valid(b):
+			b.focus_mode = Control.FOCUS_NONE
 	back_button.focus_mode = Control.FOCUS_NONE
 	listen_button.focus_mode = Control.FOCUS_NONE
 	again.grab_focus.call_deferred()
@@ -1092,8 +1093,9 @@ func _finish_test() -> void:
 	_results.add_child(dim)
 	var back := LernTest.build_results(_results, rec, INK)
 	back.pressed.connect(func(): main.pop())
-	for b in letter_buttons + tile_buttons + pic_buttons + [back_button, listen_button]:
-		b.focus_mode = Control.FOCUS_NONE
+	for b in letter_buttons + tile_buttons + pic_buttons + [back_button, listen_button] + _diff_cells:
+		if is_instance_valid(b):
+			b.focus_mode = Control.FOCUS_NONE
 	ResultsDecor.add(_results, int(rec["correct"] * 10 / maxi(1, rec["total"])), _stickers_before, _xp_before)
 	Juice.burst(self, Vector2(960, 300), 10, 30)
 	Sfx.play("streak")
