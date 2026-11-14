@@ -220,6 +220,138 @@
    "word": "Wolke",
    "letter": "W",
    "picture": "res://assets/deutsch/words/Deutsch_W_Wolke.png"
+  },
+  {
+   "word": "Clown",
+   "letter": "C",
+   "picture": "res://assets/deutsch/words/Deutsch_C_Clown.png",
+   "anlaut": false
+  },
+  {
+   "word": "Computer",
+   "letter": "C",
+   "picture": "res://assets/deutsch/words/Deutsch_C_Computer.png",
+   "anlaut": false
+  },
+  {
+   "word": "Jacke",
+   "letter": "J",
+   "picture": "res://assets/deutsch/words/Deutsch_J_Jacke.png"
+  },
+  {
+   "word": "Joghurt",
+   "letter": "J",
+   "picture": "res://assets/deutsch/words/Deutsch_J_Joghurt.png"
+  },
+  {
+   "word": "Jojo",
+   "letter": "J",
+   "picture": "res://assets/deutsch/words/Deutsch_J_Jojo.png"
+  },
+  {
+   "word": "Qualle",
+   "letter": "Q",
+   "picture": "res://assets/deutsch/words/Deutsch_Q_Qualle.png",
+   "anlaut": false
+  },
+  {
+   "word": "Quelle",
+   "letter": "Q",
+   "picture": "res://assets/deutsch/words/Deutsch_Q_Quelle.png",
+   "anlaut": false
+  },
+  {
+   "word": "Quark",
+   "letter": "Q",
+   "picture": "res://assets/deutsch/words/Deutsch_Q_Quark.png",
+   "anlaut": false
+  },
+  {
+   "word": "Vase",
+   "letter": "V",
+   "picture": "res://assets/deutsch/words/Deutsch_V_Vase.png",
+   "anlaut": false
+  },
+  {
+   "word": "Violine",
+   "letter": "V",
+   "picture": "res://assets/deutsch/words/Deutsch_V_Violine.png",
+   "anlaut": false
+  },
+  {
+   "word": "Vulkan",
+   "letter": "V",
+   "picture": "res://assets/deutsch/words/Deutsch_V_Vulkan.png",
+   "anlaut": false
+  },
+  {
+   "word": "Xylofon",
+   "letter": "X",
+   "picture": "res://assets/deutsch/words/Deutsch_X_Xylofon.png",
+   "anlaut": false
+  },
+  {
+   "word": "Yak",
+   "letter": "Y",
+   "picture": "res://assets/deutsch/words/Deutsch_Y_Yak.png",
+   "anlaut": false
+  },
+  {
+   "word": "Yacht",
+   "letter": "Y",
+   "picture": "res://assets/deutsch/words/Deutsch_Y_Yacht.png",
+   "anlaut": false
+  },
+  {
+   "word": "Yogamatte",
+   "letter": "Y",
+   "picture": "res://assets/deutsch/words/Deutsch_Y_Yogamatte.png",
+   "anlaut": false
+  },
+  {
+   "word": "Zebra",
+   "letter": "Z",
+   "picture": "res://assets/deutsch/words/Deutsch_Z_Zebra.png"
+  },
+  {
+   "word": "Zahn",
+   "letter": "Z",
+   "picture": "res://assets/deutsch/words/Deutsch_Z_Zahn.png"
+  },
+  {
+   "word": "Zitrone",
+   "letter": "Z",
+   "picture": "res://assets/deutsch/words/Deutsch_Z_Zitrone.png"
+  },
+  {
+   "word": "Äpfel",
+   "letter": "Ä",
+   "picture": "res://assets/deutsch/words/Deutsch_AE_Aepfel.png"
+  },
+  {
+   "word": "Ärmel",
+   "letter": "Ä",
+   "picture": "res://assets/deutsch/words/Deutsch_AE_Aermel.png"
+  },
+  {
+   "word": "Öl",
+   "letter": "Ö",
+   "picture": "res://assets/deutsch/words/Deutsch_OE_Oel.png"
+  },
+  {
+   "word": "Ölkanne",
+   "letter": "Ö",
+   "picture": "res://assets/deutsch/words/Deutsch_OE_Oelkanne.png"
+  },
+  {
+   "word": "Übertopf",
+   "letter": "Ü",
+   "picture": "res://assets/deutsch/words/Deutsch_UE_Uebertopf.png"
+  },
+  {
+   "word": "Übungsheft",
+   "letter": "Ü",
+   "picture": "res://assets/deutsch/words/Deutsch_UE_Uebungsheft.png"
   }
  ]
 }

@@ -247,7 +247,7 @@ func _ready() -> void:
 	check("".join(bt["tiles"]) != bt["word"] or (bt["word"] as String).length() < 2 or bt["word"] in ["MAMA"], "build word: tiles shuffled")
 	var dict := LetterGenerator.dictionary()
 	var missing_pics := dict.filter(func(e): return not ResourceLoader.exists(e["picture"]))
-	check(dict.size() == 44 and missing_pics.is_empty(), "44 picture words, all pictures exist " + str(missing_pics))
+	check(dict.size() >= 68 and missing_pics.is_empty(), "%d picture words, all pictures exist %s" % [dict.size(), missing_pics])
 	var wrong_first := dict.filter(func(e): return (e["upper"] as String).substr(0, 1) != e["letter"])
 	check(wrong_first.is_empty(), "every word starts with its letter " + str(wrong_first))
 	var easy := LetterGenerator.new(3)
@@ -410,8 +410,18 @@ func _ready() -> void:
 	_test_solutions()
 	_test_progression()
 	_test_new_content()
+	_test_word_pack_1()
 	print("UNIT TESTS: %d checks, %d failures" % [checks, failures])
 	get_tree().quit(1 if failures > 0 else 0)
+
+
+## Word pack "Deutsch_Words_Part1" (14.11.): pictures yet, recordings follow (docs/TASK_GPT_2.md).
+const NEW_WORDS_WITHOUT_VOICE := ["Deutsch_C_Clown.png", "Deutsch_C_Computer.png", "Deutsch_J_Jacke.png",
+	"Deutsch_J_Joghurt.png", "Deutsch_J_Jojo.png", "Deutsch_Q_Qualle.png", "Deutsch_Q_Quelle.png", "Deutsch_Q_Quark.png",
+	"Deutsch_V_Vase.png", "Deutsch_V_Violine.png", "Deutsch_V_Vulkan.png", "Deutsch_X_Xylofon.png", "Deutsch_Y_Yak.png",
+	"Deutsch_Y_Yacht.png", "Deutsch_Y_Yogamatte.png", "Deutsch_Z_Zebra.png", "Deutsch_Z_Zahn.png", "Deutsch_Z_Zitrone.png",
+	"Deutsch_AE_Aepfel.png", "Deutsch_AE_Aermel.png", "Deutsch_OE_Oel.png", "Deutsch_OE_Oelkanne.png",
+	"Deutsch_UE_Uebertopf.png", "Deutsch_UE_Uebungsheft.png"]
 
 
 func _test_voice() -> void:
@@ -428,9 +438,13 @@ func _test_voice() -> void:
 			missing.append(Voice.letter(l))
 		if not Voice.has(Voice.sound(l)):
 			missing.append(Voice.sound(l))
+	var no_voice_yet := 0          # new words (part 1 of the word pack) are recorded later
 	for e in LetterGenerator.dictionary() + ReadingGenerator.words():
 		if not Voice.has(Voice.word_from_picture(e["picture"])):
-			missing.append(Voice.word_from_picture(e["picture"]))
+			if (e["picture"] as String).get_file() in NEW_WORDS_WITHOUT_VOICE:
+				no_voice_yet += 1
+			else:
+				missing.append(Voice.word_from_picture(e["picture"]))
 	for c in ["ex_correct", "ex_correct_2", "ex_correct_3", "ex_correct_4", "ex_wrong", "ex_wrong_2",
 			"ex_streak", "ex_done", "ex_done_perfect", "home_prompt", "pause", "plus", "minus", "de_word_is"]:
 		if not Voice.has(c):
@@ -629,3 +643,26 @@ func _test_new_content() -> void:
 	check(missing.is_empty(), "voice part 2: sentences, stories, word problems, Logik prompts, shapes " + str(missing))
 	var ms: GDScript = load("res://scenes/exercises/MathExercise.gd")
 	check(ms.solution_text({"mode": "ta_task", "a": 6, "b": 3, "op": "-", "answer": 3}) == "6 − 3 = 3", "'So geht's' for word problems")
+
+
+func _test_word_pack_1() -> void:
+	var dict := LetterGenerator.dictionary()
+	var letters := {}
+	for e in dict:
+		letters[e["letter"]] = int(letters.get(e["letter"], 0)) + 1
+	var empty: Array = LetterGenerator.LETTERS_ALL.filter(func(l): return int(letters.get(l, 0)) == 0)
+	check(dict.size() == 68 and empty.is_empty(), "68 words, every letter A–Z, Ä, Ö, Ü has a picture word (missing: %s)" % [empty])
+	var g := LetterGenerator.new(9)
+	g.difficulty = "hard"
+	var bad := 0
+	for i in 300:
+		var t := g.make_task("de_first")
+		if t["answer"] in ["C", "Q", "X", "Y", "V"] or not g.is_valid(t):
+			bad += 1
+	check(bad == 0, "Anlaute: no C/Q/X/Y/V words (first sound differs), all tasks valid (%d bad)" % bad)
+	var seen := {}
+	for i in 400:
+		var t := g.make_task("de_find" if i % 2 == 0 else "de_missing")
+		if g.is_valid(t):
+			seen[t.get("word", t.get("letter", ""))] = true
+	check(seen.has("Q") or seen.has("ZAHN") or seen.has("YAK") or seen.has("ÖL"), "new letters / words appear in the tasks")

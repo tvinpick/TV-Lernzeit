@@ -46,7 +46,7 @@ static func dictionary() -> Array:
 		var d = JSON.parse_string(FileAccess.get_file_as_string(WORDS_FILE))
 		for e in (d["words"] if d is Dictionary else []):
 			_dictionary.append({"word": e["word"], "upper": (e["word"] as String).to_upper(),
-				"letter": e["letter"], "picture": e["picture"]})
+				"letter": e["letter"], "picture": e["picture"], "anlaut": e.get("anlaut", true)})
 	return _dictionary
 
 
@@ -68,7 +68,8 @@ func max_word_len() -> int:
 ## Pictures whose first letter is unlocked (first-letter task).
 func first_letter_words() -> Array:
 	var ls := letters()
-	return dictionary().filter(func(e): return e["letter"] in ls)
+	# words whose first sound is not the letter's sound (Vase, Clown, Yacht …) stay out of "Anlaute"
+	return dictionary().filter(func(e): return e["letter"] in ls and e["anlaut"])
 
 
 ## Words for spelling tasks: short enough, no ß, umlauts only on "hard",

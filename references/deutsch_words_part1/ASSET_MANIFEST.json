@@ -1,0 +1,242 @@
+[
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_C_Clown.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Clownfigur",
+    "german_word": "Clown",
+    "letter": "C"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_C_Computer.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Computer mit Monitor",
+    "german_word": "Computer",
+    "letter": "C"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_J_Jacke.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Gelbe Jacke",
+    "german_word": "Jacke",
+    "letter": "J"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_J_Joghurt.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Erdbeerjoghurt",
+    "german_word": "Joghurt",
+    "letter": "J"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_J_Jojo.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Rotes Jojo",
+    "german_word": "Jojo",
+    "letter": "J"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Q_Qualle.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Bunte Qualle",
+    "german_word": "Qualle",
+    "letter": "Q"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Q_Quelle.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Quelle mit Wasserfall",
+    "german_word": "Quelle",
+    "letter": "Q"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Q_Quark.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Schuessel Quark",
+    "german_word": "Quark",
+    "letter": "Q"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_V_Vase.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Blumenvase",
+    "german_word": "Vase",
+    "letter": "V"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_V_Violine.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Geige und Bogen",
+    "german_word": "Violine",
+    "letter": "V"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_V_Vulkan.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Vulkan",
+    "german_word": "Vulkan",
+    "letter": "V"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_X_Xylofon.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Xylofon",
+    "german_word": "Xylofon",
+    "letter": "X"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Y_Yak.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Yak",
+    "german_word": "Yak",
+    "letter": "Y"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Y_Yacht.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Segelyacht",
+    "german_word": "Yacht",
+    "letter": "Y"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Y_Yogamatte.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Gerollte Yogamatte",
+    "german_word": "Yogamatte",
+    "letter": "Y"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Z_Zebra.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Zebra",
+    "german_word": "Zebra",
+    "letter": "Z"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Z_Zahn.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Zahn",
+    "german_word": "Zahn",
+    "letter": "Z"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_Z_Zitrone.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Gelbe Zitrone",
+    "german_word": "Zitrone",
+    "letter": "Z"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_AE_Aepfel.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Zwei rote Aepfel",
+    "german_word": "Äpfel",
+    "letter": "Ä"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_AE_Aermel.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Aermel",
+    "german_word": "Ärmel",
+    "letter": "Ä"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_OE_Oel.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Oelflasche",
+    "german_word": "Öl",
+    "letter": "Ö"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_OE_Oelkanne.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Oelkanne",
+    "german_word": "Ölkanne",
+    "letter": "Ö"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_UE_Uebertopf.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Blumentopf als Uebertopf",
+    "german_word": "Übertopf",
+    "letter": "Ü"
+  },
+  {
+    "path": "Game_Assets/Deutsch/Words/Deutsch_UE_Uebungsheft.png",
+    "size_px": [
+      400,
+      400
+    ],
+    "description": "Uebungsheft ohne Text",
+    "german_word": "Übungsheft",
+    "letter": "Ü"
+  }
+]
